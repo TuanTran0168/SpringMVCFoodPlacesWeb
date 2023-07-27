@@ -1,0 +1,218 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.tuantran.pojo;
+
+import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+/**
+ *
+ * @author Administrator
+ */
+@Entity
+@Table(name = "restaurants")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Restaurants.findAll", query = "SELECT r FROM Restaurants r"),
+    @NamedQuery(name = "Restaurants.findByRestaurantId", query = "SELECT r FROM Restaurants r WHERE r.restaurantId = :restaurantId"),
+    @NamedQuery(name = "Restaurants.findByRestaurantName", query = "SELECT r FROM Restaurants r WHERE r.restaurantName = :restaurantName"),
+    @NamedQuery(name = "Restaurants.findByLocation", query = "SELECT r FROM Restaurants r WHERE r.location = :location"),
+    @NamedQuery(name = "Restaurants.findByConfirmationStatus", query = "SELECT r FROM Restaurants r WHERE r.confirmationStatus = :confirmationStatus"),
+    @NamedQuery(name = "Restaurants.findByMapLink", query = "SELECT r FROM Restaurants r WHERE r.mapLink = :mapLink"),
+    @NamedQuery(name = "Restaurants.findByActive", query = "SELECT r FROM Restaurants r WHERE r.active = :active")})
+public class Restaurants implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "restaurant_id")
+    private Integer restaurantId;
+    @Size(max = 255)
+    @Column(name = "restaurant_name")
+    private String restaurantName;
+    @Size(max = 255)
+    @Column(name = "location")
+    private String location;
+    @Column(name = "confirmation_status")
+    private Boolean confirmationStatus;
+    @Size(max = 255)
+    @Column(name = "map_link")
+    private String mapLink;
+    @Column(name = "active")
+    private Boolean active;
+    @OneToMany(mappedBy = "restaurantId")
+    private Set<Revenue> revenueSet;
+    @OneToMany(mappedBy = "restaurantId")
+    private Set<Comments> commentsSet;
+    @JoinColumn(name = "restaurant_status", referencedColumnName = "status_id")
+    @ManyToOne
+    private RestaurantStatus restaurantStatus;
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @ManyToOne
+    private Users userId;
+    @OneToMany(mappedBy = "restaurantId")
+    private Set<Fooditems> fooditemsSet;
+    @OneToMany(mappedBy = "restaurantId")
+    private Set<Notifications> notificationsSet;
+    @OneToMany(mappedBy = "restaurantId")
+    private Set<Sales> salesSet;
+
+    public Restaurants() {
+    }
+
+    public Restaurants(Integer restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public Integer getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Integer restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Boolean getConfirmationStatus() {
+        return confirmationStatus;
+    }
+
+    public void setConfirmationStatus(Boolean confirmationStatus) {
+        this.confirmationStatus = confirmationStatus;
+    }
+
+    public String getMapLink() {
+        return mapLink;
+    }
+
+    public void setMapLink(String mapLink) {
+        this.mapLink = mapLink;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    @XmlTransient
+    public Set<Revenue> getRevenueSet() {
+        return revenueSet;
+    }
+
+    public void setRevenueSet(Set<Revenue> revenueSet) {
+        this.revenueSet = revenueSet;
+    }
+
+    @XmlTransient
+    public Set<Comments> getCommentsSet() {
+        return commentsSet;
+    }
+
+    public void setCommentsSet(Set<Comments> commentsSet) {
+        this.commentsSet = commentsSet;
+    }
+
+    public RestaurantStatus getRestaurantStatus() {
+        return restaurantStatus;
+    }
+
+    public void setRestaurantStatus(RestaurantStatus restaurantStatus) {
+        this.restaurantStatus = restaurantStatus;
+    }
+
+    public Users getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Users userId) {
+        this.userId = userId;
+    }
+
+    @XmlTransient
+    public Set<Fooditems> getFooditemsSet() {
+        return fooditemsSet;
+    }
+
+    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
+        this.fooditemsSet = fooditemsSet;
+    }
+
+    @XmlTransient
+    public Set<Notifications> getNotificationsSet() {
+        return notificationsSet;
+    }
+
+    public void setNotificationsSet(Set<Notifications> notificationsSet) {
+        this.notificationsSet = notificationsSet;
+    }
+
+    @XmlTransient
+    public Set<Sales> getSalesSet() {
+        return salesSet;
+    }
+
+    public void setSalesSet(Set<Sales> salesSet) {
+        this.salesSet = salesSet;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (restaurantId != null ? restaurantId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Restaurants)) {
+            return false;
+        }
+        Restaurants other = (Restaurants) object;
+        if ((this.restaurantId == null && other.restaurantId != null) || (this.restaurantId != null && !this.restaurantId.equals(other.restaurantId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.tuantran.pojo.Restaurants[ restaurantId=" + restaurantId + " ]";
+    }
+    
+}

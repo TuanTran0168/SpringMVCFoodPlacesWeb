@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.tuantran_SpringFoodPlacesWeb_war_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>com.tuantran.pojo.Orders</class>
+    <class>com.tuantran.pojo.Chatmessages</class>
+    <class>com.tuantran.pojo.Revenue</class>
+    <class>com.tuantran.pojo.RestaurantStatus</class>
+    <class>com.tuantran.pojo.Fooditems</class>
+    <class>com.tuantran.pojo.Restaurants</class>
+    <class>com.tuantran.pojo.Notifications</class>
+    <class>com.tuantran.pojo.Users</class>
+    <class>com.tuantran.pojo.Comments</class>
+    <class>com.tuantran.pojo.Roles</class>
+    <class>com.tuantran.pojo.Sales</class>
+    <class>com.tuantran.pojo.OrderStatus</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/springfoodplacesweb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="Admin@123"/>
+    </properties>
+  </persistence-unit>
+</persistence>
