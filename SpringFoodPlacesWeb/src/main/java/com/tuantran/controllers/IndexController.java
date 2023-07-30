@@ -4,32 +4,46 @@
  */
 package com.tuantran.controllers;
 
-import javax.persistence.Query;
-import org.hibernate.Session;
+import com.tuantran.service.RolesService;
+import com.tuantran.service.UsersService;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
  * @author Administrator
  */
-
 @Controller
+@PropertySource("classpath:configs.properties")
 public class IndexController {
+
+    // Có service rồi thì chỉ wire từ service thôi OK
+    // Truy vấn HQL ở đây = cúc nha
     @Autowired
-    private LocalSessionFactoryBean factory;
+    private RolesService rolesService;
+    
+    @Autowired
+    private UsersService usersService;
+    
+    @Autowired
+    private Environment environment;
     
     @RequestMapping("/")
-    @Transactional
-    public String index(Model model) {
-        model.addAttribute("msg", "CHÀO TỤI MÀY");
-        Session s = factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM Roles");
-        model.addAttribute("roles", q.getResultList());
+    public String index(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("msg", "NHÌN CÁI GÌ???");
+        model.addAttribute("roles", this.rolesService.getRoles());
+        model.addAttribute("users", this.usersService.getUsers(params));
+        
+        int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
+        int countUsers = this.usersService.countUsers();
+        model.addAttribute("counter", Math.ceil(countUsers * 1.0 / pageSize));
+        
         return "index";
     }
 }

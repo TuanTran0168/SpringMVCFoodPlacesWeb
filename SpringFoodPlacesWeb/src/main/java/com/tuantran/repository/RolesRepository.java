@@ -11,5 +11,6 @@ import java.util.List;
  * @author Administrator
  */
 public interface RolesRepository {
+
     List<Object[]> getRoles();
 }

@@ -11,22 +11,24 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Administrator
  */
-
 @Repository
-public class RolesRepositoryImpl implements RolesRepository{
+@Transactional
+public class RolesRepositoryImpl implements RolesRepository {
+
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Override
     public List<Object[]> getRoles() {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM Roles");
-        return q.getResultList();
+        Session session = this.factory.getObject().getCurrentSession();
+        Query query = session.createQuery("FROM Roles");
+        return query.getResultList();
     }
-    
+
 }

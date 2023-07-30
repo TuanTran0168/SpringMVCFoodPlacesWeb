@@ -4,6 +4,7 @@
  */
 package com.tuantran.configs;
 
+import java.text.SimpleDateFormat;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,9 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = {
-    "com.tuantran.controllers"
+    "com.tuantran.controllers",
+    "com.tuantran.repository",
+    "com.tuantran.service"
 })
 public class WebAppContextConfig implements WebMvcConfigurer {
 
@@ -38,5 +41,10 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         r.setPrefix("/WEB-INF/pages/");
         r.setSuffix(".jsp");
         return r;
+    }
+
+    @Bean
+    public SimpleDateFormat simpleDateFormat() {
+        return new SimpleDateFormat("dd-MM-yyyy");
     }
 }
