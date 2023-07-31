@@ -23,6 +23,7 @@ com\tuantran\pojo\Revenue_.class
 com\tuantran\repository\RolesRepository.class
 com\tuantran\repository\UsersRepository.class
 com\tuantran\pojo\Notifications_.class
+com\tuantran\configs\TilesConfigs.class
 com\tuantran\pojo\Roles.class
 com\tuantran\pojo\Users_.class
 com\tuantran\pojo\Chatmessages.class
