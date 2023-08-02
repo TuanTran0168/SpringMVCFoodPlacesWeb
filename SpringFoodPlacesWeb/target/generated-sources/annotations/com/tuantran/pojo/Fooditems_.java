@@ -11,7 +11,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-07-31T13:38:32")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-08-02T10:07:54")
 @StaticMetamodel(Fooditems.class)
 public class Fooditems_ { 
 
@@ -22,6 +22,7 @@ public class Fooditems_ {
     public static volatile SingularAttribute<Fooditems, String> foodType;
     public static volatile SingularAttribute<Fooditems, Integer> foodId;
     public static volatile SingularAttribute<Fooditems, Boolean> active;
+    public static volatile SingularAttribute<Fooditems, String> avatar;
     public static volatile SetAttribute<Fooditems, Orders> ordersSet;
     public static volatile SingularAttribute<Fooditems, Restaurants> restaurantId;
     public static volatile SetAttribute<Fooditems, Revenue> revenueSet;

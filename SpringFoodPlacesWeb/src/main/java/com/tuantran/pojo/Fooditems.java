@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Fooditems.findAll", query = "SELECT f FROM Fooditems f"),
     @NamedQuery(name = "Fooditems.findByFoodId", query = "SELECT f FROM Fooditems f WHERE f.foodId = :foodId"),
     @NamedQuery(name = "Fooditems.findByFoodName", query = "SELECT f FROM Fooditems f WHERE f.foodName = :foodName"),
+    @NamedQuery(name = "Fooditems.findByAvatar", query = "SELECT f FROM Fooditems f WHERE f.avatar = :avatar"),
     @NamedQuery(name = "Fooditems.findByPrice", query = "SELECT f FROM Fooditems f WHERE f.price = :price"),
     @NamedQuery(name = "Fooditems.findByFoodType", query = "SELECT f FROM Fooditems f WHERE f.foodType = :foodType"),
     @NamedQuery(name = "Fooditems.findByActive", query = "SELECT f FROM Fooditems f WHERE f.active = :active")})
@@ -47,6 +48,9 @@ public class Fooditems implements Serializable {
     @Size(max = 255)
     @Column(name = "food_name")
     private String foodName;
+    @Size(max = 255)
+    @Column(name = "avatar")
+    private String avatar;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
     private BigDecimal price;
@@ -88,6 +92,14 @@ public class Fooditems implements Serializable {
 
     public void setFoodName(String foodName) {
         this.foodName = foodName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public BigDecimal getPrice() {

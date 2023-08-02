@@ -27,8 +27,17 @@
         <put-attribute name="title" value="QUẢN LÝ USERS" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/users.jsp" />
-        <put-list-attribute name="users_css">
-            <add-attribute value="/WEB-INF/resources/css/register.css" />
-        </put-list-attribute>
+    </definition>
+    
+    <definition name="register" extends="baseLayout">
+        <put-attribute name="title" value="ĐĂNG KÝ" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/register.jsp" />
+    </definition>
+    
+    <definition name="restaurants" extends="baseLayout">
+        <put-attribute name="title" value="QUẢN LÝ NHÀ HÀNG" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/restaurants.jsp" />
     </definition>
 </tiles-definitions>

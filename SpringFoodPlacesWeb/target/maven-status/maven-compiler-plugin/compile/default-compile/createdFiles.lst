@@ -3,6 +3,8 @@ com\tuantran\pojo\Chatmessages_.class
 com\tuantran\pojo\Sales_.class
 com\tuantran\service\UsersService.class
 com\tuantran\pojo\OrderStatus.class
+com\tuantran\controllers\RegisterController.class
+com\tuantran\formatters\RolesFormatter.class
 com\tuantran\configs\DispatcherServletInit.class
 com\tuantran\configs\HibernateConfig.class
 com\tuantran\pojo\Fooditems.class
@@ -22,6 +24,7 @@ com\tuantran\pojo\Roles_.class
 com\tuantran\pojo\Revenue_.class
 com\tuantran\repository\RolesRepository.class
 com\tuantran\repository\UsersRepository.class
+com\tuantran\controllers\RestaurantsController.class
 com\tuantran\pojo\Notifications_.class
 com\tuantran\configs\TilesConfigs.class
 com\tuantran\pojo\Roles.class

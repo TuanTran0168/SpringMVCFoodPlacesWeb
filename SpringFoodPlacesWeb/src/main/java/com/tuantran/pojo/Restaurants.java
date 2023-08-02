@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Restaurants.findAll", query = "SELECT r FROM Restaurants r"),
     @NamedQuery(name = "Restaurants.findByRestaurantId", query = "SELECT r FROM Restaurants r WHERE r.restaurantId = :restaurantId"),
     @NamedQuery(name = "Restaurants.findByRestaurantName", query = "SELECT r FROM Restaurants r WHERE r.restaurantName = :restaurantName"),
+    @NamedQuery(name = "Restaurants.findByAvatar", query = "SELECT r FROM Restaurants r WHERE r.avatar = :avatar"),
     @NamedQuery(name = "Restaurants.findByLocation", query = "SELECT r FROM Restaurants r WHERE r.location = :location"),
     @NamedQuery(name = "Restaurants.findByConfirmationStatus", query = "SELECT r FROM Restaurants r WHERE r.confirmationStatus = :confirmationStatus"),
     @NamedQuery(name = "Restaurants.findByMapLink", query = "SELECT r FROM Restaurants r WHERE r.mapLink = :mapLink"),
@@ -47,6 +48,9 @@ public class Restaurants implements Serializable {
     @Size(max = 255)
     @Column(name = "restaurant_name")
     private String restaurantName;
+    @Size(max = 255)
+    @Column(name = "avatar")
+    private String avatar;
     @Size(max = 255)
     @Column(name = "location")
     private String location;
@@ -95,6 +99,14 @@ public class Restaurants implements Serializable {
 
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getLocation() {

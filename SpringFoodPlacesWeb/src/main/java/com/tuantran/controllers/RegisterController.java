@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author Administrator
  */
 @Controller
-public class UsersController {
-
-    @GetMapping("/users")
+public class RegisterController {
+    @GetMapping("/register")
     public String list(Model model) {
         model.addAttribute("user", new Users());
-        return "users";
+        return "register";
     }
 }

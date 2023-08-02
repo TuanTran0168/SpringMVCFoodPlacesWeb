@@ -1,3 +1,4 @@
+D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\RegisterController.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Orders.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Notifications.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\UsersRepository.java
@@ -11,10 +12,12 @@ D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantra
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\TilesConfigs.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\RestaurantStatus.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\WebAppContextConfig.java
+D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\RestaurantsController.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\RolesServiceImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\UsersService.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Roles.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\UsersController.java
+D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\formatters\RolesFormatter.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Restaurants.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\IndexController.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\RolesRepositoryImpl.java
