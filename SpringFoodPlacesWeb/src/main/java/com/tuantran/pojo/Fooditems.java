@@ -10,6 +10,8 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,10 +19,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -41,8 +44,8 @@ public class Fooditems implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "food_id")
     private Integer foodId;
     @Size(max = 255)
@@ -70,6 +73,23 @@ public class Fooditems implements Serializable {
     private Restaurants restaurantId;
     @OneToMany(mappedBy = "foodId")
     private Set<Sales> salesSet;
+
+    @Transient
+    private MultipartFile file;
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     public Fooditems() {
     }
@@ -194,5 +214,5 @@ public class Fooditems implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Fooditems[ foodId=" + foodId + " ]";
     }
-    
+
 }

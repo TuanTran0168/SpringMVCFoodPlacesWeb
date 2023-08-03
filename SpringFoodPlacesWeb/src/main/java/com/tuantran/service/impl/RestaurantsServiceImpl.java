@@ -4,11 +4,17 @@
  */
 package com.tuantran.service.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.tuantran.pojo.Restaurants;
 import com.tuantran.pojo.Users;
 import com.tuantran.repository.RestaurantsRepository;
 import com.tuantran.service.RestaurantsService;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +24,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RestaurantsServiceImpl implements RestaurantsService {
- @Autowired
+
+    @Autowired
     private RestaurantsRepository restaurantsRepo;
-    
+
+    @Autowired
+    private Cloudinary cloudinary;
+
     @Override
     public List<Object[]> getRestaurants() {
         return this.restaurantsRepo.getRestaurants();
@@ -29,13 +39,23 @@ public class RestaurantsServiceImpl implements RestaurantsService {
     @Override
     public boolean addOrUpdateRestaurants(Restaurants restaurant) {
         //Test thôi, tí nữa bỏ user ra :)
-        restaurant.setAvatar("http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Thanh.png");
-        restaurant.setActive(true);
-        restaurant.setConfirmationStatus(true);
-        Users u = new Users();
-        u.setUserId(1);
-        restaurant.setUserId(u);
-        
+//        restaurant.setAvatar("http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Thanh.png");
+//        restaurant.setActive(true);
+//        restaurant.setConfirmationStatus(true);
+//        Users u = new Users();
+//        u.setUserId(1);
+//        restaurant.setUserId(u);
+
+        if (!restaurant.getFile().isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(restaurant.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                restaurant.setAvatar(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(RestaurantsServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
         return this.restaurantsRepo.addOrUpdateRestaurants(restaurant);
     }
 
