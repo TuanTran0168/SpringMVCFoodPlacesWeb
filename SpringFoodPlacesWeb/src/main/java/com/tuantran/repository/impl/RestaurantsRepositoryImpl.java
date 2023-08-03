@@ -49,6 +49,12 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository{
             return false;
         }
     }
+
+    @Override
+    public Restaurants getRestaurantById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(Restaurants.class, id);
+    }
     
     
 }

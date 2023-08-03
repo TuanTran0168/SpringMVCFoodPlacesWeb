@@ -59,4 +59,9 @@ public class RestaurantsServiceImpl implements RestaurantsService {
         return this.restaurantsRepo.addOrUpdateRestaurants(restaurant);
     }
 
+    @Override
+    public Restaurants getRestaurantById(int id) {
+        return this.restaurantsRepo.getRestaurantById(id);
+    }
+
 }

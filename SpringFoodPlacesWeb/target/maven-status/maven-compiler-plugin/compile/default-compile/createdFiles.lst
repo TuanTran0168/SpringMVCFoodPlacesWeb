@@ -35,7 +35,6 @@ com\tuantran\pojo\Notifications.class
 com\tuantran\configs\WebAppContextConfig.class
 com\tuantran\pojo\Orders.class
 com\tuantran\pojo\RestaurantStatus.class
-.netbeans_automatic_build
 com\tuantran\controllers\UsersController.class
 com\tuantran\pojo\Comments_.class
 com\tuantran\pojo\Orders_.class

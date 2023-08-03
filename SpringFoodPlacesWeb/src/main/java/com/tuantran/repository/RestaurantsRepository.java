@@ -14,4 +14,5 @@ import java.util.List;
 public interface RestaurantsRepository {
     List<Object[]> getRestaurants();
     boolean addOrUpdateRestaurants(Restaurants restaurant);
+    Restaurants getRestaurantById(int id);
 }

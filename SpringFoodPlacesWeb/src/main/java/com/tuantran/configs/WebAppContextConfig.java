@@ -24,6 +24,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -58,6 +59,13 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new RestaurantsStatusFormatter());
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+       registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/resources/css/");
+       registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/resources/images/");
+    }
+    
+    
 //    @Bean
 //    public InternalResourceViewResolver internalResourceViewResolver() {
 //        InternalResourceViewResolver r = new InternalResourceViewResolver();
