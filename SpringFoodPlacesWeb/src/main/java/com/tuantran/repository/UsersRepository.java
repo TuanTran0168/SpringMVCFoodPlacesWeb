@@ -4,6 +4,7 @@
  */
 package com.tuantran.repository;
 
+import com.tuantran.pojo.Users;
 import java.util.List;
 import java.util.Map;
 
@@ -15,4 +16,6 @@ public interface UsersRepository {
 
     List<Object[]> getUsers(Map<String, String> params);
     int countUsers();
+    boolean addOrUpdateUsers(Users user);
+    Users getUserById(int id);
 }

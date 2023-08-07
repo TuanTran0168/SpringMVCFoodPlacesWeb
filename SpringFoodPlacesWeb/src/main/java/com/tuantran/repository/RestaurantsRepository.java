@@ -6,13 +6,14 @@ package com.tuantran.repository;
 
 import com.tuantran.pojo.Restaurants;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Administrator
  */
 public interface RestaurantsRepository {
-    List<Object[]> getRestaurants();
+    List<Object[]> getRestaurants(Map<String, String> params);
     boolean addOrUpdateRestaurants(Restaurants restaurant);
     Restaurants getRestaurantById(int id);
 }

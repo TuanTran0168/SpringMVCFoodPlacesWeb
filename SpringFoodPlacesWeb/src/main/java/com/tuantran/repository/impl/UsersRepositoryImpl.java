@@ -13,6 +13,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,29 @@ public class UsersRepositoryImpl implements UsersRepository {
         Query query = session.createQuery("SELECT Count(*) FROM Users");
         
         return Integer.parseInt(query.getSingleResult().toString());
+    }
+
+    @Override
+    public boolean addOrUpdateUsers(Users user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            if (user.getUserId()== null) {
+                session.save(user);
+            } else {
+                session.update(user);
+            }
+
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public Users getUserById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(Users.class, id);
     }
 
 }

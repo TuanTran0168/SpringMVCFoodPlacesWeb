@@ -4,6 +4,7 @@
  */
 package com.tuantran.service.impl;
 
+import com.tuantran.pojo.Users;
 import com.tuantran.repository.UsersRepository;
 import com.tuantran.service.UsersService;
 import java.util.List;
@@ -34,6 +35,16 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public int countUsers() {
         return this.usersRepo.countUsers();
+    }
+
+    @Override
+    public boolean addOrUpdateUsers(Users user) {
+        return this.usersRepo.addOrUpdateUsers(user);
+    }
+
+    @Override
+    public Users getUserById(int id) {
+        return this.usersRepo.getUserById(id);
     }
 
 }

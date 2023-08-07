@@ -32,8 +32,8 @@ public class RestaurantsServiceImpl implements RestaurantsService {
     private Cloudinary cloudinary;
 
     @Override
-    public List<Object[]> getRestaurants() {
-        return this.restaurantsRepo.getRestaurants();
+    public List<Object[]> getRestaurants(Map<String, String> params) {
+        return this.restaurantsRepo.getRestaurants(params);
     }
 
     @Override

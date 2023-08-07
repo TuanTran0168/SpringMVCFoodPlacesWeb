@@ -21,6 +21,7 @@ D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantra
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\UsersController.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\formatters\RestaurantsStatusFormatter.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\RestaurantsRepository.java
+D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\AdminController.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\formatters\RolesFormatter.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Restaurants.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\RestaurantsServiceImpl.java

@@ -35,29 +35,34 @@ public class RestaurantsController {
         model.addAttribute("restaurantStatus_list", this.restaurantStatusService.getRestaurantsStatus());
     }
 
-    @GetMapping("/restaurants")
-
+    @GetMapping("admin/restaurants")
     public String list(Model model) {
-        model.addAttribute("restaurant", new Restaurants());
-
+        model.addAttribute("restaurant_list", this.restaurantsService.getRestaurants(null));
         return "restaurants";
     }
     
+    @GetMapping("admin/restaurants/newRestaurant")
+    public String alo(Model model) {
+        model.addAttribute("restaurant", new Restaurants());
+        return "newRestaurant";
+    }
+   
+
     @GetMapping("/restaurants/{id}")
-    public String update(Model model, @PathVariable (value = "restaurantId") int restaurantId) {
+    public String update(Model model, @PathVariable(value = "restaurantId") int restaurantId) {
         model.addAttribute("restaurant", this.restaurantsService.getRestaurantById(restaurantId));
         return "restaurants";
     }
 
-    @PostMapping("/restaurants")
+    @PostMapping("/admin/restaurants/newRestaurant")
     public String add(@ModelAttribute(value = "restaurant") @Valid Restaurants restaurant, BindingResult rs) {
 
         if (!rs.hasErrors()) {
             if (restaurantsService.addOrUpdateRestaurants(restaurant) == true) {
-                return "redirect:/";
+                return "redirect:/admin/restaurants";
             }
         }
 
-        return "restaurants";
+        return "newRestaurant";
     }
 }

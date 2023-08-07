@@ -4,6 +4,7 @@
  */
 package com.tuantran.service;
 
+import com.tuantran.pojo.Users;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,6 @@ public interface UsersService {
 
     List<Object[]> getUsers(Map<String, String> params);
     int countUsers();
+     boolean addOrUpdateUsers(Users user);
+    Users getUserById(int id);
 }

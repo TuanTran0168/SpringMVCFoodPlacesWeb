@@ -40,7 +40,7 @@
 
 <div class="header">
     <div class="header-main">
-        <h1>Classy Login Form</h1>
+        <h1>ĐĂNG KÝ LẸ ĐI :)</h1>
         <div class="header-bottom">
             <div class="header-right w3agile">
 
