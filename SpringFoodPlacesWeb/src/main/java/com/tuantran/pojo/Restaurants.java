@@ -65,9 +65,9 @@ public class Restaurants implements Serializable {
     @Column(name = "active")
     private Boolean active;
     @OneToMany(mappedBy = "restaurantId")
-    private Set<Receipts> receiptsSet;
-    @OneToMany(mappedBy = "restaurantId")
     private Set<Comments> commentsSet;
+    @OneToMany(mappedBy = "restaurantId")
+    private Set<Receipts> receiptsSet;
     @JoinColumn(name = "restaurant_status", referencedColumnName = "status_id")
     @ManyToOne
     private RestaurantStatus restaurantStatus;
@@ -161,21 +161,21 @@ public class Restaurants implements Serializable {
     }
 
     @XmlTransient
-    public Set<Receipts> getReceiptsSet() {
-        return receiptsSet;
-    }
-
-    public void setReceiptsSet(Set<Receipts> receiptsSet) {
-        this.receiptsSet = receiptsSet;
-    }
-
-    @XmlTransient
     public Set<Comments> getCommentsSet() {
         return commentsSet;
     }
 
     public void setCommentsSet(Set<Comments> commentsSet) {
         this.commentsSet = commentsSet;
+    }
+
+    @XmlTransient
+    public Set<Receipts> getReceiptsSet() {
+        return receiptsSet;
+    }
+
+    public void setReceiptsSet(Set<Receipts> receiptsSet) {
+        this.receiptsSet = receiptsSet;
     }
 
     public RestaurantStatus getRestaurantStatus() {

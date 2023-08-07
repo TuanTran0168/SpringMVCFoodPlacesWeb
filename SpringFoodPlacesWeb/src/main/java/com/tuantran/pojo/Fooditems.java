@@ -20,7 +20,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -39,7 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Fooditems.findByFoodName", query = "SELECT f FROM Fooditems f WHERE f.foodName = :foodName"),
     @NamedQuery(name = "Fooditems.findByAvatar", query = "SELECT f FROM Fooditems f WHERE f.avatar = :avatar"),
     @NamedQuery(name = "Fooditems.findByPrice", query = "SELECT f FROM Fooditems f WHERE f.price = :price"),
-    @NamedQuery(name = "Fooditems.findByInventory", query = "SELECT f FROM Fooditems f WHERE f.inventory = :inventory"),
+    @NamedQuery(name = "Fooditems.findByAvailable", query = "SELECT f FROM Fooditems f WHERE f.available = :available"),
     @NamedQuery(name = "Fooditems.findByFoodType", query = "SELECT f FROM Fooditems f WHERE f.foodType = :foodType"),
     @NamedQuery(name = "Fooditems.findByActive", query = "SELECT f FROM Fooditems f WHERE f.active = :active")})
 public class Fooditems implements Serializable {
@@ -59,10 +58,8 @@ public class Fooditems implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
     private BigDecimal price;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "inventory")
-    private int inventory;
+    @Column(name = "available")
+    private Boolean available;
     @Size(max = 255)
     @Column(name = "food_type")
     private String foodType;
@@ -72,9 +69,15 @@ public class Fooditems implements Serializable {
     private Set<Comments> commentsSet;
     @OneToMany(mappedBy = "fooditemId")
     private Set<ReceiptDetail> receiptDetailSet;
+    @JoinColumn(name = "category_id", referencedColumnName = "categoryfood_id")
+    @ManyToOne
+    private CategoriesFood categoryId;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
     private Restaurants restaurantId;
+    @JoinColumn(name = "shelflife_id", referencedColumnName = "shelflife_id")
+    @ManyToOne
+    private ShelfLife shelflifeId;
     
     @Transient
     private MultipartFile file;
@@ -99,11 +102,6 @@ public class Fooditems implements Serializable {
 
     public Fooditems(Integer foodId) {
         this.foodId = foodId;
-    }
-
-    public Fooditems(Integer foodId, int inventory) {
-        this.foodId = foodId;
-        this.inventory = inventory;
     }
 
     public Integer getFoodId() {
@@ -138,12 +136,12 @@ public class Fooditems implements Serializable {
         this.price = price;
     }
 
-    public int getInventory() {
-        return inventory;
+    public Boolean getAvailable() {
+        return available;
     }
 
-    public void setInventory(int inventory) {
-        this.inventory = inventory;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     public String getFoodType() {
@@ -180,12 +178,28 @@ public class Fooditems implements Serializable {
         this.receiptDetailSet = receiptDetailSet;
     }
 
+    public CategoriesFood getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(CategoriesFood categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public Restaurants getRestaurantId() {
         return restaurantId;
     }
 
     public void setRestaurantId(Restaurants restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public ShelfLife getShelflifeId() {
+        return shelflifeId;
+    }
+
+    public void setShelflifeId(ShelfLife shelflifeId) {
+        this.shelflifeId = shelflifeId;
     }
 
     @Override

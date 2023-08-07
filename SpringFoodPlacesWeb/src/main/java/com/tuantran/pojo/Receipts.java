@@ -59,16 +59,16 @@ public class Receipts implements Serializable {
     private BigDecimal totalPayment;
     @Column(name = "active")
     private Boolean active;
+    @OneToMany(mappedBy = "receiptId")
+    private Set<ReceiptStatus> receiptStatusSet;
+    @OneToMany(mappedBy = "receiptId")
+    private Set<ReceiptDetail> receiptDetailSet;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
     private Restaurants restaurantId;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne
     private Users userId;
-    @OneToMany(mappedBy = "receiptId")
-    private Set<ReceiptStatus> receiptStatusSet;
-    @OneToMany(mappedBy = "receiptId")
-    private Set<ReceiptDetail> receiptDetailSet;
 
     public Receipts() {
     }
@@ -117,22 +117,6 @@ public class Receipts implements Serializable {
         this.active = active;
     }
 
-    public Restaurants getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(Restaurants restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-    public Users getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Users userId) {
-        this.userId = userId;
-    }
-
     @XmlTransient
     public Set<ReceiptStatus> getReceiptStatusSet() {
         return receiptStatusSet;
@@ -149,6 +133,22 @@ public class Receipts implements Serializable {
 
     public void setReceiptDetailSet(Set<ReceiptDetail> receiptDetailSet) {
         this.receiptDetailSet = receiptDetailSet;
+    }
+
+    public Restaurants getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(Restaurants restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public Users getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Users userId) {
+        this.userId = userId;
     }
 
     @Override

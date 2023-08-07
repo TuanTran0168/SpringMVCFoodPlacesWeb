@@ -15,6 +15,8 @@ D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantra
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\WebAppContextConfig.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\RestaurantsController.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\RolesServiceImpl.java
+D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\CategoriesFood.java
+D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\ShelfLife.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\UsersService.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Roles.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\UsersController.java

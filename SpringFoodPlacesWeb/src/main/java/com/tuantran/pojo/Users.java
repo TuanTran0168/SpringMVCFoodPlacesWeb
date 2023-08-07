@@ -80,22 +80,22 @@ public class Users implements Serializable {
     private String location;
     @Column(name = "active")
     private Boolean active;
-    @OneToMany(mappedBy = "userId")
-    private Set<Receipts> receiptsSet;
     @OneToMany(mappedBy = "senderId")
     private Set<Chatmessages> chatmessagesSet;
     @OneToMany(mappedBy = "receiverId")
     private Set<Chatmessages> chatmessagesSet1;
     @OneToMany(mappedBy = "userId")
     private Set<Comments> commentsSet;
+    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
+    @ManyToOne
+    private Roles roleId;
+    @OneToMany(mappedBy = "userId")
+    private Set<Receipts> receiptsSet;
     @OneToMany(mappedBy = "userId")
     private Set<Restaurants> restaurantsSet;
     @OneToMany(mappedBy = "userId")
     private Set<Notifications> notificationsSet;
-    @JoinColumn(name = "role_id", referencedColumnName = "role_id")
-    @ManyToOne
-    private Roles roleId;
-
+    
     @Transient
     private MultipartFile file;
 
@@ -201,15 +201,6 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
-    public Set<Receipts> getReceiptsSet() {
-        return receiptsSet;
-    }
-
-    public void setReceiptsSet(Set<Receipts> receiptsSet) {
-        this.receiptsSet = receiptsSet;
-    }
-
-    @XmlTransient
     public Set<Chatmessages> getChatmessagesSet() {
         return chatmessagesSet;
     }
@@ -236,6 +227,23 @@ public class Users implements Serializable {
         this.commentsSet = commentsSet;
     }
 
+    public Roles getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Roles roleId) {
+        this.roleId = roleId;
+    }
+
+    @XmlTransient
+    public Set<Receipts> getReceiptsSet() {
+        return receiptsSet;
+    }
+
+    public void setReceiptsSet(Set<Receipts> receiptsSet) {
+        this.receiptsSet = receiptsSet;
+    }
+
     @XmlTransient
     public Set<Restaurants> getRestaurantsSet() {
         return restaurantsSet;
@@ -252,14 +260,6 @@ public class Users implements Serializable {
 
     public void setNotificationsSet(Set<Notifications> notificationsSet) {
         this.notificationsSet = notificationsSet;
-    }
-
-    public Roles getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Roles roleId) {
-        this.roleId = roleId;
     }
 
     @Override
@@ -286,5 +286,5 @@ public class Users implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Users[ userId=" + userId + " ]";
     }
-
+    
 }
