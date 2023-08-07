@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.tuantran.configs"},{"l":"com.tuantran.controllers"},{"l":"com.tuantran.pojo"},{"l":"com.tuantran.repository"},{"l":"com.tuantran.repository.impl"},{"l":"com.tuantran.service"},{"l":"com.tuantran.service.impl"}];updateSearchResults();

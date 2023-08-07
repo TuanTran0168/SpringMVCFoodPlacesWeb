@@ -8,9 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:url value="/" var = "action" />
-
-
+<c:url value="admin/restaurants" var = "action" />
 <h1 style = "text-align: center">${msg}</h1>
 
 <section>
