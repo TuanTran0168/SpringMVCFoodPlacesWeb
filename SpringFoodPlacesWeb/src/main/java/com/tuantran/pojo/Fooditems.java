@@ -20,6 +20,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -38,6 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Fooditems.findByFoodName", query = "SELECT f FROM Fooditems f WHERE f.foodName = :foodName"),
     @NamedQuery(name = "Fooditems.findByAvatar", query = "SELECT f FROM Fooditems f WHERE f.avatar = :avatar"),
     @NamedQuery(name = "Fooditems.findByPrice", query = "SELECT f FROM Fooditems f WHERE f.price = :price"),
+    @NamedQuery(name = "Fooditems.findByInventory", query = "SELECT f FROM Fooditems f WHERE f.inventory = :inventory"),
     @NamedQuery(name = "Fooditems.findByFoodType", query = "SELECT f FROM Fooditems f WHERE f.foodType = :foodType"),
     @NamedQuery(name = "Fooditems.findByActive", query = "SELECT f FROM Fooditems f WHERE f.active = :active")})
 public class Fooditems implements Serializable {
@@ -57,23 +59,23 @@ public class Fooditems implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price")
     private BigDecimal price;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "inventory")
+    private int inventory;
     @Size(max = 255)
     @Column(name = "food_type")
     private String foodType;
     @Column(name = "active")
     private Boolean active;
     @OneToMany(mappedBy = "foodId")
-    private Set<Revenue> revenueSet;
-    @OneToMany(mappedBy = "foodId")
     private Set<Comments> commentsSet;
-    @OneToMany(mappedBy = "foodId")
-    private Set<Orders> ordersSet;
+    @OneToMany(mappedBy = "fooditemId")
+    private Set<ReceiptDetail> receiptDetailSet;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
     private Restaurants restaurantId;
-    @OneToMany(mappedBy = "foodId")
-    private Set<Sales> salesSet;
-
+    
     @Transient
     private MultipartFile file;
 
@@ -87,6 +89,7 @@ public class Fooditems implements Serializable {
     /**
      * @param file the file to set
      */
+    
     public void setFile(MultipartFile file) {
         this.file = file;
     }
@@ -96,6 +99,11 @@ public class Fooditems implements Serializable {
 
     public Fooditems(Integer foodId) {
         this.foodId = foodId;
+    }
+
+    public Fooditems(Integer foodId, int inventory) {
+        this.foodId = foodId;
+        this.inventory = inventory;
     }
 
     public Integer getFoodId() {
@@ -130,6 +138,14 @@ public class Fooditems implements Serializable {
         this.price = price;
     }
 
+    public int getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(int inventory) {
+        this.inventory = inventory;
+    }
+
     public String getFoodType() {
         return foodType;
     }
@@ -147,15 +163,6 @@ public class Fooditems implements Serializable {
     }
 
     @XmlTransient
-    public Set<Revenue> getRevenueSet() {
-        return revenueSet;
-    }
-
-    public void setRevenueSet(Set<Revenue> revenueSet) {
-        this.revenueSet = revenueSet;
-    }
-
-    @XmlTransient
     public Set<Comments> getCommentsSet() {
         return commentsSet;
     }
@@ -165,12 +172,12 @@ public class Fooditems implements Serializable {
     }
 
     @XmlTransient
-    public Set<Orders> getOrdersSet() {
-        return ordersSet;
+    public Set<ReceiptDetail> getReceiptDetailSet() {
+        return receiptDetailSet;
     }
 
-    public void setOrdersSet(Set<Orders> ordersSet) {
-        this.ordersSet = ordersSet;
+    public void setReceiptDetailSet(Set<ReceiptDetail> receiptDetailSet) {
+        this.receiptDetailSet = receiptDetailSet;
     }
 
     public Restaurants getRestaurantId() {
@@ -179,15 +186,6 @@ public class Fooditems implements Serializable {
 
     public void setRestaurantId(Restaurants restaurantId) {
         this.restaurantId = restaurantId;
-    }
-
-    @XmlTransient
-    public Set<Sales> getSalesSet() {
-        return salesSet;
-    }
-
-    public void setSalesSet(Set<Sales> salesSet) {
-        this.salesSet = salesSet;
     }
 
     @Override
@@ -214,5 +212,5 @@ public class Fooditems implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Fooditems[ foodId=" + foodId + " ]";
     }
-
+    
 }

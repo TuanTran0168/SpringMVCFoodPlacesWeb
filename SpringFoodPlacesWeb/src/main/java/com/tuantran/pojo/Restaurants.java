@@ -65,7 +65,7 @@ public class Restaurants implements Serializable {
     @Column(name = "active")
     private Boolean active;
     @OneToMany(mappedBy = "restaurantId")
-    private Set<Revenue> revenueSet;
+    private Set<Receipts> receiptsSet;
     @OneToMany(mappedBy = "restaurantId")
     private Set<Comments> commentsSet;
     @JoinColumn(name = "restaurant_status", referencedColumnName = "status_id")
@@ -78,9 +78,7 @@ public class Restaurants implements Serializable {
     private Set<Fooditems> fooditemsSet;
     @OneToMany(mappedBy = "restaurantId")
     private Set<Notifications> notificationsSet;
-    @OneToMany(mappedBy = "restaurantId")
-    private Set<Sales> salesSet;
-
+    
     @Transient
     private MultipartFile file;
 
@@ -94,6 +92,7 @@ public class Restaurants implements Serializable {
     /**
      * @param file the file to set
      */
+    
     public void setFile(MultipartFile file) {
         this.file = file;
     }
@@ -162,12 +161,12 @@ public class Restaurants implements Serializable {
     }
 
     @XmlTransient
-    public Set<Revenue> getRevenueSet() {
-        return revenueSet;
+    public Set<Receipts> getReceiptsSet() {
+        return receiptsSet;
     }
 
-    public void setRevenueSet(Set<Revenue> revenueSet) {
-        this.revenueSet = revenueSet;
+    public void setReceiptsSet(Set<Receipts> receiptsSet) {
+        this.receiptsSet = receiptsSet;
     }
 
     @XmlTransient
@@ -213,15 +212,6 @@ public class Restaurants implements Serializable {
         this.notificationsSet = notificationsSet;
     }
 
-    @XmlTransient
-    public Set<Sales> getSalesSet() {
-        return salesSet;
-    }
-
-    public void setSalesSet(Set<Sales> salesSet) {
-        this.salesSet = salesSet;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -246,5 +236,5 @@ public class Restaurants implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Restaurants[ restaurantId=" + restaurantId + " ]";
     }
-
+    
 }

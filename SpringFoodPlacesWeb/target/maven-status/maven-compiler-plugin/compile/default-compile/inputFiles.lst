@@ -1,5 +1,4 @@
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\RegisterController.java
-D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Orders.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Notifications.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\UsersRepository.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Fooditems.java
@@ -24,16 +23,16 @@ D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantra
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\AdminController.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\formatters\RolesFormatter.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Restaurants.java
+D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\ReceiptDetail.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\RestaurantsServiceImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\RestaurantsService.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\IndexController.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\RestaurantStatusRepository.java
+D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Receipts.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\RolesRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Chatmessages.java
-D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\OrderStatus.java
+D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\ReceiptStatus.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\RolesRepository.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\RestaurantStatusService.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Comments.java
-D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Revenue.java
 D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\RestaurantsRepositoryImpl.java
-D:\NetBeans\LapTrinhJava\BaiTapLon\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Sales.java

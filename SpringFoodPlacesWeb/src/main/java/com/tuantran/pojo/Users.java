@@ -80,6 +80,8 @@ public class Users implements Serializable {
     private String location;
     @Column(name = "active")
     private Boolean active;
+    @OneToMany(mappedBy = "userId")
+    private Set<Receipts> receiptsSet;
     @OneToMany(mappedBy = "senderId")
     private Set<Chatmessages> chatmessagesSet;
     @OneToMany(mappedBy = "receiverId")
@@ -88,8 +90,6 @@ public class Users implements Serializable {
     private Set<Comments> commentsSet;
     @OneToMany(mappedBy = "userId")
     private Set<Restaurants> restaurantsSet;
-    @OneToMany(mappedBy = "userId")
-    private Set<Orders> ordersSet;
     @OneToMany(mappedBy = "userId")
     private Set<Notifications> notificationsSet;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
@@ -109,6 +109,7 @@ public class Users implements Serializable {
     /**
      * @param file the file to set
      */
+    
     public void setFile(MultipartFile file) {
         this.file = file;
     }
@@ -200,6 +201,15 @@ public class Users implements Serializable {
     }
 
     @XmlTransient
+    public Set<Receipts> getReceiptsSet() {
+        return receiptsSet;
+    }
+
+    public void setReceiptsSet(Set<Receipts> receiptsSet) {
+        this.receiptsSet = receiptsSet;
+    }
+
+    @XmlTransient
     public Set<Chatmessages> getChatmessagesSet() {
         return chatmessagesSet;
     }
@@ -233,15 +243,6 @@ public class Users implements Serializable {
 
     public void setRestaurantsSet(Set<Restaurants> restaurantsSet) {
         this.restaurantsSet = restaurantsSet;
-    }
-
-    @XmlTransient
-    public Set<Orders> getOrdersSet() {
-        return ordersSet;
-    }
-
-    public void setOrdersSet(Set<Orders> ordersSet) {
-        this.ordersSet = ordersSet;
     }
 
     @XmlTransient

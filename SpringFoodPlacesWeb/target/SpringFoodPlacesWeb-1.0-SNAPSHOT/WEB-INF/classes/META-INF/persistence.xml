@@ -14,6 +14,9 @@
     <class>com.tuantran.pojo.Roles</class>
     <class>com.tuantran.pojo.Sales</class>
     <class>com.tuantran.pojo.OrderStatus</class>
+    <class>com.tuantran.pojo.ReceiptStatus</class>
+    <class>com.tuantran.pojo.Receipts</class>
+    <class>com.tuantran.pojo.ReceiptDetail</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/springfoodplacesweb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
