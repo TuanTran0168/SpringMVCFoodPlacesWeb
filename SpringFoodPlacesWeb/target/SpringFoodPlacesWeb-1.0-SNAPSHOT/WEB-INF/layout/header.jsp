@@ -38,3 +38,21 @@
     </div>
 
 </nav>
+<%-- 
+    Document   : header
+    Created on : Jul 31, 2023, 9:35:50 AM
+    Author     : Administrator
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!--<div class="header">
+    <div class="flex">
+        <h2><span href="#">Trang Chủ</span></h2>
+        <div class="btn-dn-dk">
+            <button href="#">Đăng Nhập</button>
+            <button href="#">Đăng Ký</button>
+        </div>
+    </div>
+    <hr>
+</div>-->

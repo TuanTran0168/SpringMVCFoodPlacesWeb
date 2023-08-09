@@ -64,4 +64,9 @@ public class RestaurantsServiceImpl implements RestaurantsService {
         return this.restaurantsRepo.getRestaurantById(id);
     }
 
+    @Override
+    public boolean deleteRestaurants(int id) {
+        return this.restaurantsRepo.deleteRestaurants(id);
+    }
+
 }

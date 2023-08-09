@@ -16,4 +16,5 @@ public interface RestaurantsRepository {
     List<Object[]> getRestaurants(Map<String, String> params);
     boolean addOrUpdateRestaurants(Restaurants restaurant);
     Restaurants getRestaurantById(int id);
+    boolean deleteRestaurants(int id);
 }

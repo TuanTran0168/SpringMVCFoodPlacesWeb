@@ -78,7 +78,6 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
 //                final_query.setFirstResult((pageInt - 1) * pageSize);
 //            }
 //        }
-
         return final_query.getResultList();
     }
 
@@ -103,6 +102,20 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
     public Restaurants getRestaurantById(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         return session.get(Restaurants.class, id);
+    }
+
+    @Override
+    public boolean deleteRestaurants(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Restaurants restaurants = this.getRestaurantById(id);
+
+        try {
+            session.delete(restaurants);
+            return true;
+        } catch(HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
 }

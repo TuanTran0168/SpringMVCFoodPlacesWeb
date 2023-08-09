@@ -35,23 +35,23 @@ public class RestaurantsController {
         model.addAttribute("restaurantStatus_list", this.restaurantStatusService.getRestaurantsStatus());
     }
 
-    @GetMapping("admin/restaurants")
+    @GetMapping("/admin/restaurants")
     public String list(Model model) {
         model.addAttribute("restaurant_list", this.restaurantsService.getRestaurants(null));
         return "restaurants";
     }
     
-    @GetMapping("admin/restaurants/newRestaurant")
-    public String alo(Model model) {
+    @GetMapping("/admin/restaurants/newRestaurant")
+    public String newRestaurant(Model model) {
         model.addAttribute("restaurant", new Restaurants());
         return "newRestaurant";
     }
    
-
-    @GetMapping("/restaurants/{id}")
+//  Cái restaurantId trong cái GetMapping này là trùng với bên jsp nha :)
+    @GetMapping("/admin/restaurants/{restaurantId}")
     public String update(Model model, @PathVariable(value = "restaurantId") int restaurantId) {
         model.addAttribute("restaurant", this.restaurantsService.getRestaurantById(restaurantId));
-        return "restaurants";
+        return "newRestaurant";
     }
 
     @PostMapping("/admin/restaurants/newRestaurant")
