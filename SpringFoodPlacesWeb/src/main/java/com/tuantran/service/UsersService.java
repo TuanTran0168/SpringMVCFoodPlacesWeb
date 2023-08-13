@@ -7,6 +7,7 @@ package com.tuantran.service;
 import com.tuantran.pojo.Users;
 import java.util.List;
 import java.util.Map;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,10 +15,15 @@ import org.springframework.stereotype.Service;
  * @author Administrator
  */
 @Service
-public interface UsersService {
+public interface UsersService extends UserDetailsService {
 
     List<Object[]> getUsers(Map<String, String> params);
+
     int countUsers();
-     boolean addOrUpdateUsers(Users user);
+
+    boolean addOrUpdateUsers(Users user);
+
     Users getUserById(int id);
+    
+    boolean registerUser(Users user);
 }

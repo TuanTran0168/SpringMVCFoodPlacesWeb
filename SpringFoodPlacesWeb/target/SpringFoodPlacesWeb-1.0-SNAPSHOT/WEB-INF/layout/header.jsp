@@ -20,6 +20,7 @@
                 </li>
 
                 <c:forEach items="${roles}" var = "role">
+
                     <c:url value="/" var = "rolesAction">
                         <c:param name="roleId" value="${role.roleId}" />
                     </c:url>
@@ -28,6 +29,25 @@
                     </li>
 
                 </c:forEach>
+
+                <c:choose>
+                    <c:when test="${pageContext.request.userPrincipal.name != null}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/" />">${pageContext.request.userPrincipal.name}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/logout" />">Đăng xuất nè</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/login" />">Đăng nhập nè</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/register" />">Đăng ký nè</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
 
             </ul>
             <form class="d-flex" action="${action}">

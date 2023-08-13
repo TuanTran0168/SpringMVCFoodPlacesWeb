@@ -95,7 +95,10 @@ public class Users implements Serializable {
     private Set<Restaurants> restaurantsSet;
     @OneToMany(mappedBy = "userId")
     private Set<Notifications> notificationsSet;
-    
+
+    @Transient
+    private String confirmPassword;
+
     @Transient
     private MultipartFile file;
 
@@ -109,7 +112,6 @@ public class Users implements Serializable {
     /**
      * @param file the file to set
      */
-    
     public void setFile(MultipartFile file) {
         this.file = file;
     }
@@ -286,5 +288,19 @@ public class Users implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Users[ userId=" + userId + " ]";
     }
-    
+
+    /**
+     * @return the confirmPassword
+     */
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
 }

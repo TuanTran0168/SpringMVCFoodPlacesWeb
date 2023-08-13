@@ -90,7 +90,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     public int countUsers() {
         Session session = this.factory.getObject().getCurrentSession();
         Query query = session.createQuery("SELECT Count(*) FROM Users");
-        
+
         return Integer.parseInt(query.getSingleResult().toString());
     }
 
@@ -98,7 +98,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     public boolean addOrUpdateUsers(Users user) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
-            if (user.getUserId()== null) {
+            if (user.getUserId() == null) {
                 session.save(user);
             } else {
                 session.update(user);
@@ -115,6 +115,26 @@ public class UsersRepositoryImpl implements UsersRepository {
     public Users getUserById(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         return session.get(Users.class, id);
+    }
+
+    @Override
+    public Users getUserByUsername(String username) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Query query = session.createQuery("FROM Users WHERE username=:username");
+        query.setParameter("username", username);
+        return (Users) query.getSingleResult();
+    }
+
+    @Override
+    public boolean registerUser(Users user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            session.save(user);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
 }

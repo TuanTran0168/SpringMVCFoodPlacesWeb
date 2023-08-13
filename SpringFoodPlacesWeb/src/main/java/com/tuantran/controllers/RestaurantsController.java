@@ -62,7 +62,6 @@ public class RestaurantsController {
                 return "redirect:/admin/restaurants";
             }
         }
-
         return "newRestaurant";
     }
 }
