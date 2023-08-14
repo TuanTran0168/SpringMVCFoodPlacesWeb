@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Administrator
+ * @author HP
  */
 @Entity
 @Table(name = "receipt_status")

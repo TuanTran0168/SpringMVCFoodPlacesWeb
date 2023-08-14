@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author Administrator
+ * @author HP
  */
 @Entity
 @Table(name = "restaurants")
@@ -78,7 +78,7 @@ public class Restaurants implements Serializable {
     private Set<Fooditems> fooditemsSet;
     @OneToMany(mappedBy = "restaurantId")
     private Set<Notifications> notificationsSet;
-    
+
     @Transient
     private MultipartFile file;
 
@@ -95,7 +95,7 @@ public class Restaurants implements Serializable {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
-
+    
     public Restaurants() {
     }
 

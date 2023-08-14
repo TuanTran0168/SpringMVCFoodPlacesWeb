@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author Administrator
+ * @author HP
  */
 @Entity
 @Table(name = "users")
@@ -121,10 +121,6 @@ public class Users implements Serializable {
     }
 
     public Users() {
-    }
-
-    public Users(Integer userId) {
-        this.userId = userId;
     }
 
     public Integer getUserId() {

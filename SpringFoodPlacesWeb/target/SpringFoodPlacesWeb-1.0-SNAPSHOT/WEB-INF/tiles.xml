@@ -52,6 +52,26 @@
         <put-attribute name="content"
                        value="/WEB-INF/pages/admin/newRestaurant.jsp" />
     </definition>
+    <definition name="indexCategories" extends="baseLayout">
+        <put-attribute name="title" value="Category Food" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/restaurantManager/categories.jsp" />
+    </definition>
+    <definition name="newCategory" extends="baseLayout">
+        <put-attribute name="title" value="Category Food" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/restaurantManager/newCategory.jsp" />
+    </definition>
+    <definition name="shelfLife" extends="baseLayout">
+        <put-attribute name="title" value="Shelf Life Food" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/restaurantManager/shelfLife.jsp" />
+    </definition>
+    <definition name="newShelfLife" extends="baseLayout">
+        <put-attribute name="title" value="Shelf Life Food" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/restaurantManager/newShelfLife.jsp" />
+    </definition>
     
     <definition name="login" extends="baseLayout">
         <put-attribute name="title" value="LOGIN" />

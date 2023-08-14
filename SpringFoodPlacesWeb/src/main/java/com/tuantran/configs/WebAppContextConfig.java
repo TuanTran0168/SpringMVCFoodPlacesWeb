@@ -9,7 +9,9 @@ import com.cloudinary.utils.ObjectUtils;
 import com.tuantran.formatters.RestaurantsStatusFormatter;
 import com.tuantran.formatters.RolesFormatter;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,6 +23,7 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -61,9 +64,10 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/resources/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
-        registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/resources/images/");
+       registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/resources/css/");
+       registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
+       registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/resources/images/");
+
     }
 
 //    @Bean
@@ -74,10 +78,33 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //        r.setSuffix(".jsp");
 //        return r;
 //    }
+    
+    
     @Bean
-    public SimpleDateFormat simpleDateFormat() {
-        return new SimpleDateFormat("dd-MM-yyyy");
+    public SimpleDateFormat simpleDateFormatVIEW() {
+        return new SimpleDateFormat("yyyy-MM-dd");
     }
+    
+    
+    public SimpleDateFormat simpleDateFormat() {
+        return new SimpleDateFormat("yyyy-MM-dd");
+    }
+    
+    @Bean
+    public CustomDateEditor customDateEditor() {
+        return new CustomDateEditor(simpleDateFormat(), true);
+    }
+    
+//    @Bean
+//    public ConfigurableWebBindingInitializer webBindingInitializer() {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        CustomDateEditor customDateEditor = new CustomDateEditor(dateFormat, true);
+//
+//        ConfigurableWebBindingInitializer initializer = new ConfigurableWebBindingInitializer();
+//        initializer.setPropertyEditorRegistrar(registry -> registry.registerCustomEditor(Date.class, customDateEditor));
+//
+//        return initializer;
+//    }
 
     @Bean
     public Cloudinary cloudinary() {
