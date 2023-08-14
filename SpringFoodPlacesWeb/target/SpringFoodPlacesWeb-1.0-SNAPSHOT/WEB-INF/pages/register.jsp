@@ -21,6 +21,7 @@
                     <div>${msg}</div>
                     <c:url value="/register" var="action"/>
                     <form:form method="post" modelAttribute="user" action="${action}">
+                        
                         <form:input type="text" class="form-control" path="username" id="username" placeholder="Nhập tên đăng nhập... " name="username" />
 
                         <form:input type="text" class="form-control" path="password" id="password" placeholder="Nhập mật khẩu... " name="password" />

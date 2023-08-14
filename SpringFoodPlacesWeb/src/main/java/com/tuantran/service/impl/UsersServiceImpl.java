@@ -70,12 +70,12 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean registerUser(Users user) {
-        user.setFirstname("firstname");
-        user.setLastname("lastname");
-        user.setLocation("location");
-        Roles r = new Roles();
-        r.setRoleId(3);
-        user.setRoleId(r);
+//        user.setFirstname("firstname");
+//        user.setLastname("lastname");
+//        user.setLocation("location");
+//        Roles r = new Roles();
+//        r.setRoleId(3);
+//        user.setRoleId(r);
         return this.usersRepo.registerUser(user);
     }
 

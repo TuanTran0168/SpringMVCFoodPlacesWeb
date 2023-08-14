@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -32,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ShelfLife.findAll", query = "SELECT s FROM ShelfLife s"),
     @NamedQuery(name = "ShelfLife.findByShelflifeId", query = "SELECT s FROM ShelfLife s WHERE s.shelflifeId = :shelflifeId"),
+    @NamedQuery(name = "ShelfLife.findByShelflifeName", query = "SELECT s FROM ShelfLife s WHERE s.shelflifeName = :shelflifeName"),
     @NamedQuery(name = "ShelfLife.findByFromDate", query = "SELECT s FROM ShelfLife s WHERE s.fromDate = :fromDate"),
     @NamedQuery(name = "ShelfLife.findByToDate", query = "SELECT s FROM ShelfLife s WHERE s.toDate = :toDate")})
 public class ShelfLife implements Serializable {
@@ -42,6 +44,9 @@ public class ShelfLife implements Serializable {
     @Basic(optional = false)
     @Column(name = "shelflife_id")
     private Integer shelflifeId;
+    @Size(max = 255)
+    @Column(name = "shelflife_name")
+    private String shelflifeName;
     @Column(name = "from_date")
     @Temporal(TemporalType.DATE)
     private Date fromDate;
@@ -49,7 +54,7 @@ public class ShelfLife implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date toDate;
     @OneToMany(mappedBy = "shelflifeId")
-    private Set<Fooditems> fooditemsSet;
+    private Set<ShelflifeFooditems> shelflifeFooditemsSet;
 
     public ShelfLife() {
     }
@@ -64,6 +69,14 @@ public class ShelfLife implements Serializable {
 
     public void setShelflifeId(Integer shelflifeId) {
         this.shelflifeId = shelflifeId;
+    }
+
+    public String getShelflifeName() {
+        return shelflifeName;
+    }
+
+    public void setShelflifeName(String shelflifeName) {
+        this.shelflifeName = shelflifeName;
     }
 
     public Date getFromDate() {
@@ -83,12 +96,12 @@ public class ShelfLife implements Serializable {
     }
 
     @XmlTransient
-    public Set<Fooditems> getFooditemsSet() {
-        return fooditemsSet;
+    public Set<ShelflifeFooditems> getShelflifeFooditemsSet() {
+        return shelflifeFooditemsSet;
     }
 
-    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
-        this.fooditemsSet = fooditemsSet;
+    public void setShelflifeFooditemsSet(Set<ShelflifeFooditems> shelflifeFooditemsSet) {
+        this.shelflifeFooditemsSet = shelflifeFooditemsSet;
     }
 
     @Override

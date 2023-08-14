@@ -42,8 +42,8 @@ public class CategoriesFood implements Serializable {
     @Size(max = 255)
     @Column(name = "categoryname")
     private String categoryname;
-    @OneToMany(mappedBy = "categoryId")
-    private Set<Fooditems> fooditemsSet;
+    @OneToMany(mappedBy = "categoryfoodId")
+    private Set<CategoriesfoodFooditems> categoriesfoodFooditemsSet;
 
     public CategoriesFood() {
     }
@@ -69,12 +69,12 @@ public class CategoriesFood implements Serializable {
     }
 
     @XmlTransient
-    public Set<Fooditems> getFooditemsSet() {
-        return fooditemsSet;
+    public Set<CategoriesfoodFooditems> getCategoriesfoodFooditemsSet() {
+        return categoriesfoodFooditemsSet;
     }
 
-    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
-        this.fooditemsSet = fooditemsSet;
+    public void setCategoriesfoodFooditemsSet(Set<CategoriesfoodFooditems> categoriesfoodFooditemsSet) {
+        this.categoriesfoodFooditemsSet = categoriesfoodFooditemsSet;
     }
 
     @Override

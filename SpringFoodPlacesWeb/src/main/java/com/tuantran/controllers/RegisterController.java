@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,6 +32,11 @@ public class RegisterController {
         model.addAttribute("user", new Users());
         return "register";
     }
+    
+    @InitBinder("Users")
+    public void initBinder(WebDataBinder binder) {
+        binder.setAllowedFields("username", "password", "confirmPassword", "phonenumber");
+    }
 
     @PostMapping("/register")
     public String register(Model model, @ModelAttribute(value = "user") @Valid Users user, BindingResult rs) {
@@ -38,19 +45,16 @@ public class RegisterController {
             if (user.getPassword().equals(user.getConfirmPassword())) {
                 if (usersService.registerUser(user) == true) {
                     return "redirect:/login";
-                }
-                else {
+                } else {
                     msg = "BUG rồi con";
                 }
-            }
-            else {
+            } else {
                 msg = "Mật khẩu không khớp";
             }
-        }
-        else {
+        } else {
             msg = "BUG BÊN JSP RỒI ĐM";
         }
-        
+
         model.addAttribute("msg", msg);
         return "register";
     }

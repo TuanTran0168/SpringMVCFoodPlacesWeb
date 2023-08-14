@@ -66,19 +66,17 @@ public class Fooditems implements Serializable {
     @Column(name = "active")
     private Boolean active;
     @OneToMany(mappedBy = "foodId")
+    private Set<CategoriesfoodFooditems> categoriesfoodFooditemsSet;
+    @OneToMany(mappedBy = "foodId")
     private Set<Comments> commentsSet;
     @OneToMany(mappedBy = "fooditemId")
     private Set<ReceiptDetail> receiptDetailSet;
-    @JoinColumn(name = "category_id", referencedColumnName = "categoryfood_id")
-    @ManyToOne
-    private CategoriesFood categoryId;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
     private Restaurants restaurantId;
-    @JoinColumn(name = "shelflife_id", referencedColumnName = "shelflife_id")
-    @ManyToOne
-    private ShelfLife shelflifeId;
-    
+    @OneToMany(mappedBy = "foodId")
+    private Set<ShelflifeFooditems> shelflifeFooditemsSet;
+
     @Transient
     private MultipartFile file;
 
@@ -92,7 +90,6 @@ public class Fooditems implements Serializable {
     /**
      * @param file the file to set
      */
-    
     public void setFile(MultipartFile file) {
         this.file = file;
     }
@@ -161,6 +158,15 @@ public class Fooditems implements Serializable {
     }
 
     @XmlTransient
+    public Set<CategoriesfoodFooditems> getCategoriesfoodFooditemsSet() {
+        return categoriesfoodFooditemsSet;
+    }
+
+    public void setCategoriesfoodFooditemsSet(Set<CategoriesfoodFooditems> categoriesfoodFooditemsSet) {
+        this.categoriesfoodFooditemsSet = categoriesfoodFooditemsSet;
+    }
+
+    @XmlTransient
     public Set<Comments> getCommentsSet() {
         return commentsSet;
     }
@@ -178,14 +184,6 @@ public class Fooditems implements Serializable {
         this.receiptDetailSet = receiptDetailSet;
     }
 
-    public CategoriesFood getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(CategoriesFood categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public Restaurants getRestaurantId() {
         return restaurantId;
     }
@@ -194,12 +192,13 @@ public class Fooditems implements Serializable {
         this.restaurantId = restaurantId;
     }
 
-    public ShelfLife getShelflifeId() {
-        return shelflifeId;
+    @XmlTransient
+    public Set<ShelflifeFooditems> getShelflifeFooditemsSet() {
+        return shelflifeFooditemsSet;
     }
 
-    public void setShelflifeId(ShelfLife shelflifeId) {
-        this.shelflifeId = shelflifeId;
+    public void setShelflifeFooditemsSet(Set<ShelflifeFooditems> shelflifeFooditemsSet) {
+        this.shelflifeFooditemsSet = shelflifeFooditemsSet;
     }
 
     @Override
@@ -226,5 +225,5 @@ public class Fooditems implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Fooditems[ foodId=" + foodId + " ]";
     }
-    
+
 }

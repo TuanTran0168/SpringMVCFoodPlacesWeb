@@ -19,7 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -51,19 +50,13 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @Column(name = "user_id")
     private Integer userId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "firstname")
     private String firstname;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "lastname")
     private String lastname;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "phonenumber")
     private String phonenumber;
     @Size(max = 255)
@@ -97,9 +90,6 @@ public class Users implements Serializable {
     private Set<Notifications> notificationsSet;
 
     @Transient
-    private String confirmPassword;
-
-    @Transient
     private MultipartFile file;
 
     /**
@@ -116,18 +106,25 @@ public class Users implements Serializable {
         this.file = file;
     }
 
+    @Transient
+    private String confirmPassword;
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     public Users() {
     }
 
     public Users(Integer userId) {
         this.userId = userId;
-    }
-
-    public Users(Integer userId, String firstname, String lastname, String phonenumber) {
-        this.userId = userId;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.phonenumber = phonenumber;
     }
 
     public Integer getUserId() {
@@ -287,20 +284,6 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "com.tuantran.pojo.Users[ userId=" + userId + " ]";
-    }
-
-    /**
-     * @return the confirmPassword
-     */
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    /**
-     * @param confirmPassword the confirmPassword to set
-     */
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
 }
