@@ -21,4 +21,9 @@ public class UsersController {
         model.addAttribute("user", new Users());
         return "users";
     }
+    
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 }

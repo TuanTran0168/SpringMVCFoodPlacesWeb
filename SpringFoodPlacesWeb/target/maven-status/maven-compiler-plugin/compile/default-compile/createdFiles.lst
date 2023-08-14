@@ -44,10 +44,12 @@ com\tuantran\configs\HibernateConfig.class
 com\tuantran\pojo\Fooditems.class
 com\tuantran\service\impl\UsersServiceImpl.class
 com\tuantran\service\RolesService.class
+com\tuantran\configs\SecurityWebApplicationInitializer.class
 com\tuantran\pojo\Restaurants_.class
 com\tuantran\pojo\Notifications.class
 com\tuantran\configs\WebAppContextConfig.class
 com\tuantran\pojo\Receipts_.class
+com\tuantran\controllers\ApiRestaurantsController.class
 com\tuantran\pojo\RestaurantStatus.class
 com\tuantran\controllers\ApiCategoryController.class
 com\tuantran\controllers\UsersController.class
@@ -62,6 +64,7 @@ com\tuantran\pojo\Chatmessages.class
 com\tuantran\pojo\ShelflifeFooditems.class
 com\tuantran\repository\impl\RolesRepositoryImpl.class
 com\tuantran\pojo\CategoriesFood.class
+com\tuantran\configs\SpringSecurityConfig.class
 com\tuantran\pojo\ReceiptDetail_.class
 com\tuantran\pojo\Restaurants.class
 com\tuantran\service\RestaurantsService.class

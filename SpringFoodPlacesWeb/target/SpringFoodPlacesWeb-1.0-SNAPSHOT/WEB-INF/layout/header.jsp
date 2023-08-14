@@ -20,6 +20,7 @@
                 </li>
 
                 <c:forEach items="${roles}" var = "role">
+
                     <c:url value="/" var = "rolesAction">
                         <c:param name="roleId" value="${role.roleId}" />
                     </c:url>
@@ -28,6 +29,25 @@
                     </li>
 
                 </c:forEach>
+
+                <c:choose>
+                    <c:when test="${pageContext.request.userPrincipal.name != null}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/" />">${pageContext.request.userPrincipal.name}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/logout" />">Đăng xuất nè</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/login" />">Đăng nhập nè</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/register" />">Đăng ký nè</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
 
             </ul>
             <form class="d-flex" action="${action}">
@@ -38,3 +58,21 @@
     </div>
 
 </nav>
+<%-- 
+    Document   : header
+    Created on : Jul 31, 2023, 9:35:50 AM
+    Author     : Administrator
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!--<div class="header">
+    <div class="flex">
+        <h2><span href="#">Trang Chủ</span></h2>
+        <div class="btn-dn-dk">
+            <button href="#">Đăng Nhập</button>
+            <button href="#">Đăng Ký</button>
+        </div>
+    </div>
+    <hr>
+</div>-->

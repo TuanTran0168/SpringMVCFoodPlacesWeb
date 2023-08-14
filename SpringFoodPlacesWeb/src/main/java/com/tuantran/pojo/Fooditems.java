@@ -224,5 +224,5 @@ public class Fooditems implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Fooditems[ foodId=" + foodId + " ]";
     }
-    
+
 }

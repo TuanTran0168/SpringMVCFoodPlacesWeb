@@ -19,4 +19,6 @@ public interface RestaurantsService {
     boolean addOrUpdateRestaurants(Restaurants restaurant);
 
     Restaurants getRestaurantById(int id);
+
+    boolean deleteRestaurants(int id);
 }

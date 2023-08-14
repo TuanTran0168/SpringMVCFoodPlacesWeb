@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author HP
+ * @author Administrator
  */
 @Entity
 @Table(name = "shelflife_fooditems")

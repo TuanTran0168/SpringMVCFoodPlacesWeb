@@ -67,9 +67,9 @@ public class WebAppContextConfig implements WebMvcConfigurer {
        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/resources/css/");
        registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
        registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/resources/images/");
+
     }
-    
-    
+
 //    @Bean
 //    public InternalResourceViewResolver internalResourceViewResolver() {
 //        InternalResourceViewResolver r = new InternalResourceViewResolver();

@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<script src="<c:url value="/js/restaurants.js" />"></script>
 
 <c:url value="admin/restaurants" var = "action" />
 <h1 style = "text-align: center">${msg}</h1>
@@ -40,6 +41,7 @@
                 <th>Địa chỉ</th>
                 <th>Confirm-status</th>
                 <th>Chủ nhà hàng</th>
+                <th>Trạng thái</th>
                 <th></th>
             </tr>
         </thead>
@@ -54,10 +56,11 @@
                     <td>${restaurant.location}</td>
                     <td>${restaurant.confirmationStatus}</td>
                     <td>${restaurant.userId.userId}</td>
-
+                    <td>${restaurant.restaurantStatus.restaurantStatus}</td>
                     <td>
-                        <a href="#" class = "btn btn-success">Cập nhật</a>
-                        <button class = "btn btn-danger">Xóa nà</button>
+                        <c:url value="/api/admin/restaurants/${restaurant.restaurantId}" var="restaurantPathAPI"/>
+                        <a href="<c:url value="/admin/restaurants/${restaurant.restaurantId}" />" class = "btn btn-success">Cập nhật</a>
+                        <button class = "btn btn-danger" onclick="deleteRestaurant('${restaurantPathAPI}', ${restaurant.restaurantId})">Xóa nà</button>
                     </td>
                 </tr>
             </c:forEach>

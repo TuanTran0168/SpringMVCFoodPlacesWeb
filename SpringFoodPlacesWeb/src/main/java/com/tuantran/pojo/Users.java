@@ -88,19 +88,6 @@ public class Users implements Serializable {
     private Set<Restaurants> restaurantsSet;
     @OneToMany(mappedBy = "userId")
     private Set<Notifications> notificationsSet;
-    @Transient
-    private String confirmPassword;
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    /**
-     * @param confirmPassword the confirmPassword to set
-     */
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
 
     @Transient
     private MultipartFile file;
@@ -119,11 +106,21 @@ public class Users implements Serializable {
         this.file = file;
     }
 
-    public Users() {
+    @Transient
+    private String confirmPassword;
+
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public Users(Integer userId) {
-        this.userId = userId;
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public Users() {
     }
 
     public Integer getUserId() {

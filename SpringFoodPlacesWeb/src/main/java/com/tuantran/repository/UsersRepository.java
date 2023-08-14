@@ -18,4 +18,6 @@ public interface UsersRepository {
     int countUsers();
     boolean addOrUpdateUsers(Users user);
     Users getUserById(int id);
+    Users getUserByUsername(String username);
+    boolean registerUser(Users user);
 }

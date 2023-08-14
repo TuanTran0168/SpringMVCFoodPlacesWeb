@@ -12,7 +12,7 @@
 <h1>${restaurantStatus_list[1].restaurantStatus}</h1>
 
 <div class="container">
-    
+
     <c:url value="/admin/restaurants/newRestaurant" var="action"/>
     <form:form method="post" action="${action}" modelAttribute="restaurant" enctype="multipart/form-data">
         <form:errors path="*" element="div" cssClass="alert alert-danger" />
@@ -39,15 +39,30 @@
         <div class="form-floating mb-3 mt-3">
             <form:select class="form-select" id="restaurants" name="restaurants" path="restaurantStatus">
                 <c:forEach items="${restaurantStatus_list}" var="rS">
-                    <option value="${rS.statusId}" selected>${rS.restaurantStatus}</option>
+                    <c:choose>
+                        <c:when test="${rS.statusId == restaurant.restaurantStatus.statusId}">
+                            <option value="${rS.statusId}" selected="${rS.restaurantStatus}">${rS.restaurantStatus}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${rS.statusId}">${rS.restaurantStatus}</option>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </form:select>
 
             <label for="restaurants" class="form-label">Danh mục restaurantStatus</label>
         </div>
-
         <button type="submit" class="btn btn-info">
-            Thêm
+            <c:choose>
+                <c:when test="${restaurant.restaurantId == null}">
+                    Thêm nhà hàng
+                </c:when>
+                <c:otherwise>
+                    Cập nhật nhà hàng
+                </c:otherwise>
+            </c:choose>
         </button>
+        <form:hidden path="restaurantId" />
+        <form:hidden path="avatar" />
     </form:form>
 </div>
