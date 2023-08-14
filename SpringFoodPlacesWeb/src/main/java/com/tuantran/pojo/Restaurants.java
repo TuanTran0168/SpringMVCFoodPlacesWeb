@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author Administrator
+ * @author HP
  */
 @Entity
 @Table(name = "restaurants")
@@ -48,7 +48,7 @@ public class Restaurants implements Serializable {
     @Basic(optional = false)
     @Column(name = "restaurant_id")
     private Integer restaurantId;
-    @Size(max = 5, message = "{restaurants.restaurantName.lenErr}")
+    @Size(max = 255)
     @Column(name = "restaurant_name")
     private String restaurantName;
     @Size(max = 255)
@@ -78,7 +78,7 @@ public class Restaurants implements Serializable {
     private Set<Fooditems> fooditemsSet;
     @OneToMany(mappedBy = "restaurantId")
     private Set<Notifications> notificationsSet;
-    
+
     @Transient
     private MultipartFile file;
 
@@ -92,11 +92,10 @@ public class Restaurants implements Serializable {
     /**
      * @param file the file to set
      */
-    
     public void setFile(MultipartFile file) {
         this.file = file;
     }
-
+    
     public Restaurants() {
     }
 

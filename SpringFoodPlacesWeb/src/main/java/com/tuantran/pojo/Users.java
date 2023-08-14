@@ -19,7 +19,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -27,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author Administrator
+ * @author HP
  */
 @Entity
 @Table(name = "users")
@@ -51,19 +50,13 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @Column(name = "user_id")
     private Integer userId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "firstname")
     private String firstname;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "lastname")
     private String lastname;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "phonenumber")
     private String phonenumber;
     @Size(max = 255)
@@ -95,7 +88,20 @@ public class Users implements Serializable {
     private Set<Restaurants> restaurantsSet;
     @OneToMany(mappedBy = "userId")
     private Set<Notifications> notificationsSet;
-    
+    @Transient
+    private String confirmPassword;
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     @Transient
     private MultipartFile file;
 
@@ -109,7 +115,6 @@ public class Users implements Serializable {
     /**
      * @param file the file to set
      */
-    
     public void setFile(MultipartFile file) {
         this.file = file;
     }
@@ -119,13 +124,6 @@ public class Users implements Serializable {
 
     public Users(Integer userId) {
         this.userId = userId;
-    }
-
-    public Users(Integer userId, String firstname, String lastname, String phonenumber) {
-        this.userId = userId;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.phonenumber = phonenumber;
     }
 
     public Integer getUserId() {
@@ -286,5 +284,5 @@ public class Users implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Users[ userId=" + userId + " ]";
     }
-    
+
 }
