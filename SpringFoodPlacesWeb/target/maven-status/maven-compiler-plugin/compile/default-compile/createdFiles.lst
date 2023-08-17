@@ -9,6 +9,7 @@ com\tuantran\repository\RestaurantStatusRepository.class
 com\tuantran\configs\DispatcherServletInit.class
 com\tuantran\controllers\ShelfLifeController.class
 com\tuantran\pojo\ShelflifeFooditems_.class
+com\tuantran\controllers\RestaurantManagerController.class
 com\tuantran\formatters\RestaurantsStatusFormatter.class
 com\tuantran\repository\impl\RestaurantStatusRepositoryImpl.class
 com\tuantran\repository\impl\RestaurantsRepositoryImpl.class
@@ -51,6 +52,7 @@ com\tuantran\configs\WebAppContextConfig.class
 com\tuantran\pojo\Receipts_.class
 com\tuantran\controllers\ApiRestaurantsController.class
 com\tuantran\pojo\RestaurantStatus.class
+.netbeans_automatic_build
 com\tuantran\controllers\ApiCategoryController.class
 com\tuantran\controllers\UsersController.class
 com\tuantran\pojo\Comments_.class

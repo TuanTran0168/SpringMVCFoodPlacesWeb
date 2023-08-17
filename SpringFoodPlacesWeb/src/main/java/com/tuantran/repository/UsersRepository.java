@@ -20,4 +20,5 @@ public interface UsersRepository {
     Users getUserById(int id);
     Users getUserByUsername(String username);
     boolean registerUser(Users user);
+    boolean isUsernameExists(String username);
 }

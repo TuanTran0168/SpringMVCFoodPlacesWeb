@@ -17,6 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,6 +29,9 @@ public class UsersServiceImpl implements UsersService {
 
     @Autowired
     private UsersRepository usersRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 //    @Override
 //    public List<Object[]> getUsers() {
@@ -45,6 +49,8 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean addOrUpdateUsers(Users user) {
+        String password = user.getPassword();
+        user.setPassword(this.bCryptPasswordEncoder.encode(password));
         return this.usersRepo.addOrUpdateUsers(user);
     }
 
@@ -70,13 +76,34 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean registerUser(Users user) {
-//        user.setFirstname("firstname");
-//        user.setLastname("lastname");
-//        user.setLocation("location");
-//        Roles r = new Roles();
-//        r.setRoleId(3);
-//        user.setRoleId(r);
-        return this.usersRepo.registerUser(user);
+        
+        boolean isUsernameExists = this.usersRepo.isUsernameExists(user.getUsername());
+        
+        if (isUsernameExists == true) {
+            return false;
+        }
+        else {
+            String password = user.getPassword();
+            user.setPassword(this.bCryptPasswordEncoder.encode(password));
+            user.setRoleId(new Roles(3));
+            return this.usersRepo.registerUser(user);
+        }
+
+//        try {
+//            
+//            return false;
+//
+//        } catch (UsernameNotFoundException ex) {
+//            String password = user.getPassword();
+//            user.setPassword(this.bCryptPasswordEncoder.encode(password));
+//            user.setRoleId(new Roles(3));
+//            return this.usersRepo.registerUser(user);
+//        }
+    }
+
+    @Override
+    public boolean isUsernameExists(String username) {
+        return this.usersRepo.isUsernameExists(username);
     }
 
 }

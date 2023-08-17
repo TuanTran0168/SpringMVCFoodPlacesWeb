@@ -7,7 +7,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-08-17T08:49:12")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-08-17T11:02:16")
 @StaticMetamodel(ShelfLife.class)
 public class ShelfLife_ { 
 
