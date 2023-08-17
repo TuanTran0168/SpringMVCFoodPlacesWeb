@@ -12,6 +12,13 @@
 
 <h1 style = "text-align: center">${msg}</h1>
 
+<c:if test="${param.accessDenied != null}">
+    <div class="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>Danger!</strong> DÔ ĐÂY CHI :) BIẾT GÌ MÀ DÔ
+    </div>
+</c:if>
+
 <section>
     <div>
         <a href="#" class = "btn btn-success"> Thêm sản phẩm </a>
