@@ -38,7 +38,7 @@
     <definition name="restaurants" extends="baseLayout">
         <put-attribute name="title" value="QUẢN LÝ NHÀ HÀNG" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/admin/restaurants.jsp" />
+                       value="/WEB-INF/pages/restaurantManager/restaurants.jsp" />
     </definition>
     
     <definition name="admin" extends="baseLayout">
@@ -50,7 +50,7 @@
     <definition name="newRestaurant" extends="baseLayout">
         <put-attribute name="title" value="ADMIN" />
         <put-attribute name="content"
-                       value="/WEB-INF/pages/admin/newRestaurant.jsp" />
+                       value="/WEB-INF/pages/restaurantManager/newRestaurant.jsp" />
     </definition>
     <definition name="indexCategories" extends="baseLayout">
         <put-attribute name="title" value="Category Food" />
@@ -77,6 +77,12 @@
         <put-attribute name="title" value="LOGIN" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/login.jsp" />
+    </definition>
+    
+    <definition name="restaurantManager" extends="baseLayout">
+        <put-attribute name="title" value="ADMIN" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/restaurantManager/restaurantManager.jsp" />
     </definition>
     
 </tiles-definitions>

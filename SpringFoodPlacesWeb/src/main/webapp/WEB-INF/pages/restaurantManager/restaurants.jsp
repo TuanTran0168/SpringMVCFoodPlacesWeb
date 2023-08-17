@@ -9,7 +9,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <script src="<c:url value="/js/restaurants.js" />"></script>
 
-<c:url value="admin/restaurants" var = "action" />
+<c:url value="restaurantManager/restaurants" var = "action" />
 <h1 style = "text-align: center">${msg}</h1>
 
 <section>
@@ -58,8 +58,8 @@
                     <td>${restaurant.userId.userId}</td>
                     <td>${restaurant.restaurantStatus.restaurantStatus}</td>
                     <td>
-                        <c:url value="/api/admin/restaurants/${restaurant.restaurantId}" var="restaurantPathAPI"/>
-                        <a href="<c:url value="/admin/restaurants/${restaurant.restaurantId}" />" class = "btn btn-success">Cập nhật</a>
+                        <c:url value="/api/restaurantManager/restaurants/${restaurant.restaurantId}" var="restaurantPathAPI"/>
+                        <a href="<c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" />" class = "btn btn-success">Cập nhật</a>
                         <button class = "btn btn-danger" onclick="deleteRestaurant('${restaurantPathAPI}', ${restaurant.restaurantId})">Xóa nà</button>
                     </td>
                 </tr>

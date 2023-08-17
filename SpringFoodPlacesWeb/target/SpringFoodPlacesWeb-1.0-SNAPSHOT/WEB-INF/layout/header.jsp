@@ -49,6 +49,14 @@
                     </c:otherwise>
                 </c:choose>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/admin" />">Admin</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/restaurantManager" />">restaurantManager</a>
+                </li>
+
             </ul>
             <form class="d-flex" action="${action}">
                 <input class="form-control me-2" type="text" name="keyword" placeholder="Nhập gì đi... ">

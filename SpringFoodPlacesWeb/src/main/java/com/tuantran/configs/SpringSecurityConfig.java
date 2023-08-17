@@ -6,7 +6,9 @@ package com.tuantran.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import java.text.SimpleDateFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -82,5 +84,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "api_secret", this.environment.getProperty("cloudinary.api_secret"),
                         "secure", true));
         return cloudinary;
+    }
+
+    @Bean
+    public SimpleDateFormat simpleDateFormat() {
+        return new SimpleDateFormat("yyyy-MM-dd");
+    }
+
+    @Bean
+    public CustomDateEditor customDateEditor() {
+        return new CustomDateEditor(simpleDateFormat(), true);
     }
 }

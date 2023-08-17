@@ -13,7 +13,7 @@
 
 <div class="container">
 
-    <c:url value="/admin/restaurants/newRestaurant" var="action"/>
+    <c:url value="/restaurantManager/restaurants/newRestaurant" var="action"/>
     <form:form method="post" action="${action}" modelAttribute="restaurant" enctype="multipart/form-data">
         <form:errors path="*" element="div" cssClass="alert alert-danger" />
         <div class="form-floating mb-3 mt-3">

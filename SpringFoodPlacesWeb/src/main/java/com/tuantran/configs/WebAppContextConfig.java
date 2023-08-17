@@ -78,22 +78,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //        r.setSuffix(".jsp");
 //        return r;
 //    }
-    
-    
-    @Bean
-    public SimpleDateFormat simpleDateFormatVIEW() {
-        return new SimpleDateFormat("yyyy-MM-dd");
-    }
-    
-    
-    public SimpleDateFormat simpleDateFormat() {
-        return new SimpleDateFormat("yyyy-MM-dd");
-    }
-    
-    @Bean
-    public CustomDateEditor customDateEditor() {
-        return new CustomDateEditor(simpleDateFormat(), true);
-    }
+
     
 //    @Bean
 //    public ConfigurableWebBindingInitializer webBindingInitializer() {

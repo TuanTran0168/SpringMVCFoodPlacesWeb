@@ -25,7 +25,7 @@ public class ApiRestaurantsController {
     @Autowired
     private RestaurantsService restaurantsService;
     
-    @DeleteMapping("/admin/restaurants/{restaurantId}")
+    @DeleteMapping("/restaurantManager/restaurants/{restaurantId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable(value = "restaurantId") int id) {
         this.restaurantsService.deleteRestaurants(id);
