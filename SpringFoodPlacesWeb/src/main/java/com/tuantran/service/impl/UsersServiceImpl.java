@@ -4,14 +4,19 @@
  */
 package com.tuantran.service.impl;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.tuantran.pojo.Roles;
 import com.tuantran.pojo.Users;
 import com.tuantran.repository.UsersRepository;
 import com.tuantran.service.UsersService;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -33,6 +38,9 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private Cloudinary cloudinary;
+
 //    @Override
 //    public List<Object[]> getUsers() {
 //        return this.usersRepo.getUsers();
@@ -49,9 +57,25 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean addOrUpdateUsers(Users user) {
-        String password = user.getPassword();
-        user.setPassword(this.bCryptPasswordEncoder.encode(password));
-        return this.usersRepo.addOrUpdateUsers(user);
+
+        boolean isUsernameExists = this.usersRepo.isUsernameExists(user.getUsername());
+
+        if (isUsernameExists == true) {
+            return false;
+        } else {
+            if (!user.getFile().isEmpty()) {
+                try {
+                    Map res = this.cloudinary.uploader().upload(user.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                    user.setAvatar(res.get("secure_url").toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(RestaurantsServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            String password = user.getPassword();
+            user.setPassword(this.bCryptPasswordEncoder.encode(password));
+            return this.usersRepo.addOrUpdateUsers(user);
+        }
+
     }
 
     @Override
@@ -76,13 +100,12 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean registerUser(Users user) {
-        
+
         boolean isUsernameExists = this.usersRepo.isUsernameExists(user.getUsername());
-        
+
         if (isUsernameExists == true) {
             return false;
-        }
-        else {
+        } else {
             String password = user.getPassword();
             user.setPassword(this.bCryptPasswordEncoder.encode(password));
             user.setRoleId(new Roles(3));

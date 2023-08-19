@@ -143,7 +143,7 @@ public class UsersRepositoryImpl implements UsersRepository {
         Session session = this.factory.getObject().getCurrentSession();
         Query query = session.createQuery("SELECT COUNT(*) FROM Users WHERE username = :username");
         query.setParameter("username", username);
-        int count = (int) query.getSingleResult();
+        long count = (long) query.getSingleResult();
         return count > 0;
     }
 

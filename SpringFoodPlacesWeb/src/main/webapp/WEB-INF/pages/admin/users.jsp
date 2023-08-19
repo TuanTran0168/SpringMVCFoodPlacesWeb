@@ -22,7 +22,7 @@
 
 <section>
     <div>
-        <a href="#" class = "btn btn-success"> Thêm sản phẩm </a>
+        <a href="users/newUser" class = "btn btn-success"> Thêm user </a>
     </div>
 
     <c:if test="${counter > 1}">
@@ -53,7 +53,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${users}" var = "user">
+            <c:forEach items="${users_list}" var = "user">
                 <tr>
                     <td>
                         <img style="width: 120px" src="${user.avatar}" alt="Avatar của ${user.firstname} ${user.lastname}"/>
@@ -65,7 +65,7 @@
                     <td>${user.location}</td>
 
                     <td>
-                        <a href="#" class = "btn btn-success">Cập nhật</a>
+                        <a href="<c:url value="/admin/users/${user.userId}" />" class = "btn btn-success">Cập nhật</a>
                         <button class = "btn btn-danger">Xóa nà</button>
                     </td>
                 </tr>

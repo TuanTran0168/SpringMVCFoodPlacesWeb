@@ -4,16 +4,21 @@
  */
 package com.tuantran.controllers;
 
+import com.tuantran.pojo.Restaurants;
 import com.tuantran.pojo.Users;
 import com.tuantran.service.RolesService;
 import com.tuantran.service.UsersService;
 import java.util.Map;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -58,15 +63,53 @@ public class UsersController {
 
             if (pageAllStr == null) {
                 params.put("page", "1");
-                model.addAttribute("users", this.usersService.getUsers(params));
+                model.addAttribute("users_list", this.usersService.getUsers(params));
             } else {
-                model.addAttribute("users", this.usersService.getUsers(params));
+                model.addAttribute("users_list", this.usersService.getUsers(params));
             }
 
         } else {
-            model.addAttribute("users", this.usersService.getUsers(params));
+            model.addAttribute("users_list", this.usersService.getUsers(params));
         }
 
         return "users";
+    }
+
+    @GetMapping("/admin/users/newUser")
+    public String newRestaurant(Model model) {
+        model.addAttribute("user", new Users());
+        return "newUser";
+    }
+
+//  Cái userId trong cái GetMapping này là trùng với bên jsp nha :)
+    @GetMapping("/admin/users/{userId}")
+    public String update(Model model, @PathVariable(value = "userId") int userId) {
+        model.addAttribute("user", this.usersService.getUserById(userId));
+        return "newUser";
+    }
+
+    @PostMapping("/admin/users/newUser")
+    public String add(Model model, @ModelAttribute(value = "user") @Valid Users user, BindingResult rs) {
+        String msg = "";
+        if (!rs.hasErrors()) {
+            // update
+            if (user.getUserId() != null) {
+                if (this.usersService.addOrUpdateUsers(user) == true) {
+                    return "redirect:/admin/users";
+                }
+            //add
+            } else {
+                if (user.getPassword().equals(user.getConfirmPassword())) {
+                    if (this.usersService.addOrUpdateUsers(user) == true) {
+                        return "redirect:/admin/users";
+                    }
+                }
+                else {
+                    msg = "Mật khẩu không khớp";
+                }
+            }
+        }
+        model.addAttribute("msg", msg);
+        return "newUser";
     }
 }
