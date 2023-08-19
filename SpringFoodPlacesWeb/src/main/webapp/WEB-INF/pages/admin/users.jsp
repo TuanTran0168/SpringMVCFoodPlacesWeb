@@ -6,16 +6,81 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h1 style="text-align: center">QUẢN LÝ USERS</h1>
 
-<form:form method="post" modelAttribute="user" >
+<c:url value="/admin/users" var = "action" />
+<h1 style = "text-align: center">${msg}</h1>
+
+<c:if test="${param.accessDenied != null}">
+    <div class="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        <strong>Danger!</strong> DÔ ĐÂY CHI :) BIẾT GÌ MÀ DÔ
+    </div>
+</c:if>
+
+<section>
+    <div>
+        <a href="#" class = "btn btn-success"> Thêm sản phẩm </a>
+    </div>
+
+    <c:if test="${counter > 1}">
+        <ul class="pagination mt-1">
+            <c:url value="/admin/users" var="pageAction">
+                <c:param name="pageAll"></c:param>
+            </c:url>
+            <li class="page-item"><a class="page-link" href="${pageAction}">Tất cả user</a></li>
+
+            <c:forEach begin="1" end="${counter}" var = "i">
+                <c:url value="/admin/users" var="pageAction">
+                    <c:param name="page" value="${i}"></c:param>
+                </c:url>
+                <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+                </c:forEach>
+        </ul>
+    </c:if>
+    <table class="table table-hover container">
+        <thead>
+            <tr>
+                <th>Avatar</th>
+                <th>id</th>
+                <th>role</th>
+                <th>Họ và tên</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${users}" var = "user">
+                <tr>
+                    <td>
+                        <img style="width: 120px" src="${user.avatar}" alt="Avatar của ${user.firstname} ${user.lastname}"/>
+                    </td>
+                    <td>${user.userId}</td>
+                    <td>${user.roleId.roleId}</td>
+                    <td>${user.firstname} ${user.lastname}</td>
+                    <td>${user.phonenumber}</td>
+                    <td>${user.location}</td>
+
+                    <td>
+                        <a href="#" class = "btn btn-success">Cập nhật</a>
+                        <button class = "btn btn-danger">Xóa nà</button>
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+</section>
+
+<%--<form:form method="post" modelAttribute="user" >
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" path="username" id="username" placeholder="Nhập tên đăng nhập... " name="username" />
         <label for="firstname">Lát làm...</label>
     </div>
 
-    <div class="form-floating mb-3 mt-3"> <%-- ẢO MA cái path--%>
+    <div class="form-floating mb-3 mt-3">  ẢO MA cái path
         <form:input type="text" class="form-control" path="password" id="confirmPassoword" placeholder="Xác nhận mật khẩu... " name="confirmPassoword" />
         <label for="confirmPassoword">Lát làm...</label>
     </div>
@@ -24,7 +89,7 @@
         <form:input type="text" class="form-control" path="phonenumber" id="phonenumber" placeholder="Nhập số điện thoại... " name="phonenumber" />
         <label for="phonenumber">Lát làm...</label>
     </div>
-</form:form>
+</form:form>--%>
 
 
 <!--<div class="header">

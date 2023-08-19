@@ -8,7 +8,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="container">
-    <a href="<c:url value="/users" />" class="btn btn-info">Quản lý users</a>
+    <a href="<c:url value="/admin/users" />" class="btn btn-info">Quản lý users</a>
     
 <!--    <a href="<c:url value="/restaurantManager/restaurants" />" class="btn btn-info">Quản lý restaurants</a>
     
