@@ -19,8 +19,13 @@
         </div>
 
         <div class="form-floating mb-3 mt-3">
-            <form:input type="text" class="form-control" path="lastname" id="lastname" placeholder="Nhập họ... " name="lastname" />
+            <form:input type="text" class="form-control" path="lastname" id="lastname" placeholder="Nhập tên... " name="lastname" />
             <label for="lastname">Nhập tên...</label>
+        </div>
+
+        <div class="form-floating mb-3 mt-3">
+            <form:input type="number" class="form-control" path="phonenumber" id="phonenumber" placeholder="Nhập số điện thoại... " name="phonenumber" />
+            <label for="phonenumber">Nhập số điện thoại...</label>
         </div>
 
         <c:choose>
@@ -31,16 +36,39 @@
                 </div>
 
                 <div class="form-floating mb-3 mt-3">
-                    <form:input type="text" class="form-control" path="password" id="password" placeholder="Nhập mật khẩu... " name="password" />
+                    <form:input type="password" class="form-control" path="password" id="password" placeholder="Nhập mật khẩu... " name="password" />
                     <label for="password">Nhập mật khẩu... </label>
                 </div>
 
                 <div class="form-floating mb-3 mt-3">
-                    <form:input type="text" class="form-control" path="confirmPassword" id="confirmPassword" placeholder="Nhập lại mật khẩu... " name="confirmPassword" />
+                    <form:input type="password" class="form-control" path="confirmPassword" id="confirmPassword" placeholder="Nhập lại mật khẩu... " name="confirmPassword" />
                     <label for="confirmPassword">Nhập lại mật khẩu... </label>
                 </div>
             </c:when>
+            <c:otherwise>
+                <form:hidden path="password" />
+                <form:hidden path="confirmPassword" />
+                <form:hidden path="userId" />
+                <form:hidden path="avatar" />
+            </c:otherwise>
         </c:choose>
+
+        <div class="form-floating mb-3 mt-3">
+            <form:select class="form-select" id="roles" name="roles" path="roleId">
+                <c:forEach items="${roles}" var="role">
+                    <c:choose>
+                        <c:when test="${role.roleId == user.roleId.roleId}">
+                            <option value="${role.roleId}" selected="${role.roleId}">${role.roleName}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${role.roleId}">${role.roleName}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </form:select>
+
+            <label for="restaurants" class="form-label">Danh mục Roles</label>
+        </div>
 
         <div class="form-floating mb-3 mt-3">
             <form:input type="file" class="form-control" path="file" id="file" name="file" />
@@ -57,10 +85,5 @@
                 </c:otherwise>
             </c:choose>
         </button>
-
-        <form:hidden path="userId" />
-        <form:hidden path="password" />
-        <form:hidden path="confirmPassword" />
-        <form:hidden path="avatar" />
     </form:form>
 </div>

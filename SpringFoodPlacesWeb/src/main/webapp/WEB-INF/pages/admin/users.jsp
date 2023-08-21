@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="<c:url value="/js/user.js" />"></script>
 
 <h1 style="text-align: center">QUẢN LÝ USERS</h1>
 
@@ -64,9 +65,15 @@
                     <td>${user.phonenumber}</td>
                     <td>${user.location}</td>
 
-                    <td>
+<!--                    <td>
                         <a href="<c:url value="/admin/users/${user.userId}" />" class = "btn btn-success">Cập nhật</a>
                         <button class = "btn btn-danger">Xóa nà</button>
+                    </td>-->
+                    
+                    <td>
+                        <c:url value="/api/admin/users/${user.userId}" var="userPathAPI"/>
+                        <a href="<c:url value="/admin/users/${user.userId}" />" class = "btn btn-success">Cập nhật</a>
+                        <button class = "btn btn-danger" onclick="deleteUser('${userPathAPI}', ${user.userId})">Xóa nà</button>
                     </td>
                 </tr>
             </c:forEach>

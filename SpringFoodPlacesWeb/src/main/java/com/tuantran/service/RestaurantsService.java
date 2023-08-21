@@ -21,4 +21,6 @@ public interface RestaurantsService {
     Restaurants getRestaurantById(int id);
 
     boolean deleteRestaurants(int id);
+    
+     int countRestaurants();
 }

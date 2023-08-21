@@ -10,10 +10,12 @@
 <div class="container">
     <a href="<c:url value="/admin/users" />" class="btn btn-info">Quản lý users</a>
     
+    <a href="<c:url value="/admin/restaurants" />" class="btn btn-info">Quản lý restaurants</a>
+
 <!--    <a href="<c:url value="/restaurantManager/restaurants" />" class="btn btn-info">Quản lý restaurants</a>
-    
-    <a href="<c:url value="restaurantManager/restaurants/newRestaurant" />" class="btn btn-info">Quản lý newRestaurant</a>-->
-    
+
+<a href="<c:url value="restaurantManager/restaurants/newRestaurant" />" class="btn btn-info">Quản lý newRestaurant</a>-->
+
     <a href="<c:url value="#" />" class="btn btn-info">Quản lý vân vân và mây mây</a>
-    
+
 </div>

@@ -28,4 +28,6 @@ public interface UsersService extends UserDetailsService {
     boolean registerUser(Users user);
 
     boolean isUsernameExists(String username);
+    
+     boolean deleteUsers(int id);
 }

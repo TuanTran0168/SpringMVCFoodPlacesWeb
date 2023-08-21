@@ -103,6 +103,9 @@ public class UsersController {
                     if (this.usersService.addOrUpdateUsers(user) == true) {
                         return "redirect:/admin/users";
                     }
+                    else {
+                        msg = "OK BUGS";
+                    }
                 }
                 else {
                     msg = "Mật khẩu không khớp";

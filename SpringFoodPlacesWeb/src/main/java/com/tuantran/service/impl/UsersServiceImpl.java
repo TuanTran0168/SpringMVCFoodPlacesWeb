@@ -129,4 +129,9 @@ public class UsersServiceImpl implements UsersService {
         return this.usersRepo.isUsernameExists(username);
     }
 
+    @Override
+    public boolean deleteUsers(int id) {
+        return this.usersRepo.deleteUsers(id);
+    }
+
 }

@@ -147,4 +147,18 @@ public class UsersRepositoryImpl implements UsersRepository {
         return count > 0;
     }
 
+    @Override
+    public boolean deleteUsers(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Users user = this.getUserById(id);
+
+        try {
+            session.delete(user);
+            return true;
+        } catch(HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
 }

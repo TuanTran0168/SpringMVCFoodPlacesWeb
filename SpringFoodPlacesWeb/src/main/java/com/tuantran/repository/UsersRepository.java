@@ -21,4 +21,5 @@ public interface UsersRepository {
     Users getUserByUsername(String username);
     boolean registerUser(Users user);
     boolean isUsernameExists(String username);
+    boolean deleteUsers(int id);
 }
