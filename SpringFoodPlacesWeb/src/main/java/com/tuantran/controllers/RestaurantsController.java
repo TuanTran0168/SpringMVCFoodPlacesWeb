@@ -47,11 +47,12 @@ public class RestaurantsController {
     public String list(Model model, @RequestParam Map<String, String> params) {
 
         int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
-        int countRestaurant = this.restaurantsService.countRestaurants();
+        int countRestaurant = this.restaurantsService.countRestaurants(null);
         model.addAttribute("counter", Math.ceil(countRestaurant * 1.0 / pageSize));
 
         String pageStr = params.get("page");
         String pageAllStr = params.get("pageAll");
+        String confirm = params.get("confirm");
 
         if (pageStr == null) {
 
@@ -95,13 +96,10 @@ public class RestaurantsController {
 
     @GetMapping("/admin/restaurants")
     public String restaurant_admin(Model model, @RequestParam Map<String, String> params) {
-//        model.addAttribute("restaurant_list", this.restaurantsService.getRestaurants(null));
-//        List<String> listConfirm = new ArrayList<>();
-//        listConfirm.add("true");
-//        listConfirm.add("false");
-//        model.addAttribute("listConfirm", listConfirm);
         int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
-        int countRestaurant = this.restaurantsService.countRestaurants();
+        String confirm = params.get("confirm");
+        params.put("confirm", confirm);
+        int countRestaurant = this.restaurantsService.countRestaurants(params);
         model.addAttribute("counter", Math.ceil(countRestaurant * 1.0 / pageSize));
 
         String pageStr = params.get("page");

@@ -48,11 +48,12 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
             List<Predicate> predicates = new ArrayList<>();
 
             String confirm = params.get("confirm");
+
             if (confirm != null && !confirm.isEmpty()) {
                 predicates.add(criteriaBuilder.equal(rootRestaurants.get("confirmationStatus"), Boolean.parseBoolean(confirm)));
-                query.where(predicates.toArray(Predicate[]::new));
             }
 
+            query.where(predicates.toArray(Predicate[]::new));
         }
 
         query.orderBy(criteriaBuilder.asc(rootRestaurants.get("restaurantId")));
@@ -131,11 +132,36 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
 //        return final_query.getResultList();
 //    }
     @Override
-    public int countRestaurants() {
-        Session session = this.factory.getObject().getCurrentSession();
-        Query query = session.createQuery("SELECT Count(*) FROM Restaurants");
+    public int countRestaurants(Map<String, String> params) {
+//        Session session = this.factory.getObject().getCurrentSession();
+//        Query query = session.createQuery("SELECT Count(*) FROM Restaurants");
 
-        return Integer.parseInt(query.getSingleResult().toString());
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
+        Root rootRestaurants = query.from(Restaurants.class);
+        
+        if (params != null) {
+            List<Predicate> predicates = new ArrayList<>();
+
+            String confirm = params.get("confirm");
+
+            if (confirm != null && !confirm.isEmpty()) {
+                if (confirm.equals("true")) {
+                    predicates.add(criteriaBuilder.equal(rootRestaurants.get("confirmationStatus"), Boolean.parseBoolean("true")));
+                }
+                else {
+                    predicates.add(criteriaBuilder.equal(rootRestaurants.get("confirmationStatus"), Boolean.parseBoolean("false")));
+                }
+            }
+
+            query.where(predicates.toArray(Predicate[]::new));
+        }
+        
+        query.select(criteriaBuilder.count(rootRestaurants));
+        
+        
+        return session.createQuery(query).getSingleResult().intValue();
     }
 
 }

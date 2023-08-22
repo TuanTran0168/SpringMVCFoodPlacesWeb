@@ -70,8 +70,8 @@ public class RestaurantsServiceImpl implements RestaurantsService {
     }
 
     @Override
-    public int countRestaurants() {
-        return this.restaurantsRepo.countRestaurants();
+    public int countRestaurants(Map<String, String> params) {
+        return this.restaurantsRepo.countRestaurants(params);
     }
 
 }

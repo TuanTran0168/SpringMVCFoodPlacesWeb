@@ -22,5 +22,5 @@ public interface RestaurantsService {
 
     boolean deleteRestaurants(int id);
     
-     int countRestaurants();
+     int countRestaurants(Map<String, String> params);
 }
