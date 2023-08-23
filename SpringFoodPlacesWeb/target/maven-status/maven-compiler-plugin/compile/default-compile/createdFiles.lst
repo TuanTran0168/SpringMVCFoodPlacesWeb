@@ -9,6 +9,7 @@ com\tuantran\repository\RestaurantStatusRepository.class
 com\tuantran\configs\DispatcherServletInit.class
 com\tuantran\controllers\ShelfLifeController.class
 com\tuantran\pojo\ShelflifeFooditems_.class
+com\tuantran\controllers\RestaurantManagerController.class
 com\tuantran\formatters\RestaurantsStatusFormatter.class
 com\tuantran\repository\impl\RestaurantStatusRepositoryImpl.class
 com\tuantran\repository\impl\RestaurantsRepositoryImpl.class
@@ -47,10 +48,12 @@ com\tuantran\service\RolesService.class
 com\tuantran\configs\SecurityWebApplicationInitializer.class
 com\tuantran\pojo\Restaurants_.class
 com\tuantran\pojo\Notifications.class
+com\tuantran\controllers\ApiShelfLifeController.class
 com\tuantran\configs\WebAppContextConfig.class
 com\tuantran\pojo\Receipts_.class
 com\tuantran\controllers\ApiRestaurantsController.class
 com\tuantran\pojo\RestaurantStatus.class
+com\tuantran\controllers\FoodItemsController.class
 com\tuantran\controllers\ApiCategoryController.class
 com\tuantran\controllers\UsersController.class
 com\tuantran\pojo\Comments_.class
@@ -59,6 +62,7 @@ com\tuantran\repository\RolesRepository.class
 com\tuantran\repository\CategoryFoodRepository.class
 com\tuantran\service\impl\FoodItemsServiceImpl.class
 com\tuantran\pojo\ReceiptStatus.class
+com\tuantran\controllers\ApiFoodItemsController.class
 com\tuantran\pojo\Users_.class
 com\tuantran\pojo\Chatmessages.class
 com\tuantran\pojo\ShelflifeFooditems.class
