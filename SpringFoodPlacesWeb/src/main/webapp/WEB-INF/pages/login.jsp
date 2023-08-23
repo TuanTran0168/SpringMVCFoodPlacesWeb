@@ -26,8 +26,21 @@
         <input type="text" class="form-control" id="password" placeholder="Nhập password" name="password">
         <label for="password">Nhập mật khẩu</label>
     </div>
-    
+
     <div class="form-floating mt-3 mb-3">
         <input type="submit" value="Đăng nhập" class="btn btn-danger">
     </div>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId());
+            console.log("Name: " + profile.getName());
+            console.log("Image URL: " + profile.getImageUrl());
+            console.log("Email: " + profile.getEmail());
+        }
+    </script>
 </form>
+
+
+

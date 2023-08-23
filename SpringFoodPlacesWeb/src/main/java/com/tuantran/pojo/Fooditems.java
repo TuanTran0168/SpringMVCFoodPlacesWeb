@@ -4,6 +4,7 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
@@ -66,15 +67,20 @@ public class Fooditems implements Serializable {
     @Column(name = "active")
     private Boolean active;
     @OneToMany(mappedBy = "foodId")
+    @JsonIgnore
     private Set<CategoriesfoodFooditems> categoriesfoodFooditemsSet;
     @OneToMany(mappedBy = "foodId")
+    @JsonIgnore
     private Set<Comments> commentsSet;
     @OneToMany(mappedBy = "fooditemId")
+    @JsonIgnore
     private Set<ReceiptDetail> receiptDetailSet;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
+    @JsonIgnore
     private Restaurants restaurantId;
     @OneToMany(mappedBy = "foodId")
+    @JsonIgnore
     private Set<ShelflifeFooditems> shelflifeFooditemsSet;
     @Transient
     private MultipartFile file;

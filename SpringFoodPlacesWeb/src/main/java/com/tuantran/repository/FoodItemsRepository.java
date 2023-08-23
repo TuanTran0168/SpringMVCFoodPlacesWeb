@@ -17,5 +17,6 @@ public interface FoodItemsRepository {
     boolean addOrUpdateFoodItem(Fooditems foodItem);
     Fooditems getFoodItemById(int id);
     boolean delFoodItem(int id);
+    List<Fooditems> getAllFoodItem();
     
 }

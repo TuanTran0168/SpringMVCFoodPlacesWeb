@@ -36,12 +36,13 @@
                     
                     <td>
                         <a href="<c:url value="/restaurantManager/shelfLife/newShelfLife/${s.shelflifeId}" />" class = "btn btn-success">Cập nhật</a>
-                        <c:url value="#" var="apiDel" />
-                        <button class = "btn btn-danger" onclick="delCate('${apiDel}', ${c.categoryfoodId})">Xóa</button>
+                        <c:url value="/api/restaurantManager/shelfLife/newShelfLife/${s.shelflifeId}" var="apiDel" />
+                        <button class = "btn btn-danger" onclick="deleteShelfLife('${apiDel}', ${s.shelflifeId})">Xóa</button>
                     </td>
                 </tr>
-            </tbody> 
+            </tbody>
         </c:forEach>
     </table>
 </section>
+<script src="<c:url value="/js/shelfLife.js" />"></script>
 

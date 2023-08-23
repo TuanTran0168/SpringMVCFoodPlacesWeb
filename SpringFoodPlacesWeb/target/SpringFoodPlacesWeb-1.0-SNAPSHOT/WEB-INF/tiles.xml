@@ -85,6 +85,18 @@
                        value="/WEB-INF/pages/restaurantManager/restaurantManager.jsp" />
     </definition>
     
+    <definition name="indexFoodItems" extends="baseLayout">
+        <put-attribute name="title" value="Index Food Items" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/restaurantManager/foodItems.jsp" />
+    </definition>
+    
+    <definition name="newFoodItems" extends="baseLayout">
+        <put-attribute name="title" value="Index Food Items" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/restaurantManager/newFoodItems.jsp" />
+       </definition>
+  
     <definition name="newUser" extends="baseLayout">
         <put-attribute name="title" value="Quản lý User" />
         <put-attribute name="content"
