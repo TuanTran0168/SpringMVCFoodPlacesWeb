@@ -16,19 +16,24 @@
             <ul class="navbar-nav me-auto">
 
                 <li class="nav-item">
+                    <c:url value="/" var = "action" />
                     <a class="nav-link" href="${action}">Trang chủ</a>
                 </li>
 
-                <c:forEach items="${roles}" var = "role">
+                <c:choose>
+                    <c:when test="${pageContext.request.isUserInRole('ROLE_Admin')}">
+                        <c:forEach items="${roles}" var = "role">
 
-                    <c:url value="/" var = "rolesAction">
-                        <c:param name="roleId" value="${role.roleId}" />
-                    </c:url>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${rolesAction}">${role.roleId} -  ${role.roleName}</a>
-                    </li>
+                            <c:url value="/" var = "rolesAction">
+                                <c:param name="roleId" value="${role.roleId}" />
+                            </c:url>
+                            <li class="nav-item">
+                                <a class="nav-link" href="${rolesAction}">${role.roleId} -  ${role.roleName}</a>
+                            </li>
 
-                </c:forEach>
+                        </c:forEach>
+                    </c:when>
+                </c:choose>
 
                 <c:choose>
                     <c:when test="${pageContext.request.userPrincipal.name != null}">
@@ -49,13 +54,20 @@
                     </c:otherwise>
                 </c:choose>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/admin" />">Admin</a>
-                </li>
+                <c:choose>
+                    <c:when test="${pageContext.request.isUserInRole('ROLE_Admin')}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/admin" />">Admin</a>
+                        </li>
+                    </c:when>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/restaurantManager" />">restaurantManager</a>
-                </li>
+                    <c:when test="${pageContext.request.isUserInRole('ROLE_RestaurantManager')}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/restaurantManager" />">restaurantManager</a>
+                        </li>
+                    </c:when>
+                </c:choose>
+
 
             </ul>
             <form class="d-flex" action="${action}">

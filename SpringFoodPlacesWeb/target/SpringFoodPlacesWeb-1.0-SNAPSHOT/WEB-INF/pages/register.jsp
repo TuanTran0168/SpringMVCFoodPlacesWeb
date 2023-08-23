@@ -11,6 +11,7 @@
 <link rel="stylesheet" href=" <c:url value="/css/register.css" /> "/>
 
 <div class="header">
+   
     <div class="header-main">
         <h1>ĐĂNG KÝ LẸ :)</h1>
         <div class="header-bottom">
@@ -24,9 +25,9 @@
                         
                         <form:input type="text" class="form-control" path="username" id="username" placeholder="Nhập tên đăng nhập... " name="username" />
 
-                        <form:input type="text" class="form-control" path="password" id="password" placeholder="Nhập mật khẩu... " name="password" />
+                        <form:input type="password" class="form-control" path="password" id="password" placeholder="Nhập mật khẩu... " name="password" />
 
-                        <form:input type="text" class="form-control" path="confirmPassword" id="confirmPassword" placeholder="Xác nhận mật khẩu... " name="confirmPassword" />
+                        <form:input type="password" class="form-control" path="confirmPassword" id="confirmPassword" placeholder="Xác nhận mật khẩu... " name="confirmPassword" />
 
                         <form:input type="text" class="form-control" path="phonenumber" id="phonenumber" placeholder="Nhập số điện thoại... " name="phonenumber" />
 

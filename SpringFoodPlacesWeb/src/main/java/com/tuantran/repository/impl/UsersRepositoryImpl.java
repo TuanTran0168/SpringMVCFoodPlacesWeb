@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -132,6 +133,29 @@ public class UsersRepositoryImpl implements UsersRepository {
             session.save(user);
             return true;
         } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean isUsernameExists(String username) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Query query = session.createQuery("SELECT COUNT(*) FROM Users WHERE username = :username");
+        query.setParameter("username", username);
+        long count = (long) query.getSingleResult();
+        return count > 0;
+    }
+
+    @Override
+    public boolean deleteUsers(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Users user = this.getUserById(id);
+
+        try {
+            session.delete(user);
+            return true;
+        } catch(HibernateException ex) {
             ex.printStackTrace();
             return false;
         }

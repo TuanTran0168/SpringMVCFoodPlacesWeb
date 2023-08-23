@@ -95,6 +95,24 @@
         <put-attribute name="title" value="Index Food Items" />
         <put-attribute name="content"
                        value="/WEB-INF/pages/restaurantManager/newFoodItems.jsp" />
+       </definition>
+  
+    <definition name="newUser" extends="baseLayout">
+        <put-attribute name="title" value="Quản lý User" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/admin/newUser.jsp" />
+    </definition>
+    
+    <definition name="restaurants" extends="baseLayout">
+        <put-attribute name="title" value="QUẢN LÝ NHÀ HÀNG" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/admin/restaurants.jsp" />
+    </definition>
+    
+    <definition name="newRestaurant" extends="baseLayout">
+        <put-attribute name="title" value="ADMIN" />
+        <put-attribute name="content"
+                       value="/WEB-INF/pages/admin/newRestaurant.jsp" />
     </definition>
     
 </tiles-definitions>

@@ -4,7 +4,7 @@
  */
 package com.tuantran.controllers;
 
-import com.tuantran.service.RestaurantsService;
+import com.tuantran.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,20 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class ApiRestaurantsController {
-    
+public class ApiUsersController {
     @Autowired
-    private RestaurantsService restaurantsService;
+    private UsersService usersService;
     
-    @DeleteMapping("/restaurantManager/restaurants/{restaurantId}")
+    @DeleteMapping("/admin/users/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable(value = "restaurantId") int id) {
-        this.restaurantsService.deleteRestaurants(id);
-    }
-    
-    @DeleteMapping("/admin/restaurants/{restaurantId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete_admin(@PathVariable(value = "restaurantId") int id) {
-        this.restaurantsService.deleteRestaurants(id);
+    public void delete(@PathVariable(value = "userId") int id) {
+        this.usersService.deleteUsers(id);
     }
 }

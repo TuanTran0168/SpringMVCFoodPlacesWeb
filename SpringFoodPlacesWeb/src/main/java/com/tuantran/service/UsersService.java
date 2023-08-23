@@ -24,6 +24,10 @@ public interface UsersService extends UserDetailsService {
     boolean addOrUpdateUsers(Users user);
 
     Users getUserById(int id);
-    
+
     boolean registerUser(Users user);
+
+    boolean isUsernameExists(String username);
+    
+     boolean deleteUsers(int id);
 }

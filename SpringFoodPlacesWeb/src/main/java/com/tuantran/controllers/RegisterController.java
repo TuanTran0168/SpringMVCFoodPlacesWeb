@@ -32,7 +32,7 @@ public class RegisterController {
         model.addAttribute("user", new Users());
         return "register";
     }
-    
+
     @InitBinder("Users")
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields("username", "password", "confirmPassword", "phonenumber");

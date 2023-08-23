@@ -69,4 +69,9 @@ public class RestaurantsServiceImpl implements RestaurantsService {
         return this.restaurantsRepo.deleteRestaurants(id);
     }
 
+    @Override
+    public int countRestaurants(Map<String, String> params) {
+        return this.restaurantsRepo.countRestaurants(params);
+    }
+
 }

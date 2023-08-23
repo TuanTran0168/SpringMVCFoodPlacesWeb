@@ -10,6 +10,12 @@
 
 <c:url value="/login" var="action" />
 
+<c:if test="${param.accessDenied != null}">
+    <div>
+        Không có quyền nha bé
+    </div>
+</c:if>
+
 <form class="container" method="post" action="${action}">
     <div class="form-floating mb-3 mt-3">
         <input type="text" class="form-control" id="username" placeholder="Nhập username" name="username">

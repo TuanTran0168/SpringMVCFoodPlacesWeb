@@ -47,37 +47,28 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
         if (params != null) {
             List<Predicate> predicates = new ArrayList<>();
 
-//            String keyword = params.get("keyword");
-//            if (keyword != null && !keyword.isEmpty()) {
-//                predicates.add(criteriaBuilder.or(
-//                        criteriaBuilder.like(rootUsers.get("firstname"), String.format("%%%s%%", keyword)),
-//                        criteriaBuilder.like(rootUsers.get("lastname"), String.format("%%%s%%", keyword)))
-//                );
-//            }
-//
-//            String roleId = params.get("roleId");
-//            if (roleId != null && !roleId.isEmpty()) {
-//                // Chỗ này ảo ma :) không parse về Int là bugs ???
-//                // Mà á parse về Int thì IDE nó báo không cần thiết ???
-//                predicates.add(criteriaBuilder.equal(rootUsers.get("roleId"), Integer.parseInt(roleId)));
-//            }
-            query.where(predicates.toArray(Predicate[]::new));
+            String confirm = params.get("confirm");
 
+            if (confirm != null && !confirm.isEmpty()) {
+                predicates.add(criteriaBuilder.equal(rootRestaurants.get("confirmationStatus"), Boolean.parseBoolean(confirm)));
+            }
+
+            query.where(predicates.toArray(Predicate[]::new));
         }
 
         query.orderBy(criteriaBuilder.asc(rootRestaurants.get("restaurantId")));
         Query final_query = session.createQuery(query);
 
-//        if (params != null) {
-//            String pageStr = params.get("page");
-//            if (pageStr != null && !pageStr.isEmpty()) {
-//                int pageInt = Integer.parseInt(pageStr);
-//                int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
-//
-//                final_query.setMaxResults(pageSize);
-//                final_query.setFirstResult((pageInt - 1) * pageSize);
-//            }
-//        }
+        if (params != null) {
+            String pageStr = params.get("page");
+            if (pageStr != null && !pageStr.isEmpty()) {
+                int pageInt = Integer.parseInt(pageStr);
+                int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
+
+                final_query.setMaxResults(pageSize);
+                final_query.setFirstResult((pageInt - 1) * pageSize);
+            }
+        }
         return final_query.getResultList();
     }
 
@@ -112,10 +103,65 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
         try {
             session.delete(restaurants);
             return true;
-        } catch(HibernateException ex) {
+        } catch (HibernateException ex) {
             ex.printStackTrace();
             return false;
         }
+    }
+
+//    @Override
+//    public List<Object[]> getRestaurantsNotConfirm(Map<String, String> params) {
+//        Session session = this.factory.getObject().getCurrentSession();
+//        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+//        CriteriaQuery<Restaurants> query = criteriaBuilder.createQuery(Restaurants.class);
+//        Root rootRestaurants = query.from(Restaurants.class);
+//
+//        query.select(rootRestaurants);
+//        
+//        if (params != null) {
+//            List<Predicate> predicates = new ArrayList<>();
+//            predicates.add(criteriaBuilder.equal(rootRestaurants.get("confirmationStatus"), false));
+//            
+//            
+//             query.where(predicates.toArray(Predicate[]::new));
+//        }
+//
+//        query.orderBy(criteriaBuilder.asc(rootRestaurants.get("restaurantId")));
+//        Query final_query = session.createQuery(query);
+//
+//        return final_query.getResultList();
+//    }
+    @Override
+    public int countRestaurants(Map<String, String> params) {
+//        Session session = this.factory.getObject().getCurrentSession();
+//        Query query = session.createQuery("SELECT Count(*) FROM Restaurants");
+
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
+        Root rootRestaurants = query.from(Restaurants.class);
+        
+        if (params != null) {
+            List<Predicate> predicates = new ArrayList<>();
+
+            String confirm = params.get("confirm");
+
+            if (confirm != null && !confirm.isEmpty()) {
+                if (confirm.equals("true")) {
+                    predicates.add(criteriaBuilder.equal(rootRestaurants.get("confirmationStatus"), Boolean.parseBoolean("true")));
+                }
+                else {
+                    predicates.add(criteriaBuilder.equal(rootRestaurants.get("confirmationStatus"), Boolean.parseBoolean("false")));
+                }
+            }
+
+            query.where(predicates.toArray(Predicate[]::new));
+        }
+        
+        query.select(criteriaBuilder.count(rootRestaurants));
+        
+        
+        return session.createQuery(query).getSingleResult().intValue();
     }
 
 }
