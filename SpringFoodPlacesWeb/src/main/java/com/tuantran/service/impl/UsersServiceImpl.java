@@ -46,7 +46,7 @@ public class UsersServiceImpl implements UsersService {
 //        return this.usersRepo.getUsers();
 //    }
     @Override
-    public List<Object[]> getUsers(Map<String, String> params) {
+    public List<Users> getUsers(Map<String, String> params) {
         return this.usersRepo.getUsers(params);
     }
 
@@ -132,6 +132,11 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean deleteUsers(int id) {
         return this.usersRepo.deleteUsers(id);
+    }
+
+    @Override
+    public Users getUserByUsername_new(String username) {
+        return this.usersRepo.getUserByUsername_new(username);
     }
 
 }

@@ -7,9 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<link rel="stylesheet" href=" <c:url value="/css/newRestaurant.css" /> "/>
+<script src="<c:url value="/js/restaurants.js" />"></script>
+
 <h1 style="text-align: center">QUẢN LÝ NHÀ HÀNG</h1>
-<h1>${restaurantStatus_list[1].statusId}</h1>
-<h1>${restaurantStatus_list[1].restaurantStatus}</h1>
 
 <div class="container">
 
@@ -34,6 +35,48 @@
         <div class="form-floating mb-3 mt-3">
             <form:input type="file" class="form-control" path="file" id="file" name="file" />
             <label for="file">Avatar</label>
+        </div>
+
+        <div class="form-floating mb-3 mt-3">
+            <form:select class="form-select" id="restaurants" name="restaurants" path="confirmationStatus">
+                <option value="true" selected="true">True</option>
+                <option value="false" selected="false">False</option>
+            </form:select>
+
+            <label for="restaurants" class="form-label">Confirm?</label>
+        </div>
+
+
+        <div class="form-floating mb-3 mt-3" style="display: flex">
+            <!--            <div>
+            <form:select class="form-select" id="restaurants" name="restaurants" path="userId">
+                <c:forEach items="${user_list}" var="user">
+                    <c:choose>
+                        <c:when test="${user.userId == restaurant.userId.userId}">
+                            <option value="${user.userId}" selected="${user.userId}">${user.userId} - ${user.lastname}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${user.userId}">${user.userId} - ${user.lastname}</option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </form:select>
+
+            <label for="restaurants" class="form-label">Danh mục Users</label>
+        </div>-->
+
+            <div>
+                <!-- <form:input type="text" class="form-control" path="userId" id="search_userId" name="search_userId"  /> -->
+                <input type="text" class="form-control" path="userId" id="search_userId" name="search_userId" />
+                <ul id="suggest">
+
+                </ul>
+            </div>
+
+            <div class="form-floating mb-3 mt-3">
+                <form:input path="userId" id="load_userId_js" />
+                
+            </div>
         </div>
 
         <div class="form-floating mb-3 mt-3">

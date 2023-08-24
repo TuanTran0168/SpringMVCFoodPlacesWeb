@@ -8,6 +8,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.tuantran.formatters.RestaurantsStatusFormatter;
 import com.tuantran.formatters.RolesFormatter;
+import com.tuantran.formatters.UsersFormatter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new RolesFormatter());
         registry.addFormatter(new RestaurantsStatusFormatter());
+        registry.addFormatter(new UsersFormatter());
     }
 
     @Override

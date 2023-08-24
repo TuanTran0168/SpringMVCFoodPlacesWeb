@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">WEB CỦA TUI</a>
@@ -38,7 +39,10 @@
                 <c:choose>
                     <c:when test="${pageContext.request.userPrincipal.name != null}">
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/" />">${pageContext.request.userPrincipal.name}</a>
+                            <a class="nav-link" href="<c:url value="/" />">${pageContext.request.userPrincipal.principal.username}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<c:url value="/" />">${pageContext.request.userPrincipal.principal.authorities}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<c:url value="/logout" />">Đăng xuất nè</a>

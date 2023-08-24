@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface UsersRepository {
 
-    List<Object[]> getUsers(Map<String, String> params);
+    List<Users> getUsers(Map<String, String> params);
     int countUsers();
     boolean addOrUpdateUsers(Users user);
     Users getUserById(int id);
@@ -22,4 +22,5 @@ public interface UsersRepository {
     boolean registerUser(Users user);
     boolean isUsernameExists(String username);
     boolean deleteUsers(int id);
+    Users getUserByUsername_new(String username);
 }

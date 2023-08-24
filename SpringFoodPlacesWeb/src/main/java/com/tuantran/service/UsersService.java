@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UsersService extends UserDetailsService {
 
-    List<Object[]> getUsers(Map<String, String> params);
+    List<Users> getUsers(Map<String, String> params);
 
     int countUsers();
 
@@ -28,6 +28,8 @@ public interface UsersService extends UserDetailsService {
     boolean registerUser(Users user);
 
     boolean isUsernameExists(String username);
-    
-     boolean deleteUsers(int id);
+
+    boolean deleteUsers(int id);
+
+    Users getUserByUsername_new(String username);
 }

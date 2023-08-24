@@ -16,22 +16,66 @@
     <div>
         <a href="restaurants/newRestaurant" class = "btn btn-success"> Thêm restaurants </a>
     </div>
+    
+    <div>
+        ALO
+        ${role}
+        ALO
+    </div>
 
     <c:if test="${counter > 1}">
         <ul class="pagination mt-1">
-            <c:url value="/" var="pageAction">
+            <c:url value="/restaurantManager/restaurants" var="pageAction">
                 <c:param name="pageAll"></c:param>
             </c:url>
-            <li class="page-item"><a class="page-link" href="${pageAction}">Tất cả user</a></li>
+            <li class="page-item"><a class="page-link" href="${pageAction}">Tất cả restaurants</a></li>
 
-            <c:forEach begin="1" end="${counter}" var = "i">
-                <c:url value="/" var="pageAction">
-                    <c:param name="page" value="${i}"></c:param>
-                </c:url>
-                <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
-                </c:forEach>
+            <c:choose>
+                <c:when test="${param.confirm eq 'false'}">
+                    <c:forEach begin="1" end="${counter}" var = "i">
+                        <c:url value="/restaurantManager/restaurants" var="pageAction">
+                            <c:param name="confirm" value="false" />
+                            <c:param name="page" value="${i}"></c:param>
+
+                        </c:url>
+                        <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+                        </c:forEach>
+                    </c:when>
+
+                <c:when test="${param.confirm eq 'true'}">
+                    <c:forEach begin="1" end="${counter}" var = "i">
+                        <c:url value="/restaurantManager/restaurants" var="pageAction">
+                            <c:param name="confirm" value="true" />
+                            <c:param name="page" value="${i}"></c:param>
+
+                        </c:url>
+                        <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach begin="1" end="${counter}" var = "i">
+                            <c:url value="/restaurantManager/restaurants" var="pageAction">
+                                <c:param name="page" value="${i}"></c:param>
+                            </c:url>
+                        <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
         </ul>
     </c:if>
+
+    <div>
+        <h3>Lọc theo confirm</h3>
+        <c:url value="/restaurantManager/restaurants" var="confirmAction">
+            <c:param name="confirm" value="true"></c:param>
+        </c:url>
+        <a class = "btn btn-success" href="${confirmAction}">TRUE</a>
+
+        <c:url value="/restaurantManager/restaurants" var="confirmAction">
+            <c:param name="confirm" value="false"></c:param>
+        </c:url>
+        <a class = "btn btn-success" href="${confirmAction}">FALSE</a>
+    </div>
     <table class="table table-hover container">
         <thead>
             <tr>

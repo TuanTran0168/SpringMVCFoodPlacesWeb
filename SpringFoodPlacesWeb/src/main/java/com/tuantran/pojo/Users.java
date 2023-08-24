@@ -4,6 +4,7 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -73,19 +74,25 @@ public class Users implements Serializable {
     private String location;
     @Column(name = "active")
     private Boolean active;
+    @JsonIgnore
     @OneToMany(mappedBy = "senderId")
     private Set<Chatmessages> chatmessagesSet;
+    @JsonIgnore
     @OneToMany(mappedBy = "receiverId")
     private Set<Chatmessages> chatmessagesSet1;
+    @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<Comments> commentsSet;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     @ManyToOne
     private Roles roleId;
+    @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<Receipts> receiptsSet;
+    @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<Restaurants> restaurantsSet;
+    @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<Notifications> notificationsSet;
 
@@ -121,6 +128,10 @@ public class Users implements Serializable {
     }
 
     public Users() {
+    }
+    
+    public Users(Integer userId) {
+        this.userId = userId;
     }
 
     public Integer getUserId() {

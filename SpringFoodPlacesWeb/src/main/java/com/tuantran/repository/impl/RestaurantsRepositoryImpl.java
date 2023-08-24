@@ -48,9 +48,13 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
             List<Predicate> predicates = new ArrayList<>();
 
             String confirm = params.get("confirm");
-
             if (confirm != null && !confirm.isEmpty()) {
                 predicates.add(criteriaBuilder.equal(rootRestaurants.get("confirmationStatus"), Boolean.parseBoolean(confirm)));
+            }
+            
+            String userId = params.get("current_user_UserId");
+            if (userId != null && !userId.isEmpty()) {
+                predicates.add(criteriaBuilder.equal(rootRestaurants.get("userId"), Integer.parseInt(userId)));
             }
 
             query.where(predicates.toArray(Predicate[]::new));
@@ -153,6 +157,12 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
                 else {
                     predicates.add(criteriaBuilder.equal(rootRestaurants.get("confirmationStatus"), Boolean.parseBoolean("false")));
                 }
+            }
+            
+            String userId = params.get("current_user_UserId");
+
+            if (userId != null && !userId.isEmpty()) {
+                predicates.add(criteriaBuilder.equal(rootRestaurants.get("userId"), Integer.parseInt(userId)));
             }
 
             query.where(predicates.toArray(Predicate[]::new));
