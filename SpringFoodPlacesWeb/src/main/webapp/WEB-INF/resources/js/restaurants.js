@@ -134,7 +134,7 @@ $(document).ready(async function () {
         for (let d of user)
             if (d.firstname !== null || d.lastname !== null) {
                 if (d.firstname.search(t) >= 0 || d.lastname.search(t) >= 0)
-                    h += `<li ><a id=${d.userId} href="javascript:;">${d.firstname} - ${d.lastname}</a></li>`;
+                    h += `<option><a id=${d.userId} href="javascript:;">${d.firstname} - ${d.lastname}</a></option>`;
             }
 
         $("#suggest").html(h);

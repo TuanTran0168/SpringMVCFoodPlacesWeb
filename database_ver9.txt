@@ -27,8 +27,11 @@ DROP TABLE IF EXISTS `categories_food`;
 CREATE TABLE `categories_food` (
   `categoryfood_id` int NOT NULL AUTO_INCREMENT,
   `categoryname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`categoryfood_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `restaurant_id` int DEFAULT NULL,
+  PRIMARY KEY (`categoryfood_id`),
+  KEY `restaurant_id` (`restaurant_id`),
+  CONSTRAINT `categories_food_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,35 +40,8 @@ CREATE TABLE `categories_food` (
 
 LOCK TABLES `categories_food` WRITE;
 /*!40000 ALTER TABLE `categories_food` DISABLE KEYS */;
+INSERT INTO `categories_food` VALUES (1,'MÃ³n máº·n',NULL),(2,'123',NULL),(3,'MÃ³n nháº¡t',NULL);
 /*!40000 ALTER TABLE `categories_food` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `categoriesfood_fooditems`
---
-
-DROP TABLE IF EXISTS `categoriesfood_fooditems`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `categoriesfood_fooditems` (
-  `categoriesfood_fooditems_id` int NOT NULL AUTO_INCREMENT,
-  `categoryfood_id` int DEFAULT NULL,
-  `food_id` int DEFAULT NULL,
-  PRIMARY KEY (`categoriesfood_fooditems_id`),
-  KEY `categoryfood_id` (`categoryfood_id`),
-  KEY `food_id` (`food_id`),
-  CONSTRAINT `categoriesfood_fooditems_ibfk_1` FOREIGN KEY (`categoryfood_id`) REFERENCES `categories_food` (`categoryfood_id`),
-  CONSTRAINT `categoriesfood_fooditems_ibfk_2` FOREIGN KEY (`food_id`) REFERENCES `fooditems` (`food_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `categoriesfood_fooditems`
---
-
-LOCK TABLES `categoriesfood_fooditems` WRITE;
-/*!40000 ALTER TABLE `categoriesfood_fooditems` DISABLE KEYS */;
-/*!40000 ALTER TABLE `categoriesfood_fooditems` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -144,15 +120,21 @@ CREATE TABLE `fooditems` (
   `food_id` int NOT NULL AUTO_INCREMENT,
   `food_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `categoryfood_id` int DEFAULT NULL,
+  `shelflife_id` int DEFAULT NULL,
   `restaurant_id` int DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
   `available` tinyint(1) DEFAULT '1',
-  `food_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `active` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`food_id`),
+  KEY `categoryfood_id` (`categoryfood_id`),
+  KEY `shelflife_id` (`shelflife_id`),
   KEY `restaurant_id` (`restaurant_id`),
-  CONSTRAINT `fooditems_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  CONSTRAINT `fooditems_ibfk_1` FOREIGN KEY (`categoryfood_id`) REFERENCES `categories_food` (`categoryfood_id`),
+  CONSTRAINT `fooditems_ibfk_2` FOREIGN KEY (`shelflife_id`) REFERENCES `shelf_life` (`shelflife_id`),
+  CONSTRAINT `fooditems_ibfk_3` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,6 +143,7 @@ CREATE TABLE `fooditems` (
 
 LOCK TABLES `fooditems` WRITE;
 /*!40000 ALTER TABLE `fooditems` DISABLE KEYS */;
+INSERT INTO `fooditems` VALUES (1,'123','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,2,NULL,123.00,1,'123',NULL);
 /*!40000 ALTER TABLE `fooditems` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -331,7 +314,7 @@ CREATE TABLE `restaurants` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `restaurants_ibfk_1` FOREIGN KEY (`restaurant_status`) REFERENCES `restaurant_status` (`status_id`),
   CONSTRAINT `restaurants_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,7 +323,7 @@ CREATE TABLE `restaurants` (
 
 LOCK TABLES `restaurants` WRITE;
 /*!40000 ALTER TABLE `restaurants` DISABLE KEYS */;
-INSERT INTO `restaurants` VALUES (1,'Đại học Mở','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',1,1,1),(2,'Đại học Mở 1','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',2,1,1),(3,'Đại học Mở 2','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',3,1,1),(4,'Đại học Mở 3','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',4,1,1),(5,'Đại học Mở 4','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',3,1,1),(6,'Đại học Mở 5','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',3,1,1),(7,'Đại học Mở 5','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',4,1,1),(8,'M3','https://res.cloudinary.com/dhwuwy0to/image/upload/v1691983010/ocuiwekxtv4k2n1qr95m.png','371 NK',NULL,'OK BABY',NULL,1,NULL);
+INSERT INTO `restaurants` VALUES (1,'Đại học Mở','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',1,1,1),(2,'Đại học Mở 1','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',2,1,1),(3,'Đại học Mở 2','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',3,1,1),(4,'Đại học Mở 3','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',4,1,1),(5,'Đại học Mở 4','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',3,1,1),(6,'Đại học Mở 5','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',3,1,1),(7,'Đại học Mở 5','https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg','HCM',1,'Chưa có',4,1,1);
 /*!40000 ALTER TABLE `restaurants` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +347,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'Admin'),(2,'RestaurantManager'),(3,'User');
+INSERT INTO `roles` VALUES (1,'ROLE_Admin'),(2,'ROLE_RestaurantManager'),(3,'ROLE_User');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -380,8 +363,11 @@ CREATE TABLE `shelf_life` (
   `shelflife_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `from_date` date DEFAULT NULL,
   `to_date` date DEFAULT NULL,
-  PRIMARY KEY (`shelflife_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `restaurant_id` int DEFAULT NULL,
+  PRIMARY KEY (`shelflife_id`),
+  KEY `restaurant_id` (`restaurant_id`),
+  CONSTRAINT `shelf_life_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,35 +376,8 @@ CREATE TABLE `shelf_life` (
 
 LOCK TABLES `shelf_life` WRITE;
 /*!40000 ALTER TABLE `shelf_life` DISABLE KEYS */;
+INSERT INTO `shelf_life` VALUES (1,'sdfdf','1111-11-11','1111-11-11',NULL),(2,'222','0022-02-22','0022-02-22',NULL);
 /*!40000 ALTER TABLE `shelf_life` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `shelflife_fooditems`
---
-
-DROP TABLE IF EXISTS `shelflife_fooditems`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `shelflife_fooditems` (
-  `shelflife_fooditems_id` int NOT NULL AUTO_INCREMENT,
-  `shelflife_id` int DEFAULT NULL,
-  `food_id` int DEFAULT NULL,
-  PRIMARY KEY (`shelflife_fooditems_id`),
-  KEY `shelflife_id` (`shelflife_id`),
-  KEY `food_id` (`food_id`),
-  CONSTRAINT `shelflife_fooditems_ibfk_1` FOREIGN KEY (`shelflife_id`) REFERENCES `shelf_life` (`shelflife_id`),
-  CONSTRAINT `shelflife_fooditems_ibfk_2` FOREIGN KEY (`food_id`) REFERENCES `fooditems` (`food_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `shelflife_fooditems`
---
-
-LOCK TABLES `shelflife_fooditems` WRITE;
-/*!40000 ALTER TABLE `shelflife_fooditems` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shelflife_fooditems` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -443,7 +402,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `username` (`username`),
   KEY `role_id` (`role_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -452,7 +411,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Trần Đăng ','Tuấn','0123','tuan','$2a$12$2DOmWbQRqqULw3PqmjacPO22EbCOgTLmrbW6FmWbv1/KzASdsnpnq',1,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(2,'Nguyễn Minh','Hiếu','0124','hieu','1',1,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','BD',1),(3,'Trương Nguyễn Minh','Thái','0125','thai','$2a$12$2DOmWbQRqqULw3PqmjacPO22EbCOgTLmrbW6FmWbv1/KzASdsnpnq',2,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','QN',1),(4,'Dương Hữu','Thành','0126','thanh','$2a$12$2DOmWbQRqqULw3PqmjacPO22EbCOgTLmrbW6FmWbv1/KzASdsnpnq',2,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(5,'Dương Hữu','Thành','0126','thanh1','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(6,'Dương Hữu','Thành','0126','thanh2','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(7,'Dương Hữu','Thành','0126','thanh3','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(8,'Dương Hữu','Thành','0126','thanh4','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(9,'Dương Hữu','Thành','0126','thanh5','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(10,'Dương Hữu','Thành','0126','thanh6','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(11,NULL,NULL,'1','liu','1',NULL,NULL,NULL,NULL),(12,NULL,NULL,'','','',NULL,NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,'Trần Đăng ','Tuấn','0123','tuan','$2a$12$2DOmWbQRqqULw3PqmjacPO22EbCOgTLmrbW6FmWbv1/KzASdsnpnq',1,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(2,'Nguyễn Minh','Hiếu','0124','hieu','$2a$12$2DOmWbQRqqULw3PqmjacPO22EbCOgTLmrbW6FmWbv1/KzASdsnpnq',1,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','BD',1),(3,'Trương Nguyễn Minh','Thái','0125','thai','$2a$12$2DOmWbQRqqULw3PqmjacPO22EbCOgTLmrbW6FmWbv1/KzASdsnpnq',2,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','QN',1),(4,'Dương Hữu','Thành','0126','thanh','$2a$12$2DOmWbQRqqULw3PqmjacPO22EbCOgTLmrbW6FmWbv1/KzASdsnpnq',2,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(5,'Dương Hữu','Thành','0126','thanh1','$2a$12$2DOmWbQRqqULw3PqmjacPO22EbCOgTLmrbW6FmWbv1/KzASdsnpnq',2,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(6,'Dương Hữu','Thành','0126','thanh2','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(7,'Dương Hữu','Thành','0126','thanh3','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(8,'Dương Hữu','Thành','0126','thanh4','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(9,'Dương Hữu','Thành','0126','thanh5','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(10,'Dương Hữu','Thành','0126','thanh6','1',3,'http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Vinh_2.jpg','HCM',1),(11,NULL,NULL,'123','test','$2a$10$lwVzdj/F3vtJG9AyPr6XkurQnYPzzLwfeA6hO56pA3sC6xMIZoSD6',3,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -465,4 +424,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-14 10:42:50
+-- Dump completed on 2023-08-26 15:25:58

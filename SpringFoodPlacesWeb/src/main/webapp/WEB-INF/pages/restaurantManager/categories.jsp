@@ -20,6 +20,7 @@
             <tr>
                 <th>Category Id</th>
                 <th>Category Name</th>
+                <th>id nha hang</th>
                 <hr>
             </tr>
         </thead>
@@ -29,6 +30,7 @@
             <tr>
                 <td>${c.categoryfoodId}</td>
                 <td>${c.categoryname}</td>
+                <td>${c.restaurantId}</td>
                 <td>
                         <a href="<c:url value="/restaurantManager/categoriesFood/newCategoriesFood/${c.categoryfoodId}" />" class = "btn btn-success">Cập nhật</a>
                         <c:url value="/api/restaurantManager/categoriesFood/newCategoriesFood/${c.categoryfoodId}" var="apiDel" />

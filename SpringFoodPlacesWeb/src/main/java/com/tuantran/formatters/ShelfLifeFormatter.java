@@ -4,23 +4,23 @@
  */
 package com.tuantran.formatters;
 
-import com.tuantran.pojo.Users;
+import com.tuantran.pojo.ShelfLife;
 import java.text.ParseException;
 import java.util.Locale;
 import org.springframework.format.Formatter;
 
 /**
  *
- * @author Administrator
+ * @author HP
  */
-public class UsersFormatter implements Formatter<Users>{
+public class ShelfLifeFormatter implements Formatter<ShelfLife>{
     @Override
-    public String print(Users user, Locale locale) {
-        return String.valueOf(user.getUserId());
+    public String print(ShelfLife shelfLife, Locale locale) {
+        return String.valueOf(shelfLife.getShelflifeId());
     }
 
     @Override
-    public Users parse(String userId, Locale locale) throws ParseException {
-        return new Users(Integer.parseInt(userId));
+    public ShelfLife parse(String ShelfLifeId, Locale locale) throws ParseException {
+        return new ShelfLife(Integer.parseInt(ShelfLifeId));
     }
 }

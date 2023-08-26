@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HP
+ * @author Administrator
  */
 @Entity
 @Table(name = "shelf_life")
@@ -53,8 +55,11 @@ public class ShelfLife implements Serializable {
     @Column(name = "to_date")
     @Temporal(TemporalType.DATE)
     private Date toDate;
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
+    @ManyToOne
+    private Restaurants restaurantId;
     @OneToMany(mappedBy = "shelflifeId")
-    private Set<ShelflifeFooditems> shelflifeFooditemsSet;
+    private Set<Fooditems> fooditemsSet;
 
     public ShelfLife() {
     }
@@ -95,13 +100,21 @@ public class ShelfLife implements Serializable {
         this.toDate = toDate;
     }
 
-    @XmlTransient
-    public Set<ShelflifeFooditems> getShelflifeFooditemsSet() {
-        return shelflifeFooditemsSet;
+    public Restaurants getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setShelflifeFooditemsSet(Set<ShelflifeFooditems> shelflifeFooditemsSet) {
-        this.shelflifeFooditemsSet = shelflifeFooditemsSet;
+    public void setRestaurantId(Restaurants restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    @XmlTransient
+    public Set<Fooditems> getFooditemsSet() {
+        return fooditemsSet;
+    }
+
+    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
+        this.fooditemsSet = fooditemsSet;
     }
 
     @Override

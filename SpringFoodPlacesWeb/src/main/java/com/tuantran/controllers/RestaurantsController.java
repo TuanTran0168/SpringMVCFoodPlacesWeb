@@ -61,26 +61,26 @@ public class RestaurantsController {
         params.put("confirm", confirm);
         int countRestaurant = this.restaurantsService.countRestaurants(params);
         model.addAttribute("counter", Math.ceil(countRestaurant * 1.0 / pageSize));
-        
+
         if (authentication != null && authentication.isAuthenticated()) {
             Object principal = authentication.getPrincipal();
             UserDetails user = (UserDetails) principal;
             String username = user.getUsername();
             params.put("username", username);
-            
+
             Users user_auth = this.userService.getUserByUsername_new(username);
 //            Users user_auth = new Users();
 //            user_auth.setUserId(4);
 //            Roles r = new Roles();
 //            r.setRoleId(2);
 //            user_auth.setRoleId(r);
-            
+
             if (user_auth != null) {
                 params.put("current_user_UserId", user_auth.getUserId().toString());
                 int countRestaurant_UserId = this.restaurantsService.countRestaurants(params);
                 model.addAttribute("counter", Math.ceil(countRestaurant_UserId * 1.0 / pageSize));
             }
-            
+
             model.addAttribute("role", user_auth.getRoleId().getRoleId());
         }
 
@@ -117,7 +117,20 @@ public class RestaurantsController {
     }
 
     @PostMapping("/restaurantManager/restaurants/newRestaurant")
-    public String add(@ModelAttribute(value = "restaurant") @Valid Restaurants restaurant, BindingResult rs) {
+    public String add(@RequestParam Map<String, String> params, @ModelAttribute(value = "restaurant") @Valid Restaurants restaurant, BindingResult rs, Authentication authentication) {
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            UserDetails user = (UserDetails) principal;
+            String username = user.getUsername();
+            params.put("username", username);
+
+            Users user_auth = this.userService.getUserByUsername_new(username);
+
+            if (user_auth != null) {
+                restaurant.setUserId(user_auth);
+            }
+        }
 
         if (!rs.hasErrors()) {
             if (restaurantsService.addOrUpdateRestaurants(restaurant) == true) {

@@ -67,15 +67,15 @@
 
             <div>
                 <!-- <form:input type="text" class="form-control" path="userId" id="search_userId" name="search_userId"  /> -->
-                <input type="text" class="form-control" path="userId" id="search_userId" name="search_userId" />
-                <ul id="suggest">
+                <input type="text" class="form-control" id="search_userId" name="search_userId" />
+                <select id="suggest">
 
-                </ul>
+                </select>
             </div>
 
             <div class="form-floating mb-3 mt-3">
                 <form:input path="userId" id="load_userId_js" />
-                
+
             </div>
         </div>
 
