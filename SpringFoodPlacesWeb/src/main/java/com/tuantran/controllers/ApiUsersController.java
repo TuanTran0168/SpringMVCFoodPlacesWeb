@@ -42,7 +42,7 @@ public class ApiUsersController {
         return new ResponseEntity<>(this.usersService.getUsers(params), HttpStatus.OK);
     }
 
-    @GetMapping("/admin/users/{roleId}")
+    @GetMapping("/admin/users/roleId/{roleId}")
     @CrossOrigin
     public ResponseEntity<List<Users>> list_1(@PathVariable(value = "roleId") int roleId, Map<String, String> params) {
         params.put("roleId", String.valueOf(roleId));

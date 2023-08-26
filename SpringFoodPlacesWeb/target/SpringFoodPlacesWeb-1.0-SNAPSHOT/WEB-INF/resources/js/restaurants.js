@@ -17,101 +17,9 @@ function deleteRestaurant(path, id) {
         });
     }
 }
-//var user_list;
-//$(document).ready(function textChange() {
-//
-//    var user_list;
-////    let colors = ['gold', 'yellow', 'orange', 'pink', 'brown', 'c'];
-//    fetch("http://localhost:8080/SpringFoodPlacesWeb/api/admin/users/", {
-//        method: "get"
-//    }).then(res => {
-//        return res.json();
-//    }).then(data => {
-//        console.log("1");
-//        console.log(data);
-//        user_list = data;
-//        console.log("2");
-//        console.log(user_list);
-//
-//        $("#search_userId").on("keyup focus", function () {
-//            let t = $(this).val();
-//            let h = "";
-//            console.log("4");
-//            console.log(user_list);
-//            for (let c of user_list)
-//                if (c.indexOf(t) >= 0)
-//                    h += `<option><a href="javascript:;">${c}</a></option>`;
-//            $("#suggest").html(h);
-//        });
-//
-//    });
-//
-//
-//
-//
-////    setTimeout(() => {
-////        console.log("nnn");
-////        $("#search_userId").on("keyup focus", function () {
-////            let t = $(this).val();
-////            let h = "";
-////            console.log("4");
-////            console.log(user_list);
-////            for (let c of user_list)
-////                if (c.indexOf(t) >= 0)
-////                    h += `<option><a href="javascript:;">${c.username}</a></option>`;
-////            $("#suggest").html(h);
-////        });
-////    }, 1000);
-//
-//    console.log("OKE");
-//
-//    console.log("3");
-//    console.log(user_list);
-//
-//});
-
-
-
-//$(document).ready(function textChange() {
-//    let colors = ['gold', 'yellow', 'orange', 'pink', 'brown', 'c'];
-//    $("#search_userId").on("keyup focus", function () {
-//        let t = $(this).val();
-//        let h = "";
-//        for (let c of colors)
-//            if (c.indexOf(t) >= 0)
-//                h += `<option><a href="javascript:;">${c}</a></option>`;
-//        $("#suggest").html(h);
-//    });
-//
-//}); 
-
-//$(document).ready(function textChange() {
-//    var u;
-//    fetch("http://localhost:8080/SpringFoodPlacesWeb/api/admin/users/", {
-//        method: "get"
-//    }).then(res => {
-//        return res.json();
-//    }).then(data => {
-//        u = data;
-//        console.log(u);
-//    });
-//    searchAndLoadData_users(u);
-//    console.log(u);
-//});
-//
-//function searchAndLoadData_users(data) {
-//    $("#search_userId").on("keyup focus", function () {
-//        let h = "";
-//        let t = $("#search_userId").val();
-//        for (let d of data)
-//            if (d.indexOf(t) >= 0)
-//                h += `<li><a href="javascript:;">${d.username}</a></li>`;
-//        $("#suggest").html(h);
-//    });
-//}
 
 function textChange() {
-    return fetch("http://localhost:8080/SpringFoodPlacesWeb/api/admin/users/2", {
+    return fetch("http://localhost:8080/SpringFoodPlacesWeb/api/admin/users/roleId/2", {
         method: "get"
     }).then(res => {
         return res.json();
@@ -141,7 +49,7 @@ $(document).ready(async function () {
     });
 
     $("#suggest").on("click", "a", function () {
-        
+
         let t = $(this).text();
         $("#search_userId").val(t);
         let id = $(this).attr("id");
@@ -153,3 +61,30 @@ $(document).ready(async function () {
         $("#suggest").hide();
     });
 });
+
+function getPicture() {
+    const dropContainer = document.getElementById("dropcontainer");
+    const fileInput = document.getElementById("file");
+
+    dropContainer.addEventListener("dragover", (e) => {
+        // prevent default to allow drop
+        e.preventDefault();
+    }, false);
+
+    dropContainer.addEventListener("dragenter", () => {
+        dropContainer.classList.add("drag-active");
+    });
+
+    dropContainer.addEventListener("dragleave", () => {
+        dropContainer.classList.remove("drag-active");
+    });
+
+    dropContainer.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropContainer.classList.remove("drag-active");
+        fileInput.files = e.dataTransfer.files;
+    });
+}
+
+$(document).ready(getPicture());
+

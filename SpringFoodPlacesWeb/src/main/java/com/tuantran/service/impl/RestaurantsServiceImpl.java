@@ -46,6 +46,7 @@ public class RestaurantsServiceImpl implements RestaurantsService {
 //        u.setUserId(1);
 //        restaurant.setUserId(u);
 
+        restaurant.setConfirmationStatus(false);
         if (!restaurant.getFile().isEmpty()) {
             try {
                 Map res = this.cloudinary.uploader().upload(restaurant.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));

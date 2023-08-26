@@ -4,6 +4,7 @@
  */
 package com.tuantran.controllers;
 
+import com.tuantran.pojo.Users;
 import com.tuantran.service.RolesService;
 import com.tuantran.service.UsersService;
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -34,42 +37,42 @@ public class IndexController {
     private RolesService rolesService;
 
     @Autowired
-    private UsersService usersService;
+    private UsersService userService;
 
     @Autowired
     private Environment environment;
-    
+
     @ModelAttribute
-    public void commonAttr(Model model) {
+    public void commonAttr(Model model,@RequestParam Map<String, String> params, Authentication authentication) {
         model.addAttribute("roles", this.rolesService.getRoles());
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            UserDetails user = (UserDetails) principal;
+            String username = user.getUsername();
+            params.put("username", username);
+
+            Users user_auth = this.userService.getUserByUsername_new(username);
+
+            if (user_auth != null) {
+                model.addAttribute("current_user", user_auth);
+            }
+        }
     }
 
     @RequestMapping("/")
-    public String index(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("msg", "NHÌN CÁI GÌ???");
-        
+    public String index(Model model, @RequestParam Map<String, String> params, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            UserDetails user = (UserDetails) principal;
+            String username = user.getUsername();
+            params.put("username", username);
 
-        int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
-        int countUsers = this.usersService.countUsers();
-        model.addAttribute("counter", Math.ceil(countUsers * 1.0 / pageSize));
+            Users user_auth = this.userService.getUserByUsername_new(username);
 
-        String pageStr = params.get("page");
-        String pageAllStr = params.get("pageAll");
-
-        if (pageStr == null) {
-
-            if (pageAllStr == null) {
-                params.put("page", "1");
-                model.addAttribute("users", this.usersService.getUsers(params));
+            if (user_auth != null) {
+                model.addAttribute("current_user", user_auth);
             }
-            else {
-                model.addAttribute("users", this.usersService.getUsers(params));
-            }
-
-        } else {
-            model.addAttribute("users", this.usersService.getUsers(params));
         }
-
         return "index";
     }
 }
