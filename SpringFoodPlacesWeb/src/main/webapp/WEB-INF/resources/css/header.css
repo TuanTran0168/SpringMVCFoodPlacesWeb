@@ -13,7 +13,7 @@ header.header {
     align-items: stretch;
     margin: 0;
     padding: 0;
-    background-color: #5a2c1e;
+    background-color: black;
     height: 6em;
 }
 
@@ -25,7 +25,6 @@ div.header.header__left {
 
 div.header.header__left > img {
     width: 100%;
-
 }
 
 div.header.header__left > a {
@@ -55,7 +54,7 @@ div.header.header__middle > div > a > button {
 }
 
 button{
-    background:#5a2c1e;
+    background:black;
     color:#fee1d4;
     border:none;
     position:relative;

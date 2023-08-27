@@ -48,7 +48,7 @@
                     <td>${f.description}</td>
                     
                     <td>
-                        <a href="<c:url value="/restaurantManager/foodItems/newFoodItems/${f.foodId}" />" class = "btn btn-success">Cập nhật</a>
+                        <a href="<c:url value="/restaurantManager/foodItems/${f.foodId}" />" class = "btn btn-success">Cập nhật</a>
                         <c:url value="/api/restaurantManager/foodItems/newFoodItems/${f.foodId}" var="apiDel" />
                         <button class = "btn btn-danger" onclick="deleteFood('${apiDel}', ${f.foodId})">Xóa</button>
                     </td>

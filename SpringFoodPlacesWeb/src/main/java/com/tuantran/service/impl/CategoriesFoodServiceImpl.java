@@ -21,7 +21,7 @@ public class CategoriesFoodServiceImpl implements CategoriesFoodService{
     @Autowired
     private CategoryFoodRepository categoryFoodRepo;
     @Override
-    public List<Object[]> getCategoriesFood(Map<String, String> params) {
+    public List<CategoriesFood> getCategoriesFood(Map<String, String> params) {
         return this.categoryFoodRepo.getCategoriesFood(params);
     }
 
@@ -43,6 +43,11 @@ public class CategoriesFoodServiceImpl implements CategoriesFoodService{
     @Override
     public boolean delCategory(int id) {
         return this.categoryFoodRepo.delCategory(id);
+    }
+
+    @Override
+    public List<CategoriesFood> getCategoriesFoodByRestaurantId(int restaurantId) {
+        return this.categoryFoodRepo.getCategoriesFoodByRestaurantId(restaurantId);
     }
     
 }

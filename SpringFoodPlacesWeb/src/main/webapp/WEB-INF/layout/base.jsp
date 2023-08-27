@@ -24,7 +24,7 @@
         
         <style>
             body {
-                background-color: #fee1d4;
+                background-color: #e6e6e6;
                 font-family: 'Roboto';
             }
         </style>

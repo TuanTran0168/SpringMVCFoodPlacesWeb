@@ -63,9 +63,9 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository{
                 predicates.add(b.lessThanOrEqualTo(root.get("price"), Double.parseDouble(toPrice)));
             }
             
-            String cate = params.get("cateId");
-            if (cate != null && !toPrice.isEmpty()) {
-                predicates.add(b.lessThanOrEqualTo(root.get("price"), Double.parseDouble(cate)));
+            String cateFoodId = params.get("cateFoodId");
+            if (cateFoodId != null && !cateFoodId.isEmpty()) {
+                predicates.add(b.equal(root.get("categoryfoodId"), Integer.valueOf(cateFoodId)));
             }
             
             String restaurantId = params.get("restaurantId");

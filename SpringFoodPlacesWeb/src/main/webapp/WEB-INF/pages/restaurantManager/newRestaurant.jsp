@@ -10,6 +10,107 @@
 <link rel="stylesheet" href=" <c:url value="/css/newRestaurant.css" /> "/>
 <script src="<c:url value="/js/restaurants.js" />"></script>
 
+<form:form modelAttribute="restaurant">
+    <c:choose>
+        <c:when test="${restaurant.restaurantId != null}">
+            <div class="infor">
+                <div class="profile-cards">
+                    <div class="card">
+                        <div class="card-description">
+                            <h2 style="text-transform: uppercase; font-size: 40px" class="card-description-title">NHÀ HÀNG: ${restaurant.restaurantName}</h2>
+
+                            <span style="text-transform: uppercase;" class="card-description-profession">CHỦ NHÀ HÀNG: ${restaurant.userId.firstname} ${restaurant.userId.lastname}</span>
+                            <span style="text-transform: uppercase;" class="card-description-profession">Địa chỉ: ${restaurant.userId.location}</span>
+                        </div>
+
+                        <div class="avatar-restaurant">
+                            <img
+                                src="${restaurant.avatar}"
+                                class="card-image"/>
+                            <!--                            <img
+                                                            src="https://res.cloudinary.com/dhwuwy0to/image/upload/v1679200800/zwtxzdmsscowexjvprtu.png"
+                                                            class="card-image"/>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:when>
+    </c:choose>
+</form:form>
+
+
+<form:form modelAttribute="restaurant" action="${actionCategoryFood}" method="get">
+    <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionCategoryFood"/>
+    <c:choose>
+        <c:when test="${restaurant.restaurantId != null}">
+            <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">CÁC MÓN ĂN</h1>
+            <hr class="container">
+
+            <div class="food-home">
+                <div class="food-home__top">
+                    <ul class="category">
+                        <c:forEach items="${category_list}" var="cate">
+                            <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionCategoryFood">
+                                <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                                <c:param name="cateFoodId" value="${cate.categoryfoodId}"></c:param>
+                            </c:url>
+                            <li>
+                                <button>
+                                    <a href="${actionCategoryFood}">${cate.categoryname}</a>
+                                </button>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+
+                <div class="food-home__bottom">
+
+                    <section style="background-color: #eee;">
+                        <div class="container py-5">
+                            <h4 class="text-center mb-5"><strong>Product listing</strong></h4>
+
+                            <div class="row">
+                                <c:forEach items="${food_list}" var="food">
+                                    <div class="col-lg-4 col-md-12 mb-4">
+                                        <div class="my-img-link bg-image hover-zoom ripple shadow-1-strong rounded">
+                                            <a href="<c:url value="/restaurantManager/foodItems/${food.foodId}" />">
+                                                <img src="${food.avatar}"
+                                                     class="w-100" />
+
+                                                <div class="mask" >
+                                                    <div class="">
+                                                        <h5>Tên món: ${food.foodName}</h5>
+                                                        <h5>Giá: ${food.price}</h5>
+                                                        <h5>Danh mục món: ${food.categoryfoodId.categoryname}</h5>
+                                                        <h5>Mô tả: ${food.description}</h5>
+                                                        <h5>Nhà hàng: ${food.restaurantId.restaurantName}</h5>
+                                                    </div>
+                                                </div>
+<!--                                                <div class="hover-overlay">
+                                                    <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                </div>-->
+                                            </a>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </section>
+
+                    <ul class="food-list">
+                        <c:forEach items="${food_list}" var="food">
+                            <li>
+                                ${ food.foodName}
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+        </c:when>
+    </c:choose>
+</form:form>
+
+
 <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">ĐĂNG KÝ NHÀ HÀNG MỚI</h1>
 <hr class="container">
 <div class="body">

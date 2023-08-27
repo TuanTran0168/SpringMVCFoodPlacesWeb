@@ -110,5 +110,163 @@ input[type=file]::file-selector-button:hover {
     font-weight: bold;
 }
 
+div.infor {
+    width: 100%;
+    height: 45em;
+    background-image: url("../images/vegetables-set-left-black-slate.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+div.profile-cards {
+    padding: 2%;
+}
+
+div.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 70em;
+    height: 35em;
+    margin: 0 auto;
+
+    position: relative;
+
+    color: #2d2d2d;
+    background-color:  #fee1d4;
+    background-color:  transparent;
+    letter-spacing: 3px;
 
 
+    overflow: hidden;
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 1);
+}
+
+div.card-description {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 40px;
+
+    width: auto;
+    height: 100%;
+}
+
+div.card-description h2, span {
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+}
+
+div.card-description-title {
+    color: white;
+
+    font-size: 18px;
+}
+
+div.card-description-profession {
+    display: block;
+
+    font-size: 16px;
+}
+
+div.avatar-restaurant > img {
+
+    border-radius: 3%;
+    width: 45em;
+    height: 85%;
+
+    object-fit: cover;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 1);
+
+}
+
+div.food-home {
+
+}
+
+div.food-home__top > ul {
+    list-style-type: none;
+    width: 60%;
+    overflow-x: auto;
+    margin: 0 auto;
+    /*    background: red;*/
+    display: flex;
+    justify-content: center;
+}
+
+div.food-home__top > ul > li{
+    margin: 1em;
+}
+
+div.food-home__top > ul > li > button > a{
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    z-index: 100;
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+div.food-home__bottom > ul {
+    list-style-type: none;
+    width: 60%;
+    margin: 0 auto;
+    background: lightblue;
+    display: flex;
+    justify-content: center;
+}
+
+div.food-home__bottom > ul > li{
+    margin: 1em;
+}
+
+div.my-img-link  {
+    overflow: hidden;
+    border: solid 3px;
+    
+}
+
+div.my-img-link > a {
+    text-decoration: none;
+    color: black;
+}
+
+div.my-img-link > a > img {
+    transition: 0.3s;
+}
+
+div.my-img-link > a > img:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
+div.my-img-link div.mask > div h5{
+    /*    background: #e6e6e6;
+        box-shadow: 10px 10px 30px rgba(0, 0, 0, 1);*/
+}
+
+div.mask {
+    margin-top: 10%;
+    padding: 2%;
+    text-align: center;
+    box-shadow: 3px 3px 5px 0px #666;
+}
+
+#restaurant > div > div.food-home__bottom > section > div > div {
+    /*
+        27em = 1 card
+        27 * 3 = 81
+        Cho thêm tí luôn là 85
+    */
+    max-height: 85em;
+    overflow: auto;
+}

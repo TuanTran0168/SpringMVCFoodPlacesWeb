@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author HP
  */
 @Controller
+@ControllerAdvice
 public class FoodItemsController {
 
     @Autowired
@@ -36,6 +38,12 @@ public class FoodItemsController {
 
     @Autowired
     private ShelfLifeService shelfLifeSer;
+
+    @ModelAttribute
+    public void commonAttr(Model model, @RequestParam Map<String, String> params) {
+        model.addAttribute("shelfLife_list", this.shelfLifeSer.getShelfLife());
+        model.addAttribute("category_list", this.categoryFoodSer.getCategoriesFood(params));
+    }
 
     @GetMapping("/restaurantManager/foodItems")
     public String indexFoodItems(Model model, @RequestParam Map<String, String> params) {
@@ -68,7 +76,7 @@ public class FoodItemsController {
         return "newFoodItems";
     }
 
-    @GetMapping("/restaurantManager/foodItems/newFoodItems/{foodId}")
+    @GetMapping("/restaurantManager/foodItems/{foodId}")
     public String update(Model model, @PathVariable(value = "foodId") int foodId) {
         model.addAttribute("foodItem", this.foodItemSer.getFoodItemById(foodId));
         return "newFoodItems";

@@ -44,7 +44,7 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
 //        return query.getResultList();
 //    }
     @Override
-    public List<Object[]> getCategoriesFood(Map<String, String> params) {
+    public List<CategoriesFood> getCategoriesFood(Map<String, String> params) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<CategoriesFood> query = criteriaBuilder.createQuery(CategoriesFood.class);
@@ -61,6 +61,13 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
                         criteriaBuilder.like(rootCate.get("categoryname"), String.format("%%%s%%", keyword))
                 );
             }
+
+//            String restaurantId = params.get("restaurantid");
+//            if (restaurantId != null && !restaurantId.isEmpty()) {
+//                predicates.add(
+//                        criteriaBuilder.equal(rootCate.get("restaurantId"), String.format("%%%s%%", restaurantId))
+//                );
+//            }
             query.where(predicates.toArray(Predicate[]::new));
         }
 
@@ -114,13 +121,32 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
     public boolean delCategory(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         CategoriesFood cate = this.getCategoryById(id);
-        try{
+        try {
             session.delete(cate);
             return true;
-        }catch(HibernateException ex){
+        } catch (HibernateException ex) {
             ex.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<CategoriesFood> getCategoriesFoodByRestaurantId(int restaurantId) {
+//        Session session = this.factory.getObject().getCurrentSession();
+//        Query query = session.createQuery("FROM CategoriesFood WHERE restaurantId=:restaurantId");
+//        query.setParameter("restaurantId", restaurantId);
+//        return query.getResultList();
+
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<CategoriesFood> query = criteriaBuilder.createQuery(CategoriesFood.class);
+        Root rootCate = query.from(CategoriesFood.class);
+        List<Predicate> predicates = new ArrayList<>();
+        predicates.add(criteriaBuilder.equal(rootCate.get("restaurantId"), restaurantId));
+        
+        query.where(predicates.toArray(Predicate[]::new));
+        
+        return session.createQuery(query).getResultList();
     }
 
 }

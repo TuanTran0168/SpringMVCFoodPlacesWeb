@@ -7,6 +7,8 @@ package com.tuantran.controllers;
 import com.tuantran.pojo.Restaurants;
 import com.tuantran.pojo.Roles;
 import com.tuantran.pojo.Users;
+import com.tuantran.service.CategoriesFoodService;
+import com.tuantran.service.FoodItemsService;
 import com.tuantran.service.RestaurantStatusService;
 import com.tuantran.service.RestaurantsService;
 import com.tuantran.service.UsersService;
@@ -44,6 +46,12 @@ public class RestaurantsController {
 
     @Autowired
     private RestaurantStatusService restaurantStatusService;
+    
+    @Autowired
+    private CategoriesFoodService categoryFoodService;
+    
+    @Autowired
+    private FoodItemsService foodItemsService;
 
     @Autowired
     private Environment environment;
@@ -111,8 +119,10 @@ public class RestaurantsController {
 
 //  Cái restaurantId trong cái GetMapping này là trùng với bên jsp nha :)
     @GetMapping("/restaurantManager/restaurants/{restaurantId}")
-    public String update(Model model, @PathVariable(value = "restaurantId") int restaurantId) {
+    public String update(Model model, @PathVariable(value = "restaurantId") int restaurantId, @RequestParam Map<String, String> params) {
         model.addAttribute("restaurant", this.restaurantsService.getRestaurantById(restaurantId));
+        model.addAttribute("category_list", this.categoryFoodService.getCategoriesFoodByRestaurantId(restaurantId));
+        model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
         return "newRestaurant";
     }
 
