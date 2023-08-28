@@ -48,7 +48,20 @@
 
             <div class="food-home">
                 <div class="food-home__top">
+                    <button>
+                        <c:url value="/restaurantManager/categoriesFood" var="editCategoriesFoodAction">
+                           <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                        </c:url>
+                        <a href="${editCategoriesFoodAction}">Quản lý danh mục</a>
+                    </button>
                     <ul class="category">
+                        <li>
+                            <button>
+                                <a href="${restaurant.restaurantId}">Toàn bộ món ăn</a>
+                                <!--<a href="${restaurant.restaurantId}" onclick="delayScrollToClickedPosition(event)">Toàn bộ món ăn</a>-->
+
+                            </button>
+                        </li>
                         <c:forEach items="${category_list}" var="cate">
                             <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionCategoryFood">
                                 <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
@@ -73,22 +86,26 @@
                                 <c:forEach items="${food_list}" var="food">
                                     <div class="col-lg-4 col-md-12 mb-4">
                                         <div class="my-img-link bg-image hover-zoom ripple shadow-1-strong rounded">
+                                            <%--<c:url value="/restaurantManager/foodItems/${food.foodId}" var="addFoodItemAction">--%>
+                                                <%--<c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>--%>
+                                            <%--</c:url>--%>
+                                            <!--<a href="${addFoodItemAction}" />-->
                                             <a href="<c:url value="/restaurantManager/foodItems/${food.foodId}" />">
-                                                <img src="${food.avatar}"
-                                                     class="w-100" />
+                                            <img src="${food.avatar}"
+                                                 class="w-100" />
 
-                                                <div class="mask" >
-                                                    <div class="">
-                                                        <h5>Tên món: ${food.foodName}</h5>
-                                                        <h5>Giá: ${food.price}</h5>
-                                                        <h5>Danh mục món: ${food.categoryfoodId.categoryname}</h5>
-                                                        <h5>Mô tả: ${food.description}</h5>
-                                                        <h5>Nhà hàng: ${food.restaurantId.restaurantName}</h5>
-                                                    </div>
+                                            <div class="mask" >
+                                                <div class="">
+                                                    <h5>Tên món: ${food.foodName}</h5>
+                                                    <h5>Giá: ${food.price}</h5>
+                                                    <h5>Danh mục món: ${food.categoryfoodId.categoryname}</h5>
+                                                    <h5>Mô tả: ${food.description}</h5>
+                                                    <h5>Nhà hàng: ${food.restaurantId.restaurantName}</h5>
                                                 </div>
-<!--                                                <div class="hover-overlay">
-                                                    <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                                                </div>-->
+                                            </div>
+                                            <!--                                                <div class="hover-overlay">
+                                                                                                <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                                                            </div>-->
                                             </a>
                                         </div>
                                     </div>

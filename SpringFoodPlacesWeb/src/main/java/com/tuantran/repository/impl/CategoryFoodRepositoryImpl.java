@@ -9,6 +9,7 @@ import com.tuantran.repository.CategoryFoodRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -62,12 +63,12 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
                 );
             }
 
-//            String restaurantId = params.get("restaurantid");
-//            if (restaurantId != null && !restaurantId.isEmpty()) {
-//                predicates.add(
-//                        criteriaBuilder.equal(rootCate.get("restaurantId"), String.format("%%%s%%", restaurantId))
-//                );
-//            }
+            String restaurantId = params.get("restaurantId");
+            if (restaurantId != null && !restaurantId.isEmpty()) {
+                predicates.add(
+                        criteriaBuilder.equal(rootCate.get("restaurantId"), Integer.valueOf(restaurantId))
+                );
+            }
             query.where(predicates.toArray(Predicate[]::new));
         }
 
@@ -137,16 +138,21 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
 //        query.setParameter("restaurantId", restaurantId);
 //        return query.getResultList();
 
-        Session session = this.factory.getObject().getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<CategoriesFood> query = criteriaBuilder.createQuery(CategoriesFood.class);
-        Root rootCate = query.from(CategoriesFood.class);
-        List<Predicate> predicates = new ArrayList<>();
-        predicates.add(criteriaBuilder.equal(rootCate.get("restaurantId"), restaurantId));
-        
-        query.where(predicates.toArray(Predicate[]::new));
-        
-        return session.createQuery(query).getResultList();
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<CategoriesFood> query = criteriaBuilder.createQuery(CategoriesFood.class);
+            Root rootCate = query.from(CategoriesFood.class);
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(criteriaBuilder.equal(rootCate.get("restaurantId"), restaurantId));
+
+            query.where(predicates.toArray(Predicate[]::new));
+
+            return session.createQuery(query).getResultList();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

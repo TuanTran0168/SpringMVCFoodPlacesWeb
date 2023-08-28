@@ -88,3 +88,22 @@ function getPicture() {
 
 $(document).ready(getPicture());
 
+function delayScrollToClickedPosition(event) {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+
+    const clickedX = event.clientX; // Lấy tọa độ X của sự kiện click
+    const clickedY = event.clientY; // Lấy tọa độ Y của sự kiện click
+
+    // Chuyển hướng đến URL mới
+    window.location.href = event.target.href;
+
+    // Trì hoãn cuộn trang sau 100ms (có thể điều chỉnh thời gian theo nhu cầu)
+    setTimeout(() => {
+        const scrollX = window.scrollX + clickedX; // Tính toán tọa độ X cần cuộn tới
+        const scrollY = window.scrollY + clickedY; // Tính toán tọa độ Y cần cuộn tới
+        window.scrollTo(scrollX, scrollY); // Cuộn trang đến vị trí tương ứng
+        console.log("TẠI SAO?");
+    }, 1000);
+}
+
+

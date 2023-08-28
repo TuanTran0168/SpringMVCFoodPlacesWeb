@@ -192,10 +192,9 @@ div.food-home {
 
 div.food-home__top > ul {
     list-style-type: none;
-    width: 60%;
-    overflow-x: auto;
+    width: 80%;
     margin: 0 auto;
-    /*    background: red;*/
+        /*background: red;*/
     display: flex;
     justify-content: center;
 }

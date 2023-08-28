@@ -20,6 +20,8 @@
     <div>
         ALO
         ${role}
+        -
+        ${msg}
         ALO
     </div>
 

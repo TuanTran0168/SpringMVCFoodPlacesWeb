@@ -9,6 +9,7 @@ import com.tuantran.repository.UsersRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -65,7 +66,7 @@ public class UsersRepositoryImpl implements UsersRepository {
                 // Mà á parse về Int thì IDE nó báo không cần thiết ???
                 predicates.add(criteriaBuilder.equal(rootUsers.get("roleId"), Integer.parseInt(roleId)));
             }
-            
+
             String userName = params.get("username");
             if (userName != null && !userName.isEmpty()) {
                 // Chỗ này ảo ma :) không parse về Int là bugs ???
@@ -162,7 +163,7 @@ public class UsersRepositoryImpl implements UsersRepository {
         try {
             session.delete(user);
             return true;
-        } catch(HibernateException ex) {
+        } catch (HibernateException ex) {
             ex.printStackTrace();
             return false;
         }
@@ -170,10 +171,15 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public Users getUserByUsername_new(String username) {
-        Session session = this.factory.getObject().getCurrentSession();
-        Query query = session.createQuery("FROM Users WHERE username=:username");
-        query.setParameter("username", username);
-        return (Users) query.getSingleResult();
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            Query query = session.createQuery("FROM Users WHERE username=:username");
+            query.setParameter("username", username);
+            return (Users) query.getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

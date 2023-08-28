@@ -81,6 +81,7 @@
             </c:choose>
         </button>
         <form:hidden path="foodId" />
+        <form:hidden path="restaurantId" />
         <form:hidden path="avatar" />
     </form:form>
 </div>

@@ -32,7 +32,7 @@ public class RestaurantsServiceImpl implements RestaurantsService {
     private Cloudinary cloudinary;
 
     @Override
-    public List<Object[]> getRestaurants(Map<String, String> params) {
+    public List<Restaurants> getRestaurants(Map<String, String> params) {
         return this.restaurantsRepo.getRestaurants(params);
     }
 
@@ -73,6 +73,11 @@ public class RestaurantsServiceImpl implements RestaurantsService {
     @Override
     public int countRestaurants(Map<String, String> params) {
         return this.restaurantsRepo.countRestaurants(params);
+    }
+
+    @Override
+    public List<Restaurants> getRestaurantByUserId(int userId) {
+        return this.restaurantsRepo.getRestaurantByUserId(userId);
     }
 
 }

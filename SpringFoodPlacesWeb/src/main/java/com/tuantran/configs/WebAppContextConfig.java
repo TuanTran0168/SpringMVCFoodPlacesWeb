@@ -7,6 +7,7 @@ package com.tuantran.configs;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.tuantran.formatters.CategoryFormatter;
+import com.tuantran.formatters.RestaurantsFormatter;
 import com.tuantran.formatters.RestaurantsStatusFormatter;
 import com.tuantran.formatters.RolesFormatter;
 import com.tuantran.formatters.ShelfLifeFormatter;
@@ -66,6 +67,7 @@ public class WebAppContextConfig implements WebMvcConfigurer {
         registry.addFormatter(new UsersFormatter());
         registry.addFormatter(new CategoryFormatter());
         registry.addFormatter(new ShelfLifeFormatter());
+        registry.addFormatter(new RestaurantsFormatter());
     }
 
     @Override

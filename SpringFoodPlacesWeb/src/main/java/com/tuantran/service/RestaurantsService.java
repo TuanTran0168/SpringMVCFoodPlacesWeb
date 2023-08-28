@@ -14,13 +14,15 @@ import java.util.Map;
  */
 public interface RestaurantsService {
 
-    List<Object[]> getRestaurants(Map<String, String> params);
+    List<Restaurants> getRestaurants(Map<String, String> params);
 
     boolean addOrUpdateRestaurants(Restaurants restaurant);
 
     Restaurants getRestaurantById(int id);
 
     boolean deleteRestaurants(int id);
-    
-     int countRestaurants(Map<String, String> params);
+
+    int countRestaurants(Map<String, String> params);
+
+    List<Restaurants> getRestaurantByUserId(int userId);
 }
