@@ -57,8 +57,8 @@
                     <ul class="category">
                         <li>
                             <button>
-                                <a href="${restaurant.restaurantId}">Toàn bộ món ăn</a>
-                                <!--<a href="${restaurant.restaurantId}" onclick="delayScrollToClickedPosition(event)">Toàn bộ món ăn</a>-->
+                                <!--<a href="${restaurant.restaurantId}">Toàn bộ món ăn</a>-->
+                                <a href="${restaurant.restaurantId}" onclick="delayScrollToClickedPosition(this)">Toàn bộ món ăn</a>
 
                             </button>
                         </li>
@@ -86,11 +86,11 @@
                                 <c:forEach items="${food_list}" var="food">
                                     <div class="col-lg-4 col-md-12 mb-4">
                                         <div class="my-img-link bg-image hover-zoom ripple shadow-1-strong rounded">
-                                            <%--<c:url value="/restaurantManager/foodItems/${food.foodId}" var="addFoodItemAction">--%>
-                                                <%--<c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>--%>
-                                            <%--</c:url>--%>
-                                            <!--<a href="${addFoodItemAction}" />-->
-                                            <a href="<c:url value="/restaurantManager/foodItems/${food.foodId}" />">
+                                            <c:url value="/restaurantManager/foodItems/${food.foodId}" var="addFoodItemAction">
+                                                <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                                            </c:url>
+                                            <a href="${addFoodItemAction}" />
+                                            <!--<a href="<c:url value="/restaurantManager/foodItems/${food.foodId}" />">-->
                                             <img src="${food.avatar}"
                                                  class="w-100" />
 

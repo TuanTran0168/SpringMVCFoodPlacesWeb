@@ -190,11 +190,25 @@ div.food-home {
 
 }
 
+div.food-home__top {
+    text-align: center;
+}
+
+div.food-home__top > button {
+    margin: 1em ;
+}
+
+div.food-home__top > button > a {
+    text-decoration: none;
+    color: wheat;
+    font-weight: bold;
+}
+
 div.food-home__top > ul {
     list-style-type: none;
     width: 80%;
     margin: 0 auto;
-        /*background: red;*/
+    /*background: red;*/
     display: flex;
     justify-content: center;
 }
@@ -231,7 +245,7 @@ div.food-home__bottom > ul > li{
 div.my-img-link  {
     overflow: hidden;
     border: solid 3px;
-    
+
 }
 
 div.my-img-link > a {

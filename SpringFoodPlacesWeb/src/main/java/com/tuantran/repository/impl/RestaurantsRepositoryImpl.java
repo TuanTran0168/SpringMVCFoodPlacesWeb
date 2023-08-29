@@ -96,8 +96,14 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
 
     @Override
     public Restaurants getRestaurantById(int id) {
-        Session session = this.factory.getObject().getCurrentSession();
-        return session.get(Restaurants.class, id);
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            return session.get(Restaurants.class, id);
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override

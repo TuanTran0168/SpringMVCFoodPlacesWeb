@@ -24,6 +24,7 @@ com\tuantran\repository\impl\ShelfLifeRepositoryImpl.class
 com\tuantran\repository\UsersRepository.class
 com\tuantran\controllers\RestaurantsController.class
 com\tuantran\pojo\Notifications_.class
+com\tuantran\formatters\RestaurantsFormatter.class
 com\tuantran\configs\TilesConfigs.class
 com\tuantran\pojo\Roles.class
 com\tuantran\formatters\UsersFormatter.class

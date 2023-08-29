@@ -60,7 +60,7 @@ public class RestaurantsController {
     public void commonAttr(Model model) {
         model.addAttribute("restaurantStatus_list", this.restaurantStatusService.getRestaurantsStatus());
         model.addAttribute("user_list", this.userService.getUsers(null));
-        
+
     }
 
     @GetMapping("/restaurantManager/restaurants")
@@ -121,28 +121,35 @@ public class RestaurantsController {
 //  Cái restaurantId trong cái GetMapping này là trùng với bên jsp nha :)
     @GetMapping("/restaurantManager/restaurants/{restaurantId}")
     public String update(Model model, @PathVariable(value = "restaurantId") int restaurantId, @RequestParam Map<String, String> params, Authentication authentication) {
-
+        String msg = "";
         Restaurants restaurant = this.restaurantsService.getRestaurantById(restaurantId);
 
-        if (authentication != null && authentication.isAuthenticated()) {
-            Object principal = authentication.getPrincipal();
-            UserDetails user = (UserDetails) principal;
-            String username = user.getUsername();
-            params.put("username", username);
+        if (restaurant != null) {
+            if (authentication != null && authentication.isAuthenticated()) {
+                Object principal = authentication.getPrincipal();
+                UserDetails user = (UserDetails) principal;
+                String username = user.getUsername();
+                params.put("username", username);
 
-            Users user_auth = this.userService.getUserByUsername_new(username);
+                Users user_auth = this.userService.getUserByUsername_new(username);
 
-            if (user_auth != null) {
-                if (restaurant.getUserId().getUserId().equals(user_auth.getUserId())) {
-                    model.addAttribute("restaurant", this.restaurantsService.getRestaurantById(restaurantId));
-                    model.addAttribute("category_list", this.categoryFoodService.getCategoriesFoodByRestaurantId(restaurantId));
-                    params.put("restaurantId", String.valueOf(restaurantId));
-                    model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
-                }
-                else {
-                    return "redirect:/restaurantManager/restaurants";
+                if (user_auth != null) {
+                    if (restaurant.getUserId().getUserId().equals(user_auth.getUserId())) {
+                        model.addAttribute("restaurant", this.restaurantsService.getRestaurantById(restaurantId));
+                        model.addAttribute("category_list", this.categoryFoodService.getCategoriesFoodByRestaurantId(restaurantId));
+                        params.put("restaurantId", String.valueOf(restaurantId));
+                        model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
+                    } else {
+                        msg = "Bạn không sở hữu nhà hàng này!";
+                        model.addAttribute("msg", msg);
+                        return "redirect:/restaurantManager/restaurants";
+                    }
                 }
             }
+        } else {
+            msg = "Bạn không sở hữu nhà hàng này!";
+            model.addAttribute("msg", msg);
+            return "redirect:/restaurantManager/restaurants";
         }
 
         return "newRestaurant";

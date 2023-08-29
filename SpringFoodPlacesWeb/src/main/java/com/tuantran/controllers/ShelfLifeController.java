@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 
 /**
@@ -48,8 +50,8 @@ public class ShelfLifeController {
     }
 
     @GetMapping("/restaurantManager/shelfLife")
-    public String indexShelfLife(Model model) throws ParseException {
-        List<Object[]> listShelfLife = this.shelfLifeSer.getShelfLife();
+    public String indexShelfLife(Model model, @RequestParam Map<String, String> params) throws ParseException {
+        List<ShelfLife> listShelfLife = this.shelfLifeSer.getShelfLife(params);
 //        List<ShelfLife> listShelfLife_p = new ArrayList<>();
 //        for (Object sl : listShelfLife) {
 //            ShelfLife sl_p = (ShelfLife) sl;

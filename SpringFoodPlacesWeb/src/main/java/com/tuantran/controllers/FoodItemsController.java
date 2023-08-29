@@ -54,7 +54,7 @@ public class FoodItemsController {
 
     @ModelAttribute
     public void commonAttr(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("shelfLife_list", this.shelfLifeSer.getShelfLife());
+        model.addAttribute("shelfLife_list", this.shelfLifeSer.getShelfLife(params));
         model.addAttribute("category_list", this.categoryFoodSer.getCategoriesFood(params));
     }
 
@@ -74,7 +74,7 @@ public class FoodItemsController {
     @GetMapping("/restaurantManager/foodItems/newFoodItems")
     public String newFoodItems(Model model, @RequestParam Map<String, String> params) {
         model.addAttribute("foodItem", new Fooditems());
-        model.addAttribute("shelfLife_list", this.shelfLifeSer.getShelfLife());
+        model.addAttribute("shelfLife_list", this.shelfLifeSer.getShelfLife(params));
         model.addAttribute("category_list", this.categoryFoodSer.getCategoriesFood(params));
         return "newFoodItems";
     }
@@ -101,36 +101,53 @@ public class FoodItemsController {
     @GetMapping("/restaurantManager/foodItems/{foodId}")
     public String update(Model model, @PathVariable(value = "foodId") int foodId, @RequestParam Map<String, String> params, Authentication authentication) {
         String msg = "";
-        Fooditems food = this.foodItemSer.getFoodItemById(foodId);
-        if (food != null) {
-            Restaurants restaurant = this.restaurantsService.getRestaurantById(food.getRestaurantId().getRestaurantId());
-
-            if (authentication != null && authentication.isAuthenticated()) {
-                Object principal = authentication.getPrincipal();
-                UserDetails user = (UserDetails) principal;
-                String username = user.getUsername();
-                params.put("username", username);
-
-                Users user_auth = this.userService.getUserByUsername_new(username);
-
-                if (user_auth != null) {
-                    if (restaurant.getUserId().getUserId().equals(user_auth.getUserId())) {
-                        model.addAttribute("foodItem", this.foodItemSer.getFoodItemById(foodId));
-
-                    } else {
-                        // HOW TO GỬI CÁI NÀY RA LẠI TRANG restaurants đây :) 
-                        // NÓ CỘNG CHUỖI Ở TRÊN URL BÀ CON ƠI :)
-                        ///restaurantManager/restaurants?msg=Kh%F4ng+t%3Fn+t%3Fi+m%F3n+n%E0y+trong+nh%E0+h%E0ng+c%3Fa+b%3Fn%21
-                        msg = "Không tồn tại món này trong nhà hàng của bạn!";
-                        model.addAttribute("msg", msg);
-                        return "redirect:/restaurantManager/restaurants";
-                    }
-                }
-            }
-        } else {
-            msg = "Không tồn tại món này trong nhà hàng của bạn!";
+        // TRỜI ƠI CÁI CHỖ NÀY :)))))))))))))
+        String restaurantId = params.get("restaurantId");
+        if (restaurantId == null || restaurantId.isEmpty()) {
+            msg = "Bạn không sở hữu nhà hàng này!";
             model.addAttribute("msg", msg);
             return "redirect:/restaurantManager/restaurants";
+        } else {
+            Restaurants restaurantParam = this.restaurantsService.getRestaurantById(Integer.parseInt(restaurantId));
+
+            Fooditems food = this.foodItemSer.getFoodItemById(foodId);
+            if (food != null) {
+                Restaurants restaurant = this.restaurantsService.getRestaurantById(food.getRestaurantId().getRestaurantId());
+
+                // LÀM TỐN 4 TIẾNG CỦA TAO :)))))))))))))
+                if (!restaurant.getRestaurantId().equals(restaurantParam.getRestaurantId())) {
+                    msg = "Không tồn tại món này trong nhà hàng của bạn!";
+                    model.addAttribute("msg", msg);
+                    return "redirect:/restaurantManager/restaurants";
+                }
+
+                if (authentication != null && authentication.isAuthenticated()) {
+                    Object principal = authentication.getPrincipal();
+                    UserDetails user = (UserDetails) principal;
+                    String username = user.getUsername();
+                    params.put("username", username);
+
+                    Users user_auth = this.userService.getUserByUsername_new(username);
+
+                    if (user_auth != null) {
+                        if (restaurant.getUserId().getUserId().equals(user_auth.getUserId())) {
+                            model.addAttribute("foodItem", this.foodItemSer.getFoodItemById(foodId));
+
+                        } else {
+                            // HOW TO GỬI CÁI NÀY RA LẠI TRANG restaurants đây :) 
+                            // NÓ CỘNG CHUỖI Ở TRÊN URL BÀ CON ƠI :)
+                            ///restaurantManager/restaurants?msg=Kh%F4ng+t%3Fn+t%3Fi+m%F3n+n%E0y+trong+nh%E0+h%E0ng+c%3Fa+b%3Fn%21
+                            msg = "Không tồn tại món này trong nhà hàng của bạn!";
+                            model.addAttribute("msg", msg);
+                            return "redirect:/restaurantManager/restaurants";
+                        }
+                    }
+                }
+            } else {
+                msg = "Không tồn tại món này trong nhà hàng của bạn!";
+                model.addAttribute("msg", msg);
+                return "redirect:/restaurantManager/restaurants";
+            }
         }
         model.addAttribute("msg", msg);
         return "newFoodItems";

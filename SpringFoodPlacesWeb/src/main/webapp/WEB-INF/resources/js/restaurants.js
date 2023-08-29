@@ -18,7 +18,7 @@ function deleteRestaurant(path, id) {
     }
 }
 
-function textChange() {
+function getUsersByRoleId() {
     return fetch("http://localhost:8080/SpringFoodPlacesWeb/api/admin/users/roleId/2", {
         method: "get"
     }).then(res => {
@@ -31,18 +31,18 @@ function textChange() {
 }
 
 $(document).ready(async function () {
-    const user = await textChange();
-    $("#search_userId").on("keyup focus", function () {
+    $("#search_userId").on("keyup focus", async function () {
+        const users = await getUsersByRoleId();
         $("#suggest").show();
         let h = "";
         let t = $("#search_userId").val();
-        console.log(user[0].username);
+        console.log(users[0].username);
 
 
-        for (let d of user)
-            if (d.firstname !== null || d.lastname !== null) {
-                if (d.firstname.search(t) >= 0 || d.lastname.search(t) >= 0)
-                    h += `<option><a id=${d.userId} href="javascript:;">${d.firstname} - ${d.lastname}</a></option>`;
+        for (let u of users)
+            if (u.firstname !== null || u.lastname !== null) {
+                if (u.firstname.search(t) >= 0 || u.lastname.search(t) >= 0)
+                    h += `<option><a id=${u.userId} href="javascript:;">${u.firstname} - ${u.lastname}</a></option>`;
             }
 
         $("#suggest").html(h);
@@ -86,7 +86,9 @@ function getPicture() {
     });
 }
 
-$(document).ready(getPicture());
+$(document).ready(function () {
+    getPicture();
+});
 
 function delayScrollToClickedPosition(event) {
     event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
@@ -105,5 +107,9 @@ function delayScrollToClickedPosition(event) {
         console.log("TẠI SAO?");
     }, 1000);
 }
+
+$(document).ready(function (event) {
+    delayScrollToClickedPosition(event);
+});
 
 
