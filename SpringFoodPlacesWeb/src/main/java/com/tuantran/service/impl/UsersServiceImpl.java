@@ -139,4 +139,9 @@ public class UsersServiceImpl implements UsersService {
         return this.usersRepo.getUserByUsername_new(username);
     }
 
+    @Override
+    public boolean authUser(String username, String password) {
+        return this.usersRepo.authUser(username, password);
+    }
+
 }

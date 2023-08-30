@@ -9,7 +9,9 @@ D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\FoodItemsRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\RolesService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\RegisterController.java
+D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\JwtSecurityConfig.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\ShelfLifeService.java
+D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\components\JwtService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\CategoriesFood.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\DispatcherServletInit.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\RestaurantStatus.java
@@ -30,6 +32,7 @@ D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\CategoriesFoodService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\RestaurantStatusRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Fooditems.java
+D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\filters\CustomAccessDeniedHandler.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\RestaurantsServiceImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Restaurants.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Chatmessages.java
@@ -43,11 +46,13 @@ D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\ApiCategoryController.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\formatters\UsersFormatter.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\ReceiptStatus.java
+D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\filters\JwtAuthenticationTokenFilter.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\CategoriesFoodServiceImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\UsersServiceImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\TilesConfigs.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Roles.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\UsersService.java
+D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\filters\RestAuthenticationEntryPoint.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\CategoryFoodRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\formatters\RestaurantsStatusFormatter.java
 D:\NetBeans\LapTrinhJava\BaiTapLonSecondMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\RestaurantStatusRepository.java

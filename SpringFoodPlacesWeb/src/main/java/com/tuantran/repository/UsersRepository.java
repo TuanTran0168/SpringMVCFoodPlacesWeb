@@ -23,4 +23,5 @@ public interface UsersRepository {
     boolean isUsernameExists(String username);
     boolean deleteUsers(int id);
     Users getUserByUsername_new(String username);
+    boolean authUser(String username, String password);
 }

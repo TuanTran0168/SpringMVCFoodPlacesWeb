@@ -2,6 +2,7 @@ com\tuantran\pojo\ReceiptStatus_.class
 com\tuantran\service\FoodItemsService.class
 com\tuantran\controllers\IndexController.class
 com\tuantran\pojo\Chatmessages_.class
+com\tuantran\components\JwtService.class
 com\tuantran\service\impl\ShelfLifeServiceImpl.class
 com\tuantran\service\ShelfLifeService.class
 com\tuantran\repository\RestaurantStatusRepository.class
@@ -24,6 +25,7 @@ com\tuantran\repository\impl\ShelfLifeRepositoryImpl.class
 com\tuantran\repository\UsersRepository.class
 com\tuantran\controllers\RestaurantsController.class
 com\tuantran\pojo\Notifications_.class
+com\tuantran\filters\RestAuthenticationEntryPoint.class
 com\tuantran\formatters\RestaurantsFormatter.class
 com\tuantran\configs\TilesConfigs.class
 com\tuantran\pojo\Roles.class
@@ -51,6 +53,7 @@ com\tuantran\pojo\Notifications.class
 com\tuantran\controllers\ApiShelfLifeController.class
 com\tuantran\configs\WebAppContextConfig.class
 com\tuantran\pojo\Receipts_.class
+com\tuantran\configs\JwtSecurityConfig.class
 com\tuantran\controllers\ApiRestaurantsController.class
 com\tuantran\pojo\RestaurantStatus.class
 com\tuantran\controllers\FoodItemsController.class
@@ -66,6 +69,7 @@ com\tuantran\pojo\ReceiptStatus.class
 com\tuantran\controllers\ApiFoodItemsController.class
 com\tuantran\formatters\CategoryFormatter.class
 com\tuantran\pojo\Users_.class
+com\tuantran\filters\JwtAuthenticationTokenFilter.class
 com\tuantran\pojo\Chatmessages.class
 com\tuantran\repository\impl\RolesRepositoryImpl.class
 com\tuantran\pojo\CategoriesFood.class
@@ -73,6 +77,7 @@ com\tuantran\configs\SpringSecurityConfig.class
 com\tuantran\pojo\ReceiptDetail_.class
 com\tuantran\pojo\Restaurants.class
 com\tuantran\service\RestaurantsService.class
+com\tuantran\filters\CustomAccessDeniedHandler.class
 com\tuantran\service\impl\RolesServiceImpl.class
 com\tuantran\repository\ShelfLifeRepository.class
 com\tuantran\service\impl\RestaurantStatusServiceImpl.class
