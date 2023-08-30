@@ -22,6 +22,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +40,9 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Autowired
     private Environment environment;
+    
+     @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public List<Users> getUsers(Map<String, String> params) {
@@ -180,6 +184,12 @@ public class UsersRepositoryImpl implements UsersRepository {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public boolean authUser(String username, String password) {
+        Users user = this.getUserByUsername(username);
+        return this.passwordEncoder.matches(password, user.getPassword());
     }
 
 }

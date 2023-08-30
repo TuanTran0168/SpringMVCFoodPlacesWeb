@@ -4,6 +4,7 @@
  */
 package com.tuantran.controllers;
 
+import com.tuantran.components.JwtService;
 import com.tuantran.pojo.Users;
 import com.tuantran.service.UsersService;
 import java.util.List;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +32,21 @@ public class ApiUsersController {
 
     @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @PostMapping("/login/")
+    @CrossOrigin
+    public ResponseEntity<String> login(@RequestBody Users user) {
+        if (this.usersService.authUser(user.getUsername(), user.getPassword()) == true) {
+            String token = this.jwtService.generateTokenLogin(user.getUsername());
+
+            return new ResponseEntity<>(token, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+    }
 
     @DeleteMapping("/admin/users/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

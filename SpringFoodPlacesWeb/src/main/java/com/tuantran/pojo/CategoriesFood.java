@@ -50,7 +50,6 @@ public class CategoriesFood implements Serializable {
     @JsonIgnore
     private Restaurants restaurantId;
     @OneToMany(mappedBy = "categoryfoodId")
-    @JsonIgnore
     private Set<Fooditems> fooditemsSet;
 
     public CategoriesFood() {
