@@ -8,6 +8,7 @@ import com.tuantran.pojo.ShelfLife;
 import com.tuantran.repository.ShelfLifeRepository;
 import com.tuantran.service.ShelfLifeService;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,8 @@ public class ShelfLifeServiceImpl implements ShelfLifeService{
     private ShelfLifeRepository ShelfLifeRepo;
     
     @Override
-    public List<Object[]> getShelfLife() {
-        return this.ShelfLifeRepo.getShelfLife();
+    public List<ShelfLife> getShelfLife(Map<String, String> params) {
+        return this.ShelfLifeRepo.getShelfLife(params);
     }
 
     @Override

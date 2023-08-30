@@ -4,6 +4,7 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -26,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author HP
+ * @author Administrator
  */
 @Entity
 @Table(name = "restaurants")
@@ -64,8 +65,16 @@ public class Restaurants implements Serializable {
     private String mapLink;
     @Column(name = "active")
     private Boolean active;
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurantId")
     private Set<Comments> commentsSet;
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurantId")
+    private Set<CategoriesFood> categoriesFoodSet;
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurantId")
+    private Set<ShelfLife> shelfLifeSet;
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurantId")
     private Set<Receipts> receiptsSet;
     @JoinColumn(name = "restaurant_status", referencedColumnName = "status_id")
@@ -74,11 +83,13 @@ public class Restaurants implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne
     private Users userId;
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurantId")
     private Set<Fooditems> fooditemsSet;
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurantId")
     private Set<Notifications> notificationsSet;
-
+    
     @Transient
     private MultipartFile file;
 
@@ -95,7 +106,7 @@ public class Restaurants implements Serializable {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
-    
+
     public Restaurants() {
     }
 
@@ -166,6 +177,24 @@ public class Restaurants implements Serializable {
 
     public void setCommentsSet(Set<Comments> commentsSet) {
         this.commentsSet = commentsSet;
+    }
+
+    @XmlTransient
+    public Set<CategoriesFood> getCategoriesFoodSet() {
+        return categoriesFoodSet;
+    }
+
+    public void setCategoriesFoodSet(Set<CategoriesFood> categoriesFoodSet) {
+        this.categoriesFoodSet = categoriesFoodSet;
+    }
+
+    @XmlTransient
+    public Set<ShelfLife> getShelfLifeSet() {
+        return shelfLifeSet;
+    }
+
+    public void setShelfLifeSet(Set<ShelfLife> shelfLifeSet) {
+        this.shelfLifeSet = shelfLifeSet;
     }
 
     @XmlTransient

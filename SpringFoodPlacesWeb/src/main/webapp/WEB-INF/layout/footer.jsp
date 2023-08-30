@@ -5,8 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href=" <c:url value="/css/footer.css" /> "/>
 <footer>
-    <div class="mt-4 p-5 bg-dark text-white rounded">
+    <div class="mt-4 p-5 text-white rounded">
         <h1>Trần Đăng Tuấn - Nguyễn Minh Hiếu &copy; 2023</h1>
         <p>Khoa CNTT, Đại học Mở Tp.HCM</p>
     </div>

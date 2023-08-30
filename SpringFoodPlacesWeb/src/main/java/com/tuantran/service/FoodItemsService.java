@@ -13,7 +13,7 @@ import java.util.Map;
  * @author HP
  */
 public interface FoodItemsService {
-    List<Object[]> getFoodItems(Map<String, String> params);
+    List<Fooditems> getFoodItems(Map<String, String> params);
     boolean addOrUpdateFoodItem(Fooditems foodItem);
     Fooditems getFoodItemById(int id);
     boolean delFoodItem(int id);

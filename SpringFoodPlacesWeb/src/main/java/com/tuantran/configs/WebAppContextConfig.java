@@ -6,8 +6,12 @@ package com.tuantran.configs;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.tuantran.formatters.CategoryFormatter;
+import com.tuantran.formatters.RestaurantsFormatter;
 import com.tuantran.formatters.RestaurantsStatusFormatter;
 import com.tuantran.formatters.RolesFormatter;
+import com.tuantran.formatters.ShelfLifeFormatter;
+import com.tuantran.formatters.UsersFormatter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,13 +64,17 @@ public class WebAppContextConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new RolesFormatter());
         registry.addFormatter(new RestaurantsStatusFormatter());
+        registry.addFormatter(new UsersFormatter());
+        registry.addFormatter(new CategoryFormatter());
+        registry.addFormatter(new ShelfLifeFormatter());
+        registry.addFormatter(new RestaurantsFormatter());
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-       registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/resources/css/");
-       registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
-       registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/resources/images/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/resources/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/resources/js/");
+        registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/resources/images/");
 
     }
 
@@ -78,8 +86,6 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //        r.setSuffix(".jsp");
 //        return r;
 //    }
-
-    
 //    @Bean
 //    public ConfigurableWebBindingInitializer webBindingInitializer() {
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -90,7 +96,6 @@ public class WebAppContextConfig implements WebMvcConfigurer {
 //
 //        return initializer;
 //    }
-
     @Bean
     public Cloudinary cloudinary() {
         Cloudinary cloudinary

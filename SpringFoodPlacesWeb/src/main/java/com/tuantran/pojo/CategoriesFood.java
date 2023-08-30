@@ -4,6 +4,7 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -12,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -22,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HP
+ * @author Administrator
  */
 @Entity
 @Table(name = "categories_food")
@@ -42,8 +45,13 @@ public class CategoriesFood implements Serializable {
     @Size(max = 255)
     @Column(name = "categoryname")
     private String categoryname;
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
+    @ManyToOne
+    @JsonIgnore
+    private Restaurants restaurantId;
     @OneToMany(mappedBy = "categoryfoodId")
-    private Set<CategoriesfoodFooditems> categoriesfoodFooditemsSet;
+    @JsonIgnore
+    private Set<Fooditems> fooditemsSet;
 
     public CategoriesFood() {
     }
@@ -68,13 +76,21 @@ public class CategoriesFood implements Serializable {
         this.categoryname = categoryname;
     }
 
-    @XmlTransient
-    public Set<CategoriesfoodFooditems> getCategoriesfoodFooditemsSet() {
-        return categoriesfoodFooditemsSet;
+    public Restaurants getRestaurantId() {
+        return restaurantId;
     }
 
-    public void setCategoriesfoodFooditemsSet(Set<CategoriesfoodFooditems> categoriesfoodFooditemsSet) {
-        this.categoriesfoodFooditemsSet = categoriesfoodFooditemsSet;
+    public void setRestaurantId(Restaurants restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    @XmlTransient
+    public Set<Fooditems> getFooditemsSet() {
+        return fooditemsSet;
+    }
+
+    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
+        this.fooditemsSet = fooditemsSet;
     }
 
     @Override

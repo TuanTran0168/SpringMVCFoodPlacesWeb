@@ -4,6 +4,7 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -22,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author HP
+ * @author Administrator
  */
 @Entity
 @Table(name = "roles")
@@ -42,6 +43,7 @@ public class Roles implements Serializable {
     @Size(max = 255)
     @Column(name = "role_name")
     private String roleName;
+    @JsonIgnore
     @OneToMany(mappedBy = "roleId")
     private Set<Users> usersSet;
 

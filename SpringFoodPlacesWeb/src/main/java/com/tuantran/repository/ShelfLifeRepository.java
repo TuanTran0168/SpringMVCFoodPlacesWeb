@@ -6,13 +6,14 @@ package com.tuantran.repository;
 
 import com.tuantran.pojo.ShelfLife;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author HP
  */
 public interface ShelfLifeRepository {
-    List<Object[]> getShelfLife();
+    List<ShelfLife> getShelfLife(Map<String, String> params);
     boolean addOrUpdateShelfLife(ShelfLife shelfLife);
     ShelfLife getShelfLifeById(int id);
     boolean delShelf(int id);

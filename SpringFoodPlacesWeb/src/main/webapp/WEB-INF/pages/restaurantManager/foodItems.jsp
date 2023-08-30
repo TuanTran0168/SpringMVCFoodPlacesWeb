@@ -31,7 +31,7 @@
                 <th>Tên</th>
                 <th>Giá</th>
                 <th>Tình Trạng</th>
-                <th>Loại</th>
+                <th>mô tả</th>
                 
         <hr>
         </tr>
@@ -45,10 +45,10 @@
                     <td>${f.foodName}</td>
                     <td>${f.price}</td>
                     <td>${f.available}</td>
-                    <td>${f.foodType}</td>
+                    <td>${f.description}</td>
                     
                     <td>
-                        <a href="<c:url value="/restaurantManager/foodItems/newFoodItems/${f.foodId}" />" class = "btn btn-success">Cập nhật</a>
+                        <a href="<c:url value="/restaurantManager/foodItems/${f.foodId}" />" class = "btn btn-success">Cập nhật</a>
                         <c:url value="/api/restaurantManager/foodItems/newFoodItems/${f.foodId}" var="apiDel" />
                         <button class = "btn btn-danger" onclick="deleteFood('${apiDel}', ${f.foodId})">Xóa</button>
                     </td>

@@ -9,6 +9,7 @@ import com.tuantran.repository.CategoryFoodRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -44,7 +45,7 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
 //        return query.getResultList();
 //    }
     @Override
-    public List<Object[]> getCategoriesFood(Map<String, String> params) {
+    public List<CategoriesFood> getCategoriesFood(Map<String, String> params) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<CategoriesFood> query = criteriaBuilder.createQuery(CategoriesFood.class);
@@ -59,6 +60,13 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
             if (keyword != null && !keyword.isEmpty()) {
                 predicates.add(
                         criteriaBuilder.like(rootCate.get("categoryname"), String.format("%%%s%%", keyword))
+                );
+            }
+
+            String restaurantId = params.get("restaurantId");
+            if (restaurantId != null && !restaurantId.isEmpty()) {
+                predicates.add(
+                        criteriaBuilder.equal(rootCate.get("restaurantId"), Integer.valueOf(restaurantId))
                 );
             }
             query.where(predicates.toArray(Predicate[]::new));
@@ -114,12 +122,36 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
     public boolean delCategory(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         CategoriesFood cate = this.getCategoryById(id);
-        try{
+        try {
             session.delete(cate);
             return true;
-        }catch(HibernateException ex){
+        } catch (HibernateException ex) {
             ex.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public List<CategoriesFood> getCategoriesFoodByRestaurantId(int restaurantId) {
+//        Session session = this.factory.getObject().getCurrentSession();
+//        Query query = session.createQuery("FROM CategoriesFood WHERE restaurantId=:restaurantId");
+//        query.setParameter("restaurantId", restaurantId);
+//        return query.getResultList();
+
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<CategoriesFood> query = criteriaBuilder.createQuery(CategoriesFood.class);
+            Root rootCate = query.from(CategoriesFood.class);
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(criteriaBuilder.equal(rootCate.get("restaurantId"), restaurantId));
+
+            query.where(predicates.toArray(Predicate[]::new));
+
+            return session.createQuery(query).getResultList();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

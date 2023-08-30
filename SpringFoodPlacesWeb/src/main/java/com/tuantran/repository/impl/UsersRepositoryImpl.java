@@ -9,6 +9,7 @@ import com.tuantran.repository.UsersRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -40,7 +41,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     private Environment environment;
 
     @Override
-    public List<Object[]> getUsers(Map<String, String> params) {
+    public List<Users> getUsers(Map<String, String> params) {
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Users> query = criteriaBuilder.createQuery(Users.class);
@@ -64,6 +65,13 @@ public class UsersRepositoryImpl implements UsersRepository {
                 // Chỗ này ảo ma :) không parse về Int là bugs ???
                 // Mà á parse về Int thì IDE nó báo không cần thiết ???
                 predicates.add(criteriaBuilder.equal(rootUsers.get("roleId"), Integer.parseInt(roleId)));
+            }
+
+            String userName = params.get("username");
+            if (userName != null && !userName.isEmpty()) {
+                // Chỗ này ảo ma :) không parse về Int là bugs ???
+                // Mà á parse về Int thì IDE nó báo không cần thiết ???
+                predicates.add(criteriaBuilder.equal(rootUsers.get("username"), userName));
             }
 
             query.where(predicates.toArray(Predicate[]::new));
@@ -155,9 +163,22 @@ public class UsersRepositoryImpl implements UsersRepository {
         try {
             session.delete(user);
             return true;
-        } catch(HibernateException ex) {
+        } catch (HibernateException ex) {
             ex.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public Users getUserByUsername_new(String username) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            Query query = session.createQuery("FROM Users WHERE username=:username");
+            query.setParameter("username", username);
+            return (Users) query.getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

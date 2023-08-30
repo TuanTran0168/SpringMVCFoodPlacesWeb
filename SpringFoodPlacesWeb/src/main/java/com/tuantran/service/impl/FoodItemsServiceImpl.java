@@ -30,7 +30,7 @@ public class FoodItemsServiceImpl implements FoodItemsService{
     private Cloudinary cloudinary;
     
     @Override
-    public List<Object[]> getFoodItems(Map<String, String> params) {
+    public List<Fooditems> getFoodItems(Map<String, String> params) {
         return this.foodItemRepo.getFoodItems(params);
     }
 

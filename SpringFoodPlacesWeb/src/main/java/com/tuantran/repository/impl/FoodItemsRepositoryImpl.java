@@ -9,6 +9,7 @@ import com.tuantran.repository.FoodItemsRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -30,29 +31,29 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Repository
 @PropertySource("classpath:configs.properties")
-public class FoodItemsRepositoryImpl implements FoodItemsRepository{
+public class FoodItemsRepositoryImpl implements FoodItemsRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
     @Autowired
     private Environment env;
-    
+
     @Override
-    public List<Object[]> getFoodItems(Map<String, String> params) {
+    public List<Fooditems> getFoodItems(Map<String, String> params) {
         Session session = this.factory.getObject().getCurrentSession();
 //        Query query = session.createQuery("From Fooditems");
         CriteriaBuilder b = session.getCriteriaBuilder();
         CriteriaQuery<Fooditems> q = b.createQuery(Fooditems.class);
         Root root = q.from(Fooditems.class);
         q.select(root);
-        
+
         if (params != null) {
             List<Predicate> predicates = new ArrayList<>();
             String kw = params.get("kw");
             if (kw != null && !kw.isEmpty()) {
                 predicates.add(b.like(root.get("foodName"), String.format("%%%s%%", kw)));
             }
-            
+
             String fromPrice = params.get("fromPrice");
             if (fromPrice != null && !fromPrice.isEmpty()) {
                 predicates.add(b.greaterThanOrEqualTo(root.get("price"), Double.parseDouble(fromPrice)));
@@ -62,24 +63,24 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository{
             if (toPrice != null && !toPrice.isEmpty()) {
                 predicates.add(b.lessThanOrEqualTo(root.get("price"), Double.parseDouble(toPrice)));
             }
-            
-            String cate = params.get("cateId");
-            if (cate != null && !toPrice.isEmpty()) {
-                predicates.add(b.lessThanOrEqualTo(root.get("price"), Double.parseDouble(cate)));
+
+            String cateFoodId = params.get("cateFoodId");
+            if (cateFoodId != null && !cateFoodId.isEmpty()) {
+                predicates.add(b.equal(root.get("categoryfoodId"), Integer.valueOf(cateFoodId)));
             }
-            
+
             String restaurantId = params.get("restaurantId");
             if (restaurantId != null && !restaurantId.isEmpty()) {
                 predicates.add(b.equal(root.get("restaurantId"), Integer.valueOf(restaurantId)));
             }
-            
+
             q.where(predicates.toArray(Predicate[]::new));
-            
+
         }
-          
+
         q.orderBy(b.desc(root.get("foodId")));
         Query query = session.createQuery(q);
-        
+
         if (params != null) {
             String page = params.get("page");
             if (page != null && !page.isEmpty()) {
@@ -90,7 +91,7 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository{
                 query.setFirstResult((p - 1) * pageSize);
             }
         }
-        
+
         return query.getResultList();
     }
 
@@ -98,7 +99,7 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository{
     public boolean addOrUpdateFoodItem(Fooditems foodItem) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
-            if (foodItem.getFoodId()== null) {
+            if (foodItem.getFoodId() == null) {
                 session.save(foodItem);
             } else {
                 session.update(foodItem);
@@ -113,18 +114,24 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository{
 
     @Override
     public Fooditems getFoodItemById(int id) {
-        Session session = this.factory.getObject().getCurrentSession();
-        return session.get(Fooditems.class, id);
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            return session.get(Fooditems.class, id);
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
-    
+
     @Override
     public boolean delFoodItem(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         Fooditems food = this.getFoodItemById(id);
-        try{
+        try {
             session.delete(food);
             return true;
-        }catch(HibernateException ex){
+        } catch (HibernateException ex) {
             ex.printStackTrace();
             return false;
         }
@@ -136,5 +143,5 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository{
         Query query = session.createQuery("FROM Fooditems");
         return query.getResultList();
     }
-    
+
 }

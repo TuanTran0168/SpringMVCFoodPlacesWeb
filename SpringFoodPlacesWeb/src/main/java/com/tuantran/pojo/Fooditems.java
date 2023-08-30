@@ -28,7 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
- * @author HP
+ * @author Administrator
  */
 @Entity
 @Table(name = "fooditems")
@@ -40,7 +40,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Fooditems.findByAvatar", query = "SELECT f FROM Fooditems f WHERE f.avatar = :avatar"),
     @NamedQuery(name = "Fooditems.findByPrice", query = "SELECT f FROM Fooditems f WHERE f.price = :price"),
     @NamedQuery(name = "Fooditems.findByAvailable", query = "SELECT f FROM Fooditems f WHERE f.available = :available"),
-    @NamedQuery(name = "Fooditems.findByFoodType", query = "SELECT f FROM Fooditems f WHERE f.foodType = :foodType"),
+    @NamedQuery(name = "Fooditems.findByDescription", query = "SELECT f FROM Fooditems f WHERE f.description = :description"),
     @NamedQuery(name = "Fooditems.findByActive", query = "SELECT f FROM Fooditems f WHERE f.active = :active")})
 public class Fooditems implements Serializable {
 
@@ -62,26 +62,29 @@ public class Fooditems implements Serializable {
     @Column(name = "available")
     private Boolean available;
     @Size(max = 255)
-    @Column(name = "food_type")
-    private String foodType;
+    @Column(name = "description")
+    private String description;
     @Column(name = "active")
     private Boolean active;
-    @OneToMany(mappedBy = "foodId")
     @JsonIgnore
-    private Set<CategoriesfoodFooditems> categoriesfoodFooditemsSet;
     @OneToMany(mappedBy = "foodId")
-    @JsonIgnore
     private Set<Comments> commentsSet;
-    @OneToMany(mappedBy = "fooditemId")
     @JsonIgnore
+    @OneToMany(mappedBy = "fooditemId")
     private Set<ReceiptDetail> receiptDetailSet;
+    @JoinColumn(name = "categoryfood_id", referencedColumnName = "categoryfood_id")
+    @ManyToOne
+    @JsonIgnore
+    private CategoriesFood categoryfoodId;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
     @JsonIgnore
     private Restaurants restaurantId;
-    @OneToMany(mappedBy = "foodId")
+    @JoinColumn(name = "shelflife_id", referencedColumnName = "shelflife_id")
+    @ManyToOne
     @JsonIgnore
-    private Set<ShelflifeFooditems> shelflifeFooditemsSet;
+    private ShelfLife shelflifeId;
+    
     @Transient
     private MultipartFile file;
 
@@ -146,12 +149,12 @@ public class Fooditems implements Serializable {
         this.available = available;
     }
 
-    public String getFoodType() {
-        return foodType;
+    public String getDescription() {
+        return description;
     }
 
-    public void setFoodType(String foodType) {
-        this.foodType = foodType;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Boolean getActive() {
@@ -160,15 +163,6 @@ public class Fooditems implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
-    }
-
-    @XmlTransient
-    public Set<CategoriesfoodFooditems> getCategoriesfoodFooditemsSet() {
-        return categoriesfoodFooditemsSet;
-    }
-
-    public void setCategoriesfoodFooditemsSet(Set<CategoriesfoodFooditems> categoriesfoodFooditemsSet) {
-        this.categoriesfoodFooditemsSet = categoriesfoodFooditemsSet;
     }
 
     @XmlTransient
@@ -189,6 +183,14 @@ public class Fooditems implements Serializable {
         this.receiptDetailSet = receiptDetailSet;
     }
 
+    public CategoriesFood getCategoryfoodId() {
+        return categoryfoodId;
+    }
+
+    public void setCategoryfoodId(CategoriesFood categoryfoodId) {
+        this.categoryfoodId = categoryfoodId;
+    }
+
     public Restaurants getRestaurantId() {
         return restaurantId;
     }
@@ -197,13 +199,12 @@ public class Fooditems implements Serializable {
         this.restaurantId = restaurantId;
     }
 
-    @XmlTransient
-    public Set<ShelflifeFooditems> getShelflifeFooditemsSet() {
-        return shelflifeFooditemsSet;
+    public ShelfLife getShelflifeId() {
+        return shelflifeId;
     }
 
-    public void setShelflifeFooditemsSet(Set<ShelflifeFooditems> shelflifeFooditemsSet) {
-        this.shelflifeFooditemsSet = shelflifeFooditemsSet;
+    public void setShelflifeId(ShelfLife shelflifeId) {
+        this.shelflifeId = shelflifeId;
     }
 
     @Override
@@ -230,5 +231,5 @@ public class Fooditems implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Fooditems[ foodId=" + foodId + " ]";
     }
-
+    
 }

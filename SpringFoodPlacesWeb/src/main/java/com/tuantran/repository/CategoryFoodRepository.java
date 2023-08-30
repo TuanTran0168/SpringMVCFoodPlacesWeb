@@ -13,10 +13,10 @@ import java.util.Map;
  * @author HP
  */
 public interface CategoryFoodRepository {
-    List<Object[]> getCategoriesFood(Map<String, String> params);
+    List<CategoriesFood> getCategoriesFood(Map<String, String> params);
     int countCategoriesFood();
     boolean addOrUpdateCate(CategoriesFood cate);
     CategoriesFood getCategoryById(int id);
     boolean delCategory(int id);
-    
+    List<CategoriesFood> getCategoriesFoodByRestaurantId(int restaurantId);
 }
