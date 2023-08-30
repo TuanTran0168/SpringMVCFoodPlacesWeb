@@ -4,6 +4,7 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -46,6 +47,7 @@ public class CategoriesFood implements Serializable {
     private String categoryname;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
+    @JsonIgnore
     private Restaurants restaurantId;
     @OneToMany(mappedBy = "categoryfoodId")
     private Set<Fooditems> fooditemsSet;

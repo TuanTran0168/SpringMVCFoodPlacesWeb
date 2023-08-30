@@ -37,12 +37,12 @@ public class ApiCategoryController {
         this.categoryFoodSer.delCategory(id);
     }
 
-//    @GetMapping("/categories/")
-//    @CrossOrigin
-//    public ResponseEntity<List<Object[]>> list(@RequestParam Map<String, String> params) {
-//        
-//        return new ResponseEntity<>(this.categoryFoodSer.getCategoriesFood(params), HttpStatus.OK);
-//    }
+    @GetMapping("/restaurantManager/categories/")
+    @CrossOrigin
+    public ResponseEntity<List<CategoriesFood>> list(@RequestParam Map<String, String> params) {
+        
+        return new ResponseEntity<>(this.categoryFoodSer.getCategoriesFood(params), HttpStatus.OK);
+    }
 //    @GetMapping("/categories/")
 //    @CrossOrigin
 //    public ResponseEntity<List<Object[]>> list(@RequestParam Map<String, String> params) {
