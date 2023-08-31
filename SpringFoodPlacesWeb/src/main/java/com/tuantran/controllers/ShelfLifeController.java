@@ -16,6 +16,7 @@ import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,29 +53,22 @@ public class ShelfLifeController {
     @GetMapping("/restaurantManager/shelfLife")
     public String indexShelfLife(Model model, @RequestParam Map<String, String> params) throws ParseException {
         List<ShelfLife> listShelfLife = this.shelfLifeSer.getShelfLife(params);
-//        List<ShelfLife> listShelfLife_p = new ArrayList<>();
-//        for (Object sl : listShelfLife) {
-//            ShelfLife sl_p = (ShelfLife) sl;
-//            
-//            sl_p.setFromDate(MY_FORMAT_VIEW.parse(sl_p.getFromDate().toString()));
-//            sl_p.setToDate(MY_FORMAT_VIEW.parse(sl_p.getToDate().toString()));
-//            
-//            
-//            listShelfLife_p.add(sl_p);
-//        }
-//        
-//        List<Object[]> ok = new ArrayList<>();
-//        
-//        for (ShelfLife loz : listShelfLife_p) {
-//           Object sl_o = (Object) loz;
-//           
-//            Object[] sl_o_arr = (Object[]) sl_o;
-//           
-//           ok.add(sl_o_arr);
-//        }
 
+        model.addAttribute("shelfLife", new ShelfLife());
         model.addAttribute("shelfLifes", listShelfLife);
         return "shelfLife";
+    }
+    
+    @PostMapping("/restaurantManager/shelfLife")
+    public String addCategory_new(Model model, @ModelAttribute(value = "shelfLife") @Valid ShelfLife shelfLife, BindingResult rs, @RequestParam Map<String, String> params, Authentication authentication) {
+        String msg = "";
+         if (!rs.hasErrors()) {
+            if (this.shelfLifeSer.addOrUpdateShelfLife(shelfLife) == true) {
+                return "redirect:/restaurantManager/shelfLife?restaurantId=" + shelfLife.getRestaurantId().getRestaurantId();
+            }
+        }
+        model.addAttribute("msg", msg);
+        return "redirect:/restaurantManager/restaurants";
     }
 
     //=============================================//

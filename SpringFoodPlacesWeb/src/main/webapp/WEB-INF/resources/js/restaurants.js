@@ -19,7 +19,7 @@ function deleteRestaurant(path, id) {
 }
 
 function getUsersByRoleId() {
-    return fetch("http://localhost:8080/SpringFoodPlacesWeb/api/admin/users/roleId/2", {
+    return fetch("http://localhost:8080/SpringFoodPlacesWeb/api/server/admin/users/roleId/2", {
         method: "get"
     }).then(res => {
         return res.json();

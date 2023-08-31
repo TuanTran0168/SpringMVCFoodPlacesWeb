@@ -66,4 +66,17 @@ public class ApiUsersController {
         params.put("roleId", String.valueOf(roleId));
         return new ResponseEntity<>(this.usersService.getUsers(params), HttpStatus.OK);
     }
+    
+     @GetMapping("/server/admin/users/roleId/{roleId}")
+    @CrossOrigin
+    public ResponseEntity<List<Users>> usersByUserRole_List_no_token(@PathVariable(value = "roleId") int roleId, Map<String, String> params) {
+        params.put("roleId", String.valueOf(roleId));
+        return new ResponseEntity<>(this.usersService.getUsers(params), HttpStatus.OK);
+    }
+    
+    @DeleteMapping("/server/admin/users/{userId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete_no_token(@PathVariable(value = "userId") int id) {
+        this.usersService.deleteUsers(id);
+    }
 }

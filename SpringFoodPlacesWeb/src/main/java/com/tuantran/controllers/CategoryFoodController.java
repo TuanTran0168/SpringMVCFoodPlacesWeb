@@ -53,11 +53,24 @@ public class CategoryFoodController {
         int countCate = this.categoriesFoodSer.countCategoriesFood();
         model.addAttribute("counter", Math.ceil(countCate * 1.0 / pageSize));
 
+        String msg = "";
         String pageStr = params.get("page");
         String pageAllStr = params.get("pageAll");
         String restaurantId = params.get("restaurantId");
 
+        if (restaurantId == null || restaurantId.isEmpty()) {
+            msg = "Có lỗi xảy ra!";
+            model.addAttribute("msg", msg);
+            return "redirect:/restaurantManager/restaurants";
+        }
+
         Restaurants restaurant = this.restaurantsService.getRestaurantById(Integer.parseInt(restaurantId));
+
+        if (restaurant == null) {
+            msg = "Bạn không sở hữu nhà hàng này!";
+            model.addAttribute("msg", msg);
+            return "redirect:/restaurantManager/restaurants";
+        }
 
         if (authentication != null && authentication.isAuthenticated()) {
             Object principal = authentication.getPrincipal();
@@ -80,36 +93,73 @@ public class CategoryFoodController {
                         model.addAttribute("categories", this.categoriesFoodSer.getCategoriesFood(params));
                     }
                 } else {
+                    msg = "Bạn không sở hữu nhà hàng này!";
+                    model.addAttribute("msg", msg);
                     return "redirect:/restaurantManager/restaurants";
                 }
             }
         }
-        model.addAttribute("msg", "Category Page");
+        model.addAttribute("msg", msg);
+        model.addAttribute("cate", new CategoriesFood());
         return "indexCategories";
     }
 
+    @PostMapping("/restaurantManager/categoriesFood")
+    public String addCategory_new(Model model, @ModelAttribute(value = "cate") @Valid CategoriesFood cate, BindingResult rs, @RequestParam Map<String, String> params, Authentication authentication) {
+        String msg = "";
+        if (!rs.hasErrors()) {
+
+            if (categoriesFoodSer.addOrUpdateCate(cate) == true) {
+                return "redirect:/restaurantManager/categoriesFood?restaurantId=" + cate.getRestaurantId().getRestaurantId();
+            }
+        }
+        model.addAttribute("msg", msg);
+        return "redirect:/restaurantManager/restaurants";
+    }
+
     @GetMapping("/restaurantManager/categoriesFood/newCategoriesFood")
-    public String indexNewCate(Model model
-    ) {
+    public String indexNewCate(Model model) {
         model.addAttribute("cate", new CategoriesFood());
         return "newCategory";
     }
 
     @PostMapping("/restaurantManager/categoriesFood/newCategoriesFood")
-    public String addCategory(@ModelAttribute(value = "cate")
-            @Valid CategoriesFood cate, BindingResult rs
-    ) {
+    public String addCategory(Model model, @ModelAttribute(value = "cate") @Valid CategoriesFood cate, BindingResult rs, @RequestParam Map<String, String> params, Authentication authentication) {
+        String msg = "";
+
+//        String restaurantId = params.get("restaurantId");
+//
+//        if (restaurantId == null || restaurantId.isEmpty()) {
+//            msg = "Bạn không sở hữu nhà hàng này!";
+//            model.addAttribute("msg", msg);
+//            return "redirect:/restaurantManager/restaurants";
+//        }
+//
+//        if (authentication != null && authentication.isAuthenticated()) {
+//            Object principal = authentication.getPrincipal();
+//            UserDetails user = (UserDetails) principal;
+//            String username = user.getUsername();
+//            params.put("username", username);
+//
+//            Users user_auth = this.userService.getUserByUsername_new(username);
+//
+//            if (user_auth != null) {
+//                cate.setRestaurantId(this.restaurantsService.getRestaurantById(Integer.parseInt(restaurantId)));
+//            }
+//        }
+
         if (!rs.hasErrors()) {
+
             if (categoriesFoodSer.addOrUpdateCate(cate) == true) {
-                return "redirect:/restaurantManager/categoriesFood";
+                return "redirect:/restaurantManager/categoriesFood?restaurantId=" + cate.getRestaurantId().getRestaurantId();
             }
         }
+        model.addAttribute("msg", msg);
         return "newCategory";
     }
 
     @GetMapping("/restaurantManager/categoriesFood/newCategoriesFood/{categoryfoodId}")
-    public String update(Model model, @PathVariable(value = "categoryfoodId") int categoryfoodId
-    ) {
+    public String update(Model model, @PathVariable(value = "categoryfoodId") int categoryfoodId) {
         model.addAttribute("cate", this.categoriesFoodSer.getCategoryById(categoryfoodId));
         return "newCategory";
     }

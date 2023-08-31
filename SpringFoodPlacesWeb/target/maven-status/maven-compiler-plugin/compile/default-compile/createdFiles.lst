@@ -25,13 +25,11 @@ com\tuantran\repository\impl\ShelfLifeRepositoryImpl.class
 com\tuantran\repository\UsersRepository.class
 com\tuantran\controllers\RestaurantsController.class
 com\tuantran\pojo\Notifications_.class
-
 com\tuantran\filters\RestAuthenticationEntryPoint.class
 com\tuantran\formatters\RestaurantsFormatter.class
 com\tuantran\configs\TilesConfigs.class
 com\tuantran\pojo\Roles.class
 com\tuantran\formatters\UsersFormatter.class
-com\tuantran\pojo\CategoriesfoodFooditems.class
 com\tuantran\pojo\Comments.class
 com\tuantran\controllers\CategoryFoodController.class
 com\tuantran\service\RestaurantStatusService.class

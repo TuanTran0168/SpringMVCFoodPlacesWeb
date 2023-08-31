@@ -6,18 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%--<c:forEach items="${fooditems}" var="f">
-    <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="${f.avatar}" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">${f.foodName}</h5>
-    <p class="card-text"> ${f.price}</p>
-    <a href="#" class="btn btn-primary">Mua Ngay</a>
-  </div>
-</div>
-</c:forEach>--%>
 
-<!--<h1 style="text-align: center">${msg}</h1>-->
 <section class="container">
     <div>
         <a href="foodItems/newFoodItems" class = "btn btn-success mt-3"> Thêm món ăn </a>
@@ -49,7 +38,7 @@
                     
                     <td>
                         <a href="<c:url value="/restaurantManager/foodItems/${f.foodId}" />" class = "btn btn-success">Cập nhật</a>
-                        <c:url value="/api/restaurantManager/foodItems/newFoodItems/${f.foodId}" var="apiDel" />
+                        <c:url value="/api/server/restaurantManager/foodItems/newFoodItems/${f.foodId}" var="apiDel" />
                         <button class = "btn btn-danger" onclick="deleteFood('${apiDel}', ${f.foodId})">Xóa</button>
                     </td>
                 </tr>

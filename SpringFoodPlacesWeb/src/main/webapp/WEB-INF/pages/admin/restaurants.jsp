@@ -98,7 +98,7 @@
                     <td>${restaurant.userId.userId}</td>
                     <td>${restaurant.restaurantStatus.restaurantStatus}</td>
                     <td>
-                        <c:url value="/api/admin/restaurants/${restaurant.restaurantId}" var="restaurantPathAPI"/>
+                        <c:url value="/api/server/admin/restaurants/${restaurant.restaurantId}" var="restaurantPathAPI"/>
                         <a href="<c:url value="/admin/restaurants/${restaurant.restaurantId}" />" class = "btn btn-success">Cập nhật</a>
                         <button class = "btn btn-danger" onclick="deleteRestaurant('${restaurantPathAPI}', ${restaurant.restaurantId})">Xóa nà</button>
                     </td>

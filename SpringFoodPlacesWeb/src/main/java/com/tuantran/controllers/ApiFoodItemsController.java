@@ -42,5 +42,10 @@ public class ApiFoodItemsController {
         return new ResponseEntity<>(this.foodItemsSer.getFoodItems(params), HttpStatus.OK);
     }
     
+    @DeleteMapping("/server/restaurantManager/foodItems/newFoodItems/{foodId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete_no_token(@PathVariable(value = "foodId") int id){
+        this.foodItemsSer.delFoodItem(id);
+    }
     
 }

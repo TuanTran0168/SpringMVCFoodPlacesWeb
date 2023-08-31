@@ -6,13 +6,32 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:url value="/restaurantManager/indexCategories" var = "action" />
 
 <h1 style="text-align: center">${msg}</h1>
 <section class="container">
+
+<!--    <div>
+        <c:url value="categoriesFood/newCategoriesFood" var="newCateAction">
+            <c:param name="restaurantId" value="${param.restaurantId}"></c:param>
+        </c:url>
+        <a href="${newCateAction}" class = "btn btn-success"> Thêm Danh Mục </a>
+    </div>-->
+
     <div>
-        <a href="categoriesFood/newCategoriesFood" class = "btn btn-success"> Thêm Danh Mục </a>
+        <form:form method="post" modelAttribute="cate">
+            <div class="form-floating mb-3 mt-3">
+                <form:input type="text" class="form-control" path="categoryname" id="categoryname" placeholder="Nhập tên danh mục... " name="categoryname" />
+                <label for="categoryname">Nhập Tên Danh Mục...</label>
+            </div>
+            <div class="form-floating mb-3 mt-3">
+                <button class="btn btn-info" type="submit">
+                    Thêm danh mục PROMAX
+                </button>
+            </div>
+        </form:form>
     </div>
 
     <table class="table-hover container">
@@ -21,24 +40,24 @@
                 <th>Category Id</th>
                 <th>Category Name</th>
                 <th>id nha hang</th>
-                <hr>
-            </tr>
+        <hr>
+        </tr>
         </thead>
-        
-    <c:forEach items="${categories}" var="c">
-        <tbody>
-            <tr>
-                <td>${c.categoryfoodId}</td>
-                <td>${c.categoryname}</td>
-                <td>${c.restaurantId}</td>
-                <td>
+
+        <c:forEach items="${categories}" var="c">
+            <tbody>
+                <tr>
+                    <td>${c.categoryfoodId}</td>
+                    <td>${c.categoryname}</td>
+                    <td>${c.restaurantId}</td>
+                    <td>
                         <a href="<c:url value="/restaurantManager/categoriesFood/newCategoriesFood/${c.categoryfoodId}" />" class = "btn btn-success">Cập nhật</a>
-                        <c:url value="/api/restaurantManager/categoriesFood/newCategoriesFood/${c.categoryfoodId}" var="apiDel" />
+                        <c:url value="/api/server/restaurantManager/categoriesFood/newCategoriesFood/${c.categoryfoodId}" var="apiDel" />
                         <button class = "btn btn-danger" onclick="delCate('${apiDel}', ${c.categoryfoodId})">Xóa</button>
                     </td>
-            </tr>
-        </tbody> 
-    </c:forEach>
+                </tr>
+            </tbody> 
+        </c:forEach>
     </table>
 </section>
 

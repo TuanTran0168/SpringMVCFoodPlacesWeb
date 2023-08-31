@@ -71,7 +71,7 @@
                     </td>-->
                     
                     <td>
-                        <c:url value="/api/admin/users/${user.userId}" var="userPathAPI"/>
+                        <c:url value="/api/server/admin/users/${user.userId}" var="userPathAPI"/>
                         <a href="<c:url value="/admin/users/${user.userId}" />" class = "btn btn-success">Cập nhật</a>
                         <button class = "btn btn-danger" onclick="deleteUser('${userPathAPI}', ${user.userId})">Xóa nà</button>
                     </td>

@@ -36,4 +36,16 @@ public class ApiRestaurantsController {
     public void delete_admin(@PathVariable(value = "restaurantId") int id) {
         this.restaurantsService.deleteRestaurants(id);
     }
+    
+    @DeleteMapping("/server/restaurantManager/restaurants/{restaurantId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete_no_token(@PathVariable(value = "restaurantId") int id) {
+        this.restaurantsService.deleteRestaurants(id);
+    }
+    
+    @DeleteMapping("/server/admin/restaurants/{restaurantId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete_admin_no_token(@PathVariable(value = "restaurantId") int id) {
+        this.restaurantsService.deleteRestaurants(id);
+    }
 }

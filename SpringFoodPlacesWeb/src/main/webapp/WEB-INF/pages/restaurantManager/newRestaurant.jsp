@@ -54,6 +54,13 @@
                         </c:url>
                         <a href="${editCategoriesFoodAction}">Quản lý danh mục</a>
                     </button>
+                    
+                    <button>
+                        <c:url value="/restaurantManager/shelfLife" var="editShelfLifeAction">
+                           <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                        </c:url>
+                        <a href="${editShelfLifeAction}">Quản lý thời gian bán</a>
+                    </button>
                     <ul class="category">
                         <li>
                             <button>
@@ -126,7 +133,6 @@
         </c:when>
     </c:choose>
 </form:form>
-
 
 <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">ĐĂNG KÝ NHÀ HÀNG MỚI</h1>
 <hr class="container">

@@ -152,6 +152,7 @@ public class RestaurantsController {
             return "redirect:/restaurantManager/restaurants";
         }
 
+        model.addAttribute("msg", msg);
         return "newRestaurant";
     }
 
