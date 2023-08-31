@@ -78,6 +78,7 @@ public class Fooditems implements Serializable {
     private CategoriesFood categoryfoodId;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
+    @JsonIgnore
     private Restaurants restaurantId;
     @JoinColumn(name = "shelflife_id", referencedColumnName = "shelflife_id")
     @ManyToOne

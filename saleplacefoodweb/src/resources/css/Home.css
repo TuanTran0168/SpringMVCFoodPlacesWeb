@@ -1,0 +1,16 @@
+.flex{
+    display:flex;
+}
+
+.description {
+    margin-left: auto;
+}
+
+.description p{
+    margin-left: 10px;
+}
+
+.card{
+    width: 100%;
+    overflow: hidden;
+}

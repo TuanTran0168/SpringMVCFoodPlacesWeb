@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +25,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -142,6 +144,35 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public boolean authUser(String username, String password) {
         return this.usersRepo.authUser(username, password);
+    }
+
+    @Override
+    public boolean addUser(Map<String, String> params, MultipartFile avatar) {
+        Users u = new Users();
+        u.setUsername(params.get("username"));
+        u.setPassword(this.bCryptPasswordEncoder.encode(params.get("password")));
+        u.setFirstname(params.get("firstName"));
+        u.setLastname(params.get("lastName"));
+        u.setPhonenumber(params.get("phone"));
+        u.setRoleId(new Roles(3));
+        if (!avatar.isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(avatar.getBytes(), 
+                        ObjectUtils.asMap("resource_type", "auto"));
+                u.setAvatar(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(UsersServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try{
+            this.usersRepo.registerUser(u);
+            return true;
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+            return false;
+        }
+        
     }
 
 }
