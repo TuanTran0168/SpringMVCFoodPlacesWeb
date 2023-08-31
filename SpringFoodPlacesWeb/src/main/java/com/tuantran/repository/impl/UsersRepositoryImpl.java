@@ -40,8 +40,8 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Autowired
     private Environment environment;
-    
-     @Autowired
+
+    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @Override
@@ -190,6 +190,19 @@ public class UsersRepositoryImpl implements UsersRepository {
     public boolean authUser(String username, String password) {
         Users user = this.getUserByUsername(username);
         return this.passwordEncoder.matches(password, user.getPassword());
+    }
+
+    //api register
+    @Override
+    public Users addUser(Users user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            session.save(user);
+            return user;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
 }

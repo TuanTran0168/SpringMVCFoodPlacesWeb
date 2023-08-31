@@ -63,6 +63,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().ignoringAntMatchers("/api/**");
         http.authorizeRequests().antMatchers("/api/login/").permitAll();
         http.authorizeRequests().antMatchers("/api/server/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/register/").permitAll();
 //        http.authorizeRequests().antMatchers("/api/admin/restaurants/**").permitAll();
 
 //        http.authorizeRequests().antMatchers("/admin/**").hasRole("Admin");

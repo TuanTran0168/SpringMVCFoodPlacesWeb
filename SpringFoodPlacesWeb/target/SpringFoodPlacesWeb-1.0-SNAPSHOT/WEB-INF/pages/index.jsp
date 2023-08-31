@@ -6,7 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<link rel="stylesheet" href=" <c:url value="/css/index.css" /> "/>
 <c:url value="/" var = "action" />
 
 
@@ -19,8 +19,10 @@
     </div>
 </c:if>
 
-<section>
-    <h1 class ="text-center">CHO MÌNH XIN CÁI GIAO DIỆN</h1>
+<section class = "body">
+    <h1 class ="text-center text-white">CHO MÌNH XIN CÁI GIAO DIỆN</h1>
 </section>
+
+
 
     

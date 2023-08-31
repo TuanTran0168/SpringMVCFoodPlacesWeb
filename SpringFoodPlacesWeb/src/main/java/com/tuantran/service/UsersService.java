@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -34,4 +35,6 @@ public interface UsersService extends UserDetailsService {
     Users getUserByUsername_new(String username);
 
     boolean authUser(String username, String password);
+
+    Users addUser(Map<String, String> params, MultipartFile avatar);
 }
