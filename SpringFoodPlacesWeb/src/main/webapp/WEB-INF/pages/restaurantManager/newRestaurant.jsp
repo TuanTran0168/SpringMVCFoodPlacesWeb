@@ -50,17 +50,25 @@
                 <div class="food-home__top">
                     <button>
                         <c:url value="/restaurantManager/categoriesFood" var="editCategoriesFoodAction">
-                           <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                            <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
                         </c:url>
                         <a href="${editCategoriesFoodAction}">Quản lý danh mục</a>
                     </button>
-                    
+
                     <button>
                         <c:url value="/restaurantManager/shelfLife" var="editShelfLifeAction">
-                           <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                            <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
                         </c:url>
                         <a href="${editShelfLifeAction}">Quản lý thời gian bán</a>
                     </button>
+
+                    <button>
+                        <c:url value="/restaurantManager/foodItems" var="editFoodAction">
+                            <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                        </c:url>
+                        <a href="${editFoodAction}">Quản lý món ăn</a>
+                    </button>
+
                     <ul class="category">
                         <li>
                             <button>
@@ -82,6 +90,24 @@
                         </c:forEach>
                     </ul>
                 </div>
+
+                <section>
+                    <c:if test="${counter > 1}">
+                        <ul class="pagination mt-1">
+                            <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="pageAction">
+                                <c:param name="pageAll"></c:param>
+                            </c:url>
+                            <li class="page-item"><a class="page-link" href="${pageAction}">Tất cả user</a></li>
+
+                            <c:forEach begin="1" end="${counter}" var = "i">
+                                <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="pageAction">
+                                    <c:param name="page" value="${i}"></c:param>
+                                </c:url>
+                                <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+                                </c:forEach>
+                        </ul>
+                    </c:if>
+                </section>
 
                 <div class="food-home__bottom">
 
@@ -107,7 +133,7 @@
                                                     <h5>Giá: ${food.price}</h5>
                                                     <h5>Danh mục món: ${food.categoryfoodId.categoryname}</h5>
                                                     <h5>Mô tả: ${food.description}</h5>
-                                                    <h5>Nhà hàng: ${food.restaurantId.restaurantName}</h5>
+                                                    <h5>Nhà hàng: ${food.restaurantId.restaurantName} - ${food.restaurantId.restaurantId}</h5>
                                                 </div>
                                             </div>
                                             <!--                                                <div class="hover-overlay">

@@ -144,4 +144,33 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository {
         return query.getResultList();
     }
 
+    @Override
+    public int countFoodItems(Map<String, String> params) {
+//        Session session = this.factory.getObject().getCurrentSession();
+//        Query query = session.createQuery("SELECT Count(*) FROM Fooditems");
+//
+//        return Integer.parseInt(query.getSingleResult().toString());
+        
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
+        Root rootFoodItems = query.from(Fooditems.class);
+
+        if (params != null) {
+            List<Predicate> predicates = new ArrayList<>();
+
+            String restaurantId = params.get("restaurantId");
+
+            if (restaurantId != null && !restaurantId.isEmpty()) {
+               predicates.add(criteriaBuilder.equal(rootFoodItems.get("restaurantId"), Integer.parseInt(restaurantId)));
+            }
+
+            query.where(predicates.toArray(Predicate[]::new));
+        }
+
+        query.select(criteriaBuilder.count(rootFoodItems));
+
+        return session.createQuery(query).getSingleResult().intValue();
+    }
+
 }

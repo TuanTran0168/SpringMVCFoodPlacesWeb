@@ -4,6 +4,7 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
@@ -58,6 +59,7 @@ public class ShelfLife implements Serializable {
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
     private Restaurants restaurantId;
+    @JsonIgnore
     @OneToMany(mappedBy = "shelflifeId")
     private Set<Fooditems> fooditemsSet;
 
@@ -141,5 +143,5 @@ public class ShelfLife implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.ShelfLife[ shelflifeId=" + shelflifeId + " ]";
     }
-    
+
 }

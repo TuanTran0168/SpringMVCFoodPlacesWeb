@@ -74,16 +74,14 @@ public class Fooditems implements Serializable {
     private Set<ReceiptDetail> receiptDetailSet;
     @JoinColumn(name = "categoryfood_id", referencedColumnName = "categoryfood_id")
     @ManyToOne
-    @JsonIgnore
     private CategoriesFood categoryfoodId;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
     private Restaurants restaurantId;
     @JoinColumn(name = "shelflife_id", referencedColumnName = "shelflife_id")
     @ManyToOne
-    @JsonIgnore
     private ShelfLife shelflifeId;
-    
+
     @Transient
     private MultipartFile file;
 
@@ -230,5 +228,5 @@ public class Fooditems implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Fooditems[ foodId=" + foodId + " ]";
     }
-    
+
 }

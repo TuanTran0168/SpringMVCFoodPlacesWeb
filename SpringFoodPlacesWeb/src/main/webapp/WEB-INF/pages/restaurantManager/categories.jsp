@@ -13,12 +13,12 @@
 <h1 style="text-align: center">${msg}</h1>
 <section class="container">
 
-<!--    <div>
-        <c:url value="categoriesFood/newCategoriesFood" var="newCateAction">
-            <c:param name="restaurantId" value="${param.restaurantId}"></c:param>
-        </c:url>
-        <a href="${newCateAction}" class = "btn btn-success"> Thêm Danh Mục </a>
-    </div>-->
+    <!--    <div>
+    <c:url value="categoriesFood/newCategoriesFood" var="newCateAction">
+        <c:param name="restaurantId" value="${param.restaurantId}"></c:param>
+    </c:url>
+    <a href="${newCateAction}" class = "btn btn-success"> Thêm Danh Mục </a>
+</div>-->
 
     <div>
         <form:form method="post" modelAttribute="cate">
@@ -44,8 +44,9 @@
         </tr>
         </thead>
 
-        <c:forEach items="${categories}" var="c">
-            <tbody>
+        <tbody>
+            <c:forEach items="${categories}" var="c">
+
                 <tr>
                     <td>${c.categoryfoodId}</td>
                     <td>${c.categoryname}</td>
@@ -56,8 +57,9 @@
                         <button class = "btn btn-danger" onclick="delCate('${apiDel}', ${c.categoryfoodId})">Xóa</button>
                     </td>
                 </tr>
-            </tbody> 
-        </c:forEach>
+
+            </c:forEach>
+        </tbody> 
     </table>
 </section>
 

@@ -47,8 +47,8 @@ public class CategoriesFood implements Serializable {
     private String categoryname;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
-    @JsonIgnore
     private Restaurants restaurantId;
+    @JsonIgnore
     @OneToMany(mappedBy = "categoryfoodId")
     private Set<Fooditems> fooditemsSet;
 
@@ -116,5 +116,5 @@ public class CategoriesFood implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.CategoriesFood[ categoryfoodId=" + categoryfoodId + " ]";
     }
-    
+
 }

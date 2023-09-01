@@ -22,13 +22,14 @@ import org.springframework.stereotype.Service;
  * @author HP
  */
 @Service
-public class FoodItemsServiceImpl implements FoodItemsService{
+public class FoodItemsServiceImpl implements FoodItemsService {
+
     @Autowired
     private FoodItemsRepository foodItemRepo;
-    
+
     @Autowired
     private Cloudinary cloudinary;
-    
+
     @Override
     public List<Fooditems> getFoodItems(Map<String, String> params) {
         return this.foodItemRepo.getFoodItems(params);
@@ -37,7 +38,7 @@ public class FoodItemsServiceImpl implements FoodItemsService{
     @Override
     public boolean addOrUpdateFoodItem(Fooditems foodItem) {
         foodItem.setAvailable(Boolean.TRUE);
-        
+
         if (!foodItem.getFile().isEmpty()) {
             try {
                 Map res = this.cloudinary.uploader().upload(foodItem.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
@@ -64,5 +65,10 @@ public class FoodItemsServiceImpl implements FoodItemsService{
     public List<Fooditems> getAllFoodItem() {
         return this.foodItemRepo.getAllFoodItem();
     }
-    
+
+    @Override
+    public int countFoodItems(Map<String, String> params) {
+        return this.foodItemRepo.countFoodItems(params);
+    }
+
 }

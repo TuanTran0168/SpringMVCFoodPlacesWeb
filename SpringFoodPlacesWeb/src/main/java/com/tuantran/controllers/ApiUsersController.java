@@ -7,6 +7,7 @@ package com.tuantran.controllers;
 import com.tuantran.components.JwtService;
 import com.tuantran.pojo.Users;
 import com.tuantran.service.UsersService;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +52,9 @@ public class ApiUsersController {
 
         return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
     }
-    
-    @PostMapping(path = "/register/", 
-            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
+
+    @PostMapping(path = "/register/",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
     public ResponseEntity<Users> registerUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
@@ -79,17 +80,25 @@ public class ApiUsersController {
         params.put("roleId", String.valueOf(roleId));
         return new ResponseEntity<>(this.usersService.getUsers(params), HttpStatus.OK);
     }
-    
-     @GetMapping("/server/admin/users/roleId/{roleId}")
+
+    @GetMapping("/server/admin/users/roleId/{roleId}")
     @CrossOrigin
     public ResponseEntity<List<Users>> usersByUserRole_List_no_token(@PathVariable(value = "roleId") int roleId, Map<String, String> params) {
         params.put("roleId", String.valueOf(roleId));
         return new ResponseEntity<>(this.usersService.getUsers(params), HttpStatus.OK);
     }
-    
+
     @DeleteMapping("/server/admin/users/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete_no_token(@PathVariable(value = "userId") int id) {
         this.usersService.deleteUsers(id);
+    }
+
+    //lấy user hiện tại bên reactjs
+    @GetMapping(path = "/current-user/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<Users> details(Principal user) {
+        Users u = this.usersService.getUserByUsername_new(user.getName());
+        return new ResponseEntity<>(u, HttpStatus.OK);
     }
 }

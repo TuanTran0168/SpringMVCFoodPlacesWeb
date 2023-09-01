@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Chatmessages.findAll", query = "SELECT c FROM Chatmessages c"),
     @NamedQuery(name = "Chatmessages.findByMessageId", query = "SELECT c FROM Chatmessages c WHERE c.messageId = :messageId"),
     @NamedQuery(name = "Chatmessages.findByMessageContent", query = "SELECT c FROM Chatmessages c WHERE c.messageContent = :messageContent"),
-    @NamedQuery(name = "Chatmessages.findByTimestamp", query = "SELECT c FROM Chatmessages c WHERE c.timestamp = :timestamp"),
+    @NamedQuery(name = "Chatmessages.findByCreatedDate", query = "SELECT c FROM Chatmessages c WHERE c.createdDate = :createdDate"),
     @NamedQuery(name = "Chatmessages.findByActive", query = "SELECT c FROM Chatmessages c WHERE c.active = :active")})
 public class Chatmessages implements Serializable {
 
@@ -46,9 +46,9 @@ public class Chatmessages implements Serializable {
     @Size(max = 255)
     @Column(name = "message_content")
     private String messageContent;
-    @Column(name = "timestamp")
+    @Column(name = "created_date")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date timestamp;
+    private Date createdDate;
     @Column(name = "active")
     private Boolean active;
     @JoinColumn(name = "sender_id", referencedColumnName = "user_id")
@@ -81,12 +81,12 @@ public class Chatmessages implements Serializable {
         this.messageContent = messageContent;
     }
 
-    public Date getTimestamp() {
-        return timestamp;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Boolean getActive() {

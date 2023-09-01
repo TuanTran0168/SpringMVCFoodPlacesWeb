@@ -4,6 +4,7 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Basic;
@@ -45,6 +46,7 @@ public class RestaurantStatus implements Serializable {
     private String restaurantStatus;
     @Column(name = "active")
     private Boolean active;
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurantStatus")
     private Set<Restaurants> restaurantsSet;
 
@@ -112,5 +114,5 @@ public class RestaurantStatus implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.RestaurantStatus[ statusId=" + statusId + " ]";
     }
-    
+
 }

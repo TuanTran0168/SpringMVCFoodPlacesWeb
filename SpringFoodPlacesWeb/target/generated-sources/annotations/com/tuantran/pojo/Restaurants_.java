@@ -4,7 +4,6 @@ import com.tuantran.pojo.CategoriesFood;
 import com.tuantran.pojo.Comments;
 import com.tuantran.pojo.Fooditems;
 import com.tuantran.pojo.Notifications;
-import com.tuantran.pojo.Receipts;
 import com.tuantran.pojo.RestaurantStatus;
 import com.tuantran.pojo.ShelfLife;
 import com.tuantran.pojo.Users;
@@ -13,14 +12,13 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-09-01T00:13:55")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-09-01T22:57:09")
 @StaticMetamodel(Restaurants.class)
 public class Restaurants_ { 
 
     public static volatile SetAttribute<Restaurants, Comments> commentsSet;
     public static volatile SetAttribute<Restaurants, Notifications> notificationsSet;
     public static volatile SetAttribute<Restaurants, Fooditems> fooditemsSet;
-    public static volatile SetAttribute<Restaurants, Receipts> receiptsSet;
     public static volatile SingularAttribute<Restaurants, Boolean> confirmationStatus;
     public static volatile SetAttribute<Restaurants, ShelfLife> shelfLifeSet;
     public static volatile SingularAttribute<Restaurants, Boolean> active;

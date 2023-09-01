@@ -2,7 +2,6 @@ package com.tuantran.pojo;
 
 import com.tuantran.pojo.ReceiptDetail;
 import com.tuantran.pojo.ReceiptStatus;
-import com.tuantran.pojo.Restaurants;
 import com.tuantran.pojo.Users;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,7 +10,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-09-01T00:13:55")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-09-01T22:57:09")
 @StaticMetamodel(Receipts.class)
 public class Receipts_ { 
 
@@ -21,7 +20,6 @@ public class Receipts_ {
     public static volatile SingularAttribute<Receipts, String> paymentMethod;
     public static volatile SingularAttribute<Receipts, Boolean> active;
     public static volatile SetAttribute<Receipts, ReceiptDetail> receiptDetailSet;
-    public static volatile SingularAttribute<Receipts, Restaurants> restaurantId;
     public static volatile SingularAttribute<Receipts, Integer> receiptId;
     public static volatile SingularAttribute<Receipts, Users> userId;
 

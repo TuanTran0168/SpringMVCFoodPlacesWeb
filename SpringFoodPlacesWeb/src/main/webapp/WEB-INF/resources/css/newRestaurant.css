@@ -242,10 +242,20 @@ div.food-home__bottom > ul > li{
     margin: 1em;
 }
 
+div.food-home__bottom > section > div > div.row {
+    justify-content: center;
+}
+
+div.food-home__bottom > section > div > div.row > div {
+    width: 20em;
+    margin: 1em;
+    
+}
+
 div.my-img-link  {
     overflow: hidden;
-    border: solid 3px;
-
+    box-shadow: 5px 5px 7px 5px #666;
+    /*border: solid 1px;*/
 }
 
 div.my-img-link > a {
@@ -280,6 +290,9 @@ div.mask {
         27 * 3 = 81
         Cho thêm tí luôn là 85
     */
-    max-height: 85em;
+    width: 90%;
+    margin: 0 auto;
+    max-height: 50em;
     overflow: auto;
 }
+

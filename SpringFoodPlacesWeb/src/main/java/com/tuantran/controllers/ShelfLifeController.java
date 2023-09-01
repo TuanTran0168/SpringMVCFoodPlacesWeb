@@ -105,7 +105,7 @@ public class ShelfLifeController {
     }
 
     @PostMapping("/restaurantManager/shelfLife")
-    public String addCategory_new(Model model, @ModelAttribute(value = "shelfLife") @Valid ShelfLife shelfLife, BindingResult rs, @RequestParam Map<String, String> params, Authentication authentication) {
+    public String addShelfLife_new(Model model, @ModelAttribute(value = "shelfLife") @Valid ShelfLife shelfLife, BindingResult rs, @RequestParam Map<String, String> params, Authentication authentication) {
         String msg = "";
         if (!rs.hasErrors()) {
             if (this.shelfLifeSer.addOrUpdateShelfLife(shelfLife) == true) {

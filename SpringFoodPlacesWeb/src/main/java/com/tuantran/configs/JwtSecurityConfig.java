@@ -61,22 +61,28 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().ignoringAntMatchers("/api/**");
-        http.authorizeRequests().antMatchers("/api/login/").permitAll();
         http.authorizeRequests().antMatchers("/api/server/**").permitAll();
+        http.authorizeRequests().antMatchers("/api/login/").permitAll();
         http.authorizeRequests().antMatchers("/api/register/").permitAll();
+        http.authorizeRequests().antMatchers("/api/current-user/").permitAll();
+        http.authorizeRequests().antMatchers("/api/categories/").permitAll();
 //        http.authorizeRequests().antMatchers("/api/admin/restaurants/**").permitAll();
 
 //        http.authorizeRequests().antMatchers("/admin/**").hasRole("Admin");
-//        http.authorizeRequests().antMatchers("/api/categories/").permitAll();
 //        http.authorizeRequests().antMatchers("/api/admin/users/").permitAll();
 //        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/**/comments/").permitAll();
         http.antMatcher("/api/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/api/**").access("hasRole('ROLE_Admin') or hasRole('ROLE_User')")
+                //                .antMatchers(HttpMethod.GET, "/api/**").access("hasRole('ROLE_Admin') or hasRole('ROLE_RestaurantManager') or hasRole('ROLE_User')")
                 .antMatchers(HttpMethod.GET, "/api/admin/**").access("hasRole('ROLE_Admin')")
-                .antMatchers(HttpMethod.GET, "/api/restaurantManager/**").access("hasRole('ROLE_RestaurantManager')")
-                .antMatchers(HttpMethod.POST, "/api/**").access("hasRole('ROLE_Admin') or hasRole('ROLE_User')")
-                .antMatchers(HttpMethod.DELETE, "/api/**").access("hasRole('ROLE_Admin') or hasRole('ROLE_User')").and()
+                .antMatchers(HttpMethod.POST, "/api/admin/**").access("hasRole('ROLE_Admin')")
+                .antMatchers(HttpMethod.DELETE, "/api/admin/**").access("hasRole('ROLE_Admin')")
+                .antMatchers(HttpMethod.GET, "/api/restaurantManager/**").access("ROLE_RestaurantManager")
+                .antMatchers(HttpMethod.POST, "/api/restaurantManager/**").access("ROLE_RestaurantManager")
+                .antMatchers(HttpMethod.DELETE, "/api/restaurantManager/**").access("ROLE_RestaurantManager").and()
+                //                .antMatchers(HttpMethod.GET, "/api/restaurantManager/**").access("hasRole('ROLE_RestaurantManager')")
+                //                .antMatchers(HttpMethod.POST, "/api/**").access("hasRole('ROLE_Admin') or hasRole('ROLE_User')")
+                //                .antMatchers(HttpMethod.DELETE, "/api/**").access("hasRole('ROLE_Admin') or hasRole('ROLE_User')").and()
                 .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
     }
