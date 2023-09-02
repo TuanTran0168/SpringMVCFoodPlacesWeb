@@ -31,7 +31,7 @@ CREATE TABLE `categories_food` (
   PRIMARY KEY (`categoryfood_id`),
   KEY `restaurant_id` (`restaurant_id`),
   CONSTRAINT `categories_food_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `categories_food` (
 
 LOCK TABLES `categories_food` WRITE;
 /*!40000 ALTER TABLE `categories_food` DISABLE KEYS */;
-INSERT INTO `categories_food` VALUES (1,'foodcate test 12',3),(2,'524532',3),(3,'Món hơi nhạt',5),(4,'Ha',3),(5,'cateTEst',4),(6,'MÃ³n máº·n',NULL),(7,'123',NULL),(9,'11111',3),(10,'321313',3),(11,'dasdasddsa',6),(12,'rqwerasd',6);
+INSERT INTO `categories_food` VALUES (1,'foodcate test 12',3),(2,'524532',3),(3,'Món hơi nhạt',5),(4,'Ha',3),(5,'cateTEst',4),(6,'MÃ³n máº·n',NULL),(7,'123',NULL),(9,'11111',3),(11,'dasdasddsa',6),(12,'rqwerasd',6);
 /*!40000 ALTER TABLE `categories_food` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,7 +134,7 @@ CREATE TABLE `fooditems` (
   CONSTRAINT `fooditems_ibfk_1` FOREIGN KEY (`categoryfood_id`) REFERENCES `categories_food` (`categoryfood_id`),
   CONSTRAINT `fooditems_ibfk_2` FOREIGN KEY (`shelflife_id`) REFERENCES `shelf_life` (`shelflife_id`),
   CONSTRAINT `fooditems_ibfk_3` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`restaurant_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -143,7 +143,7 @@ CREATE TABLE `fooditems` (
 
 LOCK TABLES `fooditems` WRITE;
 /*!40000 ALTER TABLE `fooditems` DISABLE KEYS */;
-INSERT INTO `fooditems` VALUES (1,'Gà rán','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,2,3,123.00,1,'123',NULL),(2,'Gà rán','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,1,3,123.00,1,'123',NULL),(3,'Gà rán','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,1,3,123.00,1,'123',1),(4,'Gà rán','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,1,3,123.00,1,'123',1),(5,'Gà rán','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,1,3,123.00,1,'123',1),(6,'foood6','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',NULL,1,3,123.00,1,'123',NULL),(7,'testFood ok','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,1,3,123.00,1,'123',NULL),(8,'testFood','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',2,1,3,123.00,1,'123',1),(9,'testFood nhạt','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',2,1,3,123.00,1,'123',NULL),(10,'testFood12 hơi mặn','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',4,1,3,123.00,1,'123',NULL),(11,'testFood552','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693238042/ebedr8mndvrj5cvooecc.png',1,1,3,5000.00,1,'123',NULL),(12,'food Res = 5','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693238042/ebedr8mndvrj5cvooecc.png',1,1,5,5000.00,1,'123',1),(13,'food 1 Res = 5','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693238042/ebedr8mndvrj5cvooecc.png',1,1,5,5000.00,1,'123',1),(14,'food 1 Res = 5','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693238042/ebedr8mndvrj5cvooecc.png',5,1,4,5000.00,1,'123',1);
+INSERT INTO `fooditems` VALUES (1,'Gà rán','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,2,3,123.00,1,'123',NULL),(2,'Gà rán','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,1,3,123.00,1,'123',NULL),(3,'Gà rán','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,1,3,123.00,1,'123',1),(4,'Gà rán','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,1,3,123.00,1,'123',1),(5,'Gà rán','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,1,3,123.00,1,'123',1),(6,'foood6','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',NULL,1,3,123.00,1,'123',NULL),(7,'testFood ok','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',1,1,3,123.00,1,'123',NULL),(8,'testFood','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',2,1,3,123.00,1,'123',1),(9,'testFood nhạt','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',2,1,3,123.00,1,'123',NULL),(10,'testFood12 hơi mặn','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693037843/x8b2pl98ecexskwkitrw.png',4,1,3,123.00,1,'123',NULL),(11,'testFood552','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693238042/ebedr8mndvrj5cvooecc.png',1,1,3,5000.00,1,'123',NULL),(12,'food Res = 5','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693238042/ebedr8mndvrj5cvooecc.png',1,1,5,5000.00,1,'123',1),(13,'food 1 Res = 5','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693238042/ebedr8mndvrj5cvooecc.png',1,1,5,5000.00,1,'123',1),(14,'food 1 Res = 4','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693238042/ebedr8mndvrj5cvooecc.png',5,1,4,5000.00,1,'123',1),(15,'food promax','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693587649/eblhhcequx6pr0y0mbjo.png',1,3,NULL,123123.00,1,'123123',NULL),(16,'testFood222','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693587828/ryvzdaynhzi334caq9g3.png',1,1,NULL,5000.00,1,'123123',NULL),(17,'testFood123','https://res.cloudinary.com/dhwuwy0to/image/upload/v1693588331/eopdfxdbyzbjpkfxgvif.png',1,1,3,5000.00,1,'123123',NULL);
 /*!40000 ALTER TABLE `fooditems` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -190,6 +190,7 @@ CREATE TABLE `receipt_detail` (
   `fooditem_id` int DEFAULT NULL,
   `receipt_id` int DEFAULT NULL,
   `quantity` int DEFAULT NULL,
+  `unitPrice` decimal(10,2) DEFAULT NULL,
   `amount` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`receiptdetail_id`),
   KEY `fooditem_id` (`fooditem_id`),
@@ -423,4 +424,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-01 22:50:40
+-- Dump completed on 2023-09-02 17:58:18
