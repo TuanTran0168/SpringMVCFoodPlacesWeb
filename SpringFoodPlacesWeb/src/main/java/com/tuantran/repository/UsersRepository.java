@@ -25,4 +25,5 @@ public interface UsersRepository {
     Users getUserByUsername_new(String username);
     boolean authUser(String username, String password);
     Users addUser(Users user);
+    Users updateUser(Users user);
 }

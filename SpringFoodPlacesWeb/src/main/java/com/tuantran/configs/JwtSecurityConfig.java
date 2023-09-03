@@ -66,6 +66,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/api/register/").permitAll();
         http.authorizeRequests().antMatchers("/api/current-user/").permitAll();
         http.authorizeRequests().antMatchers("/api/categories/").permitAll();
+        http.authorizeRequests().antMatchers("/api/fooditems/").permitAll();
 //        http.authorizeRequests().antMatchers("/api/admin/restaurants/**").permitAll();
 
 //        http.authorizeRequests().antMatchers("/admin/**").hasRole("Admin");
@@ -74,12 +75,13 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         http.antMatcher("/api/**").httpBasic().authenticationEntryPoint(restServicesEntryPoint()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 //                .antMatchers(HttpMethod.GET, "/api/**").access("hasRole('ROLE_Admin') or hasRole('ROLE_RestaurantManager') or hasRole('ROLE_User')")
+                .antMatchers(HttpMethod.POST, "/api/**").access("hasRole('ROLE_Admin') or hasRole('ROLE_User') or hasRole('ROLE_RestaurantManager')")
                 .antMatchers(HttpMethod.GET, "/api/admin/**").access("hasRole('ROLE_Admin')")
                 .antMatchers(HttpMethod.POST, "/api/admin/**").access("hasRole('ROLE_Admin')")
                 .antMatchers(HttpMethod.DELETE, "/api/admin/**").access("hasRole('ROLE_Admin')")
-                .antMatchers(HttpMethod.GET, "/api/restaurantManager/**").access("ROLE_RestaurantManager")
-                .antMatchers(HttpMethod.POST, "/api/restaurantManager/**").access("ROLE_RestaurantManager")
-                .antMatchers(HttpMethod.DELETE, "/api/restaurantManager/**").access("ROLE_RestaurantManager").and()
+                .antMatchers(HttpMethod.GET, "/api/restaurantManager/**").access("hasRole('ROLE_RestaurantManager')")
+                .antMatchers(HttpMethod.POST, "/api/restaurantManager/**").access("hasRole('ROLE_RestaurantManager')")
+                .antMatchers(HttpMethod.DELETE, "/api/restaurantManager/**").access("hasRole('ROLE_RestaurantManager')").and()
                 //                .antMatchers(HttpMethod.GET, "/api/restaurantManager/**").access("hasRole('ROLE_RestaurantManager')")
                 //                .antMatchers(HttpMethod.POST, "/api/**").access("hasRole('ROLE_Admin') or hasRole('ROLE_User')")
                 //                .antMatchers(HttpMethod.DELETE, "/api/**").access("hasRole('ROLE_Admin') or hasRole('ROLE_User')").and()

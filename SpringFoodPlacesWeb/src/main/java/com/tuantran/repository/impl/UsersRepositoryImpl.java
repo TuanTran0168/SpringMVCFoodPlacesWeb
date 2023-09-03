@@ -205,4 +205,16 @@ public class UsersRepositoryImpl implements UsersRepository {
         }
     }
 
+    @Override
+    public Users updateUser(Users user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            session.update(user);
+            return user;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
 }

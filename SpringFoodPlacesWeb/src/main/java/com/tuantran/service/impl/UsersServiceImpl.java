@@ -8,6 +8,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.tuantran.pojo.Roles;
 import com.tuantran.pojo.Users;
+import com.tuantran.repository.RolesRepository;
 import com.tuantran.repository.UsersRepository;
 import com.tuantran.service.UsersService;
 import java.io.IOException;
@@ -35,6 +36,9 @@ public class UsersServiceImpl implements UsersService {
 
     @Autowired
     private UsersRepository usersRepo;
+
+    @Autowired
+    private RolesRepository rolesRepo;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -158,7 +162,7 @@ public class UsersServiceImpl implements UsersService {
             user.setLastname(params.get("lastname"));
             user.setPhonenumber(params.get("phonenumber"));
             user.setLocation(params.get("location"));
-//        user.setEmail(params.get("email"));
+            user.setEmail(params.get("email"));
             user.setUsername(params.get("username"));
             user.setPassword(this.bCryptPasswordEncoder.encode(params.get("password")));
             user.setRoleId(new Roles(3));
@@ -176,4 +180,53 @@ public class UsersServiceImpl implements UsersService {
         }
     }
 
+    @Override
+    public Users updateUser(Map<String, String> params, MultipartFile avatar) {
+        String username = params.get("username");
+        boolean isUsernameExists = this.usersRepo.isUsernameExists(username);
+
+        if (isUsernameExists != true) {
+            return null;
+        } else {
+            Users user = this.getUserByUsername_new(username);
+
+            String firstname = params.get("firstname");
+            String lastname = params.get("lastname");
+            String phonenumber = params.get("phonenumber");
+            String location = params.get("location");
+            String email = params.get("email");
+
+            if (firstname != null && !firstname.isEmpty()) {
+                user.setFirstname(params.get("firstname"));
+            }
+
+            if (lastname != null && !lastname.isEmpty()) {
+                user.setLastname(params.get("lastname"));
+            }
+
+            if (phonenumber != null && !phonenumber.isEmpty()) {
+                user.setPhonenumber(params.get("phonenumber"));
+            }
+
+            if (location != null && !location.isEmpty()) {
+                user.setLocation(params.get("location"));
+            }
+
+            if (email != null && !email.isEmpty()) {
+                user.setEmail(params.get("email"));
+            }
+            
+            if (!avatar.isEmpty()) {
+                try {
+                    Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
+                            ObjectUtils.asMap("resource_type", "auto"));
+                    user.setAvatar(res.get("secure_url").toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(UsersServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            this.usersRepo.updateUser(user);
+            return user;
+        }
+    }
 }

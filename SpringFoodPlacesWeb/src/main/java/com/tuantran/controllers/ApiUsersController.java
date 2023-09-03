@@ -101,4 +101,13 @@ public class ApiUsersController {
         Users u = this.usersService.getUserByUsername_new(user.getName());
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
+
+    @PostMapping(path = "/update-user/",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @CrossOrigin
+    public ResponseEntity<Users> update(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+        Users user = this.usersService.updateUser(params, avatar);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 }

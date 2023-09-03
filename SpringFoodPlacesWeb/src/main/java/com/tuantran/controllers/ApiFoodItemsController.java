@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,25 +28,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class ApiFoodItemsController {
+
     @Autowired
     private FoodItemsService foodItemsSer;
-    
+
     @DeleteMapping("/restaurantManager/foodItems/newFoodItems/{foodId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable(value = "foodId") int id){
+    public void delete(@PathVariable(value = "foodId") int id) {
         this.foodItemsSer.delFoodItem(id);
     }
-    
+
     @GetMapping("/restaurantManager/foodItems/")
     @CrossOrigin
-    public ResponseEntity<List<Fooditems>> list(@RequestParam Map<String, String> params){
+    public ResponseEntity<List<Fooditems>> list(@RequestParam Map<String, String> params) {
         return new ResponseEntity<>(this.foodItemsSer.getFoodItems(params), HttpStatus.OK);
     }
-    
+
     @DeleteMapping("/server/restaurantManager/foodItems/newFoodItems/{foodId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete_no_token(@PathVariable(value = "foodId") int id){
+    public void delete_no_token(@PathVariable(value = "foodId") int id) {
         this.foodItemsSer.delFoodItem(id);
     }
-    
+
+    @RequestMapping(path = "/foodItem/{foodId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<Fooditems> detail(@PathVariable(value = "foodId") int foodid) {
+        return new ResponseEntity<>(this.foodItemsSer.getFoodItemById(foodid), HttpStatus.OK);
+    }
 }
