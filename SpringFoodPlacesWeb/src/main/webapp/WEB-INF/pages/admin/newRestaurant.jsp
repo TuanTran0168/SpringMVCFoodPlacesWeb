@@ -92,6 +92,7 @@
                             class="form-control"
                             id="search_userId"
                             name="search_userId"
+                            value="${restaurant.userId.firstname} ${restaurant.userId.lastname}"
                             />
                         <select id="suggest"></select>
                     </div>
