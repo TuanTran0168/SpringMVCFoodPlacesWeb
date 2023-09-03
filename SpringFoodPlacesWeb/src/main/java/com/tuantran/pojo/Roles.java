@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Roles.findAll", query = "SELECT r FROM Roles r"),
     @NamedQuery(name = "Roles.findByRoleId", query = "SELECT r FROM Roles r WHERE r.roleId = :roleId"),
-    @NamedQuery(name = "Roles.findByRoleName", query = "SELECT r FROM Roles r WHERE r.roleName = :roleName")})
+    @NamedQuery(name = "Roles.findByRoleName", query = "SELECT r FROM Roles r WHERE r.roleName = :roleName"),
+    @NamedQuery(name = "Roles.findByActive", query = "SELECT r FROM Roles r WHERE r.active = :active")})
 public class Roles implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +44,8 @@ public class Roles implements Serializable {
     @Size(max = 255)
     @Column(name = "role_name")
     private String roleName;
+    @Column(name = "active")
+    private Boolean active;
     @JsonIgnore
     @OneToMany(mappedBy = "roleId")
     private Set<Users> usersSet;
@@ -68,6 +71,14 @@ public class Roles implements Serializable {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @XmlTransient
@@ -103,5 +114,5 @@ public class Roles implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Roles[ roleId=" + roleId + " ]";
     }
-
+    
 }

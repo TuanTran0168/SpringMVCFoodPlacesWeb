@@ -66,6 +66,16 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
             if (userId != null && !userId.isEmpty()) {
                 predicates.add(criteriaBuilder.equal(rootRestaurants.get("userId"), Integer.parseInt(userId)));
             }
+            
+            String location = params.get("location");
+            if (location != null && !location.isEmpty()) {
+                predicates.add(criteriaBuilder.like(rootRestaurants.get("location"), String.format("%%%s%%", location)));
+            }
+            
+            String restaurantName = params.get("restaurantName");
+            if (restaurantName != null && !restaurantName.isEmpty()) {
+                predicates.add(criteriaBuilder.like(rootRestaurants.get("restaurantName"), String.format("%%%s%%", restaurantName)));
+            }
 
             query.where(predicates.toArray(Predicate[]::new));
         }
