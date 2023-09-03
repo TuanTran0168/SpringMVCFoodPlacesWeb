@@ -1,25 +1,31 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Alert, Button, Form } from "react-bootstrap";
 import MySpinner from "../layout/MySpinner";
 import Apis, { endpoints } from "../configs/Apis";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { MyUserContext } from "../App";
 
 const Register = () => {
 
     const [loading, setLoading] = useState(false);
+    const [current_user,] = useContext(MyUserContext); 
     const avatar = useRef();
     const nav = useNavigate();
     const [err,setErr] = useState(null); 
     const [user,setUser] = useState({
         "username": "", 
         "password": "", 
-        "firstName": "", 
-        "lastName": "", 
-        // "email": "",
-        "phone": "",
+        "firstname": "", 
+        "lastname": "", 
+        "email": "",
+        "phonenumber": "",
         "confirmPass": ""
     });
 
+    if(current_user !== null){
+        // alert("Vui lòng đăng xuất để đăng ký!!!");
+        return <Navigate to="/" />
+    }
     const change = (evt, field) => {
         // setUser({...user, [field]: evt.target.value})
         setUser(current => {
@@ -60,11 +66,11 @@ const Register = () => {
         <Form onSubmit={register}>
             <Form.Group className="mb-3">
                 <Form.Label>Tên</Form.Label>
-                <Form.Control type="text" onChange={(e) => change(e, "firstName")} placeholder="Tên" required />
+                <Form.Control type="text" onChange={(e) => change(e, "firstname")} placeholder="Tên" required />
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Họ và chữ lót</Form.Label>
-                <Form.Control type="text" onChange={(e) => change(e, "lastName")} placeholder="Họ và chữ lót" required />
+                <Form.Control type="text" onChange={(e) => change(e, "lastname")} placeholder="Họ và chữ lót" required />
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Email</Form.Label>

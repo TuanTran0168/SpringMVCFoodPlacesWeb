@@ -4,7 +4,9 @@ const MyCartCounterReducer = (currentState, action) => {
             return currentState + action.payload;
         case "dec":
             return currentState - action.payload;
-        default: 
+        case "update":
+            return action.payload;
+        default:
             return currentState;
     }
 }

@@ -1,7 +1,23 @@
+*{
+    margin:0;
+    padding:0;
+
+}
+
+.home{
+    display:flex;   
+    width:100%;
+    margin:0;
+}
+
 .flex{
     display:flex;
 }
 
+.contain{
+    padding:0;
+    width:100%;
+}
 .description {
     margin-left: auto;
 }
@@ -14,3 +30,31 @@
     width: 100%;
     overflow: hidden;
 }
+
+/* tìm kiếm*/
+.find {
+    /* position: fixed; */
+    width: 20%;
+    /* height: 800px; */
+}
+
+.f {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+
+/* giao diện thức ăn*/
+
+.fooditems{
+    width: 100%;
+}
+
+.btn-food{
+    margin-left: 5px;
+}
+
+
+
+

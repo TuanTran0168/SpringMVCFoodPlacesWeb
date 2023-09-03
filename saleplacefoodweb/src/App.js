@@ -13,20 +13,21 @@ import MyCartCounterReducer from './reducers/MyCartCounterReducer';
 import cookie from "react-cookies";
 import Cart from './components/Cart';
 import Profile from './components/Profile';
-
+import FoodItemDetail from './components/FoodItemDetail';
+import Restaurant from './components/Restaurant';
 
 
 export const MyUserContext = createContext();
 export const MyCartContext = createContext();
 
-function App() {
+const countCart = () => {
+  let cart = cookie.load("cart") || null;
+  if (cart !== null)
+    return Object.values(cart).reduce((init, current) => init + current["quantity"], 0);
+  return 0;
+}
 
-  const countCart = () => {
-    let cart = cookie.load("cart") || null;
-    if (cart !== null)
-      return Object.values(cart).reduce((init, current) => init + current["quantity"], 0);
-    return 0;
-  }
+function App() {
 
   const [user, dispatch] = useReducer(MyUserReducer, cookie.load("user") || null);
   const [cartCounter, cartDispatch] = useReducer(MyCartCounterReducer, countCart());
@@ -36,13 +37,15 @@ function App() {
       <MyCartContext.Provider value={[cartCounter, cartDispatch]}>
         <BrowserRouter>
           <Header />
-          <Container>
+          <Container className="contain">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/profile" element={<Profile />}/>
+              <Route path="/fooddetail/:foodId" element={<FoodItemDetail />} />
+              <Route path="/restaurant" element={<Restaurant />} />
             </Routes>
           </Container>
           <Footer />

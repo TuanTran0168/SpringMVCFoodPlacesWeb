@@ -1,0 +1,18 @@
+.header {
+    z-index: 999;
+    width: 100%;
+}
+
+.icon_avatar{
+    width: 30px;
+}
+
+.icon_avatar_link {
+    left:2px;;
+    margin-left: 415px;
+}
+
+.container_header {
+    margin: 0;
+    padding: 0;
+}
