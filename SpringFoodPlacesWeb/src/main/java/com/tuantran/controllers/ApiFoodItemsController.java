@@ -44,15 +44,27 @@ public class ApiFoodItemsController {
         return new ResponseEntity<>(this.foodItemsSer.getFoodItems(params), HttpStatus.OK);
     }
 
-    @DeleteMapping("/server/restaurantManager/foodItems/newFoodItems/{foodId}")
+    @DeleteMapping("/server/restaurantManager/foodItems/newFoodItems/{foodId}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete_no_token(@PathVariable(value = "foodId") int id) {
         this.foodItemsSer.delFoodItem(id);
     }
 
-    @RequestMapping(path = "/foodItem/{foodId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/foodItems/{foodId}/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<Fooditems> detail(@PathVariable(value = "foodId") int foodid) {
-        return new ResponseEntity<>(this.foodItemsSer.getFoodItemById(foodid), HttpStatus.OK);
+    public ResponseEntity<Fooditems> detail(@PathVariable(value = "foodId") int foodId) {
+        return new ResponseEntity<>(this.foodItemsSer.getFoodItemById(foodId), HttpStatus.OK);
     }
+    
+    @GetMapping("/foodItems/")
+    @CrossOrigin
+    public ResponseEntity<List<Fooditems>> listFood(@RequestParam Map<String, String> params) {
+        return new ResponseEntity<>(this.foodItemsSer.getFoodItems(params), HttpStatus.OK);
+    }
+    
+//    @GetMapping("/foodItems/{foodId}/")
+//    @CrossOrigin
+//    public ResponseEntity<Fooditems> foodItem(@PathVariable(value = "foodId") int foodid) {
+//        return new ResponseEntity<>(this.foodItemsSer.getFoodItemById(foodid), HttpStatus.OK);
+//    }
 }

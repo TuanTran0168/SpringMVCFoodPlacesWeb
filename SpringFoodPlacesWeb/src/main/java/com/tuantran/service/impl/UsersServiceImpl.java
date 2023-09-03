@@ -38,9 +38,6 @@ public class UsersServiceImpl implements UsersService {
     private UsersRepository usersRepo;
 
     @Autowired
-    private RolesRepository rolesRepo;
-
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
