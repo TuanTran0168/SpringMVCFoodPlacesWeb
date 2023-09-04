@@ -1,0 +1,70 @@
+*{
+    margin:0;
+    padding:0;
+
+}
+
+.home{
+    display: flex !important;;   
+    width:100%;
+    margin:0;
+}
+
+.flex{
+    display: flex !important;;
+}
+
+.contain{
+    padding:0;
+    width:100%;
+}
+.description {
+    margin-left: auto;
+}
+
+.description p{
+    margin-left: 10px;
+}
+
+.card{
+    width: 100%;
+    overflow: hidden;
+}
+
+/* tìm kiếm*/
+.find {
+    /* position: fixed; */
+    width: 20%;
+    /* height: 800px; */
+}
+
+.f {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+
+/* giao diện thức ăn*/
+
+.fooditems{
+    width: 100%;
+}
+
+.btn-food{
+    margin-left: 5px;
+}
+
+.btn_all {
+    display: flex!important;
+}
+
+.btn_all *{
+    width: 150px !important;
+    height: 36px !important;
+    font-size: 10px;
+}
+
+
+
+

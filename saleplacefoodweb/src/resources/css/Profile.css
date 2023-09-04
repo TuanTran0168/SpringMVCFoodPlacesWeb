@@ -1,0 +1,30 @@
+.avatar{
+    width: 180px;
+    /* height: 100px; */
+    margin: auto;
+
+}
+
+.avatar img {
+    width:60% !important;
+}
+
+.avatar_input {
+    width: 50%;
+}
+
+.btn_luu {
+    text-align: center;
+}
+
+.contain_info {
+    display: flex;
+}
+
+.contain_info_1 {
+    width: 30%;
+}
+
+.contain_info_2 {
+    width: 100%;
+}
