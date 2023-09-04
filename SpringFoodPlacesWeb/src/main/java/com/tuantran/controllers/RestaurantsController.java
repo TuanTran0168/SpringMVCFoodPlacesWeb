@@ -78,11 +78,6 @@ public class RestaurantsController {
             params.put("username", username);
 
             Users user_auth = this.userService.getUserByUsername_new(username);
-//            Users user_auth = new Users();
-//            user_auth.setUserId(4);
-//            Roles r = new Roles();
-//            r.setRoleId(2);
-//            user_auth.setRoleId(r);
 
             if (user_auth != null) {
                 params.put("current_user_UserId", user_auth.getUserId().toString());
@@ -139,6 +134,30 @@ public class RestaurantsController {
                         model.addAttribute("category_list", this.categoryFoodService.getCategoriesFoodByRestaurantId(restaurantId));
                         params.put("restaurantId", String.valueOf(restaurantId));
                         model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
+
+                        // FOOD
+//                        int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
+//                        int countFoodItems = this.foodItemsService.countFoodItems(params);
+//                        model.addAttribute("counter", Math.ceil(countFoodItems * 1.0 / pageSize));
+//
+//                        String pageStr = params.get("page");
+//                        String pageAllStr = params.get("pageAll");
+////                        String cateFoodId = params.get("cateFoodId");
+//
+//                        if (pageStr == null) {
+//                            if (pageAllStr == null) {
+//                                params.put("page", "1");
+//                                model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
+//                            } else {
+//                                model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
+//                            }
+//
+//                        } else {
+//                            model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
+//                        }
+                        
+                        // END FOOD
+
                     } else {
                         msg = "Bạn không sở hữu nhà hàng này!";
                         model.addAttribute("msg", msg);
@@ -152,6 +171,7 @@ public class RestaurantsController {
             return "redirect:/restaurantManager/restaurants";
         }
 
+        model.addAttribute("msg", msg);
         return "newRestaurant";
     }
 

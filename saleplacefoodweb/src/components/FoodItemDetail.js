@@ -1,11 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import Apis, { endpoints } from "../configs/Apis";
+import { useContext, useEffect, useRef, useState } from "react";
+import Apis, { authApi, endpoints } from "../configs/Apis";
 import { Link, useParams } from "react-router-dom";
 import { MyCartContext, MyUserContext } from "../App";
-import { Button, Col, Image, Row } from "react-bootstrap";
+import { Button, Col, Form, Image, ListGroup, Row } from "react-bootstrap";
 import MySpinner from "../layout/MySpinner";
 import '../resources/css/FoodItemDetail.css'
 import cookie from "react-cookies";
+import Moment from "react-moment";
 
 const FoodItemDetail = () => {
 
@@ -13,7 +14,11 @@ const FoodItemDetail = () => {
     const { foodId } = useParams();
     const [, cartDispatch] = useContext(MyCartContext);
     const [foodItem, setFoodItem] = useState(null);
-    // const [comments, setComments] = useState(null);
+    const [newComment, setNewComment] = useState(null);
+    const [comments, setComments] = useState(null);
+    const [rating, setRating] = useState(null);
+    const avatar = useRef();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const loadFood = async () => {
@@ -21,13 +26,13 @@ const FoodItemDetail = () => {
             setFoodItem(data);
         }
 
-        // const loadComments = async () => {
-        //     let {data} = await Apis.get(endpoints['comments'](foodId));
-        //     setComments(data);
-        // }
+        const loadComments = async () => {
+            let {data} = await Apis.get(endpoints['comments'](foodId));
+            setComments(data);
+        }
 
         loadFood();
-        // loadComments();
+        loadComments();
     }, [foodId]);
 
     const order = (foodItem) => {
@@ -54,12 +59,49 @@ const FoodItemDetail = () => {
 
         cookie.save("cart", cart);
     }
+    
 
-    if (foodItem === null)
+    const addComment = () => {
+        setLoading(true);
+
+        let form = new FormData();
+        
+        const process = async () => {
+
+            // for (let field in newComment){
+            //     form.append(field, newComment[field]);
+            // }
+            form.append("restaurantId", foodItem.restaurantId.restaurantId);
+            form.append("foodId", foodItem.foodId);
+            form.append("comment", newComment);
+            form.append("avatar", avatar.current.files[0]);
+
+            try{
+                let {data} = await authApi().post(endpoints['add-comment'], form);
+                setComments([...comments, data]);
+                setLoading(false);
+            }catch(ex){
+                console.log(ex)
+            }
+            // {
+            //     "restaurantId": foodItem.restaurantId.restaurantId, 
+            //     "foodId": foodItem.foodId,
+            //     "comment": newComment,
+            //     "rating": rating,
+            //     "avatar": avatar
+            // }
+
+            
+        }
+
+        process();
+    }
+
+    if (foodItem === null || comments === null)
         return <MySpinner />;
 
 
-    let url = `/login?next=/products/${foodId}`;
+    let url = `/login?next=/fooddetail/${foodId}`;
     return <>
         <h1 className="text-center text-info mt-2">CHI TIẾT SẢN PHẨM ({foodItem.foodName})</h1>
         <Row>
@@ -78,6 +120,19 @@ const FoodItemDetail = () => {
             </Col>
         </Row>
         <hr />
+
+        {user===null?<p>Vui lòng <Link to={url}>đăng nhập</Link> để bình luận! </p>:<>
+        <Form.Control as="textarea" aria-label="With textarea" value={newComment} onChange={e => setNewComment(e.target.value)} placeholder="Nội dung bình luận" />
+        <Form.Control accept=".jpg, .jpeg, .png, .gif, .bmp" type="file" ref={avatar}  />
+        {loading === true ? <MySpinner /> : <Button onClick={addComment} className="mt-2" variant="info">Bình luận</Button>}
+        </>}
+        <hr />
+        <ListGroup>
+            {comments.map(c => <ListGroup.Item id={c.id}>
+                        {c.userId.firstname} {c.userId.lastname} - {c.comment} - <Moment locale="vi" fromNow>{c.createdDate}</Moment>
+                    </ListGroup.Item>)
+            }
+        </ListGroup>
     </>
 }
 export default FoodItemDetail;

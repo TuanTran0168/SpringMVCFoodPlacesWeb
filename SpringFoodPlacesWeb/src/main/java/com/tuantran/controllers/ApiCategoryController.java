@@ -49,4 +49,16 @@ public class ApiCategoryController {
 //        List<Object[]> categoriesList = this.categoryFoodSer.getCategoriesFood(params);
 //        return ResponseEntity.ok(categoriesList);
 //    }
+    
+    @DeleteMapping("/server/restaurantManager/categoriesFood/newCategoriesFood/{categoryfoodId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete_no_token(@PathVariable(value = "categoryfoodId") int id) {
+        this.categoryFoodSer.delCategory(id);
+    }
+    
+    @GetMapping("/categories/")
+    @CrossOrigin
+    public ResponseEntity<List<CategoriesFood>> listCategory(@RequestParam Map<String, String> params) {
+        return new ResponseEntity<>(this.categoryFoodSer.getCategoriesFood(params), HttpStatus.OK);
+    }
 }

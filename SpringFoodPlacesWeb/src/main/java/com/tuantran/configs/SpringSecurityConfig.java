@@ -53,9 +53,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(HttpSecurity http)
-            throws Exception {
-
+    protected void configure(HttpSecurity http) throws Exception {
         // Bỏ cái .loginPage("/login") này đi để dùng form login của nó, nếu chưa muốn override
         // 2 tham số username, password phải giống với name bên jsp
         http.formLogin().loginPage("/login")
@@ -70,10 +68,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/?accessDenied");
 
         http.authorizeRequests().antMatchers("/").permitAll()
+                .antMatchers("/api/admin/**").access("hasRole('ROLE_Admin')")
+                .antMatchers("/api/restaurantManager/**").access("hasRole('ROLE_RestaurantManager')")
                 .antMatchers("/admin/**").access("hasRole('ROLE_Admin')")
                 .antMatchers("/restaurantManager/**").access("hasRole('ROLE_RestaurantManager')");
-                
-                
+
         http.csrf().disable();
     }
 

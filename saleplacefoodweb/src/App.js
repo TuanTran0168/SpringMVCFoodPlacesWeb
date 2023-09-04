@@ -1,5 +1,7 @@
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Header from './layout/Header';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
@@ -15,6 +17,7 @@ import Cart from './components/Cart';
 import Profile from './components/Profile';
 import FoodItemDetail from './components/FoodItemDetail';
 import Restaurant from './components/Restaurant';
+import RestaurantDetail from './components/RestaurantDetail';
 
 
 export const MyUserContext = createContext();
@@ -46,6 +49,7 @@ function App() {
               <Route path="/profile" element={<Profile />}/>
               <Route path="/fooddetail/:foodId" element={<FoodItemDetail />} />
               <Route path="/restaurant" element={<Restaurant />} />
+              <Route path="/restaurant_detail/:restaurantId" element={<RestaurantDetail />} />
             </Routes>
           </Container>
           <Footer />

@@ -7,6 +7,7 @@ package com.tuantran.service;
 import com.tuantran.pojo.Restaurants;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -25,4 +26,6 @@ public interface RestaurantsService {
     int countRestaurants(Map<String, String> params);
 
     List<Restaurants> getRestaurantByUserId(int userId);
+    
+    Restaurants registerRestaurant(Map<String, String> params, MultipartFile avatar);
 }

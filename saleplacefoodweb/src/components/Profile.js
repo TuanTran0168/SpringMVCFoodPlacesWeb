@@ -72,9 +72,10 @@ const Profile = () => {
 
             <div className="contain_info">
                 <div className="contain_info_1">
-                    <Link className="nav-link text-success" to="#">User Info</Link>
+                    <Link className="nav-link text-success" to="/profile">User Info</Link>
                     <Link className="nav-link text-success" to="#">Change Password</Link>
                     <Link className="nav-link text-success" to="#">Order History</Link>
+                    <Link className="nav-link text-success" to="#">Register Restaurant</Link>
                 </div>
                 <div className="contain_info_2">
                     <div className="avatar">

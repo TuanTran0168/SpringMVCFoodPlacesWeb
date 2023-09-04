@@ -5,13 +5,13 @@
 }
 
 .home{
-    display:flex;   
+    display: flex !important;;   
     width:100%;
     margin:0;
 }
 
 .flex{
-    display:flex;
+    display: flex !important;;
 }
 
 .contain{
@@ -53,6 +53,16 @@
 
 .btn-food{
     margin-left: 5px;
+}
+
+.btn_all {
+    display: flex!important;
+}
+
+.btn_all *{
+    width: 150px !important;
+    height: 36px !important;
+    font-size: 10px;
 }
 
 

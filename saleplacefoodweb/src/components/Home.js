@@ -6,7 +6,6 @@ import MySpinner from "../layout/MySpinner";
 import '../resources/css/Home.css'
 import { MyCartContext } from "../App";
 import cookie from "react-cookies";
-import FoodItemDetail from "./FoodItemDetail";
 
 const Home = () => {
 
@@ -201,8 +200,10 @@ const Home = () => {
                                             <Card.Text>{f.description}</Card.Text>
                                         </div>
                                     </div>
+                                    <div className="btn_all">
                                     <Button onClick={() => { order(f) }} variant="success">ADD TO CART</Button>
                                     <Link to={url} variant="primary" className="btn-food btn btn-primary">Xem chi tiết</Link>
+                                    </div>
                                 </Card.Body>
                             </Card>
                         </Col>

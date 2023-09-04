@@ -8,6 +8,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.tuantran.pojo.Roles;
 import com.tuantran.pojo.Users;
+import com.tuantran.repository.RolesRepository;
 import com.tuantran.repository.UsersRepository;
 import com.tuantran.service.UsersService;
 import java.io.IOException;
@@ -17,7 +18,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -146,33 +146,84 @@ public class UsersServiceImpl implements UsersService {
         return this.usersRepo.authUser(username, password);
     }
 
+    //api register
     @Override
-    public boolean addUser(Map<String, String> params, MultipartFile avatar) {
-        Users u = new Users();
-        u.setUsername(params.get("username"));
-        u.setPassword(this.bCryptPasswordEncoder.encode(params.get("password")));
-        u.setFirstname(params.get("firstName"));
-        u.setLastname(params.get("lastName"));
-        u.setPhonenumber(params.get("phone"));
-        u.setRoleId(new Roles(3));
-        if (!avatar.isEmpty()) {
-            try {
-                Map res = this.cloudinary.uploader().upload(avatar.getBytes(), 
-                        ObjectUtils.asMap("resource_type", "auto"));
-                u.setAvatar(res.get("secure_url").toString());
-            } catch (IOException ex) {
-                Logger.getLogger(UsersServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+    public Users addUser(Map<String, String> params, MultipartFile avatar) {
+        boolean isUsernameExists = this.usersRepo.isUsernameExists(params.get("username"));
+
+        if (isUsernameExists == true) {
+            return null;
+        } else {
+            Users user = new Users();
+            user.setFirstname(params.get("firstname"));
+            user.setLastname(params.get("lastname"));
+            user.setPhonenumber(params.get("phonenumber"));
+            user.setLocation(params.get("location"));
+            user.setEmail(params.get("email"));
+            user.setUsername(params.get("username"));
+            user.setPassword(this.bCryptPasswordEncoder.encode(params.get("password")));
+            user.setRoleId(new Roles(3));
+            if (!avatar.isEmpty()) {
+                try {
+                    Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
+                            ObjectUtils.asMap("resource_type", "auto"));
+                    user.setAvatar(res.get("secure_url").toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(UsersServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            this.usersRepo.addUser(user);
+            return user;
         }
-        try{
-            this.usersRepo.registerUser(u);
-            return true;
-        }
-        catch(HibernateException e){
-            e.printStackTrace();
-            return false;
-        }
-        
     }
 
+    @Override
+    public Users updateUser(Map<String, String> params, MultipartFile avatar) {
+        String username = params.get("username");
+        boolean isUsernameExists = this.usersRepo.isUsernameExists(username);
+
+        if (isUsernameExists != true) {
+            return null;
+        } else {
+            Users user = this.getUserByUsername_new(username);
+
+            String firstname = params.get("firstname");
+            String lastname = params.get("lastname");
+            String phonenumber = params.get("phonenumber");
+            String location = params.get("location");
+            String email = params.get("email");
+
+            if (firstname != null && !firstname.isEmpty()) {
+                user.setFirstname(params.get("firstname"));
+            }
+
+            if (lastname != null && !lastname.isEmpty()) {
+                user.setLastname(params.get("lastname"));
+            }
+
+            if (phonenumber != null && !phonenumber.isEmpty()) {
+                user.setPhonenumber(params.get("phonenumber"));
+            }
+
+            if (location != null && !location.isEmpty()) {
+                user.setLocation(params.get("location"));
+            }
+
+            if (email != null && !email.isEmpty()) {
+                user.setEmail(params.get("email"));
+            }
+            
+            if (!avatar.isEmpty()) {
+                try {
+                    Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
+                            ObjectUtils.asMap("resource_type", "auto"));
+                    user.setAvatar(res.get("secure_url").toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(UsersServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            this.usersRepo.updateUser(user);
+            return user;
+        }
+    }
 }

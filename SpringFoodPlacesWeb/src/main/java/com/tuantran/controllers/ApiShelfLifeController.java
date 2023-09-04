@@ -29,4 +29,10 @@ public class ApiShelfLifeController {
     public void delete(@PathVariable(value = "shelflifeId") int id){
         this.shelfLifeSer.delShelf(id);
     }
+    
+    @DeleteMapping("/server/restaurantManager/shelfLife/newShelfLife/{shelflifeId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete_no_token(@PathVariable(value = "shelflifeId") int id){
+        this.shelfLifeSer.delShelf(id);
+    }
 }

@@ -4,9 +4,7 @@
  */
 package com.tuantran.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,7 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "CategoriesFood.findAll", query = "SELECT c FROM CategoriesFood c"),
     @NamedQuery(name = "CategoriesFood.findByCategoryfoodId", query = "SELECT c FROM CategoriesFood c WHERE c.categoryfoodId = :categoryfoodId"),
-    @NamedQuery(name = "CategoriesFood.findByCategoryname", query = "SELECT c FROM CategoriesFood c WHERE c.categoryname = :categoryname")})
+    @NamedQuery(name = "CategoriesFood.findByCategoryname", query = "SELECT c FROM CategoriesFood c WHERE c.categoryname = :categoryname"),
+    @NamedQuery(name = "CategoriesFood.findByActive", query = "SELECT c FROM CategoriesFood c WHERE c.active = :active")})
 public class CategoriesFood implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,12 +42,11 @@ public class CategoriesFood implements Serializable {
     @Size(max = 255)
     @Column(name = "categoryname")
     private String categoryname;
+    @Column(name = "active")
+    private Boolean active;
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
-    @JsonIgnore
     private Restaurants restaurantId;
-    @OneToMany(mappedBy = "categoryfoodId")
-    private Set<Fooditems> fooditemsSet;
 
     public CategoriesFood() {
     }
@@ -75,21 +71,20 @@ public class CategoriesFood implements Serializable {
         this.categoryname = categoryname;
     }
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     public Restaurants getRestaurantId() {
         return restaurantId;
     }
 
     public void setRestaurantId(Restaurants restaurantId) {
         this.restaurantId = restaurantId;
-    }
-
-    @XmlTransient
-    public Set<Fooditems> getFooditemsSet() {
-        return fooditemsSet;
-    }
-
-    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
-        this.fooditemsSet = fooditemsSet;
     }
 
     @Override

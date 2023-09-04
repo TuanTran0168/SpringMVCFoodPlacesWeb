@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -52,6 +53,9 @@ public class FoodItemsController {
     @Autowired
     private ShelfLifeService shelfLifeSer;
 
+    @Autowired
+    private Environment environment;
+
     @ModelAttribute
     public void commonAttr(Model model, @RequestParam Map<String, String> params) {
         model.addAttribute("shelfLife_list", this.shelfLifeSer.getShelfLife(params));
@@ -59,10 +63,77 @@ public class FoodItemsController {
     }
 
     @GetMapping("/restaurantManager/foodItems")
-    public String indexFoodItems(Model model, @RequestParam Map<String, String> params) {
+    public String indexFoodItems(Model model, @RequestParam Map<String, String> params, Authentication authentication) {
         model.addAttribute("foodItems", this.foodItemSer.getFoodItems(params));
-        model.addAttribute("msg", "Chào");
+
+        int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
+        int countFoodItems = this.foodItemSer.countFoodItems(params);
+        model.addAttribute("counter", Math.ceil(countFoodItems * 1.0 / pageSize));
+
+        String pageStr = params.get("page");
+        String pageAllStr = params.get("pageAll");
+
+        String msg = "";
+        String restaurantId = params.get("restaurantId");
+
+        if (restaurantId == null || restaurantId.isEmpty()) {
+            msg = "Có lỗi xảy ra!";
+            model.addAttribute("msg", msg);
+            return "redirect:/restaurantManager/restaurants";
+        }
+
+        Restaurants restaurant = this.restaurantsService.getRestaurantById(Integer.parseInt(restaurantId));
+
+        if (restaurant == null) {
+            msg = "Bạn không sở hữu nhà hàng này!";
+            model.addAttribute("msg", msg);
+            return "redirect:/restaurantManager/restaurants";
+        }
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            UserDetails user = (UserDetails) principal;
+            String username = user.getUsername();
+            params.put("username", username);
+
+            Users user_auth = this.userService.getUserByUsername_new(username);
+
+            if (user_auth != null) {
+                if (restaurant.getUserId().getUserId().equals(user_auth.getUserId())) {
+                    if (pageStr == null) {
+                        if (pageAllStr == null) {
+                            params.put("page", "1");
+                            model.addAttribute("foodItems", this.foodItemSer.getFoodItems(params));
+                        } else {
+                            model.addAttribute("foodItems", this.foodItemSer.getFoodItems(params));
+                        }
+
+                    } else {
+                        model.addAttribute("foodItems", this.foodItemSer.getFoodItems(params));
+                    }
+                } else {
+                    msg = "Bạn không sở hữu nhà hàng này!";
+                    model.addAttribute("msg", msg);
+                    return "redirect:/restaurantManager/restaurants";
+                }
+            }
+        }
+
+        model.addAttribute("foodItem", new Fooditems());
         return "indexFoodItems";
+    }
+
+    @PostMapping("/restaurantManager/foodItems")
+    public String addFoodItems_new(Model model, @ModelAttribute(value = "foodItem") @Valid Fooditems foodItem, BindingResult rs, @RequestParam Map<String, String> params, Authentication authentication) {
+        String msg = "";
+        if (!rs.hasErrors()) {
+
+            if (this.foodItemSer.addOrUpdateFoodItem(foodItem) == true) {
+                return "redirect:/restaurantManager/foodItems?restaurantId=" + foodItem.getRestaurantId().getRestaurantId();
+            }
+        }
+        model.addAttribute("msg", msg);
+        return "redirect:/restaurantManager/restaurants";
     }
 
 //    @RequestMapping("/restaurantManager/foodItems")

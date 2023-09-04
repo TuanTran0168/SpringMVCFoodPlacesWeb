@@ -19,7 +19,7 @@ function deleteRestaurant(path, id) {
 }
 
 function getUsersByRoleId() {
-    return fetch("http://localhost:8080/SpringFoodPlacesWeb/api/admin/users/roleId/2", {
+    return fetch("http://localhost:8080/SpringFoodPlacesWeb/api/server/admin/users/roleId/2", {
         method: "get"
     }).then(res => {
         return res.json();
@@ -42,7 +42,14 @@ $(document).ready(async function () {
         for (let u of users)
             if (u.firstname !== null || u.lastname !== null) {
                 if (u.firstname.search(t) >= 0 || u.lastname.search(t) >= 0)
-                    h += `<option><a id=${u.userId} href="javascript:;">${u.firstname} - ${u.lastname}</a></option>`;
+                    h += `<option><a id=${u.userId} href="javascript:;">${u.firstname} ${u.lastname}</a></option>`;
+                else {
+                    let fullName = u.firstname + " " + u.lastname;
+                    console.log("fullname" + fullName);
+                    if (fullName.search(t) >= 0) {
+                        h += `<option><a id=${u.userId} href="javascript:;">${u.firstname} ${u.lastname}</a></option>`;
+                    }
+                }
             }
 
         $("#suggest").html(h);

@@ -53,6 +53,15 @@ public class ApiUsersController {
         return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
     }
 
+    @PostMapping(path = "/register/",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @CrossOrigin
+    public ResponseEntity<Users> registerUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+        Users user = this.usersService.addUser(params, avatar);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
     @DeleteMapping("/admin/users/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable(value = "userId") int id) {
@@ -72,22 +81,33 @@ public class ApiUsersController {
         return new ResponseEntity<>(this.usersService.getUsers(params), HttpStatus.OK);
     }
 
-    //api đăng ký
-    //đóng lại vì chưa viết sử lý hàm này :)) => đã thêm hàm sử lý
-    @PostMapping(path = "/registerUser/", 
-            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, 
-            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @GetMapping("/server/admin/users/roleId/{roleId}")
     @CrossOrigin
-    public ResponseEntity<Boolean> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
-        boolean add = this.usersService.addUser(params, avatar);
-        return new ResponseEntity<>(add, HttpStatus.CREATED);
+    public ResponseEntity<List<Users>> usersByUserRole_List_no_token(@PathVariable(value = "roleId") int roleId, Map<String, String> params) {
+        params.put("roleId", String.valueOf(roleId));
+        return new ResponseEntity<>(this.usersService.getUsers(params), HttpStatus.OK);
     }
-    
+
+    @DeleteMapping("/server/admin/users/{userId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete_no_token(@PathVariable(value = "userId") int id) {
+        this.usersService.deleteUsers(id);
+    }
+
     //lấy user hiện tại bên reactjs
     @GetMapping(path = "/current-user/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<Users> details(Principal user) {
         Users u = this.usersService.getUserByUsername_new(user.getName());
         return new ResponseEntity<>(u, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/update-user/",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @CrossOrigin
+    public ResponseEntity<Users> update(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+        Users user = this.usersService.updateUser(params, avatar);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

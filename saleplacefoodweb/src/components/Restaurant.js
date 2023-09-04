@@ -4,6 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import Apis, { endpoints } from "../configs/Apis";
 import MySpinner from "../layout/MySpinner";
 import '../resources/css/Restaurant.css'
+import img from '../resources/img/react_icon.png'
 
 const Restaurant = () => {
 
@@ -83,10 +84,10 @@ const Restaurant = () => {
             <div className="fooditems">
                 <Row>
                     {restaurant.map(r => {
-                        // let url = `/fooddetail/${r.}`; chi tiết nhà hàng ở đây
+                        let url = `/restaurant_detail/${r.restaurantId}`; //chi tiết nhà hàng ở đây
                         return <Col xs={12} md={3} className="m-3 mt-2 mb-2">
                             <Card className="mt-3" style={{ width: '18rem' }}>
-                                <Card.Img className="img_res" variant="top" src={r.avatar} />
+                                <Card.Img className="img_res" variant="top" src={r.avatar !== null ? r.avatar : "https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg"} />
                                 <Card.Body>
                                     <div className="flex" >
                                         <div>
@@ -100,7 +101,7 @@ const Restaurant = () => {
                                         </div>
                                     </div>
                                     {/* <Button onClick={() => { order(f) }} variant="success">ADD TO CART</Button> */}
-                                    <Link to="#" variant="primary" className="btn-food btn btn-primary">Xem chi tiết</Link>
+                                    <Link to={url} variant="primary" className="btn-food btn btn-primary">Xem chi tiết</Link>
                                 </Card.Body>
                             </Card>
                         </Col>

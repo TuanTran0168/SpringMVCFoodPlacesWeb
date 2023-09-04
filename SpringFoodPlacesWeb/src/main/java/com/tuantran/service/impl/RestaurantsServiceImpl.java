@@ -6,6 +6,7 @@ package com.tuantran.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.tuantran.pojo.RestaurantStatus;
 import com.tuantran.pojo.Restaurants;
 import com.tuantran.pojo.Users;
 import com.tuantran.repository.RestaurantsRepository;
@@ -17,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -78,6 +80,28 @@ public class RestaurantsServiceImpl implements RestaurantsService {
     @Override
     public List<Restaurants> getRestaurantByUserId(int userId) {
         return this.restaurantsRepo.getRestaurantByUserId(userId);
+    }
+
+    @Override
+    public Restaurants registerRestaurant(Map<String, String> params, MultipartFile avatar) {
+        Restaurants restaurant = new Restaurants();
+
+        restaurant.setRestaurantName(params.get("restaurantName"));
+        restaurant.setLocation(params.get("location"));
+        
+        restaurant.setConfirmationStatus(Boolean.FALSE);
+        restaurant.setRestaurantStatus(new RestaurantStatus(2));
+        
+        if (!avatar.isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(restaurant.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                restaurant.setAvatar(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(RestaurantsServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return this.restaurantsRepo.registerRestaurant(restaurant);
     }
 
 }
