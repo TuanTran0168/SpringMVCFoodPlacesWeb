@@ -73,4 +73,10 @@ public class ApiRestaurantsController {
     public ResponseEntity<List<Restaurants>> listRestaurant(@RequestParam Map<String, String> params) {
         return new ResponseEntity<>(this.restaurantsService.getRestaurants(params), HttpStatus.OK);
     }
+    
+    @GetMapping("/restaurants/{restaurantId}/")
+    @CrossOrigin
+    public ResponseEntity<Restaurants> listRestaurant1(@PathVariable(value = "restaurantId") int restaurantId) {
+        return new ResponseEntity<>(this.restaurantsService.getRestaurantById(restaurantId), HttpStatus.OK);
+    }
 }
