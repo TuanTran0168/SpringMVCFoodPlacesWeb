@@ -31,6 +31,7 @@ function getUsersByRoleId() {
 }
 
 $(document).ready(async function () {
+    
     $("#search_userId").on("keyup focus", async function () {
         const users = await getUsersByRoleId();
         $("#suggest").show();
@@ -42,7 +43,7 @@ $(document).ready(async function () {
         for (let u of users)
             if (u.firstname !== null || u.lastname !== null) {
                 if (u.firstname.search(t) >= 0 || u.lastname.search(t) >= 0)
-                    h += `<option><a id=${u.userId} href="javascript:;">${u.firstname} ${u.lastname}</a></option>`;
+                    h += `<option value=${u.userId}><a id=${u.userId} href="javascript:;">${u.firstname} ${u.lastname}</a></option>`;
                 else {
                     let fullName = u.firstname + " " + u.lastname;
                     console.log("fullname" + fullName);
@@ -118,5 +119,12 @@ function delayScrollToClickedPosition(event) {
 $(document).ready(function (event) {
     delayScrollToClickedPosition(event);
 });
+
+function getid(){
+    let id = document.getElementById("suggest");
+    let input_id = document.querySelector(".getId");
+    
+    input_id.value = id.value;
+}
 
 

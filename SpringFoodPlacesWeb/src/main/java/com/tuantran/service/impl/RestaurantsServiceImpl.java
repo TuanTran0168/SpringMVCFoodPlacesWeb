@@ -40,15 +40,11 @@ public class RestaurantsServiceImpl implements RestaurantsService {
 
     @Override
     public boolean addOrUpdateRestaurants(Restaurants restaurant) {
-        //Test thôi, tí nữa bỏ user ra :)
-//        restaurant.setAvatar("http://it.ou.edu.vn/asset/ckfinder/userfiles/5/images/giang_vien/Thanh.png");
-//        restaurant.setActive(true);
-//        restaurant.setConfirmationStatus(true);
-//        Users u = new Users();
-//        u.setUserId(1);
-//        restaurant.setUserId(u);
-
-        restaurant.setConfirmationStatus(false);
+    
+        if (restaurant.getRestaurantId() == null) {
+            restaurant.setConfirmationStatus(false);
+        }
+        
         if (!restaurant.getFile().isEmpty()) {
             try {
                 Map res = this.cloudinary.uploader().upload(restaurant.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
@@ -94,7 +90,7 @@ public class RestaurantsServiceImpl implements RestaurantsService {
         
         if (!avatar.isEmpty()) {
             try {
-                Map res = this.cloudinary.uploader().upload(restaurant.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                Map res = this.cloudinary.uploader().upload(avatar.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
                 restaurant.setAvatar(res.get("secure_url").toString());
             } catch (IOException ex) {
                 Logger.getLogger(RestaurantsServiceImpl.class.getName()).log(Level.SEVERE, null, ex);

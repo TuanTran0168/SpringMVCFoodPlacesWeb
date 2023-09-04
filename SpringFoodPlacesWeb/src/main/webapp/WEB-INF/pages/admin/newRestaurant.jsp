@@ -9,7 +9,6 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" href=" <c:url value="/css/newRestaurant.css" /> "/>
 <script src="<c:url value="/js/restaurants.js" />"></script>
-
 <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">ĐĂNG KÝ NHÀ HÀNG MỚI</h1>
 
 <hr class="container" />
@@ -94,12 +93,16 @@
                             name="search_userId"
                             value="${restaurant.userId.firstname} ${restaurant.userId.lastname}"
                             />
-                        <select id="suggest"></select>
+                        <select class="form-select" onchange="getid()" id="suggest"></select>
                     </div>
 
                     <div class="form-floating mb-3 mt-3">
-                        <form:input path="userId" id="load_userId_js" />
+                        <form:input path="userId" class="getId" id="load_userId_js" />
                     </div>
+                    
+<!--                    <div class="form-floating mb-3 mt-3">
+                        <form:input path="userId" class="getId" id="" />
+                    </div>-->
                 </div>
 
                 <div class="form-floating mb-3 mt-3">

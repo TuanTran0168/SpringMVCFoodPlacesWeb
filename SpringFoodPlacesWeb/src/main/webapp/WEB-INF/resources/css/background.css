@@ -8,7 +8,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 body{
-    background: url(../images/vegetables-set-left-black-slate.jpg)no-repeat;
+    /*vegetables-set-left-black-slate.jpg*/
+    background: url(../images/healthy-lunch-go-packed-lunch-box.jpg)no-repeat;
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
