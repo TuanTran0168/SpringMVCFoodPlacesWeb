@@ -49,8 +49,8 @@ public class CommentsServiceImpl implements CommentsService {
     private Cloudinary cloudinary;
 
     @Override
-    public List<Comments> getComments(int foodId) {
-        return this.commentsRepo.getComments(foodId);
+    public List<Comments> getComments(int foodId, Map<String, String> params) {
+        return this.commentsRepo.getComments(foodId, params);
     }
 
     @Override
@@ -81,4 +81,8 @@ public class CommentsServiceImpl implements CommentsService {
         return this.commentsRepo.addComment(comment);
     }
 
+    @Override
+    public int countComments(int foodId) {
+        return this.commentsRepo.countComments(foodId);
+    }
 }

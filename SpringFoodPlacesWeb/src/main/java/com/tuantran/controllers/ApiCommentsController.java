@@ -7,9 +7,11 @@ package com.tuantran.controllers;
 import com.tuantran.pojo.Comments;
 import com.tuantran.pojo.Users;
 import com.tuantran.service.CommentsService;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,15 +32,33 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api")
+
 public class ApiCommentsController {
     
     @Autowired
     private CommentsService commentsService;
     
+    @Autowired
+    private Environment environment;
+    
     @GetMapping(path = "/foodItems/{foodId}/comments/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<List<Comments>> listComments(@PathVariable(value = "foodId") int foodId) {
-        return new ResponseEntity<>(this.commentsService.getComments(foodId), HttpStatus.OK);
+    public ResponseEntity<List<Comments>> listComments(@PathVariable(value = "foodId") int foodId, @RequestParam Map<String, String> params) {
+        return new ResponseEntity<>(this.commentsService.getComments(foodId, params), HttpStatus.OK);
+    }
+    
+    @GetMapping(path = "/foodItems/{foodId}/countFoodItems/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<Map<String, String>> countFoodItems(@PathVariable(value = "foodId") int foodId) {
+        Map<String, String> params = new HashMap<>();
+        int pageSizeComments = Integer.parseInt(this.environment.getProperty("PAGE_SIZE_COMMENTS"));
+        int countCommentsByFoodId = this.commentsService.countComments(foodId);
+        params.put("page-size-comments", this.environment.getProperty("PAGE_SIZE_COMMENTS"));
+        params.put("count-comments-by-foodId", String.valueOf(this.commentsService.countComments(foodId)));
+        int pages = (int) Math.ceil((countCommentsByFoodId * 1.0) / pageSizeComments);
+        
+        params.put("pages", String.valueOf(pages));
+        return new ResponseEntity<>(params, HttpStatus.OK);
     }
     
     @PostMapping(path = "/add-comment/",

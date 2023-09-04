@@ -6,12 +6,14 @@ package com.tuantran.repository;
 
 import com.tuantran.pojo.Comments;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Administrator
  */
 public interface CommentsRepository {
-    List<Comments> getComments(int foodId);
+    List<Comments> getComments(int foodId, Map<String, String> params);
     Comments addComment(Comments comment);
+    int countComments(int foodId);
 }
