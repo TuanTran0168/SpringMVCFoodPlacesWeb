@@ -10,6 +10,18 @@
 <link rel="stylesheet" href=" <c:url value="/css/newRestaurant.css" /> "/>
 <script src="<c:url value="/js/restaurants.js" />"></script>
 
+<link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
+<c:if test="${not empty param.msg}">
+    <div class="toast show">
+        <div class="toast-header">
+            <h1>ERROR!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            ${param.msg}
+        </div>
+    </div>
+</c:if>
 <form:form modelAttribute="restaurant">
     <c:choose>
         <c:when test="${restaurant.restaurantId != null}">

@@ -159,14 +159,14 @@ public class RestaurantsController {
                         // END FOOD
 
                     } else {
-                        msg = "Bạn không sở hữu nhà hàng này!";
+                        msg = "You are not the owner of this restaurant!";
                         model.addAttribute("msg", msg);
                         return "redirect:/restaurantManager/restaurants";
                     }
                 }
             }
         } else {
-            msg = "Bạn không sở hữu nhà hàng này!";
+            msg = "You are not the owner of this restaurant!";
             model.addAttribute("msg", msg);
             return "redirect:/restaurantManager/restaurants";
         }

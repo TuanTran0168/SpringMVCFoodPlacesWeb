@@ -10,7 +10,18 @@
 <link rel="stylesheet" href=" <c:url value="/css/newRestaurant.css" /> "/>
 <script src="<c:url value="/js/restaurants.js" />"></script>
 <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">ĐĂNG KÝ NHÀ HÀNG MỚI</h1>
-
+<link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
+<c:if test="${not empty param.msg}">
+    <div class="toast show">
+        <div class="toast-header">
+            <h1>ERROR!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            ${param.msg}
+        </div>
+    </div>
+</c:if>
 <hr class="container" />
 <div class="body">
     <div class="body body__left">

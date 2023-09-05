@@ -10,9 +10,33 @@
 <script src="<c:url value="/js/restaurants.js" />"></script>
 <link rel="stylesheet" href=" <c:url value="/css/background.css" /> "/>
 <link rel="stylesheet" href=" <c:url value="/css/restaurant.css" /> "/>
+<link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
 
 <c:url value="/restaurantManager/restaurants" var = "action" />
-<h1 style = "text-align: center">${msg}</h1>
+<!--<h1 id="bugs" class="animate__backInDown" style = "transition: 5s; text-align: center; display: none">${param.msg}</h1>-->
+
+<c:if test="${not empty param.msg}">
+    <div class="toast show">
+        <div class="toast-header">
+            <h1>ERROR!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            ${param.msg}
+        </div>
+    </div>
+</c:if>
+
+<!--<script>
+    window.onload = () => {
+        let bugs = document.getElementById("bugs");
+        console.log(bugs.innerText);
+        if (bugs.innerText !== null) {
+            console.log(bugs.innerText);
+            bugs.style.display="block";
+        }
+    }
+</script>-->
 
 <section>
     <c:if test="${counter > 1}">
@@ -89,19 +113,19 @@
         </ul>
     </div>
 
-<!--    <div>
-        <a href="restaurants/newRestaurant" class = "btn btn-success"> Thêm restaurants </a>
-        <a class = "btn btn-success" href="${action}">Toàn bộ</a>
-        <c:url value="/restaurantManager/restaurants" var="confirmAction">
-            <c:param name="confirm" value="true"></c:param>
-        </c:url>
-        <a class = "btn btn-success" href="${confirmAction}">ĐÃ DUYỆT</a>
+    <!--    <div>
+            <a href="restaurants/newRestaurant" class = "btn btn-success"> Thêm restaurants </a>
+            <a class = "btn btn-success" href="${action}">Toàn bộ</a>
+    <c:url value="/restaurantManager/restaurants" var="confirmAction">
+        <c:param name="confirm" value="true"></c:param>
+    </c:url>
+    <a class = "btn btn-success" href="${confirmAction}">ĐÃ DUYỆT</a>
 
-        <c:url value="/restaurantManager/restaurants" var="confirmAction">
-            <c:param name="confirm" value="false"></c:param>
-        </c:url>
-        <a class = "btn btn-success" href="${confirmAction}">CHƯA DUYỆT</a>
-    </div>-->
+    <c:url value="/restaurantManager/restaurants" var="confirmAction">
+        <c:param name="confirm" value="false"></c:param>
+    </c:url>
+    <a class = "btn btn-success" href="${confirmAction}">CHƯA DUYỆT</a>
+</div>-->
 </section>
 
 <section>

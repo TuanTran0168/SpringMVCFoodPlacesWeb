@@ -85,7 +85,7 @@ public class FoodItemsController {
         Restaurants restaurant = this.restaurantsService.getRestaurantById(Integer.parseInt(restaurantId));
 
         if (restaurant == null) {
-            msg = "Bạn không sở hữu nhà hàng này!";
+            msg = "You are not the owner of this restaurant!";
             model.addAttribute("msg", msg);
             return "redirect:/restaurantManager/restaurants";
         }
@@ -112,7 +112,7 @@ public class FoodItemsController {
                         model.addAttribute("foodItems", this.foodItemSer.getFoodItems(params));
                     }
                 } else {
-                    msg = "Bạn không sở hữu nhà hàng này!";
+                    msg = "You are not the owner of this restaurant!";
                     model.addAttribute("msg", msg);
                     return "redirect:/restaurantManager/restaurants";
                 }
@@ -175,7 +175,7 @@ public class FoodItemsController {
         // TRỜI ƠI CÁI CHỖ NÀY :)))))))))))))
         String restaurantId = params.get("restaurantId");
         if (restaurantId == null || restaurantId.isEmpty()) {
-            msg = "Bạn không sở hữu nhà hàng này!";
+            msg = "You are not the owner of this restaurant!";
             model.addAttribute("msg", msg);
             return "redirect:/restaurantManager/restaurants";
         } else {

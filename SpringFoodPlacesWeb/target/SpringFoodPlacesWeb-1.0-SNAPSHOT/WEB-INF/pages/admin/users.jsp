@@ -14,7 +14,18 @@
 <h1 style="text-align: center">QUẢN LÝ USERS</h1>
 
 <c:url value="/admin/users" var = "action" />
-<h1 style = "text-align: center">${msg}</h1>
+<link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
+<c:if test="${not empty param.msg}">
+    <div class="toast show">
+        <div class="toast-header">
+            <h1>ERROR!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            ${param.msg}
+        </div>
+    </div>
+</c:if>
 
 <c:if test="${param.accessDenied != null}">
     <div class="alert alert-danger alert-dismissible fade show">
@@ -29,18 +40,18 @@
 
 <c:if test="${counter > 1}">
     <ul class="pagination mt-1">
-        <c:url value="/admin/users" var="pageAction">
-            <c:param name="pageAll"></c:param>
-        </c:url>
-        <li class="page-item"><a class="page-link" href="${pageAction}">Tất cả user</a></li>
+    <c:url value="/admin/users" var="pageAction">
+        <c:param name="pageAll"></c:param>
+    </c:url>
+    <li class="page-item"><a class="page-link" href="${pageAction}">Tất cả user</a></li>
 
-        <c:forEach begin="1" end="${counter}" var = "i">
-            <c:url value="/admin/users" var="pageAction">
-                <c:param name="page" value="${i}"></c:param>
-            </c:url>
-            <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
-            </c:forEach>
-    </ul>
+    <c:forEach begin="1" end="${counter}" var = "i">
+        <c:url value="/admin/users" var="pageAction">
+            <c:param name="page" value="${i}"></c:param>
+        </c:url>
+        <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+    </c:forEach>
+</ul>
 </c:if>
 <div></div>-->
 

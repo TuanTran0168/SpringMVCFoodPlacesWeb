@@ -7,6 +7,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href=" <c:url value="/css/background.css" /> "/>
+<link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
+<c:if test="${not empty param.msg}">
+    <div class="toast show">
+        <div class="toast-header">
+            <h1>ERROR!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            ${param.msg}
+        </div>
+    </div>
+</c:if>
 
 <div class="container">
     <a href="<c:url value="/admin/users" />" class="btn btn-info">Quản lý users</a>

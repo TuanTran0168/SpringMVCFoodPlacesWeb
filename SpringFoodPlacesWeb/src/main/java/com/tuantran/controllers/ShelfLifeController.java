@@ -49,7 +49,7 @@ public class ShelfLifeController {
 
     @Autowired
     private RestaurantsService restaurantsService;
-    
+
     @Autowired
     private UsersService userService;
 
@@ -108,6 +108,15 @@ public class ShelfLifeController {
     public String addShelfLife_new(Model model, @ModelAttribute(value = "shelfLife") @Valid ShelfLife shelfLife, BindingResult rs, @RequestParam Map<String, String> params, Authentication authentication) {
         String msg = "";
         if (!rs.hasErrors()) {
+
+            Date fromDate = shelfLife.getFromDate();
+            Date toDate = shelfLife.getToDate();
+            if (fromDate.after(toDate)) {
+                msg = "Ngay bat dau khong duoc lon hon ngay ket thuc";
+                model.addAttribute("msg", msg);
+                return "redirect:/restaurantManager/shelfLife?restaurantId=" + shelfLife.getRestaurantId().getRestaurantId();
+            }
+
             if (this.shelfLifeSer.addOrUpdateShelfLife(shelfLife) == true) {
                 return "redirect:/restaurantManager/shelfLife?restaurantId=" + shelfLife.getRestaurantId().getRestaurantId();
             }
