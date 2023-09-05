@@ -4,11 +4,9 @@
  */
 package com.tuantran.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,13 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,7 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Receipts.findAll", query = "SELECT r FROM Receipts r"),
     @NamedQuery(name = "Receipts.findByReceiptId", query = "SELECT r FROM Receipts r WHERE r.receiptId = :receiptId"),
     @NamedQuery(name = "Receipts.findByReceiptDate", query = "SELECT r FROM Receipts r WHERE r.receiptDate = :receiptDate"),
-    @NamedQuery(name = "Receipts.findByPaymentMethod", query = "SELECT r FROM Receipts r WHERE r.paymentMethod = :paymentMethod"),
     @NamedQuery(name = "Receipts.findByTotalPayment", query = "SELECT r FROM Receipts r WHERE r.totalPayment = :totalPayment"),
     @NamedQuery(name = "Receipts.findByActive", query = "SELECT r FROM Receipts r WHERE r.active = :active")})
 public class Receipts implements Serializable {
@@ -52,20 +46,14 @@ public class Receipts implements Serializable {
     @Column(name = "receipt_date")
     @Temporal(TemporalType.DATE)
     private Date receiptDate;
-    @Size(max = 255)
-    @Column(name = "payment_method")
-    private String paymentMethod;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "total_payment")
     private BigDecimal totalPayment;
     @Column(name = "active")
     private Boolean active;
-    @JsonIgnore
-    @OneToMany(mappedBy = "receiptId")
-    private Set<ReceiptStatus> receiptStatusSet;
-    @JsonIgnore
-    @OneToMany(mappedBy = "receiptId")
-    private Set<ReceiptDetail> receiptDetailSet;
+    @JoinColumn(name = "status_receipt_id", referencedColumnName = "status_receipt_id")
+    @ManyToOne
+    private ReceiptStatus statusReceiptId;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne
     private Users userId;
@@ -93,14 +81,6 @@ public class Receipts implements Serializable {
         this.receiptDate = receiptDate;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
     public BigDecimal getTotalPayment() {
         return totalPayment;
     }
@@ -117,22 +97,12 @@ public class Receipts implements Serializable {
         this.active = active;
     }
 
-    @XmlTransient
-    public Set<ReceiptStatus> getReceiptStatusSet() {
-        return receiptStatusSet;
+    public ReceiptStatus getStatusReceiptId() {
+        return statusReceiptId;
     }
 
-    public void setReceiptStatusSet(Set<ReceiptStatus> receiptStatusSet) {
-        this.receiptStatusSet = receiptStatusSet;
-    }
-
-    @XmlTransient
-    public Set<ReceiptDetail> getReceiptDetailSet() {
-        return receiptDetailSet;
-    }
-
-    public void setReceiptDetailSet(Set<ReceiptDetail> receiptDetailSet) {
-        this.receiptDetailSet = receiptDetailSet;
+    public void setStatusReceiptId(ReceiptStatus statusReceiptId) {
+        this.statusReceiptId = statusReceiptId;
     }
 
     public Users getUserId() {
@@ -167,5 +137,5 @@ public class Receipts implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Receipts[ receiptId=" + receiptId + " ]";
     }
-
+    
 }

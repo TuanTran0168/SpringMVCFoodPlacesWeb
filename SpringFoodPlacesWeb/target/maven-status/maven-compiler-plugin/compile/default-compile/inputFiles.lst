@@ -35,6 +35,7 @@ D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\c
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\FoodItemsRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Receipts.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\UsersRepository.java
+D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Follow.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\SecurityWebApplicationInitializer.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\components\JwtService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\ApiFoodItemsController.java

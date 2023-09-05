@@ -56,6 +56,7 @@ com\tuantran\controllers\IndexController.class
 com\tuantran\components\JwtService.class
 com\tuantran\service\ShelfLifeService.class
 com\tuantran\service\impl\CommentsServiceImpl.class
+com\tuantran\pojo\Follow.class
 com\tuantran\repository\impl\RestaurantStatusRepositoryImpl.class
 com\tuantran\repository\impl\CategoryFoodRepositoryImpl.class
 com\tuantran\controllers\AdminController.class
@@ -85,6 +86,7 @@ com\tuantran\controllers\ApiRestaurantsController.class
 com\tuantran\pojo\Roles_.class
 com\tuantran\repository\CategoryFoodRepository.class
 com\tuantran\pojo\ReceiptStatus.class
+com\tuantran\pojo\Follow_.class
 com\tuantran\filters\JwtAuthenticationTokenFilter.class
 com\tuantran\service\impl\ReceiptServiceImpl.class
 com\tuantran\repository\impl\RolesRepositoryImpl.class

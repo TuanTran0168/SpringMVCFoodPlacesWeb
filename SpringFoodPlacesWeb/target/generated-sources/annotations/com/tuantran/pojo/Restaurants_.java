@@ -2,6 +2,7 @@ package com.tuantran.pojo;
 
 import com.tuantran.pojo.CategoriesFood;
 import com.tuantran.pojo.Comments;
+import com.tuantran.pojo.Follow;
 import com.tuantran.pojo.Fooditems;
 import com.tuantran.pojo.Notifications;
 import com.tuantran.pojo.RestaurantStatus;
@@ -12,7 +13,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-09-05T07:58:55")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-09-05T11:58:38")
 @StaticMetamodel(Restaurants.class)
 public class Restaurants_ { 
 
@@ -29,6 +30,7 @@ public class Restaurants_ {
     public static volatile SingularAttribute<Restaurants, Users> userId;
     public static volatile SetAttribute<Restaurants, CategoriesFood> categoriesFoodSet;
     public static volatile SingularAttribute<Restaurants, String> restaurantName;
+    public static volatile SetAttribute<Restaurants, Follow> followSet;
     public static volatile SingularAttribute<Restaurants, String> location;
 
 }

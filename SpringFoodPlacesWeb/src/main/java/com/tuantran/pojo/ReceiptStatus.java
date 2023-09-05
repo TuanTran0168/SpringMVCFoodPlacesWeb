@@ -4,20 +4,22 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,9 +46,9 @@ public class ReceiptStatus implements Serializable {
     private String statusReceipt;
     @Column(name = "active")
     private Boolean active;
-    @JoinColumn(name = "receipt_id", referencedColumnName = "receipt_id")
-    @ManyToOne
-    private Receipts receiptId;
+    @JsonIgnore
+    @OneToMany(mappedBy = "statusReceiptId")
+    private Set<Receipts> receiptsSet;
 
     public ReceiptStatus() {
     }
@@ -79,12 +81,13 @@ public class ReceiptStatus implements Serializable {
         this.active = active;
     }
 
-    public Receipts getReceiptId() {
-        return receiptId;
+    @XmlTransient
+    public Set<Receipts> getReceiptsSet() {
+        return receiptsSet;
     }
 
-    public void setReceiptId(Receipts receiptId) {
-        this.receiptId = receiptId;
+    public void setReceiptsSet(Set<Receipts> receiptsSet) {
+        this.receiptsSet = receiptsSet;
     }
 
     @Override
