@@ -6,19 +6,76 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%--<c:forEach items="${fooditems}" var="f">
-    <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="${f.avatar}" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">${f.foodName}</h5>
-    <p class="card-text"> ${f.price}</p>
-    <a href="#" class="btn btn-primary">Mua Ngay</a>
-  </div>
-</div>
-</c:forEach>--%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<!--<h1 style="text-align: center">${msg}</h1>-->
 <section class="container">
+
+    <div>
+        <form:form method="post" action="${action}" modelAttribute="foodItem" enctype="multipart/form-data">
+            <form:errors path="*" element="div" cssClass="alert alert-danger" />
+            <div class="form-floating mb-3 mt-3">
+                <form:input type="text" class="form-control" path="foodName" id="foodName" placeholder="Nhập tên món... " name="foodName" />
+                <label for="foodName">Nhập tên món...</label>
+            </div>
+
+            <div class="form-floating mb-3 mt-3">
+                <form:input type="text" class="form-control" path="price" id="price" placeholder="Nhập giá... " name="price" />
+                <label for="price">Nhập giá...</label>
+            </div>
+
+            <div class="form-floating mb-3 mt-3">
+                <form:input type="text" class="form-control" path="description" id="description" placeholder="Nhập loại... " name="description" />
+                <label for="description">Nhập loại...</label>
+            </div>
+            <div class="form-floating mb-3 mt-3">
+                <form:select class="form-select" id="shelfLife_list" name="shelfLife_list" path="shelflifeId">
+                    <c:forEach items="${shelfLife_list}" var="sL">
+                        <c:choose>
+                            <c:when test="${sL.shelflifeId == foodItem.shelflifeId.shelflifeId}">
+                                <option value="${sL.shelflifeId}" selected="${sL.shelflifeId}">${sL.shelflifeName}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${sL.shelflifeId}">${sL.shelflifeName}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </form:select>
+
+                <label for="restaurants" class="form-label">Danh mục thời gian bán</label>
+            </div>
+
+            <div class="form-floating mb-3 mt-3">
+                <form:select class="form-select" id="category_list" name="category_list" path="categoryfoodId">
+                    <c:forEach items="${category_list}" var="cate">
+                        <c:choose>
+                            <c:when test="${cate.categoryfoodId == foodItem.categoryfoodId.categoryfoodId}">
+                                <option value="${cate.categoryfoodId}" selected="${cate.categoryfoodId}">${cate.categoryname}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${cate.categoryfoodId}">${cate.categoryname}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </form:select>
+
+                <label for="restaurants" class="form-label">Danh mục thức ăn</label>
+            </div>
+
+
+
+            <div class="form-floating mb-3 mt-3">
+                <form:input type="file" class="form-control" path="file" id="file" name="file" />
+                <label for="file">Avatar</label>
+            </div>
+
+            <div class="form-floating mb-3 mt-3">
+                <button class="btn btn-info" type="submit">
+                    Thêm món ăn PROMAX
+                </button>
+            </div>
+        </form:form>
+    </div>
+
     <div>
         <a href="foodItems/newFoodItems" class = "btn btn-success mt-3"> Thêm món ăn </a>
     </div>
@@ -32,30 +89,55 @@
                 <th>Giá</th>
                 <th>Tình Trạng</th>
                 <th>mô tả</th>
-                
+
         <hr>
         </tr>
         </thead>
 
-        <c:forEach items="${foodItems}" var="f">
-            <tbody>
+        <tbody>
+            <c:forEach items="${foodItems}" var="food">
+
                 <tr>
-                    <td>${f.foodId}</td>
-                    <td><img style="width:120px" src=${f.avatar} /></td>
-                    <td>${f.foodName}</td>
-                    <td>${f.price}</td>
-                    <td>${f.available}</td>
-                    <td>${f.description}</td>
-                    
+                    <td>${food.foodId}</td>
+                    <td><img style="width:120px" src=${food.avatar} /></td>
+                    <td>${food.foodName}</td>
+                    <td>${food.price}</td>
+                    <td>${food.available}</td>
+                    <td>${food.description}</td>
+
                     <td>
-                        <a href="<c:url value="/restaurantManager/foodItems/${f.foodId}" />" class = "btn btn-success">Cập nhật</a>
-                        <c:url value="/api/restaurantManager/foodItems/newFoodItems/${f.foodId}" var="apiDel" />
-                        <button class = "btn btn-danger" onclick="deleteFood('${apiDel}', ${f.foodId})">Xóa</button>
+                        <c:url value="/restaurantManager/foodItems/${food.foodId}" var="addFoodItemAction">
+                            <c:param name="restaurantId" value="${param.restaurantId}"></c:param>
+                        </c:url>
+                        <a class = "btn btn-success" href="${addFoodItemAction}" />Cập nhật</a>
+
+<!--<a href="<c:url value="/restaurantManager/foodItems/${f.foodId}" />" class = "btn btn-success">Cập nhật</a>-->
+                        <c:url value="/api/server/restaurantManager/foodItems/newFoodItems/${food.foodId}" var="apiDel" />
+                        <button class = "btn btn-danger" onclick="deleteFood('${apiDel}', ${food.foodId})">Xóa</button>
                     </td>
                 </tr>
-            </tbody>
-        </c:forEach>
+
+            </c:forEach>
+        </tbody>
     </table>
+</section>
+
+<section>
+    <c:if test="${counter > 1}">
+        <ul class="pagination mt-1">
+            <c:url value="/restaurantManager/foodItems?restaurantId=${param.get('restaurantId')}" var="pageAction">
+                <c:param name="pageAll"></c:param>
+            </c:url>
+            <li class="page-item"><a class="page-link" href="${pageAction}">Tất cả user</a></li>
+
+            <c:forEach begin="1" end="${counter}" var = "i">
+                <c:url value="/restaurantManager/foodItems?restaurantId=${param.get('restaurantId')}" var="pageAction">
+                    <c:param name="page" value="${i}"></c:param>
+                </c:url>
+                <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+                </c:forEach>
+        </ul>
+    </c:if>
 </section>
 
 <script src="<c:url value="/js/foodItems.js" />"></script>

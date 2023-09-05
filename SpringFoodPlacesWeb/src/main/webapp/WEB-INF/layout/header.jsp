@@ -65,7 +65,14 @@
             <c:when test="${pageContext.request.userPrincipal.name != null}">
                 <div class="avatar">
                     <a href="<c:url value="/" />">
-                        <img src="${current_user.avatar}" alt="alt"/>
+                        <c:choose>
+                            <c:when test="${current_user.avatar != null}">
+                                <img src="${current_user.avatar}" alt="alt"/>
+                            </c:when>
+                            <c:otherwise>
+                                 <img src="<c:url value="/images/usernull.png" />" alt="alt"/>
+                            </c:otherwise>
+                        </c:choose>
                     </a>
                 </div>
 

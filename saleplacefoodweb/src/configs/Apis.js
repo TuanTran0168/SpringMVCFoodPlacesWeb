@@ -18,6 +18,7 @@ export const endpoints = {
     "restaurant": `${SERVER_CONTEXT}/api/restaurants/`,
     "restaurant_detail":(restaurantId) => `${SERVER_CONTEXT}/api/restaurants/${restaurantId}/`,
     "register-restaurant": `${SERVER_CONTEXT}/api/register-restaurant/`
+
     
 }
 

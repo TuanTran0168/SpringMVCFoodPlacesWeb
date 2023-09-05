@@ -12,9 +12,7 @@ const RestaurantDetail = () => {
     useEffect(() => {
         const loadRestaurant = async () => {
             console.log("chà chà" + restaurantId);
-            let {data} = await Apis.get(endpoints['restaurant_detail'](restaurantId));
-            console.log(data)
-            
+            let {data} = await Apis.get(endpoints['restaurant_detail'](restaurantId));      
             setRestaurant(data);
         }
 

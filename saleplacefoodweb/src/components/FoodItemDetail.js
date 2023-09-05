@@ -1,4 +1,3 @@
-import React from "react";
 import { useContext, useEffect, useRef, useState } from "react";
 import Apis, { authApi, endpoints } from "../configs/Apis";
 import { Link, useParams } from "react-router-dom";
@@ -25,6 +24,7 @@ const FoodItemDetail = () => {
     //     "rating": "",
     //     "avatar": userimg
     // })
+
     const [comments, setComments] = useState(null);
     const [rating, setRating] = useState(null);
     const avatar = useRef();
@@ -37,9 +37,9 @@ const FoodItemDetail = () => {
 
         }
 
-
         const loadComments = async () => {
             let { data } = await Apis.get(endpoints['comments'](foodId));
+
             setComments(data);
         }
 
@@ -145,6 +145,7 @@ const FoodItemDetail = () => {
         }
     };
     console.log(foodItem)
+
     if (foodItem === null || comments === null)
         return <MySpinner />;
 
@@ -171,18 +172,46 @@ const FoodItemDetail = () => {
         </Row>
         <hr />
 
-        {user === null ? <p>Vui lòng <Link to={url}>đăng nhập</Link> để bình luận! </p> : <>
-            <Form.Control as="textarea" aria-label="With textarea" value={newComment} onChange={e => setNewComment(e.target.value)} placeholder="Nội dung bình luận" />
-            <Form.Control accept=".jpg, .jpeg, .png, .gif, .bmp" type="file" ref={avatar} />
-            {loading === true ? <MySpinner /> : <Button onClick={addComment} className="mt-2" variant="info">Bình luận</Button>}
-        </>}
+        {user === null ? (
+            <p>
+                Vui lòng <Link to={url}>đăng nhập</Link> để bình luận!
+            </p>
+        ) : (
+            <>
+                <Form.Control
+                    as="textarea"
+                    aria-label="With textarea"
+                    value={newComment}
+                    onChange={e => setNewComment(e.target.value)}
+                    placeholder="Nội dung bình luận"
+                />
+                <Form.Control
+                    accept=".jpg, .jpeg, .png, .gif, .bmp"
+                    type="file"
+                    ref={avatar}
+                />
+                {loading === true ? (
+                    <MySpinner />
+                ) : (
+                    <Button onClick={addComment} className="mt-2" variant="info">
+                        Bình luận
+                    </Button>
+                )}
+            </>
+        )}
         <hr />
         <ListGroup>
-            {comments.map(c => <ListGroup.Item id={c.id}>
-                {c.userId.firstname} {c.userId.lastname} - {c.comment} - <Moment locale="vi" fromNow>{c.createdDate}</Moment>
-            </ListGroup.Item>)
-            }
+            {comments.map(c => (
+                <ListGroup.Item id={c.id} key={c.id}>
+                    {c.userId.firstname} {c.userId.lastname} - {c.comment} -{' '}
+                    <Moment locale="vi" fromNow>
+                        {c.createdDate}
+                    </Moment>
+                </ListGroup.Item>
+            ))}
         </ListGroup>
+
+
     </>
 }
 export default FoodItemDetail;

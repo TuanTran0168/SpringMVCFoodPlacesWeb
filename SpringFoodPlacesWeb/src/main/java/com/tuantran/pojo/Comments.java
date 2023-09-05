@@ -5,6 +5,7 @@
 package com.tuantran.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,6 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Comments.findAll", query = "SELECT c FROM Comments c"),
     @NamedQuery(name = "Comments.findByCommentId", query = "SELECT c FROM Comments c WHERE c.commentId = :commentId"),
     @NamedQuery(name = "Comments.findByComment", query = "SELECT c FROM Comments c WHERE c.comment = :comment"),
+    @NamedQuery(name = "Comments.findByAvatar", query = "SELECT c FROM Comments c WHERE c.avatar = :avatar"),
+    @NamedQuery(name = "Comments.findByCreatedDate", query = "SELECT c FROM Comments c WHERE c.createdDate = :createdDate"),
     @NamedQuery(name = "Comments.findByRating", query = "SELECT c FROM Comments c WHERE c.rating = :rating"),
     @NamedQuery(name = "Comments.findByActive", query = "SELECT c FROM Comments c WHERE c.active = :active")})
 public class Comments implements Serializable {
@@ -43,6 +48,12 @@ public class Comments implements Serializable {
     @Size(max = 255)
     @Column(name = "comment")
     private String comment;
+    @Size(max = 255)
+    @Column(name = "avatar")
+    private String avatar;
+    @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
     @Column(name = "rating")
     private Integer rating;
     @Column(name = "active")
@@ -78,6 +89,22 @@ public class Comments implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Integer getRating() {

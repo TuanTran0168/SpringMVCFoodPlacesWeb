@@ -42,7 +42,9 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
     @NamedQuery(name = "Users.findByAvatar", query = "SELECT u FROM Users u WHERE u.avatar = :avatar"),
     @NamedQuery(name = "Users.findByLocation", query = "SELECT u FROM Users u WHERE u.location = :location"),
-    @NamedQuery(name = "Users.findByActive", query = "SELECT u FROM Users u WHERE u.active = :active")})
+    @NamedQuery(name = "Users.findByActive", query = "SELECT u FROM Users u WHERE u.active = :active"),
+    @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
+    @NamedQuery(name = "Users.findByOtp", query = "SELECT u FROM Users u WHERE u.otp = :otp")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -74,6 +76,13 @@ public class Users implements Serializable {
     private String location;
     @Column(name = "active")
     private Boolean active;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 255)
+    @Column(name = "email")
+    private String email;
+    @Size(max = 255)
+    @Column(name = "otp")
+    private String otp;
     @JsonIgnore
     @OneToMany(mappedBy = "senderId")
     private Set<Chatmessages> chatmessagesSet;
@@ -125,6 +134,23 @@ public class Users implements Serializable {
      */
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    @Transient
+    private String confirmOTP;
+
+    /**
+     * @return the confirmOTP
+     */
+    public String getConfirmOTP() {
+        return confirmOTP;
+    }
+
+    /**
+     * @param confirmOTP the confirmOTP to set
+     */
+    public void setConfirmOTP(String confirmOTP) {
+        this.confirmOTP = confirmOTP;
     }
 
     public Users() {
@@ -204,6 +230,22 @@ public class Users implements Serializable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getOtp() {
+        return otp;
+    }
+
+    public void setOtp(String otp) {
+        this.otp = otp;
     }
 
     @XmlTransient

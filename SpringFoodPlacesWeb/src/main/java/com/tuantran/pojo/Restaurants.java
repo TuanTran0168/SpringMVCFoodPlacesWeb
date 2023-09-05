@@ -74,9 +74,6 @@ public class Restaurants implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "restaurantId")
     private Set<ShelfLife> shelfLifeSet;
-    @JsonIgnore
-    @OneToMany(mappedBy = "restaurantId")
-    private Set<Receipts> receiptsSet;
     @JoinColumn(name = "restaurant_status", referencedColumnName = "status_id")
     @ManyToOne
     private RestaurantStatus restaurantStatus;
@@ -89,7 +86,7 @@ public class Restaurants implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "restaurantId")
     private Set<Notifications> notificationsSet;
-    
+
     @Transient
     private MultipartFile file;
 
@@ -197,15 +194,6 @@ public class Restaurants implements Serializable {
         this.shelfLifeSet = shelfLifeSet;
     }
 
-    @XmlTransient
-    public Set<Receipts> getReceiptsSet() {
-        return receiptsSet;
-    }
-
-    public void setReceiptsSet(Set<Receipts> receiptsSet) {
-        this.receiptsSet = receiptsSet;
-    }
-
     public RestaurantStatus getRestaurantStatus() {
         return restaurantStatus;
     }
@@ -264,5 +252,5 @@ public class Restaurants implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Restaurants[ restaurantId=" + restaurantId + " ]";
     }
-    
+
 }

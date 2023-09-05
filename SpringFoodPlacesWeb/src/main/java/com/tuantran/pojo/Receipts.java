@@ -4,6 +4,7 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -59,13 +60,12 @@ public class Receipts implements Serializable {
     private BigDecimal totalPayment;
     @Column(name = "active")
     private Boolean active;
+    @JsonIgnore
     @OneToMany(mappedBy = "receiptId")
     private Set<ReceiptStatus> receiptStatusSet;
+    @JsonIgnore
     @OneToMany(mappedBy = "receiptId")
     private Set<ReceiptDetail> receiptDetailSet;
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
-    @ManyToOne
-    private Restaurants restaurantId;
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne
     private Users userId;
@@ -135,14 +135,6 @@ public class Receipts implements Serializable {
         this.receiptDetailSet = receiptDetailSet;
     }
 
-    public Restaurants getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(Restaurants restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
     public Users getUserId() {
         return userId;
     }
@@ -175,5 +167,5 @@ public class Receipts implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Receipts[ receiptId=" + receiptId + " ]";
     }
-    
+
 }

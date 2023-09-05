@@ -7,6 +7,7 @@ package com.tuantran.pojo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ReceiptDetail.findAll", query = "SELECT r FROM ReceiptDetail r"),
     @NamedQuery(name = "ReceiptDetail.findByReceiptdetailId", query = "SELECT r FROM ReceiptDetail r WHERE r.receiptdetailId = :receiptdetailId"),
     @NamedQuery(name = "ReceiptDetail.findByQuantity", query = "SELECT r FROM ReceiptDetail r WHERE r.quantity = :quantity"),
+    @NamedQuery(name = "ReceiptDetail.findByUnitPrice", query = "SELECT r FROM ReceiptDetail r WHERE r.unitPrice = :unitPrice"),
     @NamedQuery(name = "ReceiptDetail.findByAmount", query = "SELECT r FROM ReceiptDetail r WHERE r.amount = :amount")})
 public class ReceiptDetail implements Serializable {
 
@@ -42,13 +44,15 @@ public class ReceiptDetail implements Serializable {
     @Column(name = "quantity")
     private Integer quantity;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "unitPrice")
+    private BigDecimal unitPrice;
     @Column(name = "amount")
     private BigDecimal amount;
     @JoinColumn(name = "fooditem_id", referencedColumnName = "food_id")
     @ManyToOne
     private Fooditems fooditemId;
     @JoinColumn(name = "receipt_id", referencedColumnName = "receipt_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Receipts receiptId;
 
     public ReceiptDetail() {
@@ -72,6 +76,14 @@ public class ReceiptDetail implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public BigDecimal getAmount() {

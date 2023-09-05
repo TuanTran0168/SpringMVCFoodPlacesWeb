@@ -4,8 +4,11 @@
  */
 package com.tuantran.repository.impl;
 
+import com.tuantran.pojo.RestaurantStatus;
 import com.tuantran.pojo.Restaurants;
+import com.tuantran.pojo.Users;
 import com.tuantran.repository.RestaurantsRepository;
+import com.tuantran.repository.UsersRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +23,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +38,12 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
+    
     @Autowired
     private Environment environment;
+    
+    @Autowired
+    private UsersRepository userRepo;
 
     @Override
     public List<Restaurants> getRestaurants(Map<String, String> params) {
@@ -56,6 +65,16 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
             String userId = params.get("current_user_UserId");
             if (userId != null && !userId.isEmpty()) {
                 predicates.add(criteriaBuilder.equal(rootRestaurants.get("userId"), Integer.parseInt(userId)));
+            }
+            
+            String location = params.get("location");
+            if (location != null && !location.isEmpty()) {
+                predicates.add(criteriaBuilder.like(rootRestaurants.get("location"), String.format("%%%s%%", location)));
+            }
+            
+            String restaurantName = params.get("restaurantName");
+            if (restaurantName != null && !restaurantName.isEmpty()) {
+                predicates.add(criteriaBuilder.like(rootRestaurants.get("restaurantName"), String.format("%%%s%%", restaurantName)));
             }
 
             query.where(predicates.toArray(Predicate[]::new));
@@ -191,6 +210,23 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
             return null;
         }
 
+    }
+
+    @Override
+    public Restaurants registerRestaurant(Restaurants restaurant) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Users user = this.userRepo.getUserByUsername_new(authentication.getName());
+            
+            restaurant.setUserId(user);
+            
+            session.save(restaurant);
+            return restaurant;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
 }

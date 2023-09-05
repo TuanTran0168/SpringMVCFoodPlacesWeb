@@ -5,8 +5,12 @@
 package com.tuantran.controllers;
 
 import com.tuantran.pojo.CategoriesFood;
+import com.tuantran.pojo.Restaurants;
 import com.tuantran.pojo.ShelfLife;
+import com.tuantran.pojo.Users;
+import com.tuantran.service.RestaurantsService;
 import com.tuantran.service.ShelfLifeService;
+import com.tuantran.service.UsersService;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +20,8 @@ import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,7 +48,10 @@ public class ShelfLifeController {
     private CustomDateEditor MY_CustomDateEditor;
 
     @Autowired
-    private SimpleDateFormat MY_FORMAT_VIEW;
+    private RestaurantsService restaurantsService;
+    
+    @Autowired
+    private UsersService userService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -50,31 +59,61 @@ public class ShelfLifeController {
     }
 
     @GetMapping("/restaurantManager/shelfLife")
-    public String indexShelfLife(Model model, @RequestParam Map<String, String> params) throws ParseException {
-        List<ShelfLife> listShelfLife = this.shelfLifeSer.getShelfLife(params);
-//        List<ShelfLife> listShelfLife_p = new ArrayList<>();
-//        for (Object sl : listShelfLife) {
-//            ShelfLife sl_p = (ShelfLife) sl;
-//            
-//            sl_p.setFromDate(MY_FORMAT_VIEW.parse(sl_p.getFromDate().toString()));
-//            sl_p.setToDate(MY_FORMAT_VIEW.parse(sl_p.getToDate().toString()));
-//            
-//            
-//            listShelfLife_p.add(sl_p);
-//        }
-//        
-//        List<Object[]> ok = new ArrayList<>();
-//        
-//        for (ShelfLife loz : listShelfLife_p) {
-//           Object sl_o = (Object) loz;
-//           
-//            Object[] sl_o_arr = (Object[]) sl_o;
-//           
-//           ok.add(sl_o_arr);
-//        }
+    public String indexShelfLife(Model model, @RequestParam Map<String, String> params, Authentication authentication) throws ParseException {
+        String msg = "";
+        String restaurantId = params.get("restaurantId");
 
-        model.addAttribute("shelfLifes", listShelfLife);
+        if (restaurantId == null || restaurantId.isEmpty()) {
+            msg = "Có lỗi xảy ra!";
+            model.addAttribute("msg", msg);
+            return "redirect:/restaurantManager/restaurants";
+        }
+
+        Restaurants restaurant = this.restaurantsService.getRestaurantById(Integer.parseInt(restaurantId));
+
+        if (restaurant == null) {
+            msg = "Bạn không sở hữu nhà hàng này!";
+            model.addAttribute("msg", msg);
+            return "redirect:/restaurantManager/restaurants";
+        }
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+            UserDetails user = (UserDetails) principal;
+            String username = user.getUsername();
+            params.put("username", username);
+
+            Users user_auth = this.userService.getUserByUsername_new(username);
+
+            if (user_auth != null) {
+                if (restaurant.getUserId().getUserId().equals(user_auth.getUserId())) {
+                    List<ShelfLife> listShelfLife = this.shelfLifeSer.getShelfLife(params);
+                    model.addAttribute("shelfLife", new ShelfLife());
+                    model.addAttribute("shelfLifes", listShelfLife);
+                } else {
+                    msg = "Bạn không sở hữu nhà hàng này!";
+                    model.addAttribute("msg", msg);
+                    return "redirect:/restaurantManager/restaurants";
+                }
+            }
+        }
+
+//        List<ShelfLife> listShelfLife = this.shelfLifeSer.getShelfLife(params);
+//        model.addAttribute("shelfLife", new ShelfLife());
+//        model.addAttribute("shelfLifes", listShelfLife);
         return "shelfLife";
+    }
+
+    @PostMapping("/restaurantManager/shelfLife")
+    public String addShelfLife_new(Model model, @ModelAttribute(value = "shelfLife") @Valid ShelfLife shelfLife, BindingResult rs, @RequestParam Map<String, String> params, Authentication authentication) {
+        String msg = "";
+        if (!rs.hasErrors()) {
+            if (this.shelfLifeSer.addOrUpdateShelfLife(shelfLife) == true) {
+                return "redirect:/restaurantManager/shelfLife?restaurantId=" + shelfLife.getRestaurantId().getRestaurantId();
+            }
+        }
+        model.addAttribute("msg", msg);
+        return "redirect:/restaurantManager/restaurants";
     }
 
     //=============================================//

@@ -19,6 +19,7 @@ public interface RestaurantsRepository {
     boolean deleteRestaurants(int id);
     int countRestaurants(Map<String, String> params);
     List<Restaurants> getRestaurantByUserId(int userId);
+    Restaurants registerRestaurant(Restaurants restaurant);
     
 //    List<Object[]> getRestaurantsNotConfirm(Map<String, String> params);
 }
