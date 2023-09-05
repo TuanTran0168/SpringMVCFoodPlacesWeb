@@ -59,20 +59,20 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean addOrUpdateUsers(Users user) {
+        if (!user.getFile().isEmpty()) {
+            try {
+                Map res = this.cloudinary.uploader().upload(user.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+                user.setAvatar(res.get("secure_url").toString());
+            } catch (IOException ex) {
+                Logger.getLogger(RestaurantsServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
         boolean isUsernameExists = this.usersRepo.isUsernameExists(user.getUsername());
 
         if (isUsernameExists == true) {
-            return false;
+            return this.usersRepo.addOrUpdateUsers(user);
         } else {
-            if (!user.getFile().isEmpty()) {
-                try {
-                    Map res = this.cloudinary.uploader().upload(user.getFile().getBytes(), ObjectUtils.asMap("resource_type", "auto"));
-                    user.setAvatar(res.get("secure_url").toString());
-                } catch (IOException ex) {
-                    Logger.getLogger(RestaurantsServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
             String password = user.getPassword();
             user.setPassword(this.bCryptPasswordEncoder.encode(password));
             return this.usersRepo.addOrUpdateUsers(user);
@@ -212,7 +212,7 @@ public class UsersServiceImpl implements UsersService {
             if (email != null && !email.isEmpty()) {
                 user.setEmail(params.get("email"));
             }
-            
+
             if (!avatar.isEmpty()) {
                 try {
                     Map res = this.cloudinary.uploader().upload(avatar.getBytes(),

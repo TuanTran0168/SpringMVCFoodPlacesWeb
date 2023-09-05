@@ -10,21 +10,9 @@
 <link rel="stylesheet" href=" <c:url value="/css/newRestaurant.css" /> "/>
 <script src="<c:url value="/js/restaurants.js" />"></script>
 
-<link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
-<c:if test="${not empty param.msg}">
-    <div class="toast show">
-        <div class="toast-header">
-            <h1>ERROR!</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-        </div>
-        <div class="toast-body">
-            ${param.msg}
-        </div>
-    </div>
-</c:if>
 <form:form modelAttribute="restaurant">
     <c:choose>
-        <c:when test="${restaurant.restaurantId != null}">
+        <c:when test="${restaurant.restaurantId != null && restaurant.confirmationStatus == true}">
             <div class="infor">
                 <div class="profile-cards">
                     <div class="card">
@@ -39,9 +27,6 @@
                             <img
                                 src="${restaurant.avatar}"
                                 class="card-image"/>
-                            <!--                            <img
-                                                            src="https://res.cloudinary.com/dhwuwy0to/image/upload/v1679200800/zwtxzdmsscowexjvprtu.png"
-                                                            class="card-image"/>-->
                         </div>
                     </div>
                 </div>
@@ -54,7 +39,7 @@
 <form:form modelAttribute="restaurant" action="${actionCategoryFood}" method="get">
     <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionCategoryFood"/>
     <c:choose>
-        <c:when test="${restaurant.restaurantId != null}">
+        <c:when test="${restaurant.restaurantId != null && restaurant.confirmationStatus == true}">
             <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">CÁC MÓN ĂN</h1>
             <hr class="container">
 
@@ -129,28 +114,31 @@
 
                             <div class="row">
                                 <c:forEach items="${food_list}" var="food">
-                                    <div class="col-lg-4 col-md-12 mb-4">
+                                    <div class="col-lg-3 col-md-12 mb-4 food-item">
                                         <div class="my-img-link bg-image hover-zoom ripple shadow-1-strong rounded">
                                             <c:url value="/restaurantManager/foodItems/${food.foodId}" var="addFoodItemAction">
                                                 <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
                                             </c:url>
                                             <a href="${addFoodItemAction}" />
                                             <!--<a href="<c:url value="/restaurantManager/foodItems/${food.foodId}" />">-->
-                                            <img src="${food.avatar}"
+                                            
+                                                <img src="${food.avatar}"
                                                  class="w-100" />
 
                                             <div class="mask" >
-                                                <div class="">
+                                                
                                                     <h5>Tên món: ${food.foodName}</h5>
-                                                    <h5>Giá: ${food.price}</h5>
+                                                    <!--nhu-->
+<!--                                                    <h5>Giá: ${food.price}</h5>
                                                     <h5>Danh mục món: ${food.categoryfoodId.categoryname}</h5>
                                                     <h5>Mô tả: ${food.description}</h5>
-                                                    <h5>Nhà hàng: ${food.restaurantId.restaurantName} - ${food.restaurantId.restaurantId}</h5>
-                                                </div>
+                                                    <h5>Nhà hàng: ${food.restaurantId.restaurantName} - ${food.restaurantId.restaurantId}</h5>-->
                                             </div>
-                                            <!--                                                <div class="hover-overlay">
-                                                                                                <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                                                                                            </div>-->
+                                                
+                                                <!--nhu-->
+<!--                                            <div class="hover-overlay">
+                                                <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                            </div>-->
                                             </a>
                                         </div>
                                     </div>
@@ -233,6 +221,7 @@
                 </button>
                 <form:hidden path="restaurantId" />
                 <form:hidden path="avatar" />
+                <form:hidden path="confirmationStatus" />
             </form:form>
         </div>
     </div>

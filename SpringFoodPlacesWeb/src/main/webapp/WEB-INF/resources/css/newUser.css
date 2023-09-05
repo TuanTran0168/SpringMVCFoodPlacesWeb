@@ -31,6 +31,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 .img {
+
     width: 30%;
     margin: 0 auto;
 }
@@ -41,12 +42,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 
 button {
-/*    font-size: 30px;
-    padding: 5px;
-    margin-left: 80%;*/
+    /*    font-size: 30px;
+        padding: 5px;
+        margin-left: 80%;*/
 }
 
-.btn-infor {
+button.btn-infor {
     display: inline-block;
     outline: none;
     cursor: pointer;
@@ -59,7 +60,6 @@ button {
     transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
     background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
     color: #fff;
-
 }
 .float-label{
     padding:10px 20px !important;
@@ -69,4 +69,10 @@ div.select-role{
 }
 div.select-role>select{
     height: 100%;
+}
+
+section.section-infor {
+    margin-top: 3%;
+    box-shadow: 3px 3px 20px rgba(0, 0, 0, 1);
+
 }

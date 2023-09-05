@@ -26,7 +26,7 @@
 <section class="section-infor">
     <c:url value="/admin/users/newUser" var="action"/>
     <form:form method="post" action="${action}" modelAttribute="user" enctype="multipart/form-data">
-        <div class="img"><img src="https://images.squarespace-cdn.com/content/v1/5bd14f3d2727be5c8afd77ee/1599637352680-8ED55GMPFMVSHM1CO8MT/_MG_1831.jpg?format=500w" alt=""></div>
+        <div class="img"><img src="${user.avatar}" alt=""></div>
 
         <div class="row flex ">
             <div class="col form-floating">
@@ -71,14 +71,28 @@
 
             </c:when>
             <c:otherwise>
+                <form:hidden path="username" />
                 <form:hidden path="password" />
-                <form:hidden path="confirmPassword" />
                 <form:hidden path="userId" />
                 <form:hidden path="avatar" />
+
+<!--                <div class="row">
+                    <div class="col form-floating">
+                        <form:input type="text" class="form-control" path="username" id="username" placeholder="Nhập tên đăng nhập... " name="username" />
+                        <label class="float-label" for="username">Nhập tên đăng nhập...</label>
+                    </div>
+                </div> 
+
+                <div class="row">
+                    <div class="col form-floating">
+                        <form:input type="password" class="form-control" path="password" id="password" placeholder="Nhập mật khẩu... " name="password" />
+                        <label class="float-label" for="password">Nhập mật khẩu... </label>
+                    </div>
+                </div>-->
             </c:otherwise>
         </c:choose>
         <div class="row">
-            <div class="col select-role">
+            <div class="col form-floating select-role">
                 <form:select class="form-select" id="roles" name="roles" path="roleId">
                     <c:forEach items="${roles}" var="role">
                         <c:choose>
@@ -91,16 +105,26 @@
                         </c:choose>
                     </c:forEach>
                 </form:select>
+                <label for="restaurants" class="form-label">Danh mục Roles</label>
             </div>
         </div>
 
         <div class="row">
             <div class="col form-floating">
                 <form:input type="file" class="form-control" path="file" id="file" name="file" />
+                <label for="file">Avatar</label>
             </div>
         </div>
-
-        <button class="btn-infor">Update</button>
+        <button type="submit" class="btn-infor"">
+            <c:choose>
+                <c:when test="${user.userId == null}">
+                    Thêm user
+                </c:when>
+                <c:otherwise>
+                    Cập nhật user
+                </c:otherwise>
+            </c:choose>
+        </button>
     </form:form>
 </section>
 
@@ -144,6 +168,7 @@
                 </div>
             </c:when>
             <c:otherwise>
+                <form:hidden path="username" />
                 <form:hidden path="password" />
                 <form:hidden path="confirmPassword" />
                 <form:hidden path="userId" />
