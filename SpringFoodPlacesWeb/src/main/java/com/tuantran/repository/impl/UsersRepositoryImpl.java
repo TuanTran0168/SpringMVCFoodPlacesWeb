@@ -89,7 +89,7 @@ public class UsersRepositoryImpl implements UsersRepository {
             String pageStr = params.get("page");
             if (pageStr != null && !pageStr.isEmpty()) {
                 int pageInt = Integer.parseInt(pageStr);
-                int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
+                int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE_USERS"));
 
                 final_query.setMaxResults(pageSize);
                 final_query.setFirstResult((pageInt - 1) * pageSize);
@@ -126,8 +126,15 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public Users getUserById(int id) {
-        Session session = this.factory.getObject().getCurrentSession();
-        return session.get(Users.class, id);
+
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            return session.get(Users.class, id);
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override

@@ -54,7 +54,7 @@ public class UsersController {
     public String users(Model model, @RequestParam Map<String, String> params) {
         model.addAttribute("msg", "NHÌN CÁI GÌ???");
 
-        int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
+        int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE_USERS"));
         int countUsers = this.usersService.countUsers();
         model.addAttribute("counter", Math.ceil(countUsers * 1.0 / pageSize));
 
@@ -86,7 +86,13 @@ public class UsersController {
 //  Cái userId trong cái GetMapping này là trùng với bên jsp nha :)
     @GetMapping("/admin/users/{userId}")
     public String update(Model model, @PathVariable(value = "userId") int userId) {
-        model.addAttribute("user", this.usersService.getUserById(userId));
+        String msg = "";
+        Users user = this.usersService.getUserById(userId);
+        if (user == null) {
+            model.addAttribute("msg", msg);
+            return "redirect:/admin/users";
+        }
+        model.addAttribute("user", user);
         return "newUser";
     }
 

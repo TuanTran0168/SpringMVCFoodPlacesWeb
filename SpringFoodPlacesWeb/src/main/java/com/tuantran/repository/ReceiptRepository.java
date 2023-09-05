@@ -5,6 +5,8 @@
 package com.tuantran.repository;
 
 import com.tuantran.pojo.Cart;
+import com.tuantran.pojo.Receipts;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,4 +15,5 @@ import java.util.Map;
  */
 public interface ReceiptRepository {
     boolean addReceipt(Map<String, Cart> carts);
+    List<Receipts> getReceipts(Map<String, String> params);
 }

@@ -5,14 +5,19 @@
 package com.tuantran.controllers;
 
 import com.tuantran.pojo.Cart;
+import com.tuantran.pojo.Receipts;
 import com.tuantran.service.ReceiptService;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,5 +48,11 @@ public class ApiReceiptController {
             // In thông báo nếu có lỗi xảy ra trong quá trình xử lý carts
             System.out.println("Đã xảy ra lỗi khi xử lý dữ liệu carts: " + e.getMessage());
         }
+    }
+    
+    @GetMapping("/receipts/")
+    @CrossOrigin
+    public ResponseEntity<List<Receipts>> listReceipt(@RequestParam Map<String, String> params) {
+        return new ResponseEntity<>(this.receiptService.getReceipts(params), HttpStatus.OK);
     }
 }

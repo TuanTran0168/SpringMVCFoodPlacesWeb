@@ -20,7 +20,10 @@
 </c:if>
 
 <section class = "body">
-    <h1 class ="text-center text-white">CHO MÌNH XIN CÁI GIAO DIỆN</h1>
+    <h1 class ="text-center text-white">CHO MÌNH XIN CÁI GIAO DIỆN ĐI HUỲNH NHƯ</h1>
+    <img style="width: 500px; height: 400px;" src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/284548383_3316239618699746_7956919528871930159_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5614bc&_nc_ohc=Y1hQGVreJA4AX9iQCKd&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfBwNqEC57ws0mt8cQdCWYvFPI294ENPfpm0crelN7VJHg&oe=64FAA55F" alt="alt"/>
+    <img style="width: 500px; height: 400px;" src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/284548383_3316239618699746_7956919528871930159_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5614bc&_nc_ohc=Y1hQGVreJA4AX9iQCKd&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfBwNqEC57ws0mt8cQdCWYvFPI294ENPfpm0crelN7VJHg&oe=64FAA55F" alt="alt"/>
+    <img style="width: 500px; height: 400px;" src="https://scontent.fsgn2-6.fna.fbcdn.net/v/t39.30808-6/284548383_3316239618699746_7956919528871930159_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=5614bc&_nc_ohc=Y1hQGVreJA4AX9iQCKd&_nc_ht=scontent.fsgn2-6.fna&oh=00_AfBwNqEC57ws0mt8cQdCWYvFPI294ENPfpm0crelN7VJHg&oe=64FAA55F" alt="alt"/>
 </section>
 
 

@@ -5,6 +5,8 @@
 package com.tuantran.service;
 
 import com.tuantran.pojo.Cart;
+import com.tuantran.pojo.Receipts;
+import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +17,5 @@ import org.springframework.stereotype.Service;
 
 public interface ReceiptService {
     boolean addReceipt(Map<String, Cart> carts);
+    List<Receipts> getReceipts(Map<String, String> params);
 }

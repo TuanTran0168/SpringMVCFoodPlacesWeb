@@ -5,8 +5,10 @@
 package com.tuantran.service.impl;
 
 import com.tuantran.pojo.Cart;
+import com.tuantran.pojo.Receipts;
 import com.tuantran.repository.ReceiptRepository;
 import com.tuantran.service.ReceiptService;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,11 @@ public class ReceiptServiceImpl implements ReceiptService{
     @Override
     public boolean addReceipt(Map<String, Cart> carts) {
         return this.receiptRepo.addReceipt(carts);
+    }
+
+    @Override
+    public List<Receipts> getReceipts(Map<String, String> params) {
+        return this.receiptRepo.getReceipts(params);
     }
     
 }
