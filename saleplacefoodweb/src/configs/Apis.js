@@ -8,11 +8,17 @@ export const endpoints = {
     "fooditems":`${SERVER_CONTEXT}/api/foodItems/`,
     "categories":`${SERVER_CONTEXT}/api/restaurantManager/categories/`,
     "register":`${SERVER_CONTEXT}/api/register/`,
+    "update-user":`${SERVER_CONTEXT}/api/update-user/`,
     "login":`${SERVER_CONTEXT}/api/login/`,
     "current-user": `${SERVER_CONTEXT}/api/current-user/`, //lấy user hiện đang login
     "pay": `${SERVER_CONTEXT}/api/pay/`,
-    "detail": (foodId) => `${SERVER_CONTEXT}/api/foodItem/${foodId}`,
-    "restaurant": `${SERVER_CONTEXT}/api/restaurants/`
+    "detail": (foodId) => `${SERVER_CONTEXT}/api/foodItems/${foodId}/`,
+    "comments": (foodId) => `${SERVER_CONTEXT}/api/foodItems/${foodId}/comments/`,
+    "add-comment": `${SERVER_CONTEXT}/api/add-comment/`,
+    "restaurant": `${SERVER_CONTEXT}/api/restaurants/`,
+    "restaurant_detail":(restaurantId) => `${SERVER_CONTEXT}/api/restaurants/${restaurantId}/`,
+    "register-restaurant": `${SERVER_CONTEXT}/api/register-restaurant/`
+    
 }
 
 export const authApi = () => {

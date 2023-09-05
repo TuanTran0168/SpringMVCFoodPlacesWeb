@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Apis, { endpoints } from "../configs/Apis";
 import MySpinner from "../layout/MySpinner";
 import '../resources/css/Restaurant.css'
+import img from '../resources/img/react_icon.png'
 
 const Restaurant = () => {
 
@@ -11,6 +12,20 @@ const Restaurant = () => {
     const [q] = useSearchParams();
     const [restaurantName, setRestaurantName] = useState("");
     const [location, setLocation] = useState("");
+    const nav = useNavigate();
+
+
+    const find_Restaurant = (evt) => {
+        evt.preventDefault();
+        let find = "/restaurant?";
+        if (restaurantName !== "") {
+            find += `restaurantName=${restaurantName}&`;
+        }
+        if (location !== "") {
+            find += `location=${location}`;
+        }
+        nav(find);
+    }
 
     useEffect(() => {
         const loadRestaurant = async () => {
@@ -31,13 +46,14 @@ const Restaurant = () => {
                 let res = await Apis.get(e);
 
                 setRestaurant(res.data);
-                console.log(res.data)
+                // console.log(res.data)
             } catch (ex) {
                 console.error(ex);
             }
         }
         loadRestaurant();
-    })
+    },[q])
+    
 
     if(restaurant === null){
         return <MySpinner />
@@ -48,7 +64,7 @@ const Restaurant = () => {
         <h1 className="text-center text-primary">Danh Sách Nhà Hàng</h1>
         <div className="home">
             <div className="find">
-                <Form className="mt-3 mb-2" inline>
+                <Form onSubmit={find_Restaurant} className="mt-3 mb-2" inline>
                     <Row>
                         <h5>Nhập đi</h5>
                         <Col xs="auto">
@@ -83,10 +99,10 @@ const Restaurant = () => {
             <div className="fooditems">
                 <Row>
                     {restaurant.map(r => {
-                        // let url = `/fooddetail/${r.}`; chi tiết nhà hàng ở đây
+                        let url = `/restaurant_detail/${r.restaurantId}`; //chi tiết nhà hàng ở đây
                         return <Col xs={12} md={3} className="m-3 mt-2 mb-2">
                             <Card className="mt-3" style={{ width: '18rem' }}>
-                                <Card.Img className="img_res" variant="top" src={r.avatar} />
+                                <Card.Img className="img_res" variant="top" src={r.avatar !== null ? r.avatar : "https://halotravel.vn/wp-content/uploads/2021/04/nha-hang-5-sao-quan-1-5-1024x683.jpg"} />
                                 <Card.Body>
                                     <div className="flex" >
                                         <div>
@@ -100,7 +116,7 @@ const Restaurant = () => {
                                         </div>
                                     </div>
                                     {/* <Button onClick={() => { order(f) }} variant="success">ADD TO CART</Button> */}
-                                    <Link to="#" variant="primary" className="btn-food btn btn-primary">Xem chi tiết</Link>
+                                    <Link to={url} variant="primary" className="btn-food btn btn-primary">Xem chi tiết</Link>
                                 </Card.Body>
                             </Card>
                         </Col>

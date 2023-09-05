@@ -19,7 +19,8 @@ const Register = () => {
         "lastname": "", 
         "email": "",
         "phonenumber": "",
-        "confirmPass": ""
+        "confirmPass": "",
+        "avatar":""
     });
 
     if(current_user !== null){
@@ -40,12 +41,18 @@ const Register = () => {
             let form = new FormData();
 
             for (let field in user)
-                if (field !== "confirmPass")
+                if (field !== "confirmPass" || field !=="avatar")
                     form.append(field, user[field]);
 
-            form.append("avatar", avatar.current.files[0]);
-
+            // form.append("avatar", avatar.current.files[0] !== null ? avatar.current.files[0] : form.append("avatar", user["avatar"]));
+            // console.log(form)
+            if (avatar.current.files[0] !== undefined) {
+                form.append("avatar", avatar.current.files[0]);
+            } else {
+                form.append("avatar", new Blob());
+            }
             setLoading(true)
+
             let res = await Apis.post(endpoints['register'], form);
             if (res.status === 201) {
                 nav("/login");

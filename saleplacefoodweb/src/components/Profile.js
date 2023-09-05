@@ -1,21 +1,24 @@
 import { useRef, useState } from "react";
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Image, Nav, Row } from "react-bootstrap";
 import cookie from "react-cookies";
 // import img from '../resources/img/healthy-lunch-go-packed-lunch-box.jpg';
 import '../resources/css/Profile.css';
 import MySpinner from "../layout/MySpinner";
-import Apis, { endpoints } from "../configs/Apis";
+import Apis, { authApi, endpoints } from "../configs/Apis";
 import { Link, useNavigate } from "react-router-dom";
 
 const Profile = () => {
 
 
-    const [current_user,] = useState(cookie.load("user") || null);
+    const [current_user, setCurrent_User] = useState(cookie.load("user") || null);
     const avatar = useRef();
     const [current_avatar, setCurrent_avatar] = useState(current_user.avatar);
     const [user, setUser] = useState({
+        "userId": current_user.userId,
         "firstname": "",
         "lastname": "",
+        "username": current_user.username,
+        "password": current_user.password,
         "location": "",
         "email": "",
         "phonenumber": "",
@@ -35,23 +38,37 @@ const Profile = () => {
         console.log(avatar[0]);
         setCurrent_avatar(avatar[0]);
     }
+    console.log(current_user)
+
+    const reloadUser = async () => {
+        cookie.remove("user");
+        let { data } = await authApi().get(endpoints['current-user']);
+        cookie.save("user", data); //lưu cái data kia bằng biến user vào cookie
+        setCurrent_User(cookie.load("user"));
+    }
 
     const updateUser = (evt) => {
         evt.preventDefault();
         setLoading(true);
         const process = async () => {
             let form = new FormData();
+
             for (let field in user) {
-                if (field !== "confirmPass") {
-                    form.append(field, user[field]);
-                }
+                form.append(field, user[field]);
             }
 
 
-            form.append("avatar", avatar.current.files[0]);
-            let res = await Apis.post(endpoints['register'], form);
-            if (res.status === 201) {
-                nav("/profile");
+            // form.append("avatar", avatar.current.files[0]);
+            if (avatar.current.files[0] !== undefined) {
+                form.append("avatar", avatar.current.files[0]);
+            } else {
+                form.append("avatar", new Blob());
+            }
+            let res = await authApi().post(endpoints['update-user'], form);
+            if (res.status === 200) {
+                setLoading(true);
+                reloadUser();
+                nav("/");
             }
             // else
             // setErr("Hệ thống bị lỗi!");
@@ -72,9 +89,24 @@ const Profile = () => {
 
             <div className="contain_info">
                 <div className="contain_info_1">
-                    <Link className="nav-link text-success" to="#">User Info</Link>
+                    {/* <Link className="nav-link text-success" to="/profile">User Info</Link>
                     <Link className="nav-link text-success" to="#">Change Password</Link>
                     <Link className="nav-link text-success" to="#">Order History</Link>
+                    <Link className="nav-link text-success" to="/register_restaurant">Register Restaurant</Link> */}
+                    <Nav variant="tabs" defaultActiveKey="/home">
+                        <Nav.Item className="nav-link text-success choose">
+                            <Link to="/profile" >User Info</Link>
+                        </Nav.Item>
+                        <Nav.Item className="nav-link text-success choose">
+                            <Link to="" >Change Password</Link>
+                        </Nav.Item>
+                        <Nav.Item className="nav-link text-success choose">
+                            <Link to="" >Order History</Link>
+                        </Nav.Item>
+                        <Nav.Item className="nav-link text-success choose">
+                            <Link to="/register_restaurant" >Register Restaurant</Link>
+                        </Nav.Item>
+                    </Nav>
                 </div>
                 <div className="contain_info_2">
                     <div className="avatar">
