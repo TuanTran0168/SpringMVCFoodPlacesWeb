@@ -8,6 +8,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
+<link rel="stylesheet" href=" <c:url value="/css/newUser.css" /> "/>
+<link rel="stylesheet" href=" <c:url value="/css/background.css" /> "/>
+
 <c:if test="${not empty param.msg}">
     <div class="toast show">
         <div class="toast-header">
@@ -19,6 +22,89 @@
         </div>
     </div>
 </c:if>
+
+<section class="section-infor">
+    <c:url value="/admin/users/newUser" var="action"/>
+    <form:form method="post" action="${action}" modelAttribute="user" enctype="multipart/form-data">
+        <div class="img"><img src="https://images.squarespace-cdn.com/content/v1/5bd14f3d2727be5c8afd77ee/1599637352680-8ED55GMPFMVSHM1CO8MT/_MG_1831.jpg?format=500w" alt=""></div>
+
+        <div class="row flex ">
+            <div class="col form-floating">
+
+                <form:input type="text" class="form-control" path="firstname" id="firstname" placeholder="Nhập họ... " name="firstname" />
+                <label class="float-label" for="firstname">Nhập họ...</label>
+            </div>
+            <div class="col form-floating">
+                <form:input type="text" class="form-control" path="lastname" id="lastname" placeholder="Nhập tên... " name="lastname" />
+                <label class="float-label" for="lastname">Nhập tên...</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col form-floating">
+                <form:input type="text" class="form-control" path="phonenumber" id="phonenumber" placeholder="Nhập số điện thoại... " name="phonenumber" />
+                <label class="float-label" for="phonenumber">Nhập số điện thoại...</label>
+            </div>
+        </div>
+
+        <c:choose>
+            <c:when test="${user.userId == null}">
+                <div class="row">
+                    <div class="col form-floating">
+                        <form:input type="text" class="form-control" path="username" id="username" placeholder="Nhập tên đăng nhập... " name="username" />
+                        <label class="float-label" for="username">Nhập tên đăng nhập...</label>
+                    </div>
+                </div> 
+
+                <div class="row">
+                    <div class="col form-floating">
+                        <form:input type="password" class="form-control" path="password" id="password" placeholder="Nhập mật khẩu... " name="password" />
+                        <label class="float-label" for="password">Nhập mật khẩu... </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col form-floating">
+                        <form:input type="password" class="form-control" path="confirmPassword" id="confirmPassword" placeholder="Nhập lại mật khẩu... " name="confirmPassword" />
+                        <label class="float-label" for="confirmPassword">Nhập lại mật khẩu... </label>
+                    </div>
+                </div>
+
+            </c:when>
+            <c:otherwise>
+                <form:hidden path="password" />
+                <form:hidden path="confirmPassword" />
+                <form:hidden path="userId" />
+                <form:hidden path="avatar" />
+            </c:otherwise>
+        </c:choose>
+        <div class="row">
+            <div class="col select-role">
+                <form:select class="form-select" id="roles" name="roles" path="roleId">
+                    <c:forEach items="${roles}" var="role">
+                        <c:choose>
+                            <c:when test="${role.roleId == user.roleId.roleId}">
+                                <option value="${role.roleId}" selected="${role.roleId}">${role.roleName}</option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="${role.roleId}">${role.roleName}</option>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </form:select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col form-floating">
+                <form:input type="file" class="form-control" path="file" id="file" name="file" />
+            </div>
+        </div>
+
+        <button class="btn-infor">Update</button>
+    </form:form>
+</section>
+
+
 <div class="container">
 
     <c:url value="/admin/users/newUser" var="action"/>

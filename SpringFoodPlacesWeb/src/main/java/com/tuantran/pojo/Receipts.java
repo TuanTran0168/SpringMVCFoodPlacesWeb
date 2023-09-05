@@ -4,9 +4,11 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,10 +19,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,6 +40,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Receipts.findByTotalPayment", query = "SELECT r FROM Receipts r WHERE r.totalPayment = :totalPayment"),
     @NamedQuery(name = "Receipts.findByActive", query = "SELECT r FROM Receipts r WHERE r.active = :active")})
 public class Receipts implements Serializable {
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "receiptId")
+    private Set<ReceiptDetail> receiptDetailSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -136,6 +144,15 @@ public class Receipts implements Serializable {
     @Override
     public String toString() {
         return "com.tuantran.pojo.Receipts[ receiptId=" + receiptId + " ]";
+    }
+
+    @XmlTransient
+    public Set<ReceiptDetail> getReceiptDetailSet() {
+        return receiptDetailSet;
+    }
+
+    public void setReceiptDetailSet(Set<ReceiptDetail> receiptDetailSet) {
+        this.receiptDetailSet = receiptDetailSet;
     }
     
 }

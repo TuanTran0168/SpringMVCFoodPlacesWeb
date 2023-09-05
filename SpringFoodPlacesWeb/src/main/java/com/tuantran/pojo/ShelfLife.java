@@ -4,8 +4,10 @@
  */
 package com.tuantran.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,11 +18,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,6 +41,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ShelfLife.findByToDate", query = "SELECT s FROM ShelfLife s WHERE s.toDate = :toDate"),
     @NamedQuery(name = "ShelfLife.findByActive", query = "SELECT s FROM ShelfLife s WHERE s.active = :active")})
 public class ShelfLife implements Serializable {
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "shelflifeId")
+    private Set<Fooditems> fooditemsSet;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -137,6 +145,15 @@ public class ShelfLife implements Serializable {
     @Override
     public String toString() {
         return "com.tuantran.pojo.ShelfLife[ shelflifeId=" + shelflifeId + " ]";
+    }
+
+    @XmlTransient
+    public Set<Fooditems> getFooditemsSet() {
+        return fooditemsSet;
+    }
+
+    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
+        this.fooditemsSet = fooditemsSet;
     }
     
 }
