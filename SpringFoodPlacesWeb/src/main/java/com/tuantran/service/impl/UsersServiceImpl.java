@@ -69,6 +69,8 @@ public class UsersServiceImpl implements UsersService {
         }
 
         boolean isUsernameExists = this.usersRepo.isUsernameExists(user.getUsername());
+        boolean isPhonenumberExists = this.usersRepo.isPhonenumberExists(user.getPhonenumber());
+        boolean isEmailExists = this.usersRepo.isEmailExists(user.getEmail());
 
         if (isUsernameExists == true) {
             return this.usersRepo.addOrUpdateUsers(user);
@@ -77,7 +79,6 @@ public class UsersServiceImpl implements UsersService {
             user.setPassword(this.bCryptPasswordEncoder.encode(password));
             return this.usersRepo.addOrUpdateUsers(user);
         }
-
     }
 
     @Override
@@ -145,7 +146,6 @@ public class UsersServiceImpl implements UsersService {
 //    public boolean authUser(String username, String password) {
 //        return this.usersRepo.authUser(username, password);
 //    }
-
     //api register
     @Override
     public Users addUser(Map<String, String> params, MultipartFile avatar) {
@@ -226,7 +226,6 @@ public class UsersServiceImpl implements UsersService {
 //            return user;
 //        }
 //    }
-    
     @Override
     public int updateUser(Map<String, String> params, MultipartFile avatar) {
         String username = params.get("username");
@@ -283,11 +282,65 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public boolean isEmailExists(String email) {
-       return this.usersRepo.isEmailExists(email);
+        return this.usersRepo.isEmailExists(email);
     }
 
     @Override
     public boolean isPhonenumberExists(String phonenumber) {
         return this.usersRepo.isPhonenumberExists(phonenumber);
+    }
+
+    @Override
+    public int addUser_server(Users user) {
+        if (this.isPhonenumberExists(user.getPhonenumber())) {
+            return 2; // số điện thoại đã được đăng ký
+        }
+
+        if (this.isEmailExists(user.getEmail())) {
+            return 3; // email đã được đăng ký
+        }
+        if (this.usersRepo.isUsernameExists(user.getUsername()) == true) {
+            return 4; // Tài khoản đã được đăng ký
+        } else {
+            user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setRoleId(new Roles(3));
+            if (!user.getFile().isEmpty()) {
+                try {
+                    Map res = this.cloudinary.uploader().upload(user.getFile().getBytes(),
+                            ObjectUtils.asMap("resource_type", "auto"));
+                    user.setAvatar(res.get("secure_url").toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(UsersServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return this.usersRepo.addUser_server(user);
+        }
+    }
+
+    @Override
+    public int updateUser_server(Users user) {
+        if (this.isPhonenumberExists(user.getPhonenumber())) {
+            return 2; // số điện thoại đã được đăng ký
+        }
+
+        if (this.isEmailExists(user.getEmail())) {
+            return 3; // email đã được đăng ký
+        }
+
+        if (this.usersRepo.isUsernameExists(user.getUsername()) != true) {
+            return 4; // Không tìm thấy username để update
+        } else {
+
+            if (!user.getFile().isEmpty()) {
+                try {
+                    Map res = this.cloudinary.uploader().upload(user.getFile().getBytes(),
+                            ObjectUtils.asMap("resource_type", "auto"));
+                    user.setAvatar(res.get("secure_url").toString());
+                } catch (IOException ex) {
+                    Logger.getLogger(UsersServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            return this.usersRepo.updateUser_server(user);
+        }
     }
 }

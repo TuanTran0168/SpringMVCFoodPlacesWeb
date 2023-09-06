@@ -52,8 +52,6 @@ public class UsersController {
 
     @RequestMapping("/admin/users")
     public String users(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("msg", "NHÌN CÁI GÌ???");
-
         int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE_USERS"));
         int countUsers = this.usersService.countUsers();
         model.addAttribute("counter", Math.ceil(countUsers * 1.0 / pageSize));
@@ -85,7 +83,7 @@ public class UsersController {
 
 //  Cái userId trong cái GetMapping này là trùng với bên jsp nha :)
     @GetMapping("/admin/users/{userId}")
-    public String update(Model model, @PathVariable(value = "userId") int userId) {
+    public String detailUser(Model model, @PathVariable(value = "userId") int userId) {
         String msg = "";
         Users user = this.usersService.getUserById(userId);
         if (user == null) {
@@ -96,29 +94,85 @@ public class UsersController {
         return "newUser";
     }
 
+//    @PostMapping("/admin/users/newUser")
+//    public String add(Model model, @ModelAttribute(value = "user") @Valid Users user, BindingResult rs) {
+//        String msg = "";
+//        if (!rs.hasErrors()) {
+//            // update
+//            if (user.getUserId() != null) {
+//                if (this.usersService.addOrUpdateUsers(user) == true) {
+//                    return "redirect:/admin/users";
+//                }
+//                else {
+//                    msg = "Số điện thoại hoặc email đã được đăng ký";
+//                    model.addAttribute("msg", msg);
+//                    return "newUser";
+//                }
+//            //add
+//            } else {
+//                if (user.getPassword().equals(user.getConfirmPassword())) {
+//                    if (this.usersService.addOrUpdateUsers(user) == true) {
+//                        return "redirect:/admin/users";
+//                    }
+//                    else {
+//                        msg = "OK BUGS";
+//                    }
+//                }
+//                else {
+//                    msg = "Mật khẩu không khớp";
+//                }
+//            }
+//        }
+//        model.addAttribute("msg", msg);
+//        return "newUser";
+//    }
+//}
     @PostMapping("/admin/users/newUser")
-    public String add(Model model, @ModelAttribute(value = "user") @Valid Users user, BindingResult rs) {
+    public String addOrUpdate(Model model, @ModelAttribute(value = "user") @Valid Users user, BindingResult rs) {
         String msg = "";
         if (!rs.hasErrors()) {
-            // update
-            if (user.getUserId() != null) {
-                if (this.usersService.addOrUpdateUsers(user) == true) {
-                    return "redirect:/admin/users";
-                }
-            //add
-            } else {
+            // add
+            if (user.getUserId() == null) {
                 if (user.getPassword().equals(user.getConfirmPassword())) {
-                    if (this.usersService.addOrUpdateUsers(user) == true) {
+                    int check = this.usersService.addUser_server(user);
+                    if (check == 1) {
+                        msg = "Thêm thành công tài khoản!";
+                        model.addAttribute("msg", msg);
                         return "redirect:/admin/users";
                     }
-                    else {
-                        msg = "OK BUGS";
+                    if (check == 2) {
+                        msg = "Số điện thoại đã được đăng ký!";
                     }
+
+                    if (check == 3) {
+                        msg = "Email đã được đăng ký!";
+                    }
+
+                    if (check == 4) {
+                        msg = "Tài khoản đã được đăng ký!";
+                    }
+                } else {
+                    msg = "Mật khẩu không khớp!";
                 }
-                else {
-                    msg = "Mật khẩu không khớp";
+                //update
+            } else {
+                int check = this.usersService.updateUser_server(user);
+                if (check == 1) {
+                    msg = "Cập nhật thành công tài khoản!";
+                    model.addAttribute("msg", msg);
+                    return "redirect:/admin/users";
+                }
+                if (check == 2) {
+                    msg = "Số điện thoại đã được đăng ký!";
+                }
+                if (check == 3) {
+                    msg = "Email đã được đăng ký!";
+                }
+                if (check == 4) {
+                    msg = "Không tìm thấy tài khoản này!";
                 }
             }
+
         }
         model.addAttribute("msg", msg);
         return "newUser";

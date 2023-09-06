@@ -112,12 +112,20 @@ public class UsersRepositoryImpl implements UsersRepository {
         Session session = this.factory.getObject().getCurrentSession();
         try {
             if (user.getUserId() == null) {
+                user.setActive(Boolean.TRUE);
                 session.save(user);
+                return true;
             } else {
-                session.update(user);
-            }
+                if (this.isPhonenumberExists(user.getPhonenumber())) {
+                    return false;
+                }
 
-            return true;
+                if (this.isEmailExists(user.getEmail())) {
+                    return false;
+                }
+                session.update(user);
+                return true;
+            }
         } catch (HibernateException ex) {
             ex.printStackTrace();
             return false;
@@ -156,6 +164,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     public boolean registerUser(Users user) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
+            user.setActive(Boolean.TRUE);
             session.save(user);
             return true;
         } catch (HibernateException ex) {
@@ -213,6 +222,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     public Users addUser(Users user) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
+            user.setActive(Boolean.TRUE);
             session.save(user);
             return user;
         } catch (HibernateException ex) {
@@ -249,11 +259,11 @@ public class UsersRepositoryImpl implements UsersRepository {
     @Override
     public int updateUser(Users user) {
         Session session = this.factory.getObject().getCurrentSession();
-        try {      
+        try {
             if (this.isPhonenumberExists(user.getPhonenumber())) {
                 return 3; // số điện thoại đã được đăng ký
             }
-            
+
             if (this.isEmailExists(user.getEmail())) {
                 return 4; // email đã được đăng ký
             }
@@ -277,11 +287,36 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public boolean isPhonenumberExists(String phonenumber) {
-       Session session = this.factory.getObject().getCurrentSession();
+        Session session = this.factory.getObject().getCurrentSession();
         Query query = session.createQuery("SELECT COUNT(*) FROM Users WHERE phonenumber = :phonenumber");
         query.setParameter("phonenumber", phonenumber);
         long count = (long) query.getSingleResult();
         return count > 0;
+    }
+
+    @Override
+    public int addUser_server(Users user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            user.setActive(Boolean.TRUE);
+            session.save(user);
+            return 1;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public int updateUser_server(Users user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            session.update(user);
+            return 1;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return 0;
+        }
     }
 
 }

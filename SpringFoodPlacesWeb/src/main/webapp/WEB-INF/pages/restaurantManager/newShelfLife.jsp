@@ -41,6 +41,7 @@
                 <c:when test="${shelfLife.shelflifeId == null}">Thêm thời gian bán</c:when>
                 <c:otherwise>
                     <form:hidden path="restaurantId" />
+                    <form:hidden path="active" />
                     Cập nhật thời gian bán
                 </c:otherwise>
             </c:choose>

@@ -36,6 +36,7 @@
                     <c:when test="${cate.categoryfoodId == null}">Thêm danh mục</c:when>
                     <c:otherwise>
                         <form:hidden path="restaurantId" />
+                        <form:hidden path="active" />
                         Cập nhật danh mục
                     </c:otherwise>
                 </c:choose>

@@ -24,6 +24,10 @@ public interface UsersService extends UserDetailsService {
 
     boolean addOrUpdateUsers(Users user);
 
+    int addUser_server(Users user);
+
+    int updateUser_server(Users user);
+
     Users getUserById(int id);
 
     boolean registerUser(Users user);

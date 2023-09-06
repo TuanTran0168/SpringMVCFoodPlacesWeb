@@ -158,6 +158,7 @@
                 </button>
                 <form:hidden path="restaurantId" />
                 <form:hidden path="avatar" />
+                <form:hidden path="active" />
             </form:form>
         </div>
     </div>

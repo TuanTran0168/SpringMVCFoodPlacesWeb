@@ -103,6 +103,7 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
         Session session = this.factory.getObject().getCurrentSession();
         try {
             if (restaurant.getRestaurantId() == null) {
+                restaurant.setActive(Boolean.TRUE);
                 session.save(restaurant);
             } else {
                 session.update(restaurant);

@@ -23,6 +23,18 @@
     </div>
 </c:if>
 
+<c:if test="${not empty msg}">
+    <div class="toast show">
+        <div class="toast-header">
+            <h1>ERROR!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            ${msg}
+        </div>
+    </div>
+</c:if>
+
 <section class="section-infor">
     <c:url value="/admin/users/newUser" var="action"/>
     <form:form method="post" action="${action}" modelAttribute="user" enctype="multipart/form-data">
@@ -43,6 +55,13 @@
             <div class="col form-floating">
                 <form:input type="text" class="form-control" path="phonenumber" id="phonenumber" placeholder="Nhập số điện thoại... " name="phonenumber" />
                 <label class="float-label" for="phonenumber">Nhập số điện thoại...</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col form-floating">
+                <form:input type="text" class="form-control" path="location" id="location" placeholder="Nhập số địa chỉ... " name="location" />
+                <label class="float-label" for="phonenumber">Nhập địa chỉ...</label>
             </div>
         </div>
 
@@ -75,20 +94,8 @@
                 <form:hidden path="password" />
                 <form:hidden path="userId" />
                 <form:hidden path="avatar" />
-
-                <!--                <div class="row">
-                                    <div class="col form-floating">
-                <form:input type="text" class="form-control" path="username" id="username" placeholder="Nhập tên đăng nhập... " name="username" />
-                <label class="float-label" for="username">Nhập tên đăng nhập...</label>
-            </div>
-        </div> 
-
-        <div class="row">
-            <div class="col form-floating">
-                <form:input type="password" class="form-control" path="password" id="password" placeholder="Nhập mật khẩu... " name="password" />
-                <label class="float-label" for="password">Nhập mật khẩu... </label>
-            </div>
-        </div>-->
+                <%--<form:hidden path="location" />--%>
+                <form:hidden path="active" />
             </c:otherwise>
         </c:choose>
         <div class="row">

@@ -40,19 +40,19 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String register(Model model, @ModelAttribute(value = "user") @Valid Users user, BindingResult rs) {
-        String msg = "VÃI";
+        String msg = "";
         if (!rs.hasErrors()) {
             if (user.getPassword().equals(user.getConfirmPassword())) {
                 if (usersService.registerUser(user) == true) {
                     return "redirect:/login";
                 } else {
-                    msg = "BUG rồi con";
+                    msg = "Tài khoản đã được đăng ký!";
                 }
             } else {
                 msg = "Mật khẩu không khớp";
             }
         } else {
-            msg = "BUG BÊN JSP RỒI ĐM";
+            msg = "Có lỗi xảy ra!";
         }
 
         model.addAttribute("msg", msg);

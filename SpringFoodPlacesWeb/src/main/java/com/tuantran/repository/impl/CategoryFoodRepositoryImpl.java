@@ -100,6 +100,7 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
         Session session = this.factory.getObject().getCurrentSession();
         try {
             if (cate.getCategoryfoodId() == null) {
+                cate.setActive(Boolean.TRUE);
                 session.save(cate);
             } else {
                 session.update(cate);

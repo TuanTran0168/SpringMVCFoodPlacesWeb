@@ -86,6 +86,7 @@ public class ShelfLifeRepositoryImpl implements ShelfLifeRepository {
         Session session = this.factory.getObject().getCurrentSession();
         try {
             if (shelfLife.getShelflifeId() == null) {
+                shelfLife.setActive(Boolean.TRUE);
                 session.save(shelfLife);
             } else {
                 session.update(shelfLife);

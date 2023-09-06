@@ -222,6 +222,7 @@
                 <form:hidden path="restaurantId" />
                 <form:hidden path="avatar" />
                 <form:hidden path="confirmationStatus" />
+                <form:hidden path="active" />
             </form:form>
         </div>
     </div>

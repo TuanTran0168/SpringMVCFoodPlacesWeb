@@ -79,6 +79,7 @@ public class CommentsRepositoryImpl implements CommentsRepository {
     public Comments addComment(Comments comment) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
+            comment.setActive(Boolean.TRUE);
             session.save(comment);
             return comment;
         } catch (HibernateException ex) {

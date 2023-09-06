@@ -100,6 +100,7 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository {
         Session session = this.factory.getObject().getCurrentSession();
         try {
             if (foodItem.getFoodId() == null) {
+                foodItem.setActive(Boolean.TRUE);
                 session.save(foodItem);
             } else {
                 session.update(foodItem);
