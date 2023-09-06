@@ -49,19 +49,20 @@ public class ApiUsersController {
 //        3 sai tài khoản
 
         int check = this.usersService.authUser(user.getUsername(), user.getPassword());
+        String message = "Có lỗi xảy ra!";
+
         if (check == 1) {
             String token = this.jwtService.generateTokenLogin(user.getUsername());
             return new ResponseEntity<>(token, HttpStatus.OK);
-        }
-        else if (check == 2) {
-            return new ResponseEntity<>("Mật khẩu không chính xác!", HttpStatus.BAD_REQUEST);
-        }
-        
-        else if (check == 3) {
-            return new ResponseEntity<>("Tài khoản không chính xác!", HttpStatus.BAD_REQUEST);
+        } else if (check == 2) {
+            message = "Mật khẩu không chính xác!";
+        } else if (check == 3) {
+            message = "Tài khoản không chính xác!";
+        } else {
+            message = "Có lỗi xảy ra!";
         }
 
-        return new ResponseEntity<>("Có lỗi xảy ra!", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping(path = "/register/",
@@ -113,12 +114,38 @@ public class ApiUsersController {
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
+//    @PostMapping(path = "/update-user/",
+//            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+//            produces = {MediaType.APPLICATION_JSON_VALUE})
+//    @CrossOrigin
+//    public ResponseEntity<Users> update(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+//        Users user = this.usersService.updateUser(params, avatar);
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
     @PostMapping(path = "/update-user/",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
-    public ResponseEntity<Users> update(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
-        Users user = this.usersService.updateUser(params, avatar);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<String> update(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+        int check = this.usersService.updateUser(params, avatar);
+        String message = "Có lỗi xảy ra!";
+        if (check == 1) {
+            message = "Cập nhật thành công!";
+            return new ResponseEntity<>(message, HttpStatus.OK);
+        }
+
+        if (check == 2) {
+            message = "Không tìm thấy tài khoản để cập nhật!";
+        }
+
+        if (check == 3) {
+            message = "Số điện thoại đã được đăng ký!";
+        }
+        
+        if (check == 4) {
+            message = "Email đã được đăng ký!";
+        }
+
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 }

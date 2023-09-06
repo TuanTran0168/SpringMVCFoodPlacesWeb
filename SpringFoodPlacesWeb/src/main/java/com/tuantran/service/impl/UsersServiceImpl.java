@@ -177,13 +177,63 @@ public class UsersServiceImpl implements UsersService {
         }
     }
 
+//    @Override
+//    public Users updateUser(Map<String, String> params, MultipartFile avatar) {
+//        String username = params.get("username");
+//        boolean isUsernameExists = this.usersRepo.isUsernameExists(username);
+//
+//        if (isUsernameExists != true) {
+//            return null;
+//        } else {
+//            Users user = this.getUserByUsername_new(username);
+//
+//            String firstname = params.get("firstname");
+//            String lastname = params.get("lastname");
+//            String phonenumber = params.get("phonenumber");
+//            String location = params.get("location");
+//            String email = params.get("email");
+//
+//            if (firstname != null && !firstname.isEmpty()) {
+//                user.setFirstname(params.get("firstname"));
+//            }
+//
+//            if (lastname != null && !lastname.isEmpty()) {
+//                user.setLastname(params.get("lastname"));
+//            }
+//
+//            if (phonenumber != null && !phonenumber.isEmpty()) {
+//                user.setPhonenumber(params.get("phonenumber"));
+//            }
+//
+//            if (location != null && !location.isEmpty()) {
+//                user.setLocation(params.get("location"));
+//            }
+//
+//            if (email != null && !email.isEmpty()) {
+//                user.setEmail(params.get("email"));
+//            }
+//
+//            if (!avatar.isEmpty()) {
+//                try {
+//                    Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
+//                            ObjectUtils.asMap("resource_type", "auto"));
+//                    user.setAvatar(res.get("secure_url").toString());
+//                } catch (IOException ex) {
+//                    Logger.getLogger(UsersServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//            this.usersRepo.updateUser(user);
+//            return user;
+//        }
+//    }
+    
     @Override
-    public Users updateUser(Map<String, String> params, MultipartFile avatar) {
+    public int updateUser(Map<String, String> params, MultipartFile avatar) {
         String username = params.get("username");
         boolean isUsernameExists = this.usersRepo.isUsernameExists(username);
 
         if (isUsernameExists != true) {
-            return null;
+            return 2; // Không tìm thấy username để update
         } else {
             Users user = this.getUserByUsername_new(username);
 
@@ -222,13 +272,22 @@ public class UsersServiceImpl implements UsersService {
                     Logger.getLogger(UsersServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            this.usersRepo.updateUser(user);
-            return user;
+            return this.usersRepo.updateUser(user);
         }
     }
 
     @Override
     public int authUser(String username, String password) {
         return this.usersRepo.authUser(username, password);
+    }
+
+    @Override
+    public boolean isEmailExists(String email) {
+       return this.usersRepo.isEmailExists(email);
+    }
+
+    @Override
+    public boolean isPhonenumberExists(String phonenumber) {
+        return this.usersRepo.isPhonenumberExists(phonenumber);
     }
 }

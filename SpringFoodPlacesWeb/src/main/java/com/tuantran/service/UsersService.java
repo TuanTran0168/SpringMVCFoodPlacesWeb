@@ -30,6 +30,10 @@ public interface UsersService extends UserDetailsService {
 
     boolean isUsernameExists(String username);
 
+    boolean isEmailExists(String email);
+
+    boolean isPhonenumberExists(String phonenumber);
+
     boolean deleteUsers(int id);
 
     Users getUserByUsername_new(String username);
@@ -38,6 +42,7 @@ public interface UsersService extends UserDetailsService {
     int authUser(String username, String password);
 
     Users addUser(Map<String, String> params, MultipartFile avatar);
-    
-    Users updateUser(Map<String, String> params, MultipartFile avatar);
+
+//    Users updateUser(Map<String, String> params, MultipartFile avatar);
+    int updateUser(Map<String, String> params, MultipartFile avatar);
 }

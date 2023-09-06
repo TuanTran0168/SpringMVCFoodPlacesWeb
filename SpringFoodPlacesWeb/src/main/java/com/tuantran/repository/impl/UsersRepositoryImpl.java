@@ -208,7 +208,6 @@ public class UsersRepositoryImpl implements UsersRepository {
 //        }
 //        return false;
 //    }
-
     //api register
     @Override
     public Users addUser(Users user) {
@@ -222,31 +221,67 @@ public class UsersRepositoryImpl implements UsersRepository {
         }
     }
 
-    @Override
-    public Users updateUser(Users user) {
-        Session session = this.factory.getObject().getCurrentSession();
-        try {
-            session.update(user);
-            return user;
-        } catch (HibernateException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
-
+//    @Override
+//    public Users updateUser(Users user) {
+//        Session session = this.factory.getObject().getCurrentSession();
+//        try {
+//            session.update(user);
+//            return user;
+//        } catch (HibernateException ex) {
+//            ex.printStackTrace();
+//            return null;
+//        }
+//    }
     @Override
     public int authUser(String username, String password) {
         Users user = this.getUserByUsername(username);
         if (user != null) {
-            if (this.passwordEncoder.matches(password, user.getPassword()) == true)
+            if (this.passwordEncoder.matches(password, user.getPassword()) == true) {
                 return 1; // true
-            else {
+            } else {
                 return 2; // sai mật khẩu
             }
-        }
-        else {
+        } else {
             return 3; // sai tài khoản
         }
+    }
+
+    @Override
+    public int updateUser(Users user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {      
+            if (this.isPhonenumberExists(user.getPhonenumber())) {
+                return 3; // số điện thoại đã được đăng ký
+            }
+            
+            if (this.isEmailExists(user.getEmail())) {
+                return 4; // email đã được đăng ký
+            }
+
+            session.update(user);
+            return 1;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return 0;
+        }
+    }
+
+    @Override
+    public boolean isEmailExists(String email) {
+        Session session = this.factory.getObject().getCurrentSession();
+        Query query = session.createQuery("SELECT COUNT(*) FROM Users WHERE email = :email");
+        query.setParameter("email", email);
+        long count = (long) query.getSingleResult();
+        return count > 0;
+    }
+
+    @Override
+    public boolean isPhonenumberExists(String phonenumber) {
+       Session session = this.factory.getObject().getCurrentSession();
+        Query query = session.createQuery("SELECT COUNT(*) FROM Users WHERE phonenumber = :phonenumber");
+        query.setParameter("phonenumber", phonenumber);
+        long count = (long) query.getSingleResult();
+        return count > 0;
     }
 
 }

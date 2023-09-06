@@ -21,10 +21,13 @@ public interface UsersRepository {
     Users getUserByUsername(String username);
     boolean registerUser(Users user);
     boolean isUsernameExists(String username);
+    boolean isEmailExists(String email);
+    boolean isPhonenumberExists(String phonenumber);
     boolean deleteUsers(int id);
     Users getUserByUsername_new(String username);
 //    boolean authUser(String username, String password);
     int authUser(String username, String password);
     Users addUser(Users user);
-    Users updateUser(Users user);
+//    Users updateUser(Users user);
+    int updateUser(Users user);
 }
