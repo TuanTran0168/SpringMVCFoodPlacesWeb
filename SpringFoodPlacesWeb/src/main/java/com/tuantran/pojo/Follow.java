@@ -98,5 +98,5 @@ public class Follow implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Follow[ followId=" + followId + " ]";
     }
-    
+
 }

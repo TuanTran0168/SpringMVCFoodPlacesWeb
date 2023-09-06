@@ -47,10 +47,6 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Users.findByOtp", query = "SELECT u FROM Users u WHERE u.otp = :otp")})
 public class Users implements Serializable {
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "userIdIndex")
-    private Set<Follow> followSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -96,6 +92,9 @@ public class Users implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "userId")
     private Set<Comments> commentsSet;
+    @JsonIgnore
+    @OneToMany(mappedBy = "userIdIndex")
+    private Set<Follow> followSet;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     @ManyToOne
     private Roles roleId;
@@ -279,6 +278,15 @@ public class Users implements Serializable {
         this.commentsSet = commentsSet;
     }
 
+    @XmlTransient
+    public Set<Follow> getFollowSet() {
+        return followSet;
+    }
+
+    public void setFollowSet(Set<Follow> followSet) {
+        this.followSet = followSet;
+    }
+
     public Roles getRoleId() {
         return roleId;
     }
@@ -337,15 +345,6 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "com.tuantran.pojo.Users[ userId=" + userId + " ]";
-    }
-
-    @XmlTransient
-    public Set<Follow> getFollowSet() {
-        return followSet;
-    }
-
-    public void setFollowSet(Set<Follow> followSet) {
-        this.followSet = followSet;
     }
 
 }

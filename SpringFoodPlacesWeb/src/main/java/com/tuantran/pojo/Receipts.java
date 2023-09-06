@@ -41,10 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Receipts.findByActive", query = "SELECT r FROM Receipts r WHERE r.active = :active")})
 public class Receipts implements Serializable {
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "receiptId")
-    private Set<ReceiptDetail> receiptDetailSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,13 +48,16 @@ public class Receipts implements Serializable {
     @Column(name = "receipt_id")
     private Integer receiptId;
     @Column(name = "receipt_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date receiptDate;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "total_payment")
     private BigDecimal totalPayment;
     @Column(name = "active")
     private Boolean active;
+    @JsonIgnore
+    @OneToMany(mappedBy = "receiptId")
+    private Set<ReceiptDetail> receiptDetailSet;
     @JoinColumn(name = "status_receipt_id", referencedColumnName = "status_receipt_id")
     @ManyToOne
     private ReceiptStatus statusReceiptId;
@@ -105,6 +104,15 @@ public class Receipts implements Serializable {
         this.active = active;
     }
 
+    @XmlTransient
+    public Set<ReceiptDetail> getReceiptDetailSet() {
+        return receiptDetailSet;
+    }
+
+    public void setReceiptDetailSet(Set<ReceiptDetail> receiptDetailSet) {
+        this.receiptDetailSet = receiptDetailSet;
+    }
+
     public ReceiptStatus getStatusReceiptId() {
         return statusReceiptId;
     }
@@ -146,13 +154,4 @@ public class Receipts implements Serializable {
         return "com.tuantran.pojo.Receipts[ receiptId=" + receiptId + " ]";
     }
 
-    @XmlTransient
-    public Set<ReceiptDetail> getReceiptDetailSet() {
-        return receiptDetailSet;
-    }
-
-    public void setReceiptDetailSet(Set<ReceiptDetail> receiptDetailSet) {
-        this.receiptDetailSet = receiptDetailSet;
-    }
-    
 }

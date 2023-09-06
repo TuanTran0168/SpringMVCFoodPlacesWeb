@@ -42,10 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ShelfLife.findByActive", query = "SELECT s FROM ShelfLife s WHERE s.active = :active")})
 public class ShelfLife implements Serializable {
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "shelflifeId")
-    private Set<Fooditems> fooditemsSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,6 +62,9 @@ public class ShelfLife implements Serializable {
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
     private Restaurants restaurantId;
+    @JsonIgnore
+    @OneToMany(mappedBy = "shelflifeId")
+    private Set<Fooditems> fooditemsSet;
 
     public ShelfLife() {
     }
@@ -122,6 +121,15 @@ public class ShelfLife implements Serializable {
         this.restaurantId = restaurantId;
     }
 
+    @XmlTransient
+    public Set<Fooditems> getFooditemsSet() {
+        return fooditemsSet;
+    }
+
+    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
+        this.fooditemsSet = fooditemsSet;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -147,13 +155,4 @@ public class ShelfLife implements Serializable {
         return "com.tuantran.pojo.ShelfLife[ shelflifeId=" + shelflifeId + " ]";
     }
 
-    @XmlTransient
-    public Set<Fooditems> getFooditemsSet() {
-        return fooditemsSet;
-    }
-
-    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
-        this.fooditemsSet = fooditemsSet;
-    }
-    
 }

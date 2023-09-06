@@ -114,5 +114,5 @@ public class ReceiptStatus implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.ReceiptStatus[ statusReceiptId=" + statusReceiptId + " ]";
     }
-    
+
 }

@@ -137,5 +137,5 @@ public class Chatmessages implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Chatmessages[ messageId=" + messageId + " ]";
     }
-    
+
 }

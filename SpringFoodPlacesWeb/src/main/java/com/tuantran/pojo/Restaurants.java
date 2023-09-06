@@ -43,10 +43,6 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Restaurants.findByActive", query = "SELECT r FROM Restaurants r WHERE r.active = :active")})
 public class Restaurants implements Serializable {
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "restaurantIdIndex")
-    private Set<Follow> followSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -75,6 +71,9 @@ public class Restaurants implements Serializable {
     @JsonIgnore
     @OneToMany(mappedBy = "restaurantId")
     private Set<CategoriesFood> categoriesFoodSet;
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurantIdIndex")
+    private Set<Follow> followSet;
     @JsonIgnore
     @OneToMany(mappedBy = "restaurantId")
     private Set<ShelfLife> shelfLifeSet;
@@ -190,6 +189,15 @@ public class Restaurants implements Serializable {
     }
 
     @XmlTransient
+    public Set<Follow> getFollowSet() {
+        return followSet;
+    }
+
+    public void setFollowSet(Set<Follow> followSet) {
+        this.followSet = followSet;
+    }
+
+    @XmlTransient
     public Set<ShelfLife> getShelfLifeSet() {
         return shelfLifeSet;
     }
@@ -255,15 +263,6 @@ public class Restaurants implements Serializable {
     @Override
     public String toString() {
         return "com.tuantran.pojo.Restaurants[ restaurantId=" + restaurantId + " ]";
-    }
-
-    @XmlTransient
-    public Set<Follow> getFollowSet() {
-        return followSet;
-    }
-
-    public void setFollowSet(Set<Follow> followSet) {
-        this.followSet = followSet;
     }
 
 }

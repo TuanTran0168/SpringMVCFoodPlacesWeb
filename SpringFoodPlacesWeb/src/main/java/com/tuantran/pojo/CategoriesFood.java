@@ -37,10 +37,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CategoriesFood.findByActive", query = "SELECT c FROM CategoriesFood c WHERE c.active = :active")})
 public class CategoriesFood implements Serializable {
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "categoryfoodId")
-    private Set<Fooditems> fooditemsSet;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +51,9 @@ public class CategoriesFood implements Serializable {
     @JoinColumn(name = "restaurant_id", referencedColumnName = "restaurant_id")
     @ManyToOne
     private Restaurants restaurantId;
+    @JsonIgnore
+    @OneToMany(mappedBy = "categoryfoodId")
+    private Set<Fooditems> fooditemsSet;
 
     public CategoriesFood() {
     }
@@ -95,6 +94,15 @@ public class CategoriesFood implements Serializable {
         this.restaurantId = restaurantId;
     }
 
+    @XmlTransient
+    public Set<Fooditems> getFooditemsSet() {
+        return fooditemsSet;
+    }
+
+    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
+        this.fooditemsSet = fooditemsSet;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -120,13 +128,4 @@ public class CategoriesFood implements Serializable {
         return "com.tuantran.pojo.CategoriesFood[ categoryfoodId=" + categoryfoodId + " ]";
     }
 
-    @XmlTransient
-    public Set<Fooditems> getFooditemsSet() {
-        return fooditemsSet;
-    }
-
-    public void setFooditemsSet(Set<Fooditems> fooditemsSet) {
-        this.fooditemsSet = fooditemsSet;
-    }
-    
 }

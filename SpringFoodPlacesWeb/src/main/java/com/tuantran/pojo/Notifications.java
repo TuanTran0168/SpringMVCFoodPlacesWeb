@@ -137,5 +137,5 @@ public class Notifications implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Notifications[ notificationId=" + notificationId + " ]";
     }
-    
+
 }

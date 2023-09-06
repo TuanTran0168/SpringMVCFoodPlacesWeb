@@ -22,6 +22,9 @@
     <class>com.tuantran.pojo.ShelflifeFooditems</class>
     <class>com.tuantran.pojo.CategoriesfoodFooditems</class>
     <class>com.tuantran.pojo.Follow</class>
+    <class>com.tuantran.pojo.Roles_1</class>
+    <class>com.tuantran.pojo.Users_1</class>
+    <class>com.tuantran.pojo.ReceiptStatus_1</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/springfoodplacesweb?zeroDateTimeBehavior=CONVERT_TO_NULL"/>

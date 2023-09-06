@@ -114,5 +114,5 @@ public class Roles implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Roles[ roleId=" + roleId + " ]";
     }
-    
+
 }

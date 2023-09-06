@@ -6,6 +6,7 @@ package com.tuantran.repository.impl;
 
 import com.tuantran.pojo.Cart;
 import com.tuantran.pojo.ReceiptDetail;
+import com.tuantran.pojo.ReceiptStatus;
 import com.tuantran.pojo.Receipts;
 import com.tuantran.pojo.Users;
 import com.tuantran.repository.FoodItemsRepository;
@@ -65,6 +66,8 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
             
             receipt.setUserId(user);
             receipt.setReceiptDate(new Date());
+            receipt.setActive(Boolean.TRUE);
+            receipt.setStatusReceiptId(new ReceiptStatus(1));
             session.save(user);
             
             double totalAmount = 0;

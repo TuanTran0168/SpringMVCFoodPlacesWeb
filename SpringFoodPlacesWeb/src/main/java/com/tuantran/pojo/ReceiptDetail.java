@@ -7,6 +7,7 @@ package com.tuantran.pojo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,7 +52,7 @@ public class ReceiptDetail implements Serializable {
     @ManyToOne
     private Fooditems fooditemId;
     @JoinColumn(name = "receipt_id", referencedColumnName = "receipt_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Receipts receiptId;
 
     public ReceiptDetail() {
@@ -133,5 +134,5 @@ public class ReceiptDetail implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.ReceiptDetail[ receiptdetailId=" + receiptdetailId + " ]";
     }
-    
+
 }

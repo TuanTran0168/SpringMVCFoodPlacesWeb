@@ -19,8 +19,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -67,6 +69,23 @@ public class Comments implements Serializable {
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne
     private Users userId;
+
+    @Transient
+    private MultipartFile file;
+
+    /**
+     * @return the file
+     */
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    /**
+     * @param file the file to set
+     */
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     public Comments() {
     }
@@ -171,5 +190,5 @@ public class Comments implements Serializable {
     public String toString() {
         return "com.tuantran.pojo.Comments[ commentId=" + commentId + " ]";
     }
-    
+
 }
