@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Button, Col, Form, Image, Row, Table } from "react-bootstrap";
+import { Alert, Button, Col, Form, Image, Nav, Row, Table } from "react-bootstrap";
 import MySpinner from "../layout/MySpinner";
 import Apis, { authApi, endpoints } from "../configs/Apis";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import img from '../resources/img/react_icon.png'
 import '../resources/css/RegisterRestaurant.css'
 import { MyUserContext } from "../App";
@@ -72,58 +72,82 @@ const RegisterRestaurant = () => {
         })
     }
 
-    if (restaurant === null) {
-        return <MySpinner />
+    if (user === null) {
+        return <>
+            <Alert className="alert-danger">Vui lòng <Link to="/login">đăng nhập</Link></Alert>
+        </>
     }
 
     return <>
+        <h1 className="text-center text-info">Đăng Ký Nhà Hàng</h1>
+        <div className="contain_info ">
 
-        <Form onSubmit={register_restaurant}>
-            <h1 className="text-center text-info">Đăng Ký Nhà Hàng</h1>
-            <Form.Group className="mb-3">
-                <Form.Label>Tên nhà hàng</Form.Label>
-                <Form.Control type="text" onChange={(e) => { change(e, "restaurantName") }} placeholder="Tên nhà hàng" required />
-            </Form.Group>
-            <Form.Group className="mb-3">
-                <Form.Label>Địa chỉ</Form.Label>
-                <Form.Control type="text" onChange={(e) => { change(e, "location") }} placeholder="Địa chỉ" required />
-            </Form.Group>
-            <Form.Group className="mb-3">
-                <Form.Label>Ảnh đại diện</Form.Label>
-                <Form.Control type="file" ref={avatar} />
-            </Form.Group>
-            <Form.Group className="mb-3">
-                {loading === true ? <MySpinner /> : <Button variant="info" type="submit">Gửi Yêu Cầu</Button>}
+            <div className="contain_info_1">
+                <Nav variant="tabs" defaultActiveKey="/home">
+                    <Nav.Item className="nav-link text-success choose">
+                        <Link to="/profile" >User Info</Link>
+                    </Nav.Item>
+                    <Nav.Item className="nav-link text-success choose">
+                        <Link to="/changepassword" >Change Password</Link>
+                    </Nav.Item>
+                    <Nav.Item className="nav-link text-success choose">
+                        <Link to="/receipt" >Order History</Link>
+                    </Nav.Item>
+                    <Nav.Item className="nav-link text-success choose">
+                        <Link to="/register_restaurant" >Register Restaurant</Link>
+                    </Nav.Item>
+                </Nav>
+            </div>
+            <div>
+                <Form onSubmit={register_restaurant}>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Tên nhà hàng</Form.Label>
+                        <Form.Control type="text" onChange={(e) => { change(e, "restaurantName") }} placeholder="Tên nhà hàng" required />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Địa chỉ</Form.Label>
+                        <Form.Control type="text" onChange={(e) => { change(e, "location") }} placeholder="Địa chỉ" required />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Ảnh đại diện</Form.Label>
+                        <Form.Control type="file" ref={avatar} />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        {loading === true ? <MySpinner /> : <Button variant="info" type="submit">Gửi Yêu Cầu</Button>}
 
-            </Form.Group>
-        </Form>
-        <hr />
+                    </Form.Group>
 
-        <Col>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Tên Nhà Hàng</th>
-                        <th>Địa Chỉ</th>
-                        <th>Trạng thái</th>
-                        <th>Chủ nhà hàng</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {restaurant == null ? <MySpinner /> : Object.values(restaurant).map(r => {
-                        return <tr>
-                            <td>{r.restaurantId}</td>
-                            <td>{r.restaurantName}</td>
-                            <td>{r.location}</td>
-                            <td>{r.confirmationStatus === true ? "Đã Xác Thực" : "Chưa được Xác Thực"}</td>
-                            <td>{r.userId.userId}</td>
-                        </tr>
-                    })}
-                </tbody>
-            </Table>
+                </Form>
+                <hr />
 
-        </Col>
+                <Col>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên Nhà Hàng</th>
+                                <th>Địa Chỉ</th>
+                                <th>Trạng thái</th>
+                                <th>Chủ nhà hàng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {restaurant == null ? <MySpinner /> : Object.values(restaurant).map(r => {
+                                return <tr>
+                                    <td>{r.restaurantId}</td>
+                                    <td>{r.restaurantName}</td>
+                                    <td>{r.location}</td>
+                                    <td>{r.confirmationStatus === true ? "Đã Xác Thực" : "Chưa được Xác Thực"}</td>
+                                    <td>{r.userId.userId}</td>
+                                </tr>
+                            })}
+                        </tbody>
+                    </Table>
+
+                </Col>
+            </div>
+
+        </div>
 
 
     </>

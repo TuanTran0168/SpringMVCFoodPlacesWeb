@@ -12,6 +12,7 @@ const Home = () => {
     const [foodItems, setFoodItems] = useState(null);
     const [, cartDispatch] = useContext(MyCartContext);
     const [q] = useSearchParams();
+    const [restaurant, setRestaurant] = useState(null);
 
     // const currentPage = useLocation();
     const [kw, setKw] = useState("");
@@ -33,9 +34,9 @@ const Home = () => {
         if (toPrice !== "") {
             find += `toPrice=${toPrice}`
         }
-        if (page !== "") {
-            find += `page=${page}`
-        }
+        // if (page !== "") {
+        //     find += `page=${page}`
+        // }
         nav(find)
     }
 
@@ -46,7 +47,7 @@ const Home = () => {
                 let nameFoodItem = q.get("kw");
                 let fromPriceFood = q.get("formPrice")
                 let toPriceFood = q.get("toPrice")
-                let page = q.get("page")
+                // let page = q.get("page")
 
                 if (nameFoodItem !== null) {
                     e += `kw=${nameFoodItem}&`;
@@ -57,9 +58,9 @@ const Home = () => {
                 if (toPriceFood !== null) {
                     e += `toPrice=${toPriceFood}&`;
                 }
-                if (page !== null) {
-                    e += `page=${page}&`;
-                }
+                // if (page !== null) {
+                //     e += `page=${page}`;
+                // }
 
                 let res = await Apis.get(e);
 
@@ -70,7 +71,32 @@ const Home = () => {
             }
         }
 
+        const loadRestaurant = async () => {
+            try {
+                let e = `${endpoints['restaurant']}?`;
+                let restaurantName = q.get("kw");
+                // let location = q.get("location");
+                if (page !== null) {
+                    e += `page=${page}&`;
+                }
+                if (restaurantName !== null) {
+                    e += `restaurantName=${restaurantName}&`;
+                }
+                // if (location !== null) {
+                //     e += `location=${location}`;
+                // }
+                let res = await Apis.get(e);
+
+                setRestaurant(res.data);
+                // console.log(res.data)
+            } catch (ex) {
+                console.error(ex);
+            }
+        }
+
         loadFoodItems();
+        loadRestaurant();
+
     }, [q])
 
 
@@ -102,50 +128,31 @@ const Home = () => {
 
         cookie.save("cart", cart);
     }
-    if (foodItems.length === 0)
+    if (foodItems.length === 0 && restaurant.length)
         return <Alert variant="info" className="mt-2">Không có sản phẩm nào!</Alert>
 
     return <>
         <div>
             <Carousel data-bs-theme="dark">
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="/800x400?text=First slide&bg=f5f5f5"
-                        alt="First slide"
-                    />
-                    <Carousel.Caption>
-                        <h5>First slide label</h5>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="holder.js/800x400?text=Second slide&bg=eee"
-                        alt="Second slide"
-                    />
-                    <Carousel.Caption>
-                        <h5>Second slide label</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src="holder.js/800x400?text=Third slide&bg=e5e5e5"
-                        alt="Third slide"
-                    />
-                    <Carousel.Caption>
-                        <h5>Third slide label</h5>
-                        <p>
-                            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                        </p>
-                    </Carousel.Caption>
-                </Carousel.Item>
+                {restaurant.map(r => {
+
+                    return <Carousel.Item>
+                        <h1 className="text-center text-danger">{r.restaurantName}</h1>
+                        <img
+                            className="carol_img d-block w-100"
+                            src={r.avatar}
+                            alt={r.restaurantName}
+                        />
+                        <Carousel.Caption className="caption_res">
+                            <h5>First slide label</h5>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                })}
+
             </Carousel>
         </div>
-        
+
         <div className="home">
             <div className="find">
                 <Form onSubmit={search} className="mt-3 mb-2" inline>
@@ -187,7 +194,7 @@ const Home = () => {
                         let url = `/fooddetail/${f.foodId}`;
                         return <Col xs={12} md={3} className="m-3 mt-2 mb-2">
                             <Card className="mt-3" style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src={f.avatar} />
+                                <Link to={url}><Card.Img variant="top" src={f.avatar} /></Link>
                                 <Card.Body>
                                     <div className="flex" >
                                         <div>
@@ -201,15 +208,14 @@ const Home = () => {
                                         </div>
                                     </div>
                                     <div className="btn_all">
-                                    <Button onClick={() => { order(f) }} variant="success">ADD TO CART</Button>
-                                    <Link to={url} variant="primary" className="btn-food btn btn-primary">Xem chi tiết</Link>
+                                        <Button onClick={() => { order(f) }} variant="success">ADD TO CART</Button>
+                                        <Link to={url} variant="primary" className="btn-food btn btn-primary">Xem chi tiết</Link>
                                     </div>
                                 </Card.Body>
                             </Card>
                         </Col>
 
                     })}
-
                 </Row>
             </div>
         </div>

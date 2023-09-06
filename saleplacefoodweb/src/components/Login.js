@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { MyUserContext } from "../App";
-import { Button, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import Apis, { authApi, endpoints } from "../configs/Apis";
 import cookie from "react-cookies";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import MySpinner from "../layout/MySpinner";
 
 const Login = () => {
@@ -13,6 +13,7 @@ const Login = () => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     const [q] = useSearchParams();
+    const [err, setErr] = useState(null);
 
     const login = (evt) => {
         evt.preventDefault();
@@ -25,6 +26,7 @@ const Login = () => {
                     "username": username,
                     "password": password
                 });
+
                 //cookie khác của thầy, xem lại nếu lỗi.....:)))))) -------------đã fix
                 cookie.save("token", res.data);    //lưu cái res.data kia bằng biến token vào cookie 
 
@@ -37,7 +39,12 @@ const Login = () => {
                 });
 
             } catch (ex) {
-                console.log(ex.message);
+                // console.log(ex);
+                // console.log(ex.request.responseText)
+                // console.log(ex.request.status)
+                //Xử lý thêm chỗ này để xuất lỗi
+                setLoading(false);
+                setErr(ex.request.responseText);
             }
         }
         process();
@@ -63,8 +70,11 @@ const Login = () => {
                 <Form.Control value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Mật khẩu" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                {loading === true ? <MySpinner /> : <Button variant="info" type="submit">Đăng nhập</Button>}
+                {loading === true ? <MySpinner /> : <>
+                <Button variant="info" type="submit">Đăng nhập</Button> <span>Chưa có tài khoản? <Link to="/register">Đăng ký tại đây</Link> <Link to="/changPassword">Quên mật khẩu?</Link></span>
+                </>}
             </Form.Group>
+            {err !== null ? <Alert className="alert-danger">{err}</Alert> : ""}
 
         </Form>
     </>

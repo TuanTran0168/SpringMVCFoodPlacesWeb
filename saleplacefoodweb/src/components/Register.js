@@ -71,7 +71,7 @@ const Register = () => {
 
         {err === null?"":<Alert variant="danger">{err}</Alert>}
         <Form onSubmit={register}>
-            <Form.Group className="mb-3">
+            {/* <Form.Group className="mb-3">
                 <Form.Label>Tên</Form.Label>
                 <Form.Control type="text" onChange={(e) => change(e, "firstname")} placeholder="Tên" required />
             </Form.Group>
@@ -85,19 +85,19 @@ const Register = () => {
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Điện thoại</Form.Label>
-                <Form.Control type="tel" onChange={(e) => change(e, "phone")} placeholder="Điện thoại" />
-            </Form.Group>
+                <Form.Control type="tel" required onChange={(e) => change(e, "phone")} placeholder="Điện thoại" />
+            </Form.Group> */}
             <Form.Group className="mb-3">
                 <Form.Label>Tên đăng nhập</Form.Label>
-                <Form.Control value={user.username} onChange={(e) => change(e, "username")} type="text" placeholder="Tên đăng nhập" required />
+                <Form.Control value={user.username} required onChange={(e) => change(e, "username")} type="text" placeholder="Tên đăng nhập" />
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Mật khẩu</Form.Label>
-                <Form.Control value={user.password} onChange={(e) => change(e, "password")} type="password" placeholder="Mật khẩu" required />
+                <Form.Control value={user.password} required onChange={(e) => change(e, "password")} type="password" placeholder="Mật khẩu" />
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Xác nhận mật khẩu</Form.Label>
-                <Form.Control value={user.confirmPass} onChange={(e) => change(e, "confirmPass")} type="password" placeholder="Xác nhận mật khẩu" required />
+                <Form.Control value={user.confirmPass} required onChange={(e) => change(e, "confirmPass")} type="password" placeholder="Xác nhận mật khẩu" />
             </Form.Group>
             <Form.Group className="mb-3">
                 <Form.Label>Ảnh đại diện</Form.Label>

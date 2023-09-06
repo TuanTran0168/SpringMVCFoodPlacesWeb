@@ -115,8 +115,14 @@ const Cart = () => {
 
             </tbody>
         </Table>
-
-        {user === null ? <p>Vui lòng <Link to="/login?next=/cart">đăng nhập</Link> để thanh toán! </p> :loading === true?<MySpinner />: <Button variant="info" onClick={pay} className="mt-2 mb-2">Thanh toán</Button>}
+                {console.log(user)}
+        {user === null ? <p>Vui lòng <Link to="/login?next=/cart">đăng nhập</Link> để thanh toán! </p> : 
+            user.location !== null  ? 
+            <>
+                {loading === true ? <MySpinner />: <Button variant="info" onClick={pay} className="mt-2 mb-2">Thanh toán</Button>} 
+            </>
+            : <p>Vui lòng thêm <Link to="/profile">địa chỉ</Link> để thanh toán!</p>
+}
     </>
 }
 export default Cart;

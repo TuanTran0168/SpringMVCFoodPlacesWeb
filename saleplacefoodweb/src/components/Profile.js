@@ -30,7 +30,7 @@ const Profile = () => {
     const change = (evt, field) => {
         // setUser({...user, [field]: evt.target.value})
         setUser(current => {
-            return { ...current, [field]: evt.target.value }
+            return { ...current, [field]: evt.target.value.trim() }
         })
     }
 
@@ -41,37 +41,49 @@ const Profile = () => {
     console.log(current_user)
 
     const reloadUser = async () => {
-        cookie.remove("user");
-        let { data } = await authApi().get(endpoints['current-user']);
-        cookie.save("user", data); //lưu cái data kia bằng biến user vào cookie
-        setCurrent_User(cookie.load("user"));
+        try {
+            cookie.remove("user");
+            let { data } = await authApi().get(endpoints['current-user']);
+            cookie.save("user", data); //lưu cái data kia bằng biến user vào cookie
+            setCurrent_User(cookie.load("user"));
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     const updateUser = (evt) => {
         evt.preventDefault();
         setLoading(true);
         const process = async () => {
-            let form = new FormData();
+            try {
+                let form = new FormData();
+                // user["location"] = user["location"].trim();
+                // let loca = user["location"].
+                // setUser("location", loca );
 
-            for (let field in user) {
-                form.append(field, user[field]);
-            }
+                for (let field in user) {
+                    form.append(field, user[field]);
+                }
 
 
-            // form.append("avatar", avatar.current.files[0]);
-            if (avatar.current.files[0] !== undefined) {
-                form.append("avatar", avatar.current.files[0]);
-            } else {
-                form.append("avatar", new Blob());
+                // form.append("avatar", avatar.current.files[0]);
+                if (avatar.current.files[0] !== undefined) {
+                    form.append("avatar", avatar.current.files[0]);
+                } else {
+                    form.append("avatar", new Blob());
+                }
+                let res = await authApi().post(endpoints['update-user'], form);
+                if (res.status === 200) {
+                    setLoading(true);
+                    reloadUser();
+                    nav("/");
+                    // setLoading(true);
+                }
+                // else
+                // setErr("Hệ thống bị lỗi!");
+            } catch (err) {
+                console.log(err)
             }
-            let res = await authApi().post(endpoints['update-user'], form);
-            if (res.status === 200) {
-                setLoading(true);
-                reloadUser();
-                nav("/");
-            }
-            // else
-            // setErr("Hệ thống bị lỗi!");
         }
         process();
 
@@ -89,33 +101,30 @@ const Profile = () => {
 
             <div className="contain_info">
                 <div className="contain_info_1">
-                    {/* <Link className="nav-link text-success" to="/profile">User Info</Link>
-                    <Link className="nav-link text-success" to="#">Change Password</Link>
-                    <Link className="nav-link text-success" to="#">Order History</Link>
-                    <Link className="nav-link text-success" to="/register_restaurant">Register Restaurant</Link> */}
                     <Nav variant="tabs" defaultActiveKey="/home">
                         <Nav.Item className="nav-link text-success choose">
                             <Link to="/profile" >User Info</Link>
                         </Nav.Item>
                         <Nav.Item className="nav-link text-success choose">
-                            <Link to="" >Change Password</Link>
+                            <Link to="/changepassword" >Change Password</Link>
                         </Nav.Item>
                         <Nav.Item className="nav-link text-success choose">
-                            <Link to="" >Order History</Link>
+                            <Link to="/receipt" >Order History</Link>
                         </Nav.Item>
                         <Nav.Item className="nav-link text-success choose">
                             <Link to="/register_restaurant" >Register Restaurant</Link>
                         </Nav.Item>
                     </Nav>
-
-                    {/* <Link className="nav-link text-success" to="/profile">User Info</Link>
-                    <Link className="nav-link text-success" to="#">Change Password</Link>
-                    <Link className="nav-link text-success" to="#">Order History</Link>
-                    <Link className="nav-link text-success" to="#">Register Restaurant</Link> */}
                 </div>
                 <div className="contain_info_2">
                     <div className="avatar">
                         <Image src={current_avatar} rounded />
+
+                        {/* <label for="file" class="drop-container" id="dropcontainer">
+                            <span class="drop-title">Drop your avatar here</span>
+                            or
+                            <Form.Control type="file" class="form-control" path="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif, .bmp" onChange={(e) => updateAvatar(e.target.files)} ref={avatar} />
+                        </label> */}
                         <Form.Control className="avatar_input" accept=".jpg, .jpeg, .png, .gif, .bmp" type="file" onChange={(e) => updateAvatar(e.target.files)} ref={avatar} />
                     </div>
                     <div className="info">
@@ -128,7 +137,7 @@ const Profile = () => {
                                 onChange={(e) => change(e, "firstname")}
                                 type="text"
                                 defaultValue={current_user.firstname}
-                                aria-label="Disabled input example"
+                                aria-label="firstname"
                             />
                         </Form.Group>
 
@@ -137,8 +146,8 @@ const Profile = () => {
                             <Form.Control
                                 onChange={(e) => change(e, "lastname")}
                                 type="text"
-                                value={current_user.lastname}
-                                aria-label="Disabled input example"
+                                defaultValue={current_user.lastname}
+                                aria-label="lastname"
                             />
                         </Form.Group>
 
@@ -146,9 +155,9 @@ const Profile = () => {
                             <Form.Label>Your Username</Form.Label>
                             <Form.Control
                                 type="text"
-                                value={current_user.username}
+                                defaultValue={current_user.username}
                                 readOnly
-                                aria-label="Disabled input example"
+                                aria-label="username"
                             />
                         </Form.Group>
 
@@ -157,8 +166,8 @@ const Profile = () => {
                             <Form.Control
                                 onChange={(e) => change(e, "location")}
                                 type="text"
-                                value={current_user.location}
-                                aria-label="Disabled input example"
+                                defaultValue={current_user.location}
+                                aria-label="location"
                             />
                         </Form.Group>
 
@@ -167,8 +176,8 @@ const Profile = () => {
                             <Form.Control
                                 onChange={(e) => change(e, "email")}
                                 type="email"
-                                value={current_user.email}
-                                aria-label="Disabled input example"
+                                defaultValue={current_user.email}
+                                aria-label="email"
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formPhoneNumber">
@@ -176,17 +185,18 @@ const Profile = () => {
                             <Form.Control
                                 onChange={(e) => change(e, "phonenumber")}
                                 type="text"
-                                value={current_user.phonenumber}
-                                aria-label="Disabled input example"
+                                defaultValue={current_user.phonenumber}
+                                aria-label="phonenumber"
                             />
                         </Form.Group>
+
 
                         <Form.Group className="mb-3" controlId="formRole">
                             <Form.Label>Type User</Form.Label>
                             <Form.Control
                                 type="text"
-                                value={current_user.roleId.roleName}
-                                aria-label="Disabled input example"
+                                defaultValue={current_user.roleId.roleName}
+                                aria-label="role"
                                 readOnly
                             />
                         </Form.Group>

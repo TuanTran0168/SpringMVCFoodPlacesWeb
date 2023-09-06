@@ -32,9 +32,13 @@ const FoodItemDetail = () => {
 
     useEffect(() => {
         const loadFood = async () => {
-            let { data } = await Apis.get(endpoints['detail'](foodId));
-            setFoodItem(data);
+            try {
+                let { data } = await Apis.get(endpoints['detail'](foodId));
+                setFoodItem(data);
 
+            } catch (err) {
+                console.log(err);
+            }
         }
 
         const loadComments = async () => {

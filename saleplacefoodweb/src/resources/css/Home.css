@@ -1,6 +1,13 @@
-*{
+body{
     margin:0;
     padding:0;
+    /* background-image: url(../img/background.jpg); */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+
 
 }
 
@@ -70,6 +77,16 @@
     max-height: 150px;
 }
 
+.carol_img {
+    max-width: 1400px;
+    max-height: 450px;
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+
+.caption_res{
+    margin-top: 50px;
+}
 
 
 
