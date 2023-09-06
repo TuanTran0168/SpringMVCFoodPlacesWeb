@@ -44,13 +44,24 @@ public class ApiUsersController {
     @PostMapping("/login/")
     @CrossOrigin
     public ResponseEntity<String> login(@RequestBody Users user) {
-        if (this.usersService.authUser(user.getUsername(), user.getPassword()) == true) {
-            String token = this.jwtService.generateTokenLogin(user.getUsername());
+//        1 đúng tài khoản + đúng mật khẩu
+//        2 đúng tài khoản + sai mật khẩu
+//        3 sai tài khoản
 
+        int check = this.usersService.authUser(user.getUsername(), user.getPassword());
+        if (check == 1) {
+            String token = this.jwtService.generateTokenLogin(user.getUsername());
             return new ResponseEntity<>(token, HttpStatus.OK);
         }
+        else if (check == 2) {
+            return new ResponseEntity<>("Mật khẩu không chính xác!", HttpStatus.BAD_REQUEST);
+        }
+        
+        else if (check == 3) {
+            return new ResponseEntity<>("Tài khoản không chính xác!", HttpStatus.BAD_REQUEST);
+        }
 
-        return new ResponseEntity<>("error", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("Có lỗi xảy ra!", HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping(path = "/register/",

@@ -139,10 +139,17 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public Users getUserByUsername(String username) {
-        Session session = this.factory.getObject().getCurrentSession();
-        Query query = session.createQuery("FROM Users WHERE username=:username");
-        query.setParameter("username", username);
-        return (Users) query.getSingleResult();
+
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            Query query = session.createQuery("FROM Users WHERE username=:username");
+            query.setParameter("username", username);
+            return (Users) query.getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     @Override
@@ -193,11 +200,14 @@ public class UsersRepositoryImpl implements UsersRepository {
         }
     }
 
-    @Override
-    public boolean authUser(String username, String password) {
-        Users user = this.getUserByUsername(username);
-        return this.passwordEncoder.matches(password, user.getPassword());
-    }
+//    @Override
+//    public boolean authUser(String username, String password) {
+//        Users user = this.getUserByUsername(username);
+//        if (user != null) {
+//            return this.passwordEncoder.matches(password, user.getPassword());
+//        }
+//        return false;
+//    }
 
     //api register
     @Override
@@ -221,6 +231,21 @@ public class UsersRepositoryImpl implements UsersRepository {
         } catch (HibernateException ex) {
             ex.printStackTrace();
             return null;
+        }
+    }
+
+    @Override
+    public int authUser(String username, String password) {
+        Users user = this.getUserByUsername(username);
+        if (user != null) {
+            if (this.passwordEncoder.matches(password, user.getPassword()) == true)
+                return 1; // true
+            else {
+                return 2; // sai mật khẩu
+            }
+        }
+        else {
+            return 3; // sai tài khoản
         }
     }
 

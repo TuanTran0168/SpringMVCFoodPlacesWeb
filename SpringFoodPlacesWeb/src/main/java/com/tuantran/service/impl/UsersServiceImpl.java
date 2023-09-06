@@ -141,10 +141,10 @@ public class UsersServiceImpl implements UsersService {
         return this.usersRepo.getUserByUsername_new(username);
     }
 
-    @Override
-    public boolean authUser(String username, String password) {
-        return this.usersRepo.authUser(username, password);
-    }
+//    @Override
+//    public boolean authUser(String username, String password) {
+//        return this.usersRepo.authUser(username, password);
+//    }
 
     //api register
     @Override
@@ -225,5 +225,10 @@ public class UsersServiceImpl implements UsersService {
             this.usersRepo.updateUser(user);
             return user;
         }
+    }
+
+    @Override
+    public int authUser(String username, String password) {
+        return this.usersRepo.authUser(username, password);
     }
 }

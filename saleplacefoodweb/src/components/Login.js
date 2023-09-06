@@ -25,6 +25,7 @@ const Login = () => {
                     "username": username,
                     "password": password
                 });
+
                 //cookie khác của thầy, xem lại nếu lỗi.....:)))))) -------------đã fix
                 cookie.save("token", res.data);    //lưu cái res.data kia bằng biến token vào cookie 
 
@@ -36,8 +37,12 @@ const Login = () => {
                     "payload": data
                 });
 
+                console.log("status: " + res.status)
+
             } catch (ex) {
-                console.log(ex.message);
+                if (ex.request.status === 400 && ex.request.response === "error") {
+                    alert("DIT ME");
+                }
             }
         }
         process();

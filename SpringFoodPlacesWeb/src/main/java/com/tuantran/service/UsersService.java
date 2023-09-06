@@ -34,7 +34,8 @@ public interface UsersService extends UserDetailsService {
 
     Users getUserByUsername_new(String username);
 
-    boolean authUser(String username, String password);
+//    boolean authUser(String username, String password);
+    int authUser(String username, String password);
 
     Users addUser(Map<String, String> params, MultipartFile avatar);
     
