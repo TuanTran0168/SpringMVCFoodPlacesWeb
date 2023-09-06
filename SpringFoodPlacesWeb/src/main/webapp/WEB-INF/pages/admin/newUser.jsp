@@ -76,19 +76,19 @@
                 <form:hidden path="userId" />
                 <form:hidden path="avatar" />
 
-<!--                <div class="row">
-                    <div class="col form-floating">
-                        <form:input type="text" class="form-control" path="username" id="username" placeholder="Nhập tên đăng nhập... " name="username" />
-                        <label class="float-label" for="username">Nhập tên đăng nhập...</label>
-                    </div>
-                </div> 
+                <!--                <div class="row">
+                                    <div class="col form-floating">
+                <form:input type="text" class="form-control" path="username" id="username" placeholder="Nhập tên đăng nhập... " name="username" />
+                <label class="float-label" for="username">Nhập tên đăng nhập...</label>
+            </div>
+        </div> 
 
-                <div class="row">
-                    <div class="col form-floating">
-                        <form:input type="password" class="form-control" path="password" id="password" placeholder="Nhập mật khẩu... " name="password" />
-                        <label class="float-label" for="password">Nhập mật khẩu... </label>
-                    </div>
-                </div>-->
+        <div class="row">
+            <div class="col form-floating">
+                <form:input type="password" class="form-control" path="password" id="password" placeholder="Nhập mật khẩu... " name="password" />
+                <label class="float-label" for="password">Nhập mật khẩu... </label>
+            </div>
+        </div>-->
             </c:otherwise>
         </c:choose>
         <div class="row">
@@ -105,26 +105,28 @@
                         </c:choose>
                     </c:forEach>
                 </form:select>
-                <label for="restaurants" class="form-label">Danh mục Roles</label>
+                <label for="restaurants" class="float-label">Danh mục Roles</label>
             </div>
         </div>
 
         <div class="row">
             <div class="col form-floating">
                 <form:input type="file" class="form-control" path="file" id="file" name="file" />
-                <label for="file">Avatar</label>
+                <label for="file" class="float-label">Avatar</label>
             </div>
         </div>
-        <button type="submit" class="btn-infor"">
-            <c:choose>
-                <c:when test="${user.userId == null}">
-                    Thêm user
-                </c:when>
-                <c:otherwise>
-                    Cập nhật user
-                </c:otherwise>
-            </c:choose>
-        </button>
+        <div class="row">
+            <button type="submit" class="btn-infor"">
+                <c:choose>
+                    <c:when test="${user.userId == null}">
+                        Thêm user
+                    </c:when>
+                    <c:otherwise>
+                        Cập nhật user
+                    </c:otherwise>
+                </c:choose>
+            </button>
+        </div>
     </form:form>
 </section>
 

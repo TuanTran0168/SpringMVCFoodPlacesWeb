@@ -102,7 +102,7 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
             List<Predicate> predicates = new ArrayList<>();
             String kw = params.get("userId");
             if (kw != null && !kw.isEmpty()) {
-                predicates.add(b.like(root.get("userId"), String.format("%%%s%%", kw)));
+                predicates.add(b.equal(root.get("userId"), Integer.parseInt(kw)));
             }
 //
 //            String fromPrice = params.get("fromPrice");

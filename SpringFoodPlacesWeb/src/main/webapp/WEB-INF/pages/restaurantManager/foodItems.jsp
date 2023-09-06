@@ -7,7 +7,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<link rel="stylesheet" href=" <c:url value="/css/foodItems.css" /> "/>
 <link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
+
 <c:if test="${not empty param.msg}">
     <div class="toast show">
         <div class="toast-header">
@@ -19,11 +21,13 @@
         </div>
     </div>
 </c:if>
-<section class="container">
+<section class="container food-container">
 
     <div>
         <form:form method="post" action="${action}" modelAttribute="foodItem" enctype="multipart/form-data">
             <form:errors path="*" element="div" cssClass="alert alert-danger" />
+            <h1 class="heading">CẬP NHẬT MÓN ĂN MỚI</h1>
+                
             <div class="form-floating mb-3 mt-3">
                 <form:input type="text" class="form-control" path="foodName" id="foodName" placeholder="Nhập tên món... " name="foodName" />
                 <label for="foodName">Nhập tên món...</label>
@@ -87,11 +91,15 @@
         </form:form>
     </div>
 
-    <div>
+<!--    <div>
         <a href="foodItems/newFoodItems" class = "btn btn-success mt-3"> Thêm món ăn </a>
-    </div>
+    </div>-->
 
-    <table class="table-hover container">
+   
+</section>
+ <hr>
+<section class="container newfood-container">
+     <table class="table-hover ">
         <thead>
             <tr>
                 <th>Id</th>
@@ -101,7 +109,7 @@
                 <th>Tình Trạng</th>
                 <th>mô tả</th>
 
-        <hr>
+       
         </tr>
         </thead>
 
@@ -132,14 +140,14 @@
         </tbody>
     </table>
 </section>
-
-<section>
+ 
+ <section class="page-size">
     <c:if test="${counter > 1}">
         <ul class="pagination mt-1">
             <c:url value="/restaurantManager/foodItems?restaurantId=${param.get('restaurantId')}" var="pageAction">
                 <c:param name="pageAll"></c:param>
             </c:url>
-            <li class="page-item"><a class="page-link" href="${pageAction}">Tất cả user</a></li>
+            <li class="page-item"><a class="page-link" href="${pageAction}">Tất cả món ăn</a></li>
 
             <c:forEach begin="1" end="${counter}" var = "i">
                 <c:url value="/restaurantManager/foodItems?restaurantId=${param.get('restaurantId')}" var="pageAction">
@@ -150,5 +158,50 @@
         </ul>
     </c:if>
 </section>
+
+<!--<section>
+    <div class = "page-size">
+
+            <ul class="">
+                <c:url value="/restaurantManager/restaurants" var="pageAction">
+                    <c:param name="pageAll"></c:param>
+                </c:url>
+
+                <li class="page-item"><a class="page-link" href="${pageAction}">Tất cả nhà hàng</a></li>
+
+                <c:choose>
+                    <c:when test="${param.confirm eq 'false'}">
+                        <c:forEach begin="1" end="${counter}" var = "i">
+                            <c:url value="/restaurantManager/restaurants" var="pageAction">
+                                <c:param name="confirm" value="false" />
+                                <c:param name="page" value="${i}"></c:param>
+
+                            </c:url>
+                            <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+                            </c:forEach>
+                        </c:when>
+
+                    <c:when test="${param.confirm eq 'true'}">
+                        <c:forEach begin="1" end="${counter}" var = "i">
+                            <c:url value="/restaurantManager/restaurants" var="pageAction">
+                                <c:param name="confirm" value="true" />
+                                <c:param name="page" value="${i}"></c:param>
+
+                            </c:url>
+                            <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+                            </c:forEach>
+                        </c:when>
+                        <c:otherwise>
+                            <c:forEach begin="1" end="${counter}" var = "i">
+                                <c:url value="/restaurantManager/restaurants" var="pageAction">
+                                    <c:param name="page" value="${i}"></c:param>
+                                </c:url>
+                            <li class="page-item"><a class="page-link" href="${pageAction}">${i}</a></li>
+                            </c:forEach>
+                        </c:otherwise>
+                    </c:choose>
+            </ul>
+        </div>
+</section>-->
 
 <script src="<c:url value="/js/foodItems.js" />"></script>

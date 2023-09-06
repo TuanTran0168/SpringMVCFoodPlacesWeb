@@ -69,6 +69,8 @@ com\tuantran\filters\RestAuthenticationEntryPoint.class
 com\tuantran\configs\TilesConfigs.class
 com\tuantran\pojo\Roles.class
 com\tuantran\formatters\UsersFormatter.class
+com\tuantran\repository\ReceiptDetailRepository.class
+com\tuantran\repository\impl\ReceiptDetailRepositoryImpl.class
 com\tuantran\controllers\CategoryFoodController.class
 com\tuantran\service\RestaurantStatusService.class
 com\tuantran\repository\RestaurantsRepository.class
@@ -77,6 +79,7 @@ com\tuantran\pojo\ReceiptDetail.class
 com\tuantran\service\RolesService.class
 com\tuantran\configs\SecurityWebApplicationInitializer.class
 com\tuantran\pojo\Restaurants_.class
+com\tuantran\service\impl\ReceiptDetailServiceImpl.class
 com\tuantran\pojo\Notifications.class
 com\tuantran\controllers\ApiShelfLifeController.class
 com\tuantran\configs\WebAppContextConfig.class
@@ -93,6 +96,8 @@ com\tuantran\repository\impl\RolesRepositoryImpl.class
 com\tuantran\pojo\CategoriesFood.class
 com\tuantran\configs\SpringSecurityConfig.class
 com\tuantran\service\impl\RolesServiceImpl.class
+com\tuantran\controllers\ApiReceiptDetailController.class
 com\tuantran\service\impl\RestaurantStatusServiceImpl.class
+com\tuantran\service\ReceiptDetailService.class
 com\tuantran\repository\impl\FoodItemsRepositoryImpl.class
 com\tuantran\service\CategoriesFoodService.class

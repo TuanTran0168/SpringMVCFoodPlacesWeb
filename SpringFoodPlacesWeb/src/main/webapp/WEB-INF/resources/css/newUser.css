@@ -47,7 +47,7 @@ button {
         margin-left: 80%;*/
 }
 
-button.btn-infor {
+div.row>button.btn-infor {
     display: inline-block;
     outline: none;
     cursor: pointer;
@@ -60,6 +60,9 @@ button.btn-infor {
     transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
     background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%);
     color: #fff;
+    width: auto;
+    margin-left: auto;
+    margin-right: 13px;
 }
 .float-label{
     padding:10px 20px !important;

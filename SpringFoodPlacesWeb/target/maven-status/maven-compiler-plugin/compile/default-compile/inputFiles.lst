@@ -18,6 +18,7 @@ D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\c
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Roles.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\RestaurantsRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\RestaurantsRepository.java
+D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\ApiReceiptDetailController.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\CategoryFoodRepository.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\RestaurantStatusRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Comments.java
@@ -25,12 +26,14 @@ D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\c
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\WebAppContextConfig.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\UsersService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\CategoriesFood.java
+D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\ReceiptDetailRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\ShelfLifeServiceImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\ShelfLifeRepository.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\ShelfLifeRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\formatters\ShelfLifeFormatter.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Fooditems.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\CommentsService.java
+D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\ReceiptDetailService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\SpringSecurityConfig.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\FoodItemsRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Receipts.java
@@ -61,6 +64,8 @@ D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\c
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\UsersController.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\TilesConfigs.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\formatters\UsersFormatter.java
+D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\ReceiptDetailServiceImpl.java
+D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\ReceiptDetailRepository.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\ReceiptServiceImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\ReceiptRepository.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\RolesService.java
