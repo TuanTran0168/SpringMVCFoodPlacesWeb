@@ -67,6 +67,8 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
             receipt.setReceiptDate(new Date());
             session.save(user);
             
+            double totalAmount = 0;
+            
             for (Cart cart : carts.values()) {
                 ReceiptDetail receiptDetail = new ReceiptDetail();
                 receiptDetail.setFooditemId(this.foodItemsRepo.getFoodItemById(Integer.parseInt(cart.getFoodId().toString())));
@@ -75,9 +77,10 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
                 receiptDetail.setUnitPrice(BigDecimal.valueOf(cart.getUnitPrice()));
                 double amount = cart.getQuantity() * cart.getUnitPrice();
                 receiptDetail.setAmount(BigDecimal.valueOf(amount));
-                
+                totalAmount += amount;
                 session.save(receiptDetail);
             }
+            receipt.setTotalPayment(BigDecimal.valueOf(totalAmount));
             
             return true;
         } catch (HibernateException ex) {

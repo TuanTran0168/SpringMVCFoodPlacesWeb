@@ -65,13 +65,26 @@ public class ApiUsersController {
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
+//    @PostMapping(path = "/register/",
+//            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+//            produces = {MediaType.APPLICATION_JSON_VALUE})
+//    @CrossOrigin
+//    public ResponseEntity<Users> registerUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+//        Users user = this.usersService.addUser(params, avatar);
+//        return new ResponseEntity<>(user, HttpStatus.CREATED);
+//    }
+
     @PostMapping(path = "/register/",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
-    public ResponseEntity<Users> registerUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+    public ResponseEntity<String> registerUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
         Users user = this.usersService.addUser(params, avatar);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        if (user != null) {
+            return new ResponseEntity<>("Đăng ký thành công!", HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>("Tài khoản đã được đăng ký!", HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/admin/users/{userId}")
@@ -141,7 +154,7 @@ public class ApiUsersController {
         if (check == 3) {
             message = "Số điện thoại đã được đăng ký!";
         }
-        
+
         if (check == 4) {
             message = "Email đã được đăng ký!";
         }
