@@ -12,7 +12,7 @@ const Home = () => {
     const [foodItems, setFoodItems] = useState(null);
     const [, cartDispatch] = useContext(MyCartContext);
     const [q] = useSearchParams();
-    const [restaurant, setRestaurant] = useState(null);
+    const [restaurant, setRestaurant] = useState();
 
     // const currentPage = useLocation();
     const [kw, setKw] = useState("");
@@ -133,29 +133,78 @@ const Home = () => {
 
     return <>
         <div>
-            <Carousel data-bs-theme="dark">
-                {restaurant.map(r => {
+            <div>
+                <Form onSubmit={search} className="mt-3 mb-2 form_find_name" inline>
+                    <Row className="find_first">
+                        <Col xs="auto" className="input1">
+                            <Form.Control
+                                type="text"
+                                value={kw}
+                                onChange={e => setKw(e.target.value)}
+                                placeholder="Nhập ten mon an..." name="kw"
+                                className="f mr-sm-2"
+                            />
+                        </Col>
+                    </Row>
+                </Form>
+            </div>
+            <div className="find_carousel">
+                <Form onSubmit={search} className="mt-3 mb-2 form form_find_all" inline>
+                    <Row>
+                        <h5>Tìm Kiếm</h5>
+                        <Col xs="auto">
+                            <Form.Control
+                                type="text"
+                                value={kw}
+                                onChange={e => setKw(e.target.value)}
+                                placeholder="Nhập ten mon an..." name="kw"
+                                className="f mr-sm-2"
+                            />
+                            <Form.Control
+                                type="number"
+                                value={fromPrice}
+                                onChange={e => setFromPrice(e.target.value)}
+                                placeholder="Nhập giá từ..." name="fromPrice"
+                                className="f mr-sm-2"
+                            />
+                            <Form.Control
+                                type="number"
+                                value={toPrice}
+                                onChange={e => setToPrice(e.target.value)}
+                                placeholder="Nhập nhập giá tối đa..." name="toPrice"
+                                className="f mr-sm-2"
+                            />
+                        </Col>
+                        <Col xs="auto">
+                            <Button type="submit">Tìm</Button>
+                            {/* <Link className="text-primary icon_avatar_link" to="/restaurant">List Restaurant</Link> */}
+                        </Col>
+                    </Row>
+                </Form>
+                <Carousel data-bs-theme="dark" className="carousel_edit">
+                    {Object.values(restaurant).map(r => {
 
-                    return <Carousel.Item>
-                        <h1 className="text-center text-danger">{r.restaurantName}</h1>
-                        <img
-                            className="carol_img d-block w-100"
-                            src={r.avatar}
-                            alt={r.restaurantName}
-                        />
-                        <Carousel.Caption className="caption_res">
-                            <h5>First slide label</h5>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                })}
+                        return <Carousel.Item>
+                            <h1 className="text-center text-danger">{r.restaurantName}</h1>
+                            <img
+                                className="carol_img d-block w-100"
+                                src={r.avatar}
+                                alt={r.restaurantName}
+                            />
+                            <Carousel.Caption className="caption_res">
+                                <h5>First slide label</h5>
+                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    })}
 
-            </Carousel>
+                </Carousel>
+            </div>
         </div>
 
         <div className="home">
             <div className="find">
-                <Form onSubmit={search} className="mt-3 mb-2" inline>
+                {/* <Form onSubmit={search} className="mt-3 mb-2 form form_find_all" inline>
                     <Row>
                         <h5>Nhập đi</h5>
                         <Col xs="auto">
@@ -186,7 +235,7 @@ const Home = () => {
                             <Link className="text-primary icon_avatar_link" to="/restaurant">List Restaurant</Link>
                         </Col>
                     </Row>
-                </Form>
+                </Form> */}
             </div>
             <div className="fooditems">
                 <Row>

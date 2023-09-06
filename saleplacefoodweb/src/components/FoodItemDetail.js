@@ -161,7 +161,7 @@ const FoodItemDetail = () => {
         <h1 className="text-center text-info mt-2">CHI TIẾT SẢN PHẨM ({foodItem.foodName})</h1>
         <Row>
             <Col md={5} xs={6}>
-                <Image src={foodItem.avatar} rounded fluid />
+                <Image className="img_fooditemdetail" src={foodItem.avatar} rounded fluid />
             </Col>
             <Col md={5} xs={6}>
                 <h2 className="text-danger">{foodItem.foodName}</h2>
@@ -207,10 +207,21 @@ const FoodItemDetail = () => {
         <ListGroup>
             {comments.map(c => (
                 <ListGroup.Item id={c.id} key={c.id}>
-                    {c.userId.firstname} {c.userId.lastname} - {c.comment} -{' '}
-                    <Moment locale="vi" fromNow>
-                        {c.createdDate}
-                    </Moment>
+
+                    <div>
+                        <div className="name_avatar_comment">
+                            <Image src={c.userId.avatar} roundedCircle />
+                            <div>
+                                <h5>{c.userId.firstname} {c.userId.lastname}</h5>
+                                <Moment locale="vi" fromNow>{c.createdDate}</Moment>
+                            </div>
+                        </div>
+                        <hr />
+                        <div className="comment_avatar">
+                            <div className="comtain_comment">{c.comment}</div>
+                            <div><Image className="img_comment" src={c.avatar} rounded /></div>
+                        </div>
+                    </div>
                 </ListGroup.Item>
             ))}
         </ListGroup>

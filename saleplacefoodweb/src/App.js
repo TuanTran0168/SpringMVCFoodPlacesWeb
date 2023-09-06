@@ -1,7 +1,6 @@
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import './App.css';
-
 import Header from './layout/Header';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
@@ -20,6 +19,7 @@ import Restaurant from './components/Restaurant';
 import RestaurantDetail from './components/RestaurantDetail';
 import RegisterRestaurant from './components/RegisterRestaurant';
 import Receipt from './components/Receipt';
+import ChangePassword from './components/ChangePassword';
 
 
 export const MyUserContext = createContext();
@@ -53,7 +53,8 @@ function App() {
               <Route path="/restaurant" element={<Restaurant />} />
               <Route path="/restaurant_detail/:restaurantId" element={<RestaurantDetail />} />
               <Route path="/register_restaurant" element={<RegisterRestaurant />} />
-              <Route path="/receipt" element={<Receipt />} />            
+              <Route path="/receipt" element={<Receipt />} />    
+              <Route path="/changepassword" element={<ChangePassword />} />        
               </Routes>
           </Container>
           <Footer />

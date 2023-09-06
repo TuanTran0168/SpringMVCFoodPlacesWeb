@@ -9,7 +9,7 @@ import { MyUserContext } from "../App";
 
 const RegisterRestaurant = () => {
 
-    const [restaurant, setRestaurant] = useState();
+    const [restaurant, setRestaurant] = useState([]);
     // const [q] = useSearchParams();
     const [user,] = useContext(MyUserContext);
 
@@ -81,7 +81,6 @@ const RegisterRestaurant = () => {
     return <>
         <h1 className="text-center text-info">Đăng Ký Nhà Hàng</h1>
         <div className="contain_info ">
-
             <div className="contain_info_1">
                 <Nav variant="tabs" defaultActiveKey="/home">
                     <Nav.Item className="nav-link text-success choose">
@@ -98,7 +97,7 @@ const RegisterRestaurant = () => {
                     </Nav.Item>
                 </Nav>
             </div>
-            <div>
+            <div className="contain_info_2">
                 <Form onSubmit={register_restaurant}>
                     <Form.Group className="mb-3">
                         <Form.Label>Tên nhà hàng</Form.Label>
@@ -141,6 +140,7 @@ const RegisterRestaurant = () => {
                                     <td>{r.userId.userId}</td>
                                 </tr>
                             })}
+                            {restaurant.length === 0 ?<tr><Alert>Bạn chưa đăng ký nhà hàng nào!</Alert></tr> : null}
                         </tbody>
                     </Table>
 

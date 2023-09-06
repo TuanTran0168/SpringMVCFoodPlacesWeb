@@ -5,6 +5,7 @@ import Apis, { authApi, endpoints } from "../configs/Apis";
 import cookie from "react-cookies";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import MySpinner from "../layout/MySpinner";
+import '../resources/css/Login.css';
 
 const Login = () => {
 
@@ -58,25 +59,27 @@ const Login = () => {
 
     }
     return <>
-        <h1 className="text-center text-info">LOGIN</h1>
+        <div className=" div_login_form">
+            <h1 className="text-center text-info">LOGIN</h1>
 
-        <Form onSubmit={login}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Tên đăng nhập</Form.Label>
-                <Form.Control value={username} onChange={e => setUsername(e.target.value)} type="text" placeholder="Tên đăng nhập" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Mật khẩu</Form.Label>
-                <Form.Control value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Mật khẩu" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                {loading === true ? <MySpinner /> : <>
-                <Button variant="info" type="submit">Đăng nhập</Button> <span>Chưa có tài khoản? <Link to="/register">Đăng ký tại đây</Link> <Link to="/changPassword">Quên mật khẩu?</Link></span>
-                </>}
-            </Form.Group>
-            {err !== null ? <Alert className="alert-danger">{err}</Alert> : ""}
+            <Form onSubmit={login} className="login_form">
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Tên đăng nhập</Form.Label>
+                    <Form.Control value={username} onChange={e => setUsername(e.target.value)} type="text" placeholder="Tên đăng nhập" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Mật khẩu</Form.Label>
+                    <Form.Control value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Mật khẩu" />
+                </Form.Group>
+                <Form.Group className="mb-3 login_form_last_child" controlId="exampleForm.ControlInput1">
+                    {loading === true ? <MySpinner /> : <>
+                        <Button variant="info" type="submit">Đăng nhập</Button> <span>Chưa có tài khoản? <Link to="/register">Đăng ký tại đây</Link> <Link to="/changPassword">Quên mật khẩu?</Link></span>
+                    </>}
+                </Form.Group>
+                {err !== null ? <Alert className="alert-danger">{err}</Alert> : ""}
 
-        </Form>
+            </Form>
+        </div>
     </>
 }
 export default Login;

@@ -83,6 +83,7 @@ const Cart = () => {
         return <Alert variant="success" className="mt-2">Thanh toán thành công!</Alert>
 
     return <>
+    <h1 className="text-center text-info">Giỏ Hàng</h1>
         <Table striped bordered hover>
             <thead>
                 <tr>

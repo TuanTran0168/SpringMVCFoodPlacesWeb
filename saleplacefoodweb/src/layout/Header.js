@@ -26,15 +26,15 @@ const Header = () => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Link className="nav-link" to="/">Home</Link>
+                        <Link className="nav-link hi_home" to="/">Trang Chủ</Link>
 
                         {user === null ? <>
-                            <Link className="nav-link text-success" to="/login">Login</Link>
-                            <Link className="nav-link text-danger" to="/register">Register</Link>
+                            <Link className="nav-link text-success" to="/login">Đăng Nhập</Link>
+                            <Link className="nav-link text-danger" to="/register">Đăng Ký</Link>
                         </> :
                             <>
-                                <Link className="nav-link text-danger" to="/profile">Hi {user.firstname} {user.lastname}!</Link>
-                                <Button variant="secondary" onClick={logout}>Logout</Button>
+                                <Link className="nav-link text-danger hi_user" to="/profile">Hi {user.firstname} {user.lastname}!</Link>
+                                <Button className="btn_logout" variant="secondary" onClick={logout}>Đăng Xuất</Button>
                             </>
 
                         }

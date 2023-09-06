@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { MyUserContext } from "../App";
 import Apis, { authApi, endpoints } from "../configs/Apis";
 import MySpinner from "../layout/MySpinner";
+import Moment from "react-moment";
 
 
 const Receipt = () => {
@@ -17,11 +18,10 @@ const Receipt = () => {
 
         const loadReceipt = async () => {
             try {
-                let userId = user.userId;
-                let form = new FormData();
-                form.append("userId", userId)
-
-                let res = await authApi().get(endpoints["receipt"], form);
+                // let form = new FormData();
+                // form.append("userId", userId)
+                let e = `${endpoints["receipt"]}?userId=${user.userId}`
+                let res = await authApi().get(e);
                 setReceipt(res.data);
             } catch (err) {
                 console.log(err);
@@ -68,9 +68,10 @@ const Receipt = () => {
                     {receipt == null ? <MySpinner /> : Object.values(receipt).map(r => {
                         return <Accordion className="mt-2" activeKey={activeKey}>
                             <Accordion.Item eventKey={r.receiptId} onClick={() => handleAccordionClick(r.receiptId)}>
-                                <Accordion.Header>Hóa Đơn {r.receiptId}</Accordion.Header>
+                                <Accordion.Header>Hóa Đơn {r.receiptId } <Moment style={{ marginLeft: 'auto' }} format="DD-MM-YYYY HH:mm">{r.receiptDate}</Moment> </Accordion.Header>
                                 <Accordion.Body>
                                     fadfasfsa
+                                    
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
