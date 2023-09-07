@@ -25,6 +25,7 @@
   width: auto !important;
   padding-left: 15px !important;
   padding-right: 15px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+
 }

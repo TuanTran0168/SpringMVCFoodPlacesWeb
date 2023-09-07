@@ -6,7 +6,7 @@ const SERVER = "http://localhost:8080";
 
 export const endpoints = {
     "fooditems":`${SERVER_CONTEXT}/api/foodItems/`,
-    "categories":`${SERVER_CONTEXT}/api/restaurantManager/categories/`,
+    "categories":`${SERVER_CONTEXT}/api/categories/`,
     "register":`${SERVER_CONTEXT}/api/register/`,
     "update-user":`${SERVER_CONTEXT}/api/update-user/`,
     "login":`${SERVER_CONTEXT}/api/login/`,

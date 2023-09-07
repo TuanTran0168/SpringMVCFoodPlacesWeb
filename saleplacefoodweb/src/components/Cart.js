@@ -84,7 +84,7 @@ const Cart = () => {
 
     return <>
     <h1 className="text-center text-info">Giỏ Hàng</h1>
-        <Table striped bordered hover>
+        <Table striped bordered hover className="cart_table">
             <thead>
                 <tr>
                     <th>#</th>
@@ -122,8 +122,7 @@ const Cart = () => {
             <>
                 {loading === true ? <MySpinner />: <Button variant="info" onClick={pay} className="mt-2 mb-2">Thanh toán</Button>} 
             </>
-            : <p>Vui lòng thêm <Link to="/profile">địa chỉ</Link> để thanh toán!</p>
-}
+            : <p>Vui lòng thêm <Link to="/profile">địa chỉ</Link> để thanh toán!</p>}
     </>
 }
 export default Cart;

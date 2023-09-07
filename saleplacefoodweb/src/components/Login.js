@@ -6,6 +6,12 @@ import cookie from "react-cookies";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
 import MySpinner from "../layout/MySpinner";
 import '../resources/css/Login.css';
+import jwt_decode from "jwt-decode";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow } from "mdb-react-ui-kit";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
 
@@ -15,6 +21,7 @@ const Login = () => {
     const [password, setPassword] = useState();
     const [q] = useSearchParams();
     const [err, setErr] = useState(null);
+    const notify = (x) => toast(x);
 
     const login = (evt) => {
         evt.preventDefault();
@@ -40,17 +47,19 @@ const Login = () => {
                 });
 
             } catch (ex) {
-                // console.log(ex);
-                // console.log(ex.request.responseText)
-                // console.log(ex.request.status)
-                //Xử lý thêm chỗ này để xuất lỗi
                 setLoading(false);
-                setErr(ex.request.responseText);
+                setErr(ex.request.responseText + "");
+                setTimeout(()=>{
+                    notify(err);
+                }, 300)
+                
             }
         }
         process();
 
     }
+
+
 
 
     if (user !== null) {
@@ -59,10 +68,84 @@ const Login = () => {
 
     }
     return <>
-        <div className=" div_login_form">
-            <h1 className="text-center text-info">LOGIN</h1>
+        <Form onSubmit={login}>
+            <div className="">
+                {/* {err !== null ? <Alert className="alert-danger">{err}</Alert> : ""} */}
+                {/* <div>
+                    <button onClick={notify}>Notify!</button>
+                    <ToastContainer />
+                </div> */}
+                {/* <h1 className="text-center text-info">Đăng Nhập</h1> */}
 
-            <Form onSubmit={login} className="login_form">
+                <MDBContainer fluid >
+
+                    <MDBRow className='d-flex justify-content-center align-items-center h-100'>
+                        <MDBCol col='12' className="mdb_login_form">
+
+                            <MDBCard className='bg-dark text-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '400px' }}>
+                                <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
+
+                                    <h2 className="fw-bold mb-2 text-uppercase">Đăng nhập</h2>
+                                    <p className="text-white-50 mb-5">Hãy nhập tài khoản và mật khẩu của bạn</p>
+
+                                    <MDBInput wrapperClass='mb-4 mx-5 w-100' value={username} onChange={e => setUsername(e.target.value)} labelClass='text-white' label='Tài Khoản' id='formControlLg' type='text' size="lg" />
+                                    <MDBInput wrapperClass='mb-4 mx-5 w-100' value={password} onChange={e => setPassword(e.target.value)} labelClass='text-white' label='Mật Khẩu' id='formControlLg' type='password' size="lg" />
+
+                                    <p className="small mb-3 pb-lg-2"><Link class="text-white-50" to="/changPassword">Quên mật khẩu?</Link></p>
+
+                                    <MDBBtn outline className='mx-2 px-5' type="submit" color='white' size='lg'>
+                                        Đăng Nhập
+                                    </MDBBtn>
+                                    <ToastContainer />
+
+                                    <div className='d-flex flex-row mt-3 mb-5'>
+                                        <GoogleOAuthProvider clientId="589360561946-gt02gm1325ignk5brqcos0lgfj2m3836.apps.googleusercontent.com">
+                                            <GoogleLogin
+                                                className="login_google"
+                                                clientId="589360561946-gt02gm1325ignk5brqcos0lgfj2m3836.apps.googleusercontent.com"
+                                                onSuccess={(credentialResponse) => {
+                                                    // console.log("Đăng nhập thành công", credentialResponse.credential);
+                                                    var token = credentialResponse.credential;
+                                                    var decoded = jwt_decode(token);
+                                                    console.log(decoded.email);
+
+
+                                                }}
+                                                onFailure={(error) => {
+                                                    console.log("Đăng nhập không thành công", error);
+                                                }}
+                                                redirectUri="http://localhost:3000"
+                                            />
+                                        </GoogleOAuthProvider>
+                                        {/* <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
+                  <MDBIcon fab icon='facebook-f' size="lg"/>
+                </MDBBtn>
+
+                <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
+                  <MDBIcon fab icon='twitter' size="lg"/>
+                </MDBBtn>
+
+                <MDBBtn tag='a' color='none' className='m-3' style={{ color: 'white' }}>
+                    
+                  <MDBIcon fab icon='google' size="lg"/>
+                </MDBBtn> */}
+                                    </div>
+
+                                    <div>
+                                        <p className="mb-0">Bạn chưa có tài khoản? <Link class="text-white-50 fw-bold" to="/register">Đăng ký tại đây</Link></p>
+
+                                    </div>
+                                </MDBCardBody>
+                            </MDBCard>
+
+                        </MDBCol>
+                    </MDBRow>
+
+                </MDBContainer>
+            </div>
+        </Form>
+
+        {/* <Form onSubmit={login} className="login_form">
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Tên đăng nhập</Form.Label>
                     <Form.Control value={username} onChange={e => setUsername(e.target.value)} type="text" placeholder="Tên đăng nhập" />
@@ -77,9 +160,25 @@ const Login = () => {
                     </>}
                 </Form.Group>
                 {err !== null ? <Alert className="alert-danger">{err}</Alert> : ""}
+                <GoogleOAuthProvider clientId="589360561946-gt02gm1325ignk5brqcos0lgfj2m3836.apps.googleusercontent.com">
+                    <GoogleLogin
+                        clientId="589360561946-gt02gm1325ignk5brqcos0lgfj2m3836.apps.googleusercontent.com"
+                        onSuccess={(credentialResponse) => {
+                            // console.log("Đăng nhập thành công", credentialResponse.credential);
+                            var token = credentialResponse.credential;
+                            var decoded = jwt_decode(token);
+                            console.log(decoded.email);
 
-            </Form>
-        </div>
+
+                        }}
+                        onFailure={(error) => {
+                            console.log("Đăng nhập không thành công", error);
+                        }}
+                        redirectUri="http://localhost:3000"
+                    />
+                </GoogleOAuthProvider>
+            </Form> */}
+
     </>
 }
 export default Login;

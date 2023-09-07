@@ -31,9 +31,10 @@
     background-image: url('../img/bakcground2.jpg');
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: 100% 100%;
     background-attachment: fixed;
     position: relative;
+    min-height: 600px;
 }
 
 .form_find_name{
@@ -41,15 +42,6 @@
     margin-bottom: 0 !important;
 }
 
-/* Footer */
-
-Footer{
- background-color:black;
-}
-
-.div_footer {
-    margin-top: 0 !important;
-}
  /* card của fooditems */
 
 .description {
@@ -115,6 +107,10 @@ Footer{
     margin-top: 50px;
 }
 
+.carosel_item{
+    width: 100%;
+}
+
 /* .carousel-control-next {
     background-color:red;
 }
@@ -164,6 +160,22 @@ Footer{
 .col-auto {
     flex: none;
     width: none;
+}
+
+.carousel-control-prev-icon{
+    color:black;
+}
+
+.carousel-control-next-icon{
+    color:black;
+}
+
+.carousel_info_home {
+    color:white;
+    background-color:black;
+    width: 25%;
+    margin: auto;
+    border-radius: 5px 5px 5px 5px
 }
 
 

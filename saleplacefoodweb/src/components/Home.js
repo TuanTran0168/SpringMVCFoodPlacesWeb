@@ -183,17 +183,20 @@ const Home = () => {
                 </Form>
                 <Carousel data-bs-theme="dark" className="carousel_edit">
                     {Object.values(restaurant).map(r => {
-
-                        return <Carousel.Item>
+                        let url = `/restaurant_detail/${r.restaurantId}`
+                        return <Carousel.Item className="carosel_item">
                             <h1 className="text-center text-danger">{r.restaurantName}</h1>
-                            <img
-                                className="carol_img d-block w-100"
-                                src={r.avatar}
-                                alt={r.restaurantName}
-                            />
+                            <Link to={url}>
+                                <img
+                                    className="carol_img d-block w-100"
+                                    src={r.avatar}
+                                    alt={r.restaurantName}
+                                /></Link>
                             <Carousel.Caption className="caption_res">
-                                <h5>First slide label</h5>
-                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                <div className="carousel_info_home">
+                                    <h5>{r.restaurantName}</h5>
+                                    <p>{r.location}</p>
+                                </div>
                             </Carousel.Caption>
                         </Carousel.Item>
                     })}
