@@ -99,5 +99,4 @@ com\tuantran\service\impl\RolesServiceImpl.class
 com\tuantran\controllers\ApiReceiptDetailController.class
 com\tuantran\service\impl\RestaurantStatusServiceImpl.class
 com\tuantran\service\ReceiptDetailService.class
-com\tuantran\repository\impl\FoodItemsRepositoryImpl.class
 com\tuantran\service\CategoriesFoodService.class

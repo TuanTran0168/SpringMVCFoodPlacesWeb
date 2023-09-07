@@ -9,6 +9,7 @@ import com.tuantran.repository.ShelfLifeRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -46,9 +47,8 @@ public class ShelfLifeRepositoryImpl implements ShelfLifeRepository {
         Root rootShelfLife = query.from(ShelfLife.class);
 
         query.select(rootShelfLife);
-
+        List<Predicate> predicates = new ArrayList<>();
         if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
 
             String keyword = params.get("keyword");
             if (keyword != null && !keyword.isEmpty()) {
@@ -63,9 +63,11 @@ public class ShelfLifeRepositoryImpl implements ShelfLifeRepository {
                         criteriaBuilder.equal(rootShelfLife.get("restaurantId"), Integer.valueOf(restaurantId))
                 );
             }
-            query.where(predicates.toArray(Predicate[]::new));
-        }
 
+        }
+        predicates.add(
+                criteriaBuilder.equal(rootShelfLife.get("active"), Boolean.TRUE));
+        query.where(predicates.toArray(Predicate[]::new));
         Query final_query = session.createQuery(query);
 
         if (params != null) {
@@ -101,8 +103,26 @@ public class ShelfLifeRepositoryImpl implements ShelfLifeRepository {
 
     @Override
     public ShelfLife getShelfLifeById(int id) {
-        Session session = this.factory.getObject().getCurrentSession();
-        return session.get(ShelfLife.class, id);
+//        Session session = this.factory.getObject().getCurrentSession();
+//        return session.get(ShelfLife.class, id);
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<ShelfLife> criteriaQuery = builder.createQuery(ShelfLife.class);
+            Root<ShelfLife> root = criteriaQuery.from(ShelfLife.class);
+
+            Predicate idPredicate = builder.equal(root.get("shelflifeId"), id);
+
+            Predicate otherCondition = builder.equal(root.get("active"), Boolean.TRUE);
+
+            Predicate finalPredicate = builder.and(idPredicate, otherCondition);
+
+            criteriaQuery.where(finalPredicate);
+            return session.createQuery(criteriaQuery).getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

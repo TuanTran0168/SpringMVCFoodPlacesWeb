@@ -27,7 +27,7 @@ public class RestaurantStatusRepositoryImpl implements RestaurantStatusRepositor
     @Override
     public List<Object[]> getRestaurantsStatus() {
         Session session = this.factory.getObject().getCurrentSession();
-        Query query = session.createQuery("FROM RestaurantStatus");
+        Query query = session.createQuery("FROM RestaurantStatus WHERE active = true");
         return query.getResultList();
     }
 

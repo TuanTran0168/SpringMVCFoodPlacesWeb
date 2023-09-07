@@ -144,7 +144,16 @@ public class ShelfLifeController {
 
     @GetMapping("/restaurantManager/shelfLife/newShelfLife/{shelflifeId}")
     public String update(Model model, @PathVariable(value = "shelflifeId") int shelflifeId) {
-        model.addAttribute("shelfLife", this.shelfLifeSer.getShelfLifeById(shelflifeId));
+        String msg = "";
+        ShelfLife shelfLife = this.shelfLifeSer.getShelfLifeById(shelflifeId);
+        if (shelfLife != null) {
+            model.addAttribute("shelfLife", this.shelfLifeSer.getShelfLifeById(shelflifeId));
+        } 
+        else {
+            msg = "Thời gian bán không tồn tại!";
+            model.addAttribute("msg", msg);
+            return "redirect:/restaurantManager/restaurants";
+        }
         return "newShelfLife";
     }
 }

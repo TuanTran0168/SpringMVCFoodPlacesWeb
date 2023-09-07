@@ -47,8 +47,9 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository {
         Root root = q.from(Fooditems.class);
         q.select(root);
 
+        List<Predicate> predicates = new ArrayList<>();
         if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
+
             String kw = params.get("kw");
             if (kw != null && !kw.isEmpty()) {
                 predicates.add(b.like(root.get("foodName"), String.format("%%%s%%", kw)));
@@ -73,10 +74,9 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository {
             if (restaurantId != null && !restaurantId.isEmpty()) {
                 predicates.add(b.equal(root.get("restaurantId"), Integer.valueOf(restaurantId)));
             }
-
-            q.where(predicates.toArray(Predicate[]::new));
-
         }
+        predicates.add(b.equal(root.get("active"), Boolean.TRUE));
+        q.where(predicates.toArray(Predicate[]::new));
 
         q.orderBy(b.desc(root.get("foodId")));
         Query query = session.createQuery(q);
@@ -115,14 +115,32 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository {
 
     @Override
     public Fooditems getFoodItemById(int id) {
+//        try {
+//            Session session = this.factory.getObject().getCurrentSession();
+//            return session.get(Fooditems.class, id);
+//        } catch (NoResultException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+
         try {
             Session session = this.factory.getObject().getCurrentSession();
-            return session.get(Fooditems.class, id);
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Fooditems> criteriaQuery = builder.createQuery(Fooditems.class);
+            Root<Fooditems> root = criteriaQuery.from(Fooditems.class);
+
+            Predicate idPredicate = builder.equal(root.get("foodId"), id);
+            
+            Predicate otherCondition = builder.equal(root.get("active"), Boolean.TRUE);
+
+            Predicate finalPredicate = builder.and(idPredicate, otherCondition);
+            
+            criteriaQuery.where(finalPredicate);
+            return session.createQuery(criteriaQuery).getSingleResult();
         } catch (NoResultException e) {
             e.printStackTrace();
             return null;
         }
-
     }
 
     @Override
@@ -151,24 +169,23 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository {
 //        Query query = session.createQuery("SELECT Count(*) FROM Fooditems");
 //
 //        return Integer.parseInt(query.getSingleResult().toString());
-        
+
         Session session = this.factory.getObject().getCurrentSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
         Root rootFoodItems = query.from(Fooditems.class);
-
+        List<Predicate> predicates = new ArrayList<>();
         if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
 
             String restaurantId = params.get("restaurantId");
 
             if (restaurantId != null && !restaurantId.isEmpty()) {
-               predicates.add(criteriaBuilder.equal(rootFoodItems.get("restaurantId"), Integer.parseInt(restaurantId)));
+                predicates.add(criteriaBuilder.equal(rootFoodItems.get("restaurantId"), Integer.parseInt(restaurantId)));
             }
 
-            query.where(predicates.toArray(Predicate[]::new));
         }
-
+        predicates.add(criteriaBuilder.equal(rootFoodItems.get("active"), Boolean.TRUE));
+        query.where(predicates.toArray(Predicate[]::new));
         query.select(criteriaBuilder.count(rootFoodItems));
 
         return session.createQuery(query).getSingleResult().intValue();

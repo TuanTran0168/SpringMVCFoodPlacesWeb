@@ -22,7 +22,6 @@
     </div>
 </c:if>
 <section class="container food-container">
-
     <div>
         <form:form method="post" action="${action}" modelAttribute="foodItem" enctype="multipart/form-data">
             <form:errors path="*" element="div" cssClass="alert alert-danger" />

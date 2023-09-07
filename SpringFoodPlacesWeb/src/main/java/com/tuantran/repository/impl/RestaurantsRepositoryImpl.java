@@ -40,10 +40,10 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Autowired
     private Environment environment;
-    
+
     @Autowired
     private UsersRepository userRepo;
 
@@ -55,9 +55,8 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
         Root rootRestaurants = query.from(Restaurants.class);
 
         query.select(rootRestaurants);
-
+        List<Predicate> predicates = new ArrayList<>();
         if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
 
             String confirm = params.get("confirm");
             if (confirm != null && !confirm.isEmpty()) {
@@ -68,20 +67,20 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
             if (userId != null && !userId.isEmpty()) {
                 predicates.add(criteriaBuilder.equal(rootRestaurants.get("userId"), Integer.parseInt(userId)));
             }
-            
+
             String location = params.get("location");
             if (location != null && !location.isEmpty()) {
                 predicates.add(criteriaBuilder.like(rootRestaurants.get("location"), String.format("%%%s%%", location)));
             }
-            
+
             String restaurantName = params.get("restaurantName");
             if (restaurantName != null && !restaurantName.isEmpty()) {
                 predicates.add(criteriaBuilder.like(rootRestaurants.get("restaurantName"), String.format("%%%s%%", restaurantName)));
             }
 
-            query.where(predicates.toArray(Predicate[]::new));
         }
-
+        predicates.add(criteriaBuilder.equal(rootRestaurants.get("active"), Boolean.TRUE));
+        query.where(predicates.toArray(Predicate[]::new));
         query.orderBy(criteriaBuilder.asc(rootRestaurants.get("restaurantId")));
         Query final_query = session.createQuery(query);
 
@@ -118,14 +117,31 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
 
     @Override
     public Restaurants getRestaurantById(int id) {
+//        try {
+//            Session session = this.factory.getObject().getCurrentSession();
+//            return session.get(Restaurants.class, id);
+//        } catch (NoResultException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
         try {
             Session session = this.factory.getObject().getCurrentSession();
-            return session.get(Restaurants.class, id);
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Restaurants> criteriaQuery = builder.createQuery(Restaurants.class);
+            Root<Restaurants> root = criteriaQuery.from(Restaurants.class);
+
+            Predicate idPredicate = builder.equal(root.get("restaurantId"), id);
+
+            Predicate otherCondition = builder.equal(root.get("active"), Boolean.TRUE);
+
+            Predicate finalPredicate = builder.and(idPredicate, otherCondition);
+
+            criteriaQuery.where(finalPredicate);
+            return session.createQuery(criteriaQuery).getSingleResult();
         } catch (NoResultException e) {
             e.printStackTrace();
             return null;
         }
-
     }
 
     @Override
@@ -173,9 +189,8 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Long> query = criteriaBuilder.createQuery(Long.class);
         Root rootRestaurants = query.from(Restaurants.class);
-
+        List<Predicate> predicates = new ArrayList<>();
         if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
 
             String confirm = params.get("confirm");
 
@@ -193,9 +208,9 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
                 predicates.add(criteriaBuilder.equal(rootRestaurants.get("userId"), Integer.parseInt(userId)));
             }
 
-            query.where(predicates.toArray(Predicate[]::new));
         }
-
+        predicates.add(criteriaBuilder.equal(rootRestaurants.get("active"), Boolean.TRUE));
+        query.where(predicates.toArray(Predicate[]::new));
         query.select(criteriaBuilder.count(rootRestaurants));
 
         return session.createQuery(query).getSingleResult().intValue();
@@ -205,14 +220,13 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
     public List<Restaurants> getRestaurantByUserId(int userId) {
         try {
             Session session = this.factory.getObject().getCurrentSession();
-            Query query = session.createQuery("FROM Users WHERE userId=:userId");
+            Query query = session.createQuery("FROM Restaurants WHERE userId=:userId AND active = true");
             query.setParameter("userId", userId);
             return query.getResultList();
         } catch (NoResultException e) {
             e.printStackTrace();
             return null;
         }
-
     }
 
     @Override
@@ -221,9 +235,9 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Users user = this.userRepo.getUserByUsername_new(authentication.getName());
-            
+
             restaurant.setUserId(user);
-            
+            restaurant.setActive(Boolean.TRUE);
             session.save(restaurant);
             return restaurant;
         } catch (HibernateException ex) {

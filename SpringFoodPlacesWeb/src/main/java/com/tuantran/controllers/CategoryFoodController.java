@@ -147,7 +147,6 @@ public class CategoryFoodController {
 //                cate.setRestaurantId(this.restaurantsService.getRestaurantById(Integer.parseInt(restaurantId)));
 //            }
 //        }
-
         if (!rs.hasErrors()) {
 
             if (categoriesFoodSer.addOrUpdateCate(cate) == true) {
@@ -160,7 +159,16 @@ public class CategoryFoodController {
 
     @GetMapping("/restaurantManager/categoriesFood/newCategoriesFood/{categoryfoodId}")
     public String update(Model model, @PathVariable(value = "categoryfoodId") int categoryfoodId) {
-        model.addAttribute("cate", this.categoriesFoodSer.getCategoryById(categoryfoodId));
+        String msg = "";
+        CategoriesFood categoriesFood = this.categoriesFoodSer.getCategoryById(categoryfoodId);
+        if (categoriesFood != null) {
+            model.addAttribute("cate", this.categoriesFoodSer.getCategoryById(categoryfoodId));
+        } else {
+            msg = "Danh mục món ăn không tồn tại!";
+            model.addAttribute("msg", msg);
+            return "redirect:/restaurantManager/restaurants";
+        }
+
         return "newCategory";
     }
 

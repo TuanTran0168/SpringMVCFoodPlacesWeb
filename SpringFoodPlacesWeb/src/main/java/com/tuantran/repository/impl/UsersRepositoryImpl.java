@@ -52,9 +52,8 @@ public class UsersRepositoryImpl implements UsersRepository {
         Root rootUsers = query.from(Users.class);
 
         query.select(rootUsers);
-
+        List<Predicate> predicates = new ArrayList<>();
         if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
 
             String keyword = params.get("keyword");
             if (keyword != null && !keyword.isEmpty()) {
@@ -73,15 +72,11 @@ public class UsersRepositoryImpl implements UsersRepository {
 
             String userName = params.get("username");
             if (userName != null && !userName.isEmpty()) {
-                // Chỗ này ảo ma :) không parse về Int là bugs ???
-                // Mà á parse về Int thì IDE nó báo không cần thiết ???
                 predicates.add(criteriaBuilder.equal(rootUsers.get("username"), userName));
             }
-
-            query.where(predicates.toArray(Predicate[]::new));
-
         }
-
+        predicates.add(criteriaBuilder.equal(rootUsers.get("active"), Boolean.TRUE));
+        query.where(predicates.toArray(Predicate[]::new));
         query.orderBy(criteriaBuilder.asc(rootUsers.get("userId")));
         Query final_query = session.createQuery(query);
 
@@ -102,7 +97,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     @Override
     public int countUsers() {
         Session session = this.factory.getObject().getCurrentSession();
-        Query query = session.createQuery("SELECT Count(*) FROM Users");
+        Query query = session.createQuery("SELECT Count(*) FROM Users WHERE active = TRUE");
 
         return Integer.parseInt(query.getSingleResult().toString());
     }
@@ -135,9 +130,27 @@ public class UsersRepositoryImpl implements UsersRepository {
     @Override
     public Users getUserById(int id) {
 
+//        try {
+//            Session session = this.factory.getObject().getCurrentSession();
+//            return session.get(Users.class, id);
+//        } catch (NoResultException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
         try {
             Session session = this.factory.getObject().getCurrentSession();
-            return session.get(Users.class, id);
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Users> criteriaQuery = builder.createQuery(Users.class);
+            Root<Users> root = criteriaQuery.from(Users.class);
+
+            Predicate idPredicate = builder.equal(root.get("userId"), id);
+
+            Predicate otherCondition = builder.equal(root.get("active"), Boolean.TRUE);
+
+            Predicate finalPredicate = builder.and(idPredicate, otherCondition);
+
+            criteriaQuery.where(finalPredicate);
+            return session.createQuery(criteriaQuery).getSingleResult();
         } catch (NoResultException e) {
             e.printStackTrace();
             return null;
@@ -150,7 +163,7 @@ public class UsersRepositoryImpl implements UsersRepository {
 
         try {
             Session session = this.factory.getObject().getCurrentSession();
-            Query query = session.createQuery("FROM Users WHERE username=:username");
+            Query query = session.createQuery("FROM Users WHERE username=:username AND active = TRUE");
             query.setParameter("username", username);
             return (Users) query.getSingleResult();
         } catch (NoResultException e) {
@@ -200,7 +213,7 @@ public class UsersRepositoryImpl implements UsersRepository {
     public Users getUserByUsername_new(String username) {
         try {
             Session session = this.factory.getObject().getCurrentSession();
-            Query query = session.createQuery("FROM Users WHERE username=:username");
+            Query query = session.createQuery("FROM Users WHERE username=:username AND active = TRUE");
             query.setParameter("username", username);
             return (Users) query.getSingleResult();
         } catch (NoResultException e) {
