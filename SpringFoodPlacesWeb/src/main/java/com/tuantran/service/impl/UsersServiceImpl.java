@@ -226,6 +226,54 @@ public class UsersServiceImpl implements UsersService {
 //            return user;
 //        }
 //    }
+//    @Override
+//    public int updateUser(Map<String, String> params, MultipartFile avatar) {
+//        String username = params.get("username");
+//        boolean isUsernameExists = this.usersRepo.isUsernameExists(username);
+//
+//        if (isUsernameExists != true) {
+//            return 2; // Không tìm thấy username để update
+//        } else {
+//            Users user = this.getUserByUsername_new(username);
+//
+//            String firstname = params.get("firstname");
+//            String lastname = params.get("lastname");
+//            String phonenumber = params.get("phonenumber");
+//            String location = params.get("location");
+//            String email = params.get("email");
+//
+//            if (firstname != null && !firstname.isEmpty()) {
+//                user.setFirstname(params.get("firstname"));
+//            }
+//
+//            if (lastname != null && !lastname.isEmpty()) {
+//                user.setLastname(params.get("lastname"));
+//            }
+//
+//            if (phonenumber != null && !phonenumber.isEmpty()) {
+//                user.setPhonenumber(params.get("phonenumber"));
+//            }
+//
+//            if (location != null && !location.isEmpty()) {
+//                user.setLocation(params.get("location"));
+//            }
+//
+//            if (email != null && !email.isEmpty()) {
+//                user.setEmail(params.get("email"));
+//            }
+//
+//            if (!avatar.isEmpty()) {
+//                try {
+//                    Map res = this.cloudinary.uploader().upload(avatar.getBytes(),
+//                            ObjectUtils.asMap("resource_type", "auto"));
+//                    user.setAvatar(res.get("secure_url").toString());
+//                } catch (IOException ex) {
+//                    Logger.getLogger(UsersServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//            return this.usersRepo.updateUser(user);
+//        }
+//    }
     @Override
     public int updateUser(Map<String, String> params, MultipartFile avatar) {
         String username = params.get("username");
@@ -251,6 +299,13 @@ public class UsersServiceImpl implements UsersService {
             }
 
             if (phonenumber != null && !phonenumber.isEmpty()) {
+                Users user_db_phonenumber = this.usersRepo.getUserByPhonenumber(phonenumber);
+                if (user_db_phonenumber != null) {
+                    if (this.usersRepo.isPhonenumberExists(user.getPhonenumber()) == true && user_db_phonenumber.getUserId() != user.getUserId()) {
+                        return 3; // số điện thoại đã được đăng ký
+                    }
+
+                }
                 user.setPhonenumber(params.get("phonenumber"));
             }
 
@@ -259,6 +314,13 @@ public class UsersServiceImpl implements UsersService {
             }
 
             if (email != null && !email.isEmpty()) {
+                Users user_db_email = this.usersRepo.getUserByEmail(email);
+                if (user_db_email != null) {
+                    if (this.usersRepo.isEmailExists(user.getEmail()) == true && user_db_email.getUserId() != user.getUserId()) {
+                        return 4; // email đã được đăng ký
+                    }
+
+                }
                 user.setEmail(params.get("email"));
             }
 
@@ -319,11 +381,14 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public int updateUser_server(Users user) {
-        if (this.isPhonenumberExists(user.getPhonenumber())) {
+        Users user_db_phonenumber = this.usersRepo.getUserByPhonenumber(user.getPhonenumber());
+        Users user_db_email = this.usersRepo.getUserByEmail(user.getEmail());
+
+        if (this.isPhonenumberExists(user.getPhonenumber()) == true && user_db_phonenumber.getUserId() != user.getUserId()) {
             return 2; // số điện thoại đã được đăng ký
         }
 
-        if (this.isEmailExists(user.getEmail())) {
+        if (this.isEmailExists(user.getEmail()) == true && user_db_email.getUserId() != user.getUserId()) {
             return 3; // email đã được đăng ký
         }
 
@@ -342,5 +407,15 @@ public class UsersServiceImpl implements UsersService {
             }
             return this.usersRepo.updateUser_server(user);
         }
+    }
+
+    @Override
+    public Users getUserByPhonenumber(String phonenumber) {
+        return this.usersRepo.getUserByPhonenumber(phonenumber);
+    }
+
+    @Override
+    public Users getUserByEmail(String email) {
+        return this.usersRepo.getUserByEmail(email);
     }
 }

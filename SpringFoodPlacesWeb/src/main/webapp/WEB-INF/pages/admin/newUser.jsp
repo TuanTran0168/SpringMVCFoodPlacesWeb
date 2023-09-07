@@ -60,6 +60,13 @@
 
         <div class="row">
             <div class="col form-floating">
+                <form:input type="text" class="form-control" path="email" id="email" placeholder="Nhập email... " name="email" />
+                <label class="float-label" for="email">Nhập email...</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col form-floating">
                 <form:input type="text" class="form-control" path="location" id="location" placeholder="Nhập số địa chỉ... " name="location" />
                 <label class="float-label" for="phonenumber">Nhập địa chỉ...</label>
             </div>

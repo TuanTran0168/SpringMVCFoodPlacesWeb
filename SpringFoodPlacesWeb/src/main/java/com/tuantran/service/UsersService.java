@@ -49,4 +49,8 @@ public interface UsersService extends UserDetailsService {
 
 //    Users updateUser(Map<String, String> params, MultipartFile avatar);
     int updateUser(Map<String, String> params, MultipartFile avatar);
+
+    Users getUserByPhonenumber(String phonenumber);
+
+    Users getUserByEmail(String email);
 }

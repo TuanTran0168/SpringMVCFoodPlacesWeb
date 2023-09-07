@@ -269,18 +269,32 @@ public class UsersRepositoryImpl implements UsersRepository {
         }
     }
 
+//    @Override
+//    public int updateUser(Users user) {
+//        Session session = this.factory.getObject().getCurrentSession();
+//        Users user_db_phonenumber = this.getUserByPhonenumber(user.getPhonenumber());
+//        Users user_db_email = this.getUserByEmail(user.getEmail());
+//        try {
+//            if (this.isPhonenumberExists(user.getPhonenumber()) == true) {
+//                return 3; // số điện thoại đã được đăng ký
+//            }
+//
+//            if (this.isEmailExists(user.getEmail()) == true) {
+//                return 4; // email đã được đăng ký
+//            }
+//
+//            session.update(user);
+//            return 1;
+//        } catch (HibernateException ex) {
+//            ex.printStackTrace();
+//            return 0;
+//        }
+//    }
+    
     @Override
     public int updateUser(Users user) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
-            if (this.isPhonenumberExists(user.getPhonenumber())) {
-                return 3; // số điện thoại đã được đăng ký
-            }
-
-            if (this.isEmailExists(user.getEmail())) {
-                return 4; // email đã được đăng ký
-            }
-
             session.update(user);
             return 1;
         } catch (HibernateException ex) {
@@ -329,6 +343,32 @@ public class UsersRepositoryImpl implements UsersRepository {
         } catch (HibernateException ex) {
             ex.printStackTrace();
             return 0;
+        }
+    }
+
+    @Override
+    public Users getUserByPhonenumber(String phonenumber) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            Query query = session.createQuery("FROM Users WHERE phonenumber=:phonenumber AND active = TRUE");
+            query.setParameter("phonenumber", phonenumber);
+            return (Users) query.getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Users getUserByEmail(String email) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            Query query = session.createQuery("FROM Users WHERE email=:email AND active = TRUE");
+            query.setParameter("email", email);
+            return (Users) query.getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
