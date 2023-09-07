@@ -150,23 +150,13 @@
 
                             </p>
 
-                            <c:choose>
-                                <c:when test="${restaurant.confirmationStatus eq 'true'}">
-                                    <div class="button-confirm-true">Đã xác nhận</div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="button-confirm-false">Chưa xác nhận</div>
-                                </c:otherwise>
-                            </c:choose>
-
-                            <div class="button-restaurant-status">${restaurant.restaurantStatus.restaurantStatus}</div>
                         </div>
                     </a>
                     <div class="course_card_footer">
                         <!--<a class="nav-item" href="<c:url value="/admin/restaurants/${restaurant.restaurantId}" />">Xem chi tiết</a>-->
-                        <c:url value="/api/server/admin/restaurants/${restaurant.restaurantId}" var="restaurantPathAPI"/>
+                        <c:url value="/api/server/admin/users/${user.userId}" var="userPathAPI"/>
 
-                        <a class="nav-item delete-button" onclick="deleteRestaurant('${restaurantPathAPI}', ${restaurant.restaurantId})" href="javascript:;">Xóa nhà hàng</a>
+                        <a class="nav-item delete-button" onclick="deleteUser('${userPathAPI}', ${user.userId})" href="javascript:;">Xóa người dùng</a>
                     </div>
                 </div>
 

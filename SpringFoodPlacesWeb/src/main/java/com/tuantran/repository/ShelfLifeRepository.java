@@ -17,4 +17,5 @@ public interface ShelfLifeRepository {
     boolean addOrUpdateShelfLife(ShelfLife shelfLife);
     ShelfLife getShelfLifeById(int id);
     boolean delShelf(int id);
+    List<ShelfLife> getShelfLifeByRestaurantId(int restaurantId);
 }

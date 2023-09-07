@@ -4,8 +4,10 @@
  */
 package com.tuantran.repository.impl;
 
+import com.tuantran.pojo.Fooditems;
 import com.tuantran.pojo.ShelfLife;
 import com.tuantran.repository.ShelfLifeRepository;
+import com.tuantran.service.FoodItemsService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,8 +35,12 @@ public class ShelfLifeRepositoryImpl implements ShelfLifeRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
+    
     @Autowired
     private Environment environment;
+    
+    @Autowired
+    private FoodItemsService foodItemsService;
 
     @Override
     public List<ShelfLife> getShelfLife(Map<String, String> params) {
@@ -130,11 +136,40 @@ public class ShelfLifeRepositoryImpl implements ShelfLifeRepository {
         Session session = this.factory.getObject().getCurrentSession();
         ShelfLife shelfLife = this.getShelfLifeById(id);
         try {
-            session.delete(shelfLife);
+            if (shelfLife.getActive().equals(Boolean.TRUE)) {
+                shelfLife.setActive(Boolean.FALSE);
+                session.update(shelfLife);
+                List<Fooditems> foodItem_list = this.foodItemsService.getFoodItemsByCategoryId(id);
+
+                for (Fooditems food : foodItem_list) {
+                    this.foodItemsService.delFoodItem(food.getFoodId());
+                }
+            } else {
+                session.delete(shelfLife);
+            }
             return true;
         } catch (HibernateException ex) {
             ex.printStackTrace();
             return false;
+        }
+    }
+
+    @Override
+    public List<ShelfLife> getShelfLifeByRestaurantId(int restaurantId) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<ShelfLife> query = criteriaBuilder.createQuery(ShelfLife.class);
+            Root rootCate = query.from(ShelfLife.class);
+            List<Predicate> predicates = new ArrayList<>();
+            predicates.add(criteriaBuilder.equal(rootCate.get("restaurantId"), restaurantId));
+            predicates.add(criteriaBuilder.equal(rootCate.get("active"), Boolean.TRUE));
+            query.where(predicates.toArray(Predicate[]::new));
+
+            return session.createQuery(query).getResultList();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

@@ -71,4 +71,14 @@ public class FoodItemsServiceImpl implements FoodItemsService {
         return this.foodItemRepo.countFoodItems(params);
     }
 
+    @Override
+    public List<Fooditems> getFoodItemsByCategoryId(int cateId) {
+        return this.foodItemRepo.getFoodItemsByCategoryId(cateId);
+    }
+
+    @Override
+    public List<Fooditems> getFoodItemsByShelflifeId(int shelflifeId) {
+        return this.foodItemRepo.getFoodItemsByShelflifeId(shelflifeId);
+    }
+
 }

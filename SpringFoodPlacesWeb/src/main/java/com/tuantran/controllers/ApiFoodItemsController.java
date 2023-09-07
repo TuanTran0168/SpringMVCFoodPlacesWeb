@@ -32,7 +32,7 @@ public class ApiFoodItemsController {
     @Autowired
     private FoodItemsService foodItemsSer;
 
-    @DeleteMapping("/restaurantManager/foodItems/newFoodItems/{foodId}")
+    @DeleteMapping("/restaurantManager/foodItems/{foodId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable(value = "foodId") int id) {
         this.foodItemsSer.delFoodItem(id);
@@ -44,7 +44,7 @@ public class ApiFoodItemsController {
         return new ResponseEntity<>(this.foodItemsSer.getFoodItems(params), HttpStatus.OK);
     }
 
-    @DeleteMapping("/server/restaurantManager/foodItems/newFoodItems/{foodId}/")
+    @DeleteMapping("/server/restaurantManager/foodItems/{foodId}/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete_no_token(@PathVariable(value = "foodId") int id) {
         this.foodItemsSer.delFoodItem(id);

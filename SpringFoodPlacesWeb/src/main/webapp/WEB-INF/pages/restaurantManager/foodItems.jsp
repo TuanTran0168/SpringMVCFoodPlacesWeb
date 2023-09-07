@@ -129,8 +129,7 @@
                         </c:url>
                         <a class = "btn btn-success" href="${addFoodItemAction}" />Cập nhật</a>
 
-<!--<a href="<c:url value="/restaurantManager/foodItems/${f.foodId}" />" class = "btn btn-success">Cập nhật</a>-->
-                        <c:url value="/api/server/restaurantManager/foodItems/newFoodItems/${food.foodId}" var="apiDel" />
+                        <c:url value="/api/server/restaurantManager/foodItems/${food.foodId}/" var="apiDel" />
                         <button class = "btn btn-danger" onclick="deleteFood('${apiDel}', ${food.foodId})">Xóa</button>
                     </td>
                 </tr>

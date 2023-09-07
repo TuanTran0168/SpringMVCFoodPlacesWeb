@@ -19,4 +19,6 @@ public interface FoodItemsRepository {
     boolean delFoodItem(int id);
     List<Fooditems> getAllFoodItem();  
     int countFoodItems(Map<String, String> params);
+    List<Fooditems> getFoodItemsByCategoryId(int cateId);
+    List<Fooditems> getFoodItemsByShelflifeId(int shelflifeId);
 }

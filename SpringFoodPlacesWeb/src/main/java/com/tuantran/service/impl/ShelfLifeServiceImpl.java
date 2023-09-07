@@ -42,4 +42,9 @@ public class ShelfLifeServiceImpl implements ShelfLifeService{
         return this.ShelfLifeRepo.delShelf(id);
     }
 
+    @Override
+    public List<ShelfLife> getShelfLifeByRestaurantId(int restaurantId) {
+        return this.ShelfLifeRepo.getShelfLifeByRestaurantId(restaurantId);
+    }
+
 }

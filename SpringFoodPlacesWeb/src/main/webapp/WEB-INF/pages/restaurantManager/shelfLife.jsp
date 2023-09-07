@@ -35,11 +35,11 @@
             <label for="shelflifeName">Nhập Tên</label>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <form:input type="date" class="form-control" path="fromDate" id="fromDate" placeholder="Nhập Ngày Bắt Đầu... " name="fromDate" />
+            <form:input required="required" type="date" class="form-control" path="fromDate" id="fromDate" placeholder="Nhập Ngày Bắt Đầu... " name="fromDate" />
             <label for="fromDate">Nhập Ngày Bắt Đầu</label>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <form:input type="date" class="form-control" path="toDate" id="toDate" placeholder="Nhập Ngày Kết Thúc... " name="toDate" />
+            <form:input required="required" type="date" class="form-control" path="toDate" id="toDate" placeholder="Nhập Ngày Kết Thúc... " name="toDate" />
             <label for="toDate">Nhập Ngày Kết Thúc</label>
         </div>
 

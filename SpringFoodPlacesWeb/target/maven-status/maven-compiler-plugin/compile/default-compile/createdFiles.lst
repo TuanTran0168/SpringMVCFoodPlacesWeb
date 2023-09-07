@@ -1,4 +1,5 @@
 com\tuantran\pojo\ReceiptStatus_.class
+com\tuantran\pojo\CategoriesfoodFooditems_.class
 com\tuantran\service\FoodItemsService.class
 com\tuantran\pojo\Chatmessages_.class
 com\tuantran\service\impl\ShelfLifeServiceImpl.class
@@ -6,6 +7,7 @@ com\tuantran\repository\RestaurantStatusRepository.class
 com\tuantran\repository\impl\CommentsRepositoryImpl.class
 com\tuantran\configs\DispatcherServletInit.class
 com\tuantran\controllers\ShelfLifeController.class
+com\tuantran\pojo\ShelflifeFooditems_.class
 com\tuantran\controllers\RestaurantManagerController.class
 com\tuantran\formatters\RestaurantsStatusFormatter.class
 com\tuantran\controllers\ApiUsersController.class
@@ -17,6 +19,7 @@ com\tuantran\service\impl\CategoriesFoodServiceImpl.class
 com\tuantran\repository\impl\ShelfLifeRepositoryImpl.class
 com\tuantran\controllers\RestaurantsController.class
 com\tuantran\formatters\RestaurantsFormatter.class
+com\tuantran\pojo\CategoriesfoodFooditems.class
 com\tuantran\pojo\Comments.class
 com\tuantran\pojo\ShelfLife_.class
 com\tuantran\pojo\RestaurantStatus_.class
@@ -44,6 +47,7 @@ com\tuantran\controllers\ApiFoodItemsController.class
 com\tuantran\formatters\CategoryFormatter.class
 com\tuantran\pojo\Users_.class
 com\tuantran\pojo\Chatmessages.class
+com\tuantran\pojo\ShelflifeFooditems.class
 com\tuantran\pojo\ReceiptDetail_.class
 com\tuantran\pojo\Restaurants.class
 com\tuantran\service\RestaurantsService.class

@@ -4,11 +4,15 @@
  */
 package com.tuantran.repository.impl;
 
+import com.tuantran.pojo.CategoriesFood;
 import com.tuantran.pojo.RestaurantStatus;
 import com.tuantran.pojo.Restaurants;
+import com.tuantran.pojo.ShelfLife;
 import com.tuantran.pojo.Users;
 import com.tuantran.repository.RestaurantsRepository;
 import com.tuantran.repository.UsersRepository;
+import com.tuantran.service.CategoriesFoodService;
+import com.tuantran.service.ShelfLifeService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +50,12 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
 
     @Autowired
     private UsersRepository userRepo;
+
+    @Autowired
+    private CategoriesFoodService categoriesFoodService;
+
+    @Autowired
+    private ShelfLifeService shelfLifeService;
 
     @Override
     public List<Restaurants> getRestaurants(Map<String, String> params) {
@@ -148,9 +158,23 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
     public boolean deleteRestaurants(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         Restaurants restaurants = this.getRestaurantById(id);
-
         try {
-            session.delete(restaurants);
+            if (restaurants.getActive().equals(Boolean.TRUE)) {
+                restaurants.setActive(Boolean.FALSE);
+                session.update(restaurants);
+                List<CategoriesFood> category_list = this.categoriesFoodService.getCategoriesFoodByRestaurantId(id);
+                for (CategoriesFood cate : category_list) {
+                    this.categoriesFoodService.delCategory(cate.getCategoryfoodId());
+                }
+                
+                List<ShelfLife> shelflife_list = this.shelfLifeService.getShelfLifeByRestaurantId(id);
+                
+                for (ShelfLife sl : shelflife_list) {
+                    this.shelfLifeService.delShelf(sl.getShelflifeId());
+                }
+            } else {
+                session.delete(restaurants);
+            }
             return true;
         } catch (HibernateException ex) {
             ex.printStackTrace();
