@@ -60,4 +60,16 @@ public class ApiFollowController {
             return new ResponseEntity<>(follow, HttpStatus.BAD_REQUEST);
 
     }
+    
+    @PostMapping(path = "/check-follow-new/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<Follow> checkFollow_new(@RequestParam Map<String, String> params) {
+        Follow follow = this.followService.checkFollow(params);
+        if (follow != null) {
+            return new ResponseEntity<>(follow, HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(follow, HttpStatus.BAD_REQUEST);
+
+    }
 }

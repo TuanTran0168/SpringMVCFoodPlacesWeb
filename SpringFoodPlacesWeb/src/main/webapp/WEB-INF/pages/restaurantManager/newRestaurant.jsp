@@ -45,15 +45,15 @@
 
             <div class="food-home">
                 <div class="food-home__top">
-                    
-<!--                    <div>
-                        <c:url value="/restaurantManager/categoriesFood" var="editCategoriesFoodAction">
-                            <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
-                        </c:url>
-                        <a href="${editCategoriesFoodAction}">
-                                Quản lý danh mục                                
-                        </a>
-                    </div>-->
+
+                    <!--                    <div>
+                    <c:url value="/restaurantManager/categoriesFood" var="editCategoriesFoodAction">
+                        <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                    </c:url>
+                    <a href="${editCategoriesFoodAction}">
+                            Quản lý danh mục                                
+                    </a>
+                </div>-->
                     <div class="list-categories">
                         <div>
                             <c:url value="/restaurantManager/categoriesFood" var="editCategoriesFoodAction">
@@ -138,24 +138,24 @@
                                             </c:url>
                                             <a href="${addFoodItemAction}" />
                                             <!--<a href="<c:url value="/restaurantManager/foodItems/${food.foodId}" />">-->
-                                            
-                                                <img src="${food.avatar}"
+
+                                            <img src="${food.avatar}"
                                                  class="w-100" />
 
                                             <div class="mask" >
-                                                
-                                                    <h5>Tên món: ${food.foodName}</h5>
-                                                    <!--nhu-->
-<!--                                                    <h5>Giá: ${food.price}</h5>
-                                                    <h5>Danh mục món: ${food.categoryfoodId.categoryname}</h5>
-                                                    <h5>Mô tả: ${food.description}</h5>
-                                                    <h5>Nhà hàng: ${food.restaurantId.restaurantName} - ${food.restaurantId.restaurantId}</h5>-->
-                                            </div>
-                                                
+
+                                                <h5>Tên món: ${food.foodName}</h5>
                                                 <!--nhu-->
-<!--                                            <div class="hover-overlay">
-                                                <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
-                                            </div>-->
+<!--                                                    <h5>Giá: ${food.price}</h5>
+                                                <h5>Danh mục món: ${food.categoryfoodId.categoryname}</h5>
+                                                <h5>Mô tả: ${food.description}</h5>
+                                                <h5>Nhà hàng: ${food.restaurantId.restaurantName} - ${food.restaurantId.restaurantId}</h5>-->
+                                            </div>
+
+                                            <!--nhu-->
+                                            <!--                                            <div class="hover-overlay">
+                                                                                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                                                                        </div>-->
                                             </a>
                                         </div>
                                     </div>
@@ -171,7 +171,40 @@
                             </li>
                         </c:forEach>
                     </ul>
-                    
+
+                    <section class="container newfood-container">
+                        <table class="table-hover ">
+                            <thead>
+                                <tr>
+<!--                                    <th>Nhà hàng ${restaurantId}</th>-->
+                                    <th>Mã hóa đơn</th>
+                                    <th>Tên món</th>
+                                    <th>Giá 1 món</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá tổng</th>
+                                    <th>Ngày tạo</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <c:forEach items="${receiptDetails_list}" var="receiptDetail">
+
+                                    <tr>
+                                        <!--<td></td>-->
+                                        <td>${receiptDetail.receiptId.receiptId}</td>
+                                        <td>${receiptDetail.fooditemId.foodName}</td>
+                                        <td>${receiptDetail.unitPrice}</td>
+                                        <td>${receiptDetail.quantity}</td>
+                                        <td>${receiptDetail.amount}</td>
+                                        <td>${receiptDetail.receiptId.receiptDate}</td>
+                                    </tr>
+
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </section>
+
                 </div>
             </div>
         </c:when>

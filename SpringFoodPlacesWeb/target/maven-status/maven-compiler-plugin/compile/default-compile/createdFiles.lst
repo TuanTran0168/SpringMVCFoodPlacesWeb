@@ -64,6 +64,7 @@ com\tuantran\controllers\IndexController.class
 com\tuantran\components\JwtService.class
 com\tuantran\service\ShelfLifeService.class
 com\tuantran\service\impl\CommentsServiceImpl.class
+com\tuantran\components\PasswordGeneratorService.class
 com\tuantran\pojo\Follow.class
 com\tuantran\repository\impl\RestaurantStatusRepositoryImpl.class
 com\tuantran\repository\impl\CategoryFoodRepositoryImpl.class

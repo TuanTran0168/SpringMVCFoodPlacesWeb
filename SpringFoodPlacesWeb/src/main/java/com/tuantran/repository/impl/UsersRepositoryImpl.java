@@ -210,7 +210,7 @@ public class UsersRepositoryImpl implements UsersRepository {
                     user.setActive(Boolean.FALSE);
                     session.update(user);
                     List<Restaurants> restaurant_list = this.restaurantsService.getRestaurantByUserId(id);
-                    
+
                     if (!restaurant_list.isEmpty()) {
                         for (Restaurants restaurant : restaurant_list) {
                             this.restaurantsService.deleteRestaurants(restaurant.getRestaurantId());
@@ -219,8 +219,7 @@ public class UsersRepositoryImpl implements UsersRepository {
                 } else {
                     session.delete(user);
                 }
-            }
-            else {
+            } else {
                 return false;
             }
             return true;
@@ -401,6 +400,38 @@ public class UsersRepositoryImpl implements UsersRepository {
         } catch (HibernateException ex) {
             ex.printStackTrace();
             return 0;
+        }
+    }
+
+    @Override
+    public Users registerUserGoogle(Users user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+
+            if (user != null && user.getUserId() == null) {
+                user.setActive(Boolean.TRUE);
+                session.save(user);
+            }
+
+            return user;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public int authUserLoginGoogle(String username, String password) {
+        Users user = this.getUserByUsername_new(username);
+        if (user != null) {
+            // 2 cái password bây giờ đều băm tung tóe hết rồi nên so sánh vầy
+            if (user.getPassword().equals(password)) {
+                return 1; // true
+            } else {
+                return 2; // sai mật khẩu
+            }
+        } else {
+            return 3; // sai tài khoản
         }
     }
 

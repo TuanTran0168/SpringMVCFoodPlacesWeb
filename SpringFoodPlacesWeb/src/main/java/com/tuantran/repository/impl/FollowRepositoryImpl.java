@@ -7,6 +7,7 @@ package com.tuantran.repository.impl;
 import com.tuantran.pojo.Follow;
 import com.tuantran.repository.FollowRepository;
 import com.tuantran.service.FollowService;
+import java.util.Map;
 import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -77,6 +78,18 @@ public class FollowRepositoryImpl implements FollowRepository {
 
             criteriaQuery.where(finalPredicate);
             return session.createQuery(criteriaQuery).getSingleResult();
+        } catch (NoResultException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Follow checkFollow(Follow follow) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            session.update(follow);
+            return follow;
         } catch (NoResultException e) {
             e.printStackTrace();
             return null;

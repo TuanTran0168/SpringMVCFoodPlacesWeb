@@ -1,4 +1,4 @@
-    /*
+/*
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
@@ -247,10 +247,10 @@ div.food-home__bottom > section > div > div.row {
 }
 
 div.food-home__bottom > section > div > div.row > div {
-    /*width: 20em;*/ 
-    
+    /*width: 20em;*/
+
     margin: 1em;
-    
+
 }
 
 div.my-img-link  {
@@ -303,7 +303,7 @@ div.mask>h5{
 }
 div.food-item:hover div.mask{
     opacity:0.8;
-    
+
 }
 
 #restaurant > div > div.food-home__bottom > section > div > div {
@@ -325,8 +325,8 @@ div.food-home__top >div.list-categories{
     justify-content: center;
 }
 div.food-home__top >div.list-categories>div{
-        margin: auto 10px;
-        
+    margin: auto 10px;
+
 }
 div.food-home__top >div.list-categories> div > a {
     text-decoration: none;
@@ -367,4 +367,25 @@ h3:after{
 h3:hover:before,h3:hover:after{
     width:100%;
     transition:800ms ease all;
+}
+
+section.newfood-container{
+    /*background: #ffffff;*/
+    background-color: rgba(2,6,23,0.4);
+    width: 100%;
+    margin: 20px auto;
+    padding: 10px;
+    /*color: #ffffff;*/
+}
+table.table-hover {
+    width: 100%;
+    margin: 0 auto;
+    /*padding: 20px;*/
+    text-align: center;
+    border: 2px solid transparent;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19);
+    color: #FFFFFF;
+}
+th,td{
+    padding: 10px;
 }

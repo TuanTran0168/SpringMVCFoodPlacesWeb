@@ -5,6 +5,7 @@
 package com.tuantran.repository;
 
 import com.tuantran.pojo.Follow;
+import java.util.Map;
 
 /**
  *
@@ -13,4 +14,5 @@ import com.tuantran.pojo.Follow;
 public interface FollowRepository {
     int addFollow (Follow follow);
     Follow getFollowByUserIdAndRestaurantId (int userId, int restaurantId);
+    Follow checkFollow (Follow follow);
 }

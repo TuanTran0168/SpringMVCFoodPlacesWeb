@@ -4,11 +4,14 @@
  */
 package com.tuantran.controllers;
 
+import com.tuantran.pojo.Fooditems;
+import com.tuantran.pojo.ReceiptDetail;
 import com.tuantran.pojo.Restaurants;
 import com.tuantran.pojo.Roles;
 import com.tuantran.pojo.Users;
 import com.tuantran.service.CategoriesFoodService;
 import com.tuantran.service.FoodItemsService;
+import com.tuantran.service.ReceiptDetailService;
 import com.tuantran.service.RestaurantStatusService;
 import com.tuantran.service.RestaurantsService;
 import com.tuantran.service.UsersService;
@@ -55,6 +58,9 @@ public class RestaurantsController {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private ReceiptDetailService receiptDetailService;
 
     @ModelAttribute
     public void commonAttr(Model model) {
@@ -133,8 +139,14 @@ public class RestaurantsController {
                         model.addAttribute("restaurant", this.restaurantsService.getRestaurantById(restaurantId));
                         model.addAttribute("category_list", this.categoryFoodService.getCategoriesFoodByRestaurantId(restaurantId));
                         params.put("restaurantId", String.valueOf(restaurantId));
-                        model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
+                        List<Fooditems> food_list = this.foodItemsService.getFoodItems(params);
+                        model.addAttribute("food_list", food_list);
 
+                        List<ReceiptDetail> receiptDetails_list = new ArrayList<>();
+                        for (Fooditems food : food_list) {
+                            receiptDetails_list.addAll(this.receiptDetailService.getReceiptDetailsByFoodId(food.getFoodId()));
+                        }
+                        model.addAttribute("receiptDetails_list", receiptDetails_list);
                         // FOOD
 //                        int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
 //                        int countFoodItems = this.foodItemsService.countFoodItems(params);
@@ -155,9 +167,7 @@ public class RestaurantsController {
 //                        } else {
 //                            model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
 //                        }
-                        
                         // END FOOD
-
                     } else {
                         msg = "You are not the owner of this restaurant!";
                         model.addAttribute("msg", msg);

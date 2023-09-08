@@ -67,4 +67,15 @@ public class FollowServiceImpl implements FollowService {
         return this.followRepo.getFollowByUserIdAndRestaurantId(userId, restaurantId);
     }
 
+    @Override
+    public Follow checkFollow(Map<String, String> params) {
+//        Follow follow = new Follow();
+        String userId = params.get("userId");
+        String restaurantId = params.get("restaurantId");
+        
+       
+
+        return this.followRepo.checkFollow( this.getFollowByUserIdAndRestaurantId(Integer.parseInt(userId), Integer.parseInt(restaurantId)));
+    }
+
 }
