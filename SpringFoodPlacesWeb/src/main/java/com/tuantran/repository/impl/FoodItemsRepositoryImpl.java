@@ -148,11 +148,16 @@ public class FoodItemsRepositoryImpl implements FoodItemsRepository {
         Session session = this.factory.getObject().getCurrentSession();
         Fooditems food = this.getFoodItemById(id);
         try {
-            if (food.getActive().equals(Boolean.TRUE)) {
-                food.setActive(Boolean.FALSE);
-                session.update(food);
-            } else {
-                session.delete(food);
+            if (food != null) {
+                if (food.getActive().equals(Boolean.TRUE)) {
+                    food.setActive(Boolean.FALSE);
+                    session.update(food);
+                } else {
+                    session.delete(food);
+                }
+            }
+            else {
+                return false;
             }
 //            session.delete(food);
             return true;

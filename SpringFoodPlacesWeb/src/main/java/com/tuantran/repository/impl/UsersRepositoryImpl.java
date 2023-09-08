@@ -4,8 +4,10 @@
  */
 package com.tuantran.repository.impl;
 
+import com.tuantran.pojo.Restaurants;
 import com.tuantran.pojo.Users;
 import com.tuantran.repository.UsersRepository;
+import com.tuantran.service.RestaurantsService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +45,9 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RestaurantsService restaurantsService;
 
     @Override
     public List<Users> getUsers(Map<String, String> params) {
@@ -199,9 +204,25 @@ public class UsersRepositoryImpl implements UsersRepository {
     public boolean deleteUsers(int id) {
         Session session = this.factory.getObject().getCurrentSession();
         Users user = this.getUserById(id);
-
         try {
-            session.delete(user);
+            if (user != null) {
+                if (user.getActive().equals(Boolean.TRUE)) {
+                    user.setActive(Boolean.FALSE);
+                    session.update(user);
+                    List<Restaurants> restaurant_list = this.restaurantsService.getRestaurantByUserId(id);
+                    
+                    if (!restaurant_list.isEmpty()) {
+                        for (Restaurants restaurant : restaurant_list) {
+                            this.restaurantsService.deleteRestaurants(restaurant.getRestaurantId());
+                        }
+                    }
+                } else {
+                    session.delete(user);
+                }
+            }
+            else {
+                return false;
+            }
             return true;
         } catch (HibernateException ex) {
             ex.printStackTrace();
@@ -290,7 +311,6 @@ public class UsersRepositoryImpl implements UsersRepository {
 //            return 0;
 //        }
 //    }
-    
     @Override
     public int updateUser(Users user) {
         Session session = this.factory.getObject().getCurrentSession();

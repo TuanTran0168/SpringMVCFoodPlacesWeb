@@ -35,10 +35,10 @@ public class ShelfLifeRepositoryImpl implements ShelfLifeRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Autowired
     private Environment environment;
-    
+
     @Autowired
     private FoodItemsService foodItemsService;
 
@@ -136,16 +136,20 @@ public class ShelfLifeRepositoryImpl implements ShelfLifeRepository {
         Session session = this.factory.getObject().getCurrentSession();
         ShelfLife shelfLife = this.getShelfLifeById(id);
         try {
-            if (shelfLife.getActive().equals(Boolean.TRUE)) {
-                shelfLife.setActive(Boolean.FALSE);
-                session.update(shelfLife);
-                List<Fooditems> foodItem_list = this.foodItemsService.getFoodItemsByCategoryId(id);
+            if (shelfLife != null) {
+                if (shelfLife.getActive().equals(Boolean.TRUE)) {
+                    shelfLife.setActive(Boolean.FALSE);
+                    session.update(shelfLife);
+                    List<Fooditems> foodItem_list = this.foodItemsService.getFoodItemsByCategoryId(id);
 
-                for (Fooditems food : foodItem_list) {
-                    this.foodItemsService.delFoodItem(food.getFoodId());
+                    for (Fooditems food : foodItem_list) {
+                        this.foodItemsService.delFoodItem(food.getFoodId());
+                    }
+                } else {
+                    session.delete(shelfLife);
                 }
             } else {
-                session.delete(shelfLife);
+                return false;
             }
             return true;
         } catch (HibernateException ex) {

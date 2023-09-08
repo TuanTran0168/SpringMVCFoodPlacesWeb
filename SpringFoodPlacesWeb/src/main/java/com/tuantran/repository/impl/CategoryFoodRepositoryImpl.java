@@ -37,13 +37,13 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
 
     @Autowired
     private LocalSessionFactoryBean factory;
-    
+
     @Autowired
     private Environment environment;
-    
+
     @Autowired
     private FoodItemsService foodItemsService;
-    
+
 //    @Override
 //    public List<Object[]> getCategoriesFood(Map<String, String> params) {
 //        Session session = this.factory.getObject().getCurrentSession();
@@ -145,17 +145,22 @@ public class CategoryFoodRepositoryImpl implements CategoryFoodRepository {
         Session session = this.factory.getObject().getCurrentSession();
         CategoriesFood cate = this.getCategoryById(id);
         try {
-            if (cate.getActive().equals(Boolean.TRUE)) {
-                cate.setActive(Boolean.FALSE);
-                session.update(cate);
-                List<Fooditems> foodItem_list = this.foodItemsService.getFoodItemsByCategoryId(id);
-                
-                for (Fooditems food : foodItem_list) {
-                    this.foodItemsService.delFoodItem(food.getFoodId());
+            if (cate != null) {
+                if (cate.getActive().equals(Boolean.TRUE)) {
+                    cate.setActive(Boolean.FALSE);
+                    session.update(cate);
+                    List<Fooditems> foodItem_list = this.foodItemsService.getFoodItemsByCategoryId(id);
+
+                    for (Fooditems food : foodItem_list) {
+                        this.foodItemsService.delFoodItem(food.getFoodId());
+                    }
+
+                } else {
+                    session.delete(cate);
                 }
-                
-            } else {
-                session.delete(cate);
+            }
+            else {
+                return false;
             }
             return true;
         } catch (HibernateException ex) {

@@ -127,10 +127,9 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
                         session.update(user);
                     }
                     session.update(restaurant);
-                }
-                else {
+                } else {
                     return false;
-                }    
+                }
             }
 
             return true;
@@ -174,21 +173,31 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
         Session session = this.factory.getObject().getCurrentSession();
         Restaurants restaurants = this.getRestaurantById(id);
         try {
-            if (restaurants.getActive().equals(Boolean.TRUE)) {
-                restaurants.setActive(Boolean.FALSE);
-                session.update(restaurants);
-                List<CategoriesFood> category_list = this.categoriesFoodService.getCategoriesFoodByRestaurantId(id);
-                for (CategoriesFood cate : category_list) {
-                    this.categoriesFoodService.delCategory(cate.getCategoryfoodId());
-                }
+            if (restaurants != null) {
+                if (restaurants.getActive().equals(Boolean.TRUE)) {
+                    restaurants.setActive(Boolean.FALSE);
+                    session.update(restaurants);
+                    List<CategoriesFood> category_list = this.categoriesFoodService.getCategoriesFoodByRestaurantId(id);
 
-                List<ShelfLife> shelflife_list = this.shelfLifeService.getShelfLifeByRestaurantId(id);
+                    if (!category_list.isEmpty()) {
+                        for (CategoriesFood cate : category_list) {
+                            this.categoriesFoodService.delCategory(cate.getCategoryfoodId());
+                        }
+                    }
 
-                for (ShelfLife sl : shelflife_list) {
-                    this.shelfLifeService.delShelf(sl.getShelflifeId());
+                    List<ShelfLife> shelflife_list = this.shelfLifeService.getShelfLifeByRestaurantId(id);
+
+                    if (!shelflife_list.isEmpty()) {
+                        for (ShelfLife sl : shelflife_list) {
+                            this.shelfLifeService.delShelf(sl.getShelflifeId());
+                        }
+                    }
+
+                } else {
+                    session.delete(restaurants);
                 }
             } else {
-                session.delete(restaurants);
+                return false;
             }
             return true;
         } catch (HibernateException ex) {
