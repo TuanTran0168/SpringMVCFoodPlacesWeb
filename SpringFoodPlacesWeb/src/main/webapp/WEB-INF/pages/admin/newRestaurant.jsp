@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="form-floating mb-3 mt-3">
-                        <form:input path="userId" class="getId" id="load_userId_js" />
+                        <form:input path="userId" class="getId" id="" />
                     </div>
                     
 <!--                    <div class="form-floating mb-3 mt-3">

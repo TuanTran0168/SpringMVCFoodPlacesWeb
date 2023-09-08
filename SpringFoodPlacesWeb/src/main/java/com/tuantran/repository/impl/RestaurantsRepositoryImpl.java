@@ -7,12 +7,14 @@ package com.tuantran.repository.impl;
 import com.tuantran.pojo.CategoriesFood;
 import com.tuantran.pojo.RestaurantStatus;
 import com.tuantran.pojo.Restaurants;
+import com.tuantran.pojo.Roles;
 import com.tuantran.pojo.ShelfLife;
 import com.tuantran.pojo.Users;
 import com.tuantran.repository.RestaurantsRepository;
 import com.tuantran.repository.UsersRepository;
 import com.tuantran.service.CategoriesFoodService;
 import com.tuantran.service.ShelfLifeService;
+import com.tuantran.service.UsersService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -48,8 +50,10 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
     @Autowired
     private Environment environment;
 
+//    @Autowired
+//    private UsersRepository userRepo;
     @Autowired
-    private UsersRepository userRepo;
+    private UsersService usersService;
 
     @Autowired
     private CategoriesFoodService categoriesFoodService;
@@ -115,7 +119,18 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
                 restaurant.setActive(Boolean.TRUE);
                 session.save(restaurant);
             } else {
-                session.update(restaurant);
+                Users user = this.usersService.getUserById(restaurant.getUserId().getUserId());
+
+                if (user != null) {
+                    if (user.getRoleId().getRoleId() == 3) {
+                        user.setRoleId(new Roles(2));
+                        session.update(user);
+                    }
+                    session.update(restaurant);
+                }
+                else {
+                    return false;
+                }    
             }
 
             return true;
@@ -166,9 +181,9 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
                 for (CategoriesFood cate : category_list) {
                     this.categoriesFoodService.delCategory(cate.getCategoryfoodId());
                 }
-                
+
                 List<ShelfLife> shelflife_list = this.shelfLifeService.getShelfLifeByRestaurantId(id);
-                
+
                 for (ShelfLife sl : shelflife_list) {
                     this.shelfLifeService.delShelf(sl.getShelflifeId());
                 }
@@ -258,7 +273,7 @@ public class RestaurantsRepositoryImpl implements RestaurantsRepository {
         Session session = this.factory.getObject().getCurrentSession();
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            Users user = this.userRepo.getUserByUsername_new(authentication.getName());
+            Users user = this.usersService.getUserByUsername_new(authentication.getName());
 
             restaurant.setUserId(user);
             restaurant.setActive(Boolean.TRUE);
