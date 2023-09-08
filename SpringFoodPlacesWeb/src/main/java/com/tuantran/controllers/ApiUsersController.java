@@ -161,4 +161,25 @@ public class ApiUsersController {
 
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
+    
+    @PostMapping(path = "/change-password/",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @CrossOrigin
+    public ResponseEntity<String> changePassword(@RequestParam Map<String, String> params) {
+        int check = this.usersService.changePassword(params);
+         String message = "Có lỗi xảy ra!";
+
+        if (check == 1) {
+            return new ResponseEntity<>("Đổi mật khẩu thành công!", HttpStatus.OK);
+        } else if (check == 2) {
+            message = "Không tìm thấy tài khoản để đổi mật khẩu!";
+        } else if (check == 3) {
+            message = "Mật khẩu cũ không chính xác!";
+        } else {
+            message = "Có lỗi xảy ra!";
+        }
+
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    }
 }

@@ -392,4 +392,16 @@ public class UsersRepositoryImpl implements UsersRepository {
         }
     }
 
+    @Override
+    public int changePassword(Users user) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            session.update(user);
+            return 1;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return 0;
+        }
+    }
+
 }

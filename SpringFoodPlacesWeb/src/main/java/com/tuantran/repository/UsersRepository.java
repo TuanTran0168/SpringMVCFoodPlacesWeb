@@ -34,4 +34,5 @@ public interface UsersRepository {
     int updateUser(Users user);
     Users getUserByPhonenumber(String phonenumber);
     Users getUserByEmail(String email);
+    int changePassword(Users user);
 }

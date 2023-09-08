@@ -418,4 +418,32 @@ public class UsersServiceImpl implements UsersService {
     public Users getUserByEmail(String email) {
         return this.usersRepo.getUserByEmail(email);
     }
+
+    @Override
+    public int changePassword(Map<String, String> params) {
+        //confirmPassword trên client tự xử
+        String username = params.get("username");
+        boolean isUsernameExists = this.usersRepo.isUsernameExists(username);
+
+        if (isUsernameExists != true) {
+            return 2; // Không tìm thấy username để đổi mật khẩu
+        } else {
+            Users user = this.getUserByUsername_new(username);
+
+            String oldPassword = params.get("password");
+            String newPassword = params.get("newPassword");
+            
+//            String oldPassword_encode = this.bCryptPasswordEncoder.encode(oldPassword);
+//            String currentPassword_encode = user.getPassword();
+            
+            if (this.bCryptPasswordEncoder.matches(oldPassword, user.getPassword())) {
+                user.setPassword(this.bCryptPasswordEncoder.encode(newPassword));
+            }
+            else {
+                return 3; // Sai mật khẩu cũ
+            }
+            
+            return this.usersRepo.updateUser(user);
+        }
+    }
 }
