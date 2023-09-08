@@ -18,7 +18,12 @@ export const endpoints = {
     "restaurant": `${SERVER_CONTEXT}/api/restaurants/`,
     "restaurant_detail":(restaurantId) => `${SERVER_CONTEXT}/api/restaurants/${restaurantId}/`,
     "register-restaurant": `${SERVER_CONTEXT}/api/register-restaurant/`,
-    "receipt":`${SERVER_CONTEXT}/api/receipts/`
+    "receipt":`${SERVER_CONTEXT}/api/receipts/`,
+    "receiptDetail":(receiptId) => `${SERVER_CONTEXT}/api/receipt/${receiptId}/receiptDetails/`,
+    "changePassword": `${SERVER_CONTEXT}/api/change-password/`,
+    "follow": `${SERVER_CONTEXT}/api/follow/`,
+    "check-follow": `${SERVER_CONTEXT}/api/check-follow/`
+    
 
     
 }

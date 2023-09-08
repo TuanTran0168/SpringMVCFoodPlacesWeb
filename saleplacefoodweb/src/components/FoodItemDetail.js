@@ -158,7 +158,7 @@ const FoodItemDetail = () => {
     let url_res = `/restaurant_detail/${foodItem.restaurantId.restaurantId}`
     return <>
 
-        <h1 className="text-center text-info mt-2">CHI TIẾT SẢN PHẨM ({foodItem.foodName})</h1>
+        <h1 className="text-center text-info mt-2 tieude_fooditem_detail">CHI TIẾT SẢN PHẨM ({foodItem.foodName})</h1>
         <Row>
             <Col md={5} xs={6}>
                 <Image className="img_fooditemdetail" src={foodItem.avatar} rounded fluid />

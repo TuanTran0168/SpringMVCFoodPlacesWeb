@@ -25,7 +25,7 @@ const Login = () => {
 
     const login = (evt) => {
         evt.preventDefault();
-
+        setLoading(true);
         const process = async () => {
             try {
                 setLoading(true);
@@ -49,10 +49,10 @@ const Login = () => {
             } catch (ex) {
                 setLoading(false);
                 setErr(ex.request.responseText + "");
-                setTimeout(()=>{
+                setTimeout(() => {
                     notify(err);
                 }, 300)
-                
+
             }
         }
         process();
@@ -93,9 +93,7 @@ const Login = () => {
 
                                     <p className="small mb-3 pb-lg-2"><Link class="text-white-50" to="/changPassword">Quên mật khẩu?</Link></p>
 
-                                    <MDBBtn outline className='mx-2 px-5' type="submit" color='white' size='lg'>
-                                        Đăng Nhập
-                                    </MDBBtn>
+                                    {loading === true ? <MySpinner /> : <MDBBtn outline className='mx-2 px-5' type="submit" color='white' size='lg'>Đăng Nhập</MDBBtn>}
                                     <ToastContainer />
 
                                     <div className='d-flex flex-row mt-3 mb-5'>

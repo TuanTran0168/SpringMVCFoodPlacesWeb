@@ -54,7 +54,7 @@ function App() {
               <Route path="/restaurant_detail/:restaurantId" element={<RestaurantDetail />} />
               <Route path="/register_restaurant" element={<RegisterRestaurant />} />
               <Route path="/receipt" element={<Receipt />} />    
-              <Route path="/changepassword" element={<ChangePassword />} />        
+              <Route path="/changepassword" element={<ChangePassword />} />    
               </Routes>
           </Container>
           <Footer />

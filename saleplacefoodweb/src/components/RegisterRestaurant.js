@@ -6,6 +6,8 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import img from '../resources/img/react_icon.png'
 import '../resources/css/RegisterRestaurant.css'
 import { MyUserContext } from "../App";
+import { MDBBtn, MDBCard, MDBCardBody, MDBInput } from "mdb-react-ui-kit";
+import ProfileComponents from "../layout/ProfileComponents";
 
 const RegisterRestaurant = () => {
 
@@ -81,42 +83,18 @@ const RegisterRestaurant = () => {
     return <>
         <h1 className="text-center text-info">Đăng Ký Nhà Hàng</h1>
         <div className="contain_info ">
-            <div className="contain_info_1">
-                <Nav variant="tabs" defaultActiveKey="/home">
-                    <Nav.Item className="nav-link text-success choose">
-                        <Link to="/profile" >User Info</Link>
-                    </Nav.Item>
-                    <Nav.Item className="nav-link text-success choose">
-                        <Link to="/changepassword" >Change Password</Link>
-                    </Nav.Item>
-                    <Nav.Item className="nav-link text-success choose">
-                        <Link to="/receipt" >Order History</Link>
-                    </Nav.Item>
-                    <Nav.Item className="nav-link text-success choose">
-                        <Link to="/register_restaurant" >Register Restaurant</Link>
-                    </Nav.Item>
-                </Nav>
-            </div>
+        <ProfileComponents />
             <div className="contain_info_2">
-                <Form onSubmit={register_restaurant}>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Tên nhà hàng</Form.Label>
-                        <Form.Control type="text" onChange={(e) => { change(e, "restaurantName") }} placeholder="Tên nhà hàng" required />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Địa chỉ</Form.Label>
-                        <Form.Control type="text" onChange={(e) => { change(e, "location") }} placeholder="Địa chỉ" required />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Ảnh đại diện</Form.Label>
-                        <Form.Control type="file" ref={avatar} />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        {loading === true ? <MySpinner /> : <Button variant="info" type="submit">Gửi Yêu Cầu</Button>}
 
-                    </Form.Group>
-
-                </Form>
+                <MDBCard className='m-5 register_form' style={{ maxWidth: '600px' }}>
+                    <MDBCardBody className='px-5 register_form_child'>
+                        <h2 className="text-uppercase text-center mb-5">Form Đăng Ký Nhà Hàng</h2>
+                        <MDBInput wrapperClass='mb-4' required onChange={(e) => change(e, "restaurantName")} label='Tên Nhà Hàng' size='lg' id='form1' type='text' />
+                        <MDBInput wrapperClass='mb-4' required onChange={(e) => change(e, "location")} label='Địa Chỉ' size='lg' id='form3' type='text' />
+                        <MDBInput wrapperClass='mb-4' ref={avatar} size='lg' id='form4' type='file' />
+                        {loading === true ? <MySpinner /> : <MDBBtn type="submit" className='mb-4 w-100 gradient-custom-4' size='lg'>Gửi Yêu Cầu</MDBBtn>}
+                    </MDBCardBody>
+                </MDBCard>
                 <hr />
 
                 <Col>

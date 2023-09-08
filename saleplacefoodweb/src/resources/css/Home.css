@@ -25,10 +25,13 @@
     display: flex !important;;
 }
 
+#root {
+    background-image: url('../img/bakcground2.jpg');
+}
+
 .contain{
     padding:0;
     width:100%;
-    background-image: url('../img/bakcground2.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
@@ -94,7 +97,14 @@
 .fooditems img {
     max-width: 300px;
     max-height: 150px;
+    /* height: auto;
+    -webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out; */
 }
+/* 
+.fooditems img:hover{
+    width: 350px;
+} */
 
 .carol_img {
     max-width: 800px;
@@ -147,15 +157,15 @@
     margin-left: 80px !important;
 }
 
-.carousel_edit{
+/* .carousel_edit{
     width: 80%;
     margin-left: auto;
 
-}
+} */
 
-.find_carousel{
+/* .find_carousel{
     display: flex;
-}
+} */
 
 .col-auto {
     flex: none;
@@ -176,6 +186,21 @@
     width: 25%;
     margin: auto;
     border-radius: 5px 5px 5px 5px
+}
+
+.food_item {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: antiquewhite;
+}
+.food_item:hover {
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
+}
+
+.raise:hover,
+.raise:focus {
+  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+  transform: translateY(-0.25em);
 }
 
 

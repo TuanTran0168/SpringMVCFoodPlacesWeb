@@ -4,6 +4,10 @@
 }
 
 
+.tieude_fooditem_detail {
+    margin-top: 0 !important;
+}
+
 /* avatar restaurant*/
 .info_restaurant{
     display: flex;
@@ -43,6 +47,7 @@
 .name_avatar_comment img{
     max-width: 80px;
     max-height: 50px;
+    margin-top: 0px !important;
 }
 
 .name_avatar_comment > div > time{

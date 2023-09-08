@@ -262,7 +262,7 @@ const RestaurantDetail = () => {
                 {/* <div className="body_fooditem_res_detai"> */}
                 <div className="cate_res_detail_parent">
 
-                    {categories === null ? <MySpinner /> :
+                    {categories === null || categories === undefined ? <MySpinner /> :
                         <>
                             {loading === true ? <MySpinner /> : <Button onClick={() => { loadFoodItems_cate(-1) }} className="btncate btncate-2 cate_res_detail">Toàn Bộ</Button>}
 
