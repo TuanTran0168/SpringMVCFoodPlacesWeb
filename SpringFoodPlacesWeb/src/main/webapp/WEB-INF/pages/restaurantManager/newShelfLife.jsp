@@ -3,6 +3,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
+<link rel="stylesheet" href=" <c:url value="/css/background.css" /> "/>
 <c:if test="${not empty param.msg}">
     <div class="toast show">
         <div class="toast-header">
@@ -14,14 +15,13 @@
         </div>
     </div>
 </c:if>
-<div class="container">
+<div class="container update-food">
 
     <c:url value="/restaurantManager/shelfLife/newShelfLife" var="action"/>
 
 
     <form:form method="post" action="${action}" modelAttribute="shelfLife">
         <form:hidden path="shelflifeId" />
-    </div>
     <div class="form-floating mb-3 mt-3">
         <form:input type="text" class="form-control" path="shelflifeName" id="shelflifeName" placeholder="Nhập Tên... " name="shelflifeName" />
         <label for="shelflifeName">Nhập Tên</label>

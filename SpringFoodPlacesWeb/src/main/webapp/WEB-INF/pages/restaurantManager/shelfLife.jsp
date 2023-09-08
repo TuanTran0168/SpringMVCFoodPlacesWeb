@@ -22,14 +22,15 @@
         </div>
     </div>
 </c:if>
-<section class="container">
+<section class="container food-container">
     <!--    <div>
             <a href="shelfLife/newShelfLife" class = "btn btn-success"> Thêm Thời Gian Bán </a>
         </div>-->
 
     <div>
+        <h1 class="heading">QUẢN LÝ THỜI GIAN BÁN</h1>
         <form:form method="post" modelAttribute="shelfLife">
-        </div>
+        
         <div class="form-floating mb-3 mt-3">
             <form:input type="text" class="form-control" path="shelflifeName" id="shelflifeName" placeholder="Nhập Tên... " name="shelflifeName" />
             <label for="shelflifeName">Nhập Tên</label>
@@ -51,15 +52,16 @@
     </form:form>
 </div>
 </section>
+    <hr>
 
-<table class="table-hover container">
+<section class="container newfood-container">
+    <table class="table-hover ">
     <thead>
         <tr>
             <th>Name</th>
             <th>fromDate</th>
             <th>toDate</th>
 
-    <hr>
     </tr>
     </thead>
 
@@ -79,5 +81,6 @@
         </tbody>
     </c:forEach>
 </table>
+</section>
 <script src="<c:url value="/js/shelfLife.js" />"></script>
 

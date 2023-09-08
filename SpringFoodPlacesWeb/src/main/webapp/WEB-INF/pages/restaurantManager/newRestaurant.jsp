@@ -45,26 +45,43 @@
 
             <div class="food-home">
                 <div class="food-home__top">
-                    <button>
+                    
+<!--                    <div>
                         <c:url value="/restaurantManager/categoriesFood" var="editCategoriesFoodAction">
                             <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
                         </c:url>
-                        <a href="${editCategoriesFoodAction}">Quản lý danh mục</a>
-                    </button>
+                        <a href="${editCategoriesFoodAction}">
+                                Quản lý danh mục                                
+                        </a>
+                    </div>-->
+                    <div class="list-categories">
+                        <div>
+                            <c:url value="/restaurantManager/categoriesFood" var="editCategoriesFoodAction">
+                                <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                            </c:url>
+                            <a href="${editCategoriesFoodAction}">
+                                <h3>Quản lý danh mục</h3>
+                            </a>
+                        </div>
 
-                    <button>
-                        <c:url value="/restaurantManager/shelfLife" var="editShelfLifeAction">
-                            <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
-                        </c:url>
-                        <a href="${editShelfLifeAction}">Quản lý thời gian bán</a>
-                    </button>
+                        <div>
+                            <c:url value="/restaurantManager/shelfLife" var="editShelfLifeAction">
+                                <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                            </c:url>
+                            <a href="${editShelfLifeAction}">
+                                <h3>Quản lý thời gian bán</h3>
+                            </a>
+                        </div>
 
-                    <button>
-                        <c:url value="/restaurantManager/foodItems" var="editFoodAction">
-                            <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
-                        </c:url>
-                        <a href="${editFoodAction}">Quản lý món ăn</a>
-                    </button>
+                        <div>
+                            <c:url value="/restaurantManager/foodItems" var="editFoodAction">
+                                <c:param name="restaurantId" value="${restaurant.restaurantId}"></c:param>
+                            </c:url>
+                            <a href="${editFoodAction}">
+                                <h3>Quản lý món ăn</h3>
+                            </a>
+                        </div>
+                    </div>
 
                     <ul class="category">
                         <li>
@@ -154,6 +171,7 @@
                             </li>
                         </c:forEach>
                     </ul>
+                    
                 </div>
             </div>
         </c:when>

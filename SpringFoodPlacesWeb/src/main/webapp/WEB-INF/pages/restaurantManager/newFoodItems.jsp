@@ -7,8 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<h1 style="text-align: center">THÊM MÓN</h1>
+<link rel="stylesheet" href=" <c:url value="/css/background.css" /> "/>
 <link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
 <c:if test="${not empty param.msg}">
     <div class="toast show">
@@ -21,8 +20,8 @@
         </div>
     </div>
 </c:if>
-<div class="container">
-
+<div class="container update-food">
+<h1 style="text-align: center">CẬP NHẬT MÓN ĂN</h1>
     <c:url value="/restaurantManager/foodItems/newFoodItems" var="action"/>
     <form:form method="post" action="${action}" modelAttribute="foodItem" enctype="multipart/form-data">
         <form:errors path="*" element="div" cssClass="alert alert-danger" />

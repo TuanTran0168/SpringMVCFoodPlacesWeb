@@ -22,7 +22,7 @@
         </div>
     </div>
 </c:if>
-<section class="container">
+<section class="container food-container">
 
     <!--    <div>
     <c:url value="categoriesFood/newCategoriesFood" var="newCateAction">
@@ -32,6 +32,7 @@
 </div>-->
 
     <div>
+        <h1 class="heading">DANH MỤC MÓN ĂN</h1>
         <form:form method="post" modelAttribute="cate">
             <div class="form-floating mb-3 mt-3">
                 <form:input type="text" class="form-control" path="categoryname" id="categoryname" placeholder="Nhập tên danh mục... " name="categoryname" />
@@ -45,13 +46,17 @@
         </form:form>
     </div>
 
-    <table class="table-hover container">
+    
+</section>
+<hr>
+<section class="container newfood-container">
+    <table class="table-hover">
         <thead>
             <tr>
                 <th>Category Id</th>
                 <th>Category Name</th>
                 <th>id nha hang</th>
-        <hr>
+        
         </tr>
         </thead>
 

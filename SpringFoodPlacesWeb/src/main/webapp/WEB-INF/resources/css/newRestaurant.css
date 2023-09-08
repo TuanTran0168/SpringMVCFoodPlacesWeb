@@ -310,11 +310,61 @@ div.food-item:hover div.mask{
     /*
         27em = 1 card
         27 * 3 = 81
-        Cho thêm tí luôn là 85
+        Cho thÃªm tÃ­ luÃ´n lÃ  85
     */
     width: 90%;
     margin: 0 auto;
     max-height: 50em;
     overflow: auto;
 }
+div.food-home__top >div.list-categories{
+    display: flex;
+    width:60%;
+    margin: 0 auto;
+    padding: 0;
+    justify-content: center;
+}
+div.food-home__top >div.list-categories>div{
+        margin: auto 10px;
+        
+}
+div.food-home__top >div.list-categories> div > a {
+    text-decoration: none;
+    color: #fee1d4;
+    font-weight: bold;
+}
+div.food-home__top >div.list-categories> div > a>h3{
+    background: black;
+    color: #fee1d4;
+    border: none;
+    position: relative;
+    height: 50px;
+    padding: 13px 2em;
+    cursor: pointer;
+    transition: 800ms ease all;
+    outline: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
 
+}
+h3:before,h3:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #fee1d4;
+    transition:400ms ease all;
+}
+h3:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+h3:hover:before,h3:hover:after{
+    width:100%;
+    transition:800ms ease all;
+}
