@@ -170,4 +170,16 @@ public class ReceiptRepositoryImpl implements ReceiptRepository {
             return null;
         }
     }
+
+    @Override
+    public boolean updateAcceptReceipt(Receipts receipt) {
+        Session session = this.factory.getObject().getCurrentSession();
+        try {
+            session.update(receipt);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 }

@@ -5,6 +5,7 @@
 package com.tuantran.service.impl;
 
 import com.tuantran.pojo.Cart;
+import com.tuantran.pojo.ReceiptStatus;
 import com.tuantran.pojo.Receipts;
 import com.tuantran.repository.ReceiptRepository;
 import com.tuantran.service.ReceiptService;
@@ -36,5 +37,16 @@ public class ReceiptServiceImpl implements ReceiptService{
     @Override
     public Receipts getReceiptById(int id) {
         return this.receiptRepo.getReceiptById(id);
+    }
+
+    @Override
+    public boolean updateAcceptReceipt(int receiptId) {
+        Receipts receipt = this.receiptRepo.getReceiptById(receiptId);
+        
+        if (receipt != null) {
+            receipt.setStatusReceiptId(new ReceiptStatus(2));
+        }
+        
+        return this.receiptRepo.updateAcceptReceipt(receipt);
     }
 }

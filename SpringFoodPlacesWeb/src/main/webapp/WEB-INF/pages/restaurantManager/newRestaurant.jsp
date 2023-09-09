@@ -170,7 +170,6 @@
                         <table class="table-hover ">
                             <thead>
                                 <tr>
-<!--                                    <th>Nhà hàng ${restaurantId}</th>-->
                                     <th>Mã hóa đơn</th>
                                     <th>Tên món</th>
                                     <th>Giá 1 món</th>

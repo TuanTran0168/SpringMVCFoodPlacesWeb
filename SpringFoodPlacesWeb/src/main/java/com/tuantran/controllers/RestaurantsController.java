@@ -192,27 +192,7 @@ public class RestaurantsController {
                         model.addAttribute("receiptDetails_list", receiptDetails_list);
                         model.addAttribute("receipts_List", receipts_List);
                         model.addAttribute("receiptDetailPerfect_list", receiptDetailPerfect);
-                        // FOOD
-//                        int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
-//                        int countFoodItems = this.foodItemsService.countFoodItems(params);
-//                        model.addAttribute("counter", Math.ceil(countFoodItems * 1.0 / pageSize));
-//
-//                        String pageStr = params.get("page");
-//                        String pageAllStr = params.get("pageAll");
-////                        String cateFoodId = params.get("cateFoodId");
-//
-//                        if (pageStr == null) {
-//                            if (pageAllStr == null) {
-//                                params.put("page", "1");
-//                                model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
-//                            } else {
-//                                model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
-//                            }
-//
-//                        } else {
-//                            model.addAttribute("food_list", this.foodItemsService.getFoodItems(params));
-//                        }
-                        // END FOOD
+
                     } else {
                         msg = "You are not the owner of this restaurant!";
                         model.addAttribute("msg", msg);

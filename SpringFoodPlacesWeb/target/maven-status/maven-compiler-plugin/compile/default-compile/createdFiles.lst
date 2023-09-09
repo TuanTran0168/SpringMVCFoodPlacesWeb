@@ -37,8 +37,10 @@ com\tuantran\pojo\Fooditems.class
 com\tuantran\service\FollowService.class
 com\tuantran\service\impl\UsersServiceImpl.class
 com\tuantran\pojo\Cart.class
+com\tuantran\pojo\ReceiptDetailAndReceipt.class
 com\tuantran\pojo\RestaurantStatus.class
 com\tuantran\controllers\FoodItemsController.class
+.netbeans_automatic_build
 com\tuantran\controllers\ApiCategoryController.class
 com\tuantran\controllers\UsersController.class
 com\tuantran\pojo\Comments_.class
