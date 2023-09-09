@@ -1,5 +1,5 @@
 * {
-    margin-bottom:0;
+    margin-bottom: 0;
     /* padding:0; */
     /* background-image: url(../img/background.jpg); */
     background-repeat: no-repeat;
@@ -15,52 +15,65 @@
     transition:800ms ease all !important;
 } */
 
-.home{
-    display: flex !important;;   
-    width:100%;
-    margin:0;
+.home {
+    display: flex !important;
+    width: 100%;
+    margin: 0;
 }
 
-.flex{
-    display: flex !important;;
+.flex {
+    display: flex !important;
+    ;
 }
 
 #root {
     background-image: url('../img/bakcground2.jpg');
 }
 
-.contain{
-    padding:0;
-    width:100%;
+.contain {
+    padding: 0;
+    width: 100%;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
     background-attachment: fixed;
     position: relative;
     min-height: 600px;
+    padding: 0 !important;
+    margin-bottom: 50px;
 }
 
-.form_find_name{
+.form_find_name {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
 }
 
- /* card của fooditems */
+/* card của fooditems */
 
 .description {
     margin-left: auto;
 }
 
-.description p{
+.description p {
     margin-left: 10px;
 }
 
-.card{
+.card {
     width: 100%;
     overflow: hidden;
 }
 
 /* tìm kiếm*/
+
+.btn-find-header {
+    margin-left: 10px !important;
+    background: transparent !important;
+    color: initial !important;
+    background-color: transparent !important;
+    outline: 3px;
+    outline-color: #bdbdbd !important;
+}
+
 .find {
     /* position: fixed; */
     width: 20%;
@@ -72,23 +85,77 @@
     margin-bottom: 5px;
 }
 
+.form_timkiem {
+    width: 70%;
+    margin: auto;
+    margin-left: 250px;
+}
+
+.form_timkiem input {
+    /* width: 15%;
+    margin-left: 15px; */
+    /* border-radius: 4px 4px 4px 4px; */
+    margin-left: 10px !important;
+    background: transparent !important;
+    color: initial !important;
+    border: 10px !important;
+    background-color: red !important;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px; */
+}
+
+.btn-find {
+    width: 80px;
+    height: 55px;
+    margin-left: 10px
+}
+
+.form_timkiem label {
+    color: initial !important;
+}
+
+.form_timkiem input:focus {
+    outline: none;
+}
+
+.form_input_find_all {
+    display: flex;
+    margin: auto;
+    padding-top: 40px;
+    justify-content: center;
+    /* width: 900px; */
+    /* box-shadow: 3px 3px 20px rgba(0, 0, 0, 1); */
+
+}
+
+.form_input_find_all>div {
+    margin-left: 10px;
+}
+
+/* chỉnh cái này nè */
+/* .form-outline_home {
+    width: 21%;  
+} */
+
+/* .form-outline:focus {
+    border: 1px solid green !important;
+} */
 
 
 /* giao diện thức ăn*/
 
-.fooditems{
+.fooditems {
     width: 100%;
 }
 
-.btn-food{
+.btn-food {
     margin-left: 5px;
 }
 
 .btn_all {
-    display: flex!important;
+    display: flex !important;
 }
 
-.btn_all *{
+.btn_all * {
     width: 150px !important;
     height: 36px !important;
     font-size: 10px;
@@ -101,6 +168,7 @@
     -webkit-transition: .3s ease-in-out;
 	transition: .3s ease-in-out; */
 }
+
 /* 
 .fooditems img:hover{
     width: 350px;
@@ -113,11 +181,11 @@
 
 }
 
-.caption_res{
+.caption_res {
     margin-top: 50px;
 }
 
-.carosel_item{
+.carosel_item {
     width: 100%;
 }
 
@@ -132,12 +200,12 @@
 
 /* tìm kiếm*/
 
-.find_first{
+.find_first {
     margin-left: 100px;
     margin-right: 100px;
 }
 
-.find_first input{
+.find_first input {
     margin-top: 10px;
     width: 100%;
 }
@@ -157,6 +225,8 @@
     margin-left: 80px !important;
 }
 
+.input_find {}
+
 /* .carousel_edit{
     width: 80%;
     margin-left: auto;
@@ -172,17 +242,17 @@
     width: none;
 }
 
-.carousel-control-prev-icon{
-    color:black;
+.carousel-control-prev-icon {
+    color: black;
 }
 
-.carousel-control-next-icon{
-    color:black;
+.carousel-control-next-icon {
+    color: black;
 }
 
 .carousel_info_home {
-    color:white;
-    background-color:black;
+    color: white;
+    background-color: black;
     width: 25%;
     margin: auto;
     border-radius: 5px 5px 5px 5px
@@ -192,6 +262,7 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-color: antiquewhite;
 }
+
 .food_item:hover {
     box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
     transform: translateY(-0.25em);
@@ -199,8 +270,6 @@
 
 .raise:hover,
 .raise:focus {
-  box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
-  transform: translateY(-0.25em);
+    box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+    transform: translateY(-0.25em);
 }
-
-

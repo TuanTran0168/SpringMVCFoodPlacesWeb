@@ -129,6 +129,7 @@ const FoodItemDetail = () => {
         form.append("restaurantId", foodItem.restaurantId.restaurantId);
         form.append("foodId", foodItem.foodId);
         form.append("comment", newComment);
+        form.append("userId", user.userId); // moi them
         if (avatar.current.files[0] !== undefined) {
             form.append("avatar", avatar.current.files[0]);
         } else {

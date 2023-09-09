@@ -125,7 +125,7 @@ const Profile = () => {
         "phonenumber": "",
         "avatar": current_user.avatar */}
                     <MDBCardBody className='px-5'>
-                        <h2 className="text-uppercase text-center mb-5">Tạo Tài Khoản</h2>
+                        <h2 className="text-uppercase text-center mb-5"></h2>
                         <MDBInput wrapperClass='mb-4' defaultValue={current_user.firstname} required onChange={(e) => change(e, "firstname")} label='Họ' size='lg' id='form3' type='text' />
                         <MDBInput wrapperClass='mb-4' defaultValue={current_user.lastname} required onChange={(e) => change(e, "lastname")} label='Tên' size='lg' id='form3' type='text' />
                         <MDBInput wrapperClass='mb-4' defaultValue={current_user.username} readOnly required onChange={(e) => change(e, "username")} label='Tên Tài Khoản' size='lg' id='form3' type='text' />

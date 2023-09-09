@@ -10,6 +10,7 @@ export const endpoints = {
     "register":`${SERVER_CONTEXT}/api/register/`,
     "update-user":`${SERVER_CONTEXT}/api/update-user/`,
     "login":`${SERVER_CONTEXT}/api/login/`,
+    "login-google": `${SERVER_CONTEXT}/api/login-google/`,
     "current-user": `${SERVER_CONTEXT}/api/current-user/`, //lấy user hiện đang login
     "pay": `${SERVER_CONTEXT}/api/pay/`,
     "detail": (foodId) => `${SERVER_CONTEXT}/api/foodItems/${foodId}/`,

@@ -6,6 +6,7 @@ import MySpinner from "../layout/MySpinner";
 import '../resources/css/Home.css'
 import { MyCartContext } from "../App";
 import cookie from "react-cookies";
+import { MDBInput } from "mdb-react-ui-kit";
 
 const Home = () => {
 
@@ -128,8 +129,8 @@ const Home = () => {
 
         cookie.save("cart", cart);
     }
-    if (foodItems.length === 0 && restaurant.length)
-        return <Alert variant="info" className="mt-2">Không có sản phẩm nào!</Alert>
+    // if (foodItems.length === 0 && restaurant.length)
+    //     return <Alert variant="info" className="mt-2">Không có sản phẩm nào!</Alert>
 
     return <>
         <div>
@@ -137,12 +138,12 @@ const Home = () => {
                 <Form onSubmit={search} className="mt-3 mb-2 form_find_name" inline>
                     <Row className="find_first">
                         <Col xs="auto" className="input1">
-                            <Form.Control
+                            <MDBInput
                                 type="text"
                                 value={kw}
                                 onChange={e => setKw(e.target.value)}
-                                placeholder="Tên món ăn, nhà hàng" name="kw"
-                                className="f mr-sm-2"
+                                label="Tên món ăn, nhà hàng" name="kw"
+                                className="f mr-sm-2 btn-find-header f mr-sm-2 input_find"
                             />
                         </Col>
                     </Row>
@@ -182,68 +183,60 @@ const Home = () => {
                 </Form> */}
                 <Carousel data-bs-theme="dark" className="carousel_edit">
                     {/* {restaurant === null ? <MySpinner /> : <> */}
-                        {Object.values(restaurant).map(r => {
-                            let url = `/restaurant_detail/${r.restaurantId}`
-                            return <Carousel.Item className="carosel_item">
-                                <h1 className="text-center text-danger">{r.restaurantName}</h1>
-                                <Link to={url}>
-                                    <img
-                                        className="carol_img d-block w-100"
-                                        src={r.avatar}
-                                        alt={r.restaurantName}
-                                    /></Link>
-                                <Carousel.Caption className="caption_res">
-                                    <div className="carousel_info_home">
-                                        <h5>{r.restaurantName}</h5>
-                                        <p>{r.location}</p>
-                                    </div>
-                                </Carousel.Caption>
-                            </Carousel.Item>
-                        })}
+                    {Object.values(restaurant).map(r => {
+                        let url = `/restaurant_detail/${r.restaurantId}`
+                        return <Carousel.Item className="carosel_item">
+                            <h1 className="text-center text-danger">{r.restaurantName}</h1>
+                            <Link to={url}>
+                                <img
+                                    className="carol_img d-block w-100"
+                                    src={r.avatar}
+                                    alt={r.restaurantName}
+                                /></Link>
+                            <Carousel.Caption className="caption_res">
+                                <div className="carousel_info_home">
+                                    <h5>{r.restaurantName}</h5>
+                                    <p>{r.location}</p>
+                                </div>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                    })}
                     {/* </>} */}
 
 
                 </Carousel>
             </div>
         </div>
+        <div >
+            {/* <h5>Tìm Kiếm</h5> */}
+            <Form onSubmit={search}>
+                <div className="form_timkiem">
+                    <div className="form_input_find_all">
 
+                        {/* <Form.Control type="text" value={kw} onChange={e => setKw(e.target.value)} label="Nhập ten mon an..." name="kw" className="f mr-sm-2" /> */}
+                        <MDBInput className="f mr-sm-2 input_find" wrapperClass='mb-4' value={kw} onChange={e => setKw(e.target.value)} label='Nhập tên món ăn hoặc nhà hàng' name="kw" size='lg' id='form3' type='text' />
+                        {/* <Form.Control type="number" value={fromPrice} onChange={e => setFromPrice(e.target.value)} placeholder="Nhập giá từ..." name="fromPrice" className="f mr-sm-2" /> */}
+                        <MDBInput className="f mr-sm-2 input_find" wrapperClass='mb-4' value={fromPrice} onChange={e => setFromPrice(e.target.value)} label='Nhập giá từ' name="fromPrice" size='lg' id='form3' type='number' />
+                        {/* <Form.Control type="number" value={toPrice} onChange={e => setToPrice(e.target.value)} placeholder="Nhập nhập giá tối đa..." name="toPrice" className="f mr-sm-2" /> */}
+                        <MDBInput className="f mr-sm-2 input_find" wrapperClass='mb-4' value={toPrice} onChange={e => setToPrice(e.target.value)} label='Nhập nhập giá tối đa' size='lg' name="toPrice" id='form3' type='number' />
+                        <Button className="btn-find raise" type="submit">Tìm</Button>
+                    </div>
+                </div>
+            </Form>
+        </div>
         <div className="home">
+
             <div className="find">
+
                 <Form onSubmit={search} className="mt-3 mb-2 form form_find_all" inline>
                     <Row>
-                        <h5>Nhập đi</h5>
-                        <Col xs="auto">
-                            <Form.Control
-                                type="text"
-                                value={kw}
-                                onChange={e => setKw(e.target.value)}
-                                placeholder="Nhập ten mon an..." name="kw"
-                                className="f mr-sm-2"
-                            />
-                            <Form.Control
-                                type="number"
-                                value={fromPrice}
-                                onChange={e => setFromPrice(e.target.value)}
-                                placeholder="Nhập giá từ..." name="fromPrice"
-                                className="f mr-sm-2"
-                            />
-                            <Form.Control
-                                type="number"
-                                value={toPrice}
-                                onChange={e => setToPrice(e.target.value)}
-                                placeholder="Nhập nhập giá tối đa..." name="toPrice"
-                                className="f mr-sm-2"
-                            />
-                        </Col>
-                        <Col xs="auto">
-                            <Button type="submit">Tìm</Button>
-                            {/* <Link className="text-primary icon_avatar_link" to="/restaurant">List Restaurant</Link> */}
-                        </Col>
+
                     </Row>
                 </Form>
             </div>
             <div className="fooditems">
                 <Row>
+                    {foodItems.length === 0 ? <Alert variant="info" className="mt-2">Không có sản phẩm nào!</Alert> : <>
                     {foodItems === null ? <MySpinner /> : <>
                         {foodItems.map(f => {
                             let url = `/fooddetail/${f.foodId}`;
@@ -272,6 +265,8 @@ const Home = () => {
 
                         })}
                     </>}
+                    </>}
+                    
 
                 </Row>
             </div>
