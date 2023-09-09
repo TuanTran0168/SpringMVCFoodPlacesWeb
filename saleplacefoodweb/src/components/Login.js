@@ -32,7 +32,7 @@ const Login = () => {
                 setLoading(true);
                 //lấy token login
                 let res = await Apis.post(endpoints['login'], {
-                    "username": username,
+                    "username": username.trim() ,
                     "password": password
                 });
 
@@ -86,8 +86,6 @@ const Login = () => {
     }
 
 
-
-
     if (user !== null) {
         let next = q.get("next") || "/";
         return <Navigate to={next} />;
@@ -136,7 +134,7 @@ const Login = () => {
 
                                                 }}
                                                 onFailure={(error) => {
-                                                    console.log("Đăng nhập không thành công", error);
+                                                    notify("Đăng nhập không thành công");
                                                 }}
                                                 redirectUri="http://localhost:3000"
                                             />

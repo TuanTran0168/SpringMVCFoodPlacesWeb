@@ -70,7 +70,7 @@ const Receipt = () => {
             <div className="contain_info">
                 <ProfileComponents />
                 <div className="contain_info_2">
-                    {receipt === null ? <Alert classname="alert-success" >Bạn chưa có hóa đơn nào!!</Alert> : <>
+                    {receipt === 0 ? <Alert classname="alert-success" >Bạn chưa có hóa đơn nào!!</Alert> : <>
                         {receipt == null ? <MySpinner /> : Object.values(receipt).map(r => {
                             let count = 0;
                             let amount = 0;
@@ -88,7 +88,7 @@ const Receipt = () => {
                                                                 <MDBRow className="d-flex align-items-baseline">
                                                                     <MDBCol xl="9">
                                                                         <p style={{ color: "#7e8d9f", fontSize: "20px" }}>
-                                                                            Invoice &gt; &gt; <strong>ID: {r.receiptId}</strong>
+                                                                            <strong>Mã Hóa Đơn: {r.receiptId}</strong>
                                                                         </p>
                                                                     </MDBCol>
                                                                     <MDBCol xl="3" className="float-end">
@@ -119,6 +119,7 @@ const Receipt = () => {
                                                             </MDBContainer>
                                                             <MDBContainer>
                                                                 <MDBCol md="12" className="text-center">
+                                                                <p className="pt-0"><h1>HÓA ĐƠN</h1></p>
                                                                     <MDBIcon
                                                                         fab
                                                                         icon="mdb"
@@ -126,39 +127,38 @@ const Receipt = () => {
                                                                         className="ms-0 "
                                                                         style={{ color: "#5d9fc5" }}
                                                                     />
-                                                                    <p className="pt-0">MDBootstrap.com</p>
+                                                                    
                                                                 </MDBCol>
                                                             </MDBContainer>
                                                             <MDBRow>
                                                                 <MDBCol xl="8">
                                                                     <MDBTypography listUnStyled>
                                                                         <li className="text-muted">
-                                                                            To: <span style={{ color: "#5d9fc5" }}>John Lorem</span>
+                                                                            Tên Khách Hàng: <span style={{ color: "#5d9fc5" }}>{user.first} {user.lastname}</span>
                                                                         </li>
-                                                                        <li className="text-muted">Street, City</li>
-                                                                        <li className="text-muted">State, Country</li>
+                                                                        <li className="text-muted">{user.location}</li>
+                                                                        <li className="text-muted">{user.location}</li>
                                                                         <li className="text-muted">
-                                                                            <MDBIcon fas icon="phone-alt" /> 123-456-789
+                                                                            <MDBIcon fas icon="phone-alt" /> {user.phonenumber}
                                                                         </li>
                                                                     </MDBTypography>
                                                                 </MDBCol>
                                                                 <MDBCol xl="4">
-                                                                    <p className="text-muted">Invoice</p>
+                                                                    <p className="text-muted">Hóa Đơn</p>
                                                                     <MDBTypography listUnStyled>
                                                                         <li className="text-muted">
                                                                             <MDBIcon fas icon="circle" style={{ color: "#84B0CA" }} />
-                                                                            <span className="fw-bold ms-1">ID:</span>#123-456
+                                                                            <span className="fw-bold ms-1">Mã Hóa Đơn:</span>#{r.receiptId}
                                                                         </li>
                                                                         <li className="text-muted">
                                                                             <MDBIcon fas icon="circle" style={{ color: "#84B0CA" }} />
-                                                                            <span className="fw-bold ms-1">Creation Date: </span>Jun
-                                                                            23,2021
+                                                                            <span className="fw-bold ms-1">Ngày Tạo : </span> <Moment format="DD-MM-YYYY HH:mm">{r.receiptDate}</Moment>
                                                                         </li>
                                                                         <li className="text-muted">
                                                                             <MDBIcon fas icon="circle" style={{ color: "#84B0CA" }} />
-                                                                            <span className="fw-bold ms-1">Status:</span>
+                                                                            <span className="fw-bold ms-1">Trạng Thái: </span>
                                                                             <span className="badge bg-warning text-black fw-bold ms-1">
-                                                                                Unpaid
+                                                                                {r.statusReceiptId.statusReceipt}
                                                                             </span>
                                                                         </li>
                                                                     </MDBTypography>
@@ -204,29 +204,29 @@ const Receipt = () => {
                                                                 <MDBCol xl="3">
                                                                     <MDBTypography listUnStyled>
                                                                         <li className="text-muted ms-3">
-                                                                            <span class="text-black me-4">Tổng</span>{amount} VNĐ
+                                                                            <span class="text-black me-4">Thuế: </span>(15%)
                                                                         </li>
                                                                         {/* <li className="text-muted ms-3 mt-2">
                                                                             <span class="text-black me-4">Tax(15%)</span>$111
                                                                         </li> */}
                                                                     </MDBTypography>
                                                                     <p className="text-black float-start">
-                                                                        <span className="text-black me-3"> Total Amount</span>
-                                                                        <span style={{ fontSize: "25px" }}>$1221</span>
+                                                                        <span className="text-black me-3"> Tổng: </span>
+                                                                        <span style={{ fontSize: "25px" }}>{amount} VNĐ</span>
                                                                     </p>
                                                                 </MDBCol>
                                                             </MDBRow>
                                                             <hr />
                                                             <MDBRow>
                                                                 <MDBCol xl="10">
-                                                                    <p>Thank you for your purchase</p>
+                                                                    <p>Cảm ơn bạn đã sử dụng dịch vụ!!!</p>
                                                                 </MDBCol>
                                                                 <MDBCol xl="2">
                                                                     <MDBBtn
                                                                         className="text-capitalize"
                                                                         style={{ backgroundColor: "#60bdf3" }}
                                                                     >
-                                                                        Pay Now
+                                                                        Đóng
                                                                     </MDBBtn>
                                                                 </MDBCol>
                                                             </MDBRow>

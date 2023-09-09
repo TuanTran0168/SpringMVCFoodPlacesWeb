@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { MyUserContext } from "../App";
 import ProfileComponents from "../layout/ProfileComponents";
 import { MDBBtn, MDBCardBody, MDBInput } from "mdb-react-ui-kit";
+import { ToastContainer, toast } from "react-toastify";
 
 const Profile = () => {
 
@@ -19,6 +20,7 @@ const Profile = () => {
 
     const avatar = useRef();
     const [current_avatar, setCurrent_avatar] = useState(current_user.avatar);
+    const notify = (x) => toast(x);
     const [user, setUser] = useState({
         "userId": current_user.userId,
         "firstname": "",
@@ -89,12 +91,18 @@ const Profile = () => {
                 if (res.status === 200) {
                     setLoading(true);
                     reloadUser();
-                    nav("/");
+                    setLoading(false);
+                    
+                    // nav("/");
+                    toast("Lưu Thành Công!!");
                 }
 
             } catch (err) {
-                console.log(err)
+                toast(err.request.responseText);
+                console.log(err);
+                setLoading(false);
             }
+
         }
         process();
 
@@ -108,6 +116,7 @@ const Profile = () => {
 
     return <>
         <Form onSubmit={updateUser}>
+        <ToastContainer />
             <h1 className="text-center text-info">Your Profile</h1>
             <div className="contain_info">
                 <ProfileComponents />
