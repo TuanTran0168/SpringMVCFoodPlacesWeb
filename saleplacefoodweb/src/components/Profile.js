@@ -129,9 +129,9 @@ const Profile = () => {
                         <MDBInput wrapperClass='mb-4' defaultValue={current_user.firstname} required onChange={(e) => change(e, "firstname")} label='Họ' size='lg' id='form3' type='text' />
                         <MDBInput wrapperClass='mb-4' defaultValue={current_user.lastname} required onChange={(e) => change(e, "lastname")} label='Tên' size='lg' id='form3' type='text' />
                         <MDBInput wrapperClass='mb-4' defaultValue={current_user.username} readOnly required onChange={(e) => change(e, "username")} label='Tên Tài Khoản' size='lg' id='form3' type='text' />
-                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.location} readOnly required onChange={(e) => change(e, "location")} label='Địa Chỉ' size='lg' id='form3' type='text' />
-                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.email} readOnly required onChange={(e) => change(e, "email")} label='Email' size='lg' id='form3' type='text' />
-                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.phonenumber} readOnly required onChange={(e) => change(e, "phonenumber")} label='Số Điện Thoại' size='lg' id='form3' type='text' />
+                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.location} required onChange={(e) => change(e, "location")} label='Địa Chỉ' size='lg' id='form3' type='text' />
+                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.email} required onChange={(e) => change(e, "email")} label='Email' size='lg' id='form3' type='text' />
+                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.phonenumber} required onChange={(e) => change(e, "phonenumber")} label='Số Điện Thoại' size='lg' id='form3' type='text' />
 
                         {loading === true ? <MySpinner /> : <MDBBtn type="submit" className='mb-4 w-100 gradient-custom-4' size='lg'>Lưu</MDBBtn>}
                     </MDBCardBody>
