@@ -320,7 +320,7 @@ const RestaurantDetail = () => {
                     <div>
                         <div style={{ height: '100vh', width: '100%' }}>
                             <GoogleMapReact
-                                bootstrapURLKeys={{ key: "AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY" }}
+                                bootstrapURLKeys={{ key: "AIzaSyDWTx7bREpM5B6JKdbzOvMW-RRlhkukmVE" }}
                                 defaultCenter={defaultProps.center}
                                 defaultZoom={defaultProps.zoom}
                             >

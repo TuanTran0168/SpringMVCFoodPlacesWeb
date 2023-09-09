@@ -52,6 +52,7 @@
 
 .description {
     margin-left: auto;
+    overflow: auto;
 }
 
 .description p {
