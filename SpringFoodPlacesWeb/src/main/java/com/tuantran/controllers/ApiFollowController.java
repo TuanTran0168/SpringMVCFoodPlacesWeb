@@ -39,6 +39,7 @@ public class ApiFollowController {
             return new ResponseEntity<>("Theo dõi thành công!", HttpStatus.CREATED);
         } else if (check == 2) {
             message = "Đã hủy theo dõi!";
+            return new ResponseEntity<>(message, HttpStatus.NO_CONTENT);
         } else {
             message = "Có lỗi xảy ra!";
         }

@@ -18,4 +18,5 @@ import org.springframework.stereotype.Service;
 public interface ReceiptService {
     boolean addReceipt(Map<String, Cart> carts);
     List<Receipts> getReceipts(Map<String, String> params);
+    Receipts getReceiptById(int id);
 }

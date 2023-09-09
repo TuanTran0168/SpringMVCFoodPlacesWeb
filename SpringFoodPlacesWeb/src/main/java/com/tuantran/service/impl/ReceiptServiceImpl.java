@@ -32,5 +32,9 @@ public class ReceiptServiceImpl implements ReceiptService{
     public List<Receipts> getReceipts(Map<String, String> params) {
         return this.receiptRepo.getReceipts(params);
     }
-    
+
+    @Override
+    public Receipts getReceiptById(int id) {
+        return this.receiptRepo.getReceiptById(id);
+    }
 }

@@ -68,7 +68,7 @@ public class ReceiptDetailRepositoryImpl implements ReceiptDetailRepository {
             Root<ReceiptDetail> rootReceiptDetail = query.from(ReceiptDetail.class);
 
             List<Predicate> predicates = new ArrayList<>();
-            predicates.add(criteriaBuilder.equal(rootReceiptDetail.get("foodId"), foodId));
+            predicates.add(criteriaBuilder.equal(rootReceiptDetail.get("fooditemId"), foodId));
 
             query.where(predicates.toArray(new Predicate[0]));
 
