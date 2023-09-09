@@ -86,11 +86,44 @@
                         name="restaurants"
                         path="confirmationStatus"
                         >
-                        <option value="true" selected="true">True</option>
-                        <option value="false" selected="false">False</option>
+<!--                        <option value="true" selected="true">True</option>
+                        <option value="false" selected="false">False</option>-->
+                        <!--MÊT :))) -->
+                        <c:choose>
+                            <c:when test="${true == restaurant.confirmationStatus}">
+                                <option
+                                    value="${true}"
+                                    selected="${true}"
+                                    >
+                                    True
+                                </option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="true">
+                                    True
+                                </option>
+                            </c:otherwise>
+                        </c:choose>
+
+                        <c:choose>
+                            <c:when test="${false == restaurant.confirmationStatus}">
+                                <option
+                                    value="${false}"
+                                    selected="${false}"
+                                    >
+                                    False
+                                </option>
+                            </c:when>
+                            <c:otherwise>
+                                <option value="false">
+                                    False
+                                </option>
+                            </c:otherwise>
+                        </c:choose>
+
                     </form:select>
 
-                    <label for="restaurants" class="form-label">Confirm?</label>
+                    <label for="restaurants" class="form-label">Xác nhận nhà hàng hoạt động</label>
                 </div>
 
                 <div class="form-floating mb-3 mt-3" style="display: flex">
@@ -110,10 +143,10 @@
                     <div class="form-floating mb-3 mt-3">
                         <form:input path="userId" class="getId" id="load_userId_js" />
                     </div>
-                    
-<!--                    <div class="form-floating mb-3 mt-3">
-                        <form:input path="userId" class="getId" id="" />
-                    </div>-->
+
+                    <!--                    <div class="form-floating mb-3 mt-3">
+                    <form:input path="userId" class="getId" id="" />
+                </div>-->
                 </div>
 
                 <div class="form-floating mb-3 mt-3">
@@ -125,9 +158,7 @@
                         >
                         <c:forEach items="${restaurantStatus_list}" var="rS">
                             <c:choose>
-                                <c:when
-                                    test="${rS.statusId == restaurant.restaurantStatus.statusId}"
-                                    >
+                                <c:when test="${rS.statusId == restaurant.restaurantStatus.statusId}">
                                     <option
                                         value="${rS.statusId}"
                                         selected="${rS.restaurantStatus}"
@@ -153,12 +184,14 @@
                         <c:when test="${restaurant.restaurantId == null}">
                             Thêm nhà hàng
                         </c:when>
-                        <c:otherwise> Cập nhật nhà hàng </c:otherwise>
+                        <c:otherwise> Cập nhật nhà hàng 
+                            <form:hidden path="restaurantId" />
+                            <form:hidden path="avatar" />
+                            <form:hidden path="active" />
+                            <form:hidden path="confirmationStatus" />
+                        </c:otherwise>
                     </c:choose>
                 </button>
-                <form:hidden path="restaurantId" />
-                <form:hidden path="avatar" />
-                <form:hidden path="active" />
             </form:form>
         </div>
     </div>

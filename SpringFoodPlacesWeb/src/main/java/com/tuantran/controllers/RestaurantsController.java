@@ -6,19 +6,25 @@ package com.tuantran.controllers;
 
 import com.tuantran.pojo.Fooditems;
 import com.tuantran.pojo.ReceiptDetail;
+import com.tuantran.pojo.ReceiptDetailAndReceipt;
+import com.tuantran.pojo.Receipts;
 import com.tuantran.pojo.Restaurants;
 import com.tuantran.pojo.Roles;
 import com.tuantran.pojo.Users;
 import com.tuantran.service.CategoriesFoodService;
 import com.tuantran.service.FoodItemsService;
 import com.tuantran.service.ReceiptDetailService;
+import com.tuantran.service.ReceiptService;
 import com.tuantran.service.RestaurantStatusService;
 import com.tuantran.service.RestaurantsService;
 import com.tuantran.service.UsersService;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -61,6 +67,9 @@ public class RestaurantsController {
 
     @Autowired
     private ReceiptDetailService receiptDetailService;
+
+    @Autowired
+    private ReceiptService receiptService;
 
     @ModelAttribute
     public void commonAttr(Model model) {
@@ -146,7 +155,43 @@ public class RestaurantsController {
                         for (Fooditems food : food_list) {
                             receiptDetails_list.addAll(this.receiptDetailService.getReceiptDetailsByFoodId(food.getFoodId()));
                         }
+
+//                        List<Receipts> uniqueReceipts_List = new ArrayList<>();
+//                        Set<Integer> receiptIdSet = new HashSet<>();
+//
+//                        for (ReceiptDetail receiptDetail : receiptDetails_list) {
+//                            int receiptId = receiptDetail.getReceiptId().getReceiptId();
+//                            if (!receiptIdSet.contains(receiptId)) {
+//                                receiptIdSet.add(receiptId);
+//                                Receipts receipt = this.receiptService.getReceiptById(receiptId);
+//                                uniqueReceipts_List.add(receipt);
+//                            }
+//                        }
+                        List<Receipts> receipts_List = new ArrayList<>();
+
+                        for (ReceiptDetail receiptDetail : receiptDetails_list) {
+                            int receiptId = receiptDetail.getReceiptId().getReceiptId();
+                            Receipts receipt = this.receiptService.getReceiptById(receiptId);
+                            receipts_List.add(receipt);
+                        }
+                        
+                        List<ReceiptDetailAndReceipt> receiptDetailPerfect = new ArrayList<>();
+                        for (int i = 0; i < receiptDetails_list.size(); i++) {
+                            ReceiptDetailAndReceipt rdp = new ReceiptDetailAndReceipt();
+                            rdp.setReceiptId(receipts_List.get(i).getReceiptId());
+                            rdp.setFoodName(receiptDetails_list.get(i).getFooditemId().getFoodName());
+                            rdp.setPrice(receiptDetails_list.get(i).getUnitPrice());
+                            rdp.setQuantity(receiptDetails_list.get(i).getQuantity());
+                            rdp.setAmount(receiptDetails_list.get(i).getAmount());
+                            rdp.setCreatedDate(receipts_List.get(i).getReceiptDate());
+                            rdp.setStatusReceiptId(receipts_List.get(i).getStatusReceiptId().getStatusReceiptId());
+                            rdp.setStatusReceipt(receipts_List.get(i).getStatusReceiptId().getStatusReceipt());
+                            receiptDetailPerfect.add(rdp);
+                        }
+
                         model.addAttribute("receiptDetails_list", receiptDetails_list);
+                        model.addAttribute("receipts_List", receipts_List);
+                        model.addAttribute("receiptDetailPerfect_list", receiptDetailPerfect);
                         // FOOD
 //                        int pageSize = Integer.parseInt(this.environment.getProperty("PAGE_SIZE"));
 //                        int countFoodItems = this.foodItemsService.countFoodItems(params);

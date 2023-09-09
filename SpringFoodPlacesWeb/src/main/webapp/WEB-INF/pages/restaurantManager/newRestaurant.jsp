@@ -164,13 +164,7 @@
                         </div>
                     </section>
 
-                    <ul class="food-list">
-                        <c:forEach items="${food_list}" var="food">
-                            <li>
-                                ${ food.foodName}
-                            </li>
-                        </c:forEach>
-                    </ul>
+                    <h1 class="text-center">CÁC ĐƠN HÀNG</h1>
 
                     <section class="container newfood-container">
                         <table class="table-hover ">
@@ -183,21 +177,22 @@
                                     <th>Số lượng</th>
                                     <th>Giá tổng</th>
                                     <th>Ngày tạo</th>
-
+                                    <th>Trạng thái</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                <c:forEach items="${receiptDetails_list}" var="receiptDetail">
+                                <c:forEach items="${receiptDetailPerfect_list}" var="receipts">
 
                                     <tr>
                                         <!--<td></td>-->
-                                        <td>${receiptDetail.receiptId.receiptId}</td>
-                                        <td>${receiptDetail.fooditemId.foodName}</td>
-                                        <td>${receiptDetail.unitPrice}</td>
-                                        <td>${receiptDetail.quantity}</td>
-                                        <td>${receiptDetail.amount}</td>
-                                        <td>${receiptDetail.receiptId.receiptDate}</td>
+                                        <td>${receipts.receiptId}</td>
+                                        <td>${receipts.foodName}</td>
+                                        <td>${receipts.price}</td>
+                                        <td>${receipts.quantity}</td>
+                                        <td>${receipts.amount}</td>
+                                        <td>${receipts.createdDate}</td>
+                                        <td>${receipts.statusReceipt}</td>
                                     </tr>
 
                                 </c:forEach>

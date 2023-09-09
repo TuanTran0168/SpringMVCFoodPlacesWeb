@@ -71,6 +71,7 @@ public class ApiRestaurantsController {
     @GetMapping("/restaurants/")
     @CrossOrigin
     public ResponseEntity<List<Restaurants>> listRestaurant(@RequestParam Map<String, String> params) {
+        params.put("confirm", "true");
         return new ResponseEntity<>(this.restaurantsService.getRestaurants(params), HttpStatus.OK);
     }
     
