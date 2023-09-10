@@ -405,10 +405,10 @@
                     <label for="location">Nhập địa chỉ nhà hàng...</label>
                 </div>
 
-                <div class="form-floating mb-3 mt-3">
+<!--                <div class="form-floating mb-3 mt-3">
                     <form:input type="text" class="form-control" path="mapLink" id="mapLink" placeholder="Nhập tên nhà hàng... " name="mapLink" />
                     <label for="restaurantName">Cái maplink này nhập đại đi chứ đách xử lý đc...</label>
-                </div>
+                </div>-->
 
                 <label for="file" class="drop-container" id="dropcontainer">
                     <span class="drop-title">Drop your avatar here</span>
@@ -449,6 +449,7 @@
                 <form:hidden path="avatar" />
                 <form:hidden path="confirmationStatus" />
                 <form:hidden path="active" />
+                <form:hidden path="mapLink" />
             </form:form>
         </div>
     </div>
@@ -456,7 +457,7 @@
     <div id="googleMap" class="body body__right">
         <div class="map-container">
             <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d251637.95196238213!2d105.6189045!3d9.779349!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1693067788859!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            <label for="googleMap">Bản đồ này để cho đẹp thôi chứ đách phải API Google Map đâu :)</label>
+            <label for="googleMap">Bản đồ vị trí nhà hàng</label>
         </div>
     </div>
 

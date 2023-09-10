@@ -476,6 +476,12 @@ public class UsersServiceImpl implements UsersService {
             user.setPassword(this.bCryptPasswordEncoder.encode(randomPassword));
 
             user.setRoleId(new Roles(3));
+            
+            String pathAvatarGoogle = params.get("pathAvatarGoogle");
+            if (pathAvatarGoogle != null && !pathAvatarGoogle.isEmpty()) {
+                user.setAvatar(pathAvatarGoogle);
+            }
+            
             if (!avatar.isEmpty()) {
                 try {
                     Map res = this.cloudinary.uploader().upload(avatar.getBytes(),

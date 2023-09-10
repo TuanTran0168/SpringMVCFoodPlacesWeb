@@ -9,7 +9,7 @@
 <link rel="stylesheet" href=" <c:url value="/css/foodItems.css" /> "/>
 
 <c:url value="/restaurantManager/indexShelfLife" var = "action" />
-
+<link rel="stylesheet" href=" <c:url value="/css/background.css" /> "/>
 <link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
 <c:if test="${not empty param.msg}">
     <div class="toast show">
@@ -46,7 +46,7 @@
 
         <div class="form-floating mb-3 mt-3">
             <button class="btn btn-info" type="submit">
-                Thêm thời gian bán PROMAX
+                Thêm thời gian bán
             </button>
         </div>
     </form:form>

@@ -112,7 +112,7 @@
                     <div class="course_card">
                         <a class ="detail-restaurant" href="<c:url value="/admin/restaurants/${restaurant.restaurantId}" />">
                             <div class="course_card_img">
-                                <img ,="" alt="course" src="${restaurant.avatar}" />
+                                <img ,="" alt="Ảnh của ${restaurant.restaurantName}" src="${restaurant.avatar}" />
                             </div>
                             <div class="course_card_content">
                                 <h3 class="title">

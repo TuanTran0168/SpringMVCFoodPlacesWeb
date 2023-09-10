@@ -58,7 +58,7 @@
                     <label for="location">Nhập địa chỉ nhà hàng...</label>
                 </div>
 
-                <div class="form-floating mb-3 mt-3">
+<!--                <div class="form-floating mb-3 mt-3">
                     <form:input
                         type="text"
                         class="form-control"
@@ -70,7 +70,7 @@
                     <label for="restaurantName"
                            >Cái maplink này nhập đại đi chứ đách xử lý đc...</label
                     >
-                </div>
+                </div>-->
 
                 <label for="file" class="drop-container" id="dropcontainer">
                     <span class="drop-title">Drop your avatar here</span>
@@ -189,6 +189,7 @@
                             <form:hidden path="avatar" />
                             <form:hidden path="active" />
                             <form:hidden path="confirmationStatus" />
+                            <form:hidden path="mapLink" />
                         </c:otherwise>
                     </c:choose>
                 </button>
@@ -208,8 +209,7 @@
                 referrerpolicy="no-referrer-when-downgrade"
                 ></iframe>
             <label for="googleMap"
-                   >Bản đồ này để cho đẹp thôi chứ đách phải API Google Map đâu
-                :)</label
+                   >Bản đồ vị trí nhà hàng</label
             >
         </div>
     </div>

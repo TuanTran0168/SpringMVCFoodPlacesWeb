@@ -9,7 +9,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" href=" <c:url value="/css/foodItems.css" /> "/>
 <c:url value="/restaurantManager/indexCategories" var = "action" />
-
+<link rel="stylesheet" href=" <c:url value="/css/background.css" /> "/>
 <link rel="stylesheet" href=" <c:url value="/css/toastBug.css" /> "/>
 <c:if test="${not empty param.msg}">
     <div class="toast show">
@@ -40,7 +40,7 @@
             </div>
             <div class="form-floating mb-3 mt-3">
                 <button class="btn btn-info" type="submit">
-                    Thêm danh mục PROMAX
+                    Thêm danh mục
                 </button>
             </div>
         </form:form>
@@ -55,7 +55,7 @@
             <tr>
                 <th>Category Id</th>
                 <th>Category Name</th>
-                <th>id nha hang</th>
+                 <th></th>
         
         </tr>
         </thead>
@@ -66,7 +66,7 @@
                 <tr>
                     <td>${c.categoryfoodId}</td>
                     <td>${c.categoryname}</td>
-                    <td>${c.restaurantId}</td>
+
                     <td>
                         <a href="<c:url value="/restaurantManager/categoriesFood/newCategoriesFood/${c.categoryfoodId}" />" class = "btn btn-success">Cập nhật</a>
                         <c:url value="/api/server/restaurantManager/categoriesFood/newCategoriesFood/${c.categoryfoodId}" var="apiDel" />

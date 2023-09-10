@@ -37,7 +37,7 @@
 
         <div class="form-floating mb-3 mt-3">
             <form:input type="text" class="form-control" path="description" id="description" placeholder="Nhập loại... " name="description" />
-            <label for="description">Nhập loại...</label>
+            <label for="description">Nhập mô tả...</label>
         </div>
         <div class="form-floating mb-3 mt-3">
             <form:select class="form-select" id="shelfLife_list" name="shelfLife_list" path="shelflifeId">
