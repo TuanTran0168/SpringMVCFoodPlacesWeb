@@ -17,6 +17,7 @@ import com.tuantran.service.ReceiptDetailService;
 import com.tuantran.service.ReceiptService;
 import com.tuantran.service.RestaurantStatusService;
 import com.tuantran.service.RestaurantsService;
+import com.tuantran.service.StatsService;
 import com.tuantran.service.UsersService;
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -70,6 +71,9 @@ public class RestaurantsController {
 
     @Autowired
     private ReceiptService receiptService;
+    
+    @Autowired
+    private StatsService statsService;
 
     @ModelAttribute
     public void commonAttr(Model model) {
@@ -156,17 +160,6 @@ public class RestaurantsController {
                             receiptDetails_list.addAll(this.receiptDetailService.getReceiptDetailsByFoodId(food.getFoodId()));
                         }
 
-//                        List<Receipts> uniqueReceipts_List = new ArrayList<>();
-//                        Set<Integer> receiptIdSet = new HashSet<>();
-//
-//                        for (ReceiptDetail receiptDetail : receiptDetails_list) {
-//                            int receiptId = receiptDetail.getReceiptId().getReceiptId();
-//                            if (!receiptIdSet.contains(receiptId)) {
-//                                receiptIdSet.add(receiptId);
-//                                Receipts receipt = this.receiptService.getReceiptById(receiptId);
-//                                uniqueReceipts_List.add(receipt);
-//                            }
-//                        }
                         List<Receipts> receipts_List = new ArrayList<>();
 
                         for (ReceiptDetail receiptDetail : receiptDetails_list) {
@@ -174,7 +167,7 @@ public class RestaurantsController {
                             Receipts receipt = this.receiptService.getReceiptById(receiptId);
                             receipts_List.add(receipt);
                         }
-                        
+
                         List<ReceiptDetailAndReceipt> receiptDetailPerfect = new ArrayList<>();
                         for (int i = 0; i < receiptDetails_list.size(); i++) {
                             ReceiptDetailAndReceipt rdp = new ReceiptDetailAndReceipt();
@@ -189,6 +182,7 @@ public class RestaurantsController {
                             receiptDetailPerfect.add(rdp);
                         }
 
+                        model.addAttribute("statsFood", this.statsService.statsRevenue(params));
                         model.addAttribute("receiptDetails_list", receiptDetails_list);
                         model.addAttribute("receipts_List", receipts_List);
                         model.addAttribute("receiptDetailPerfect_list", receiptDetailPerfect);

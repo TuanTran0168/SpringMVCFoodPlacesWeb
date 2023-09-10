@@ -35,7 +35,7 @@
         <h1 class="heading">DANH MỤC MÓN ĂN</h1>
         <form:form method="post" modelAttribute="cate">
             <div class="form-floating mb-3 mt-3">
-                <form:input type="text" class="form-control" path="categoryname" id="categoryname" placeholder="Nhập tên danh mục... " name="categoryname" />
+                <form:input required="required" type="text" class="form-control" path="categoryname" id="categoryname" placeholder="Nhập tên danh mục... " name="categoryname" />
                 <label for="categoryname">Nhập Tên Danh Mục...</label>
             </div>
             <div class="form-floating mb-3 mt-3">

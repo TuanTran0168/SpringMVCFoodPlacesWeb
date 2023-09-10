@@ -9,6 +9,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" href=" <c:url value="/css/newRestaurant.css" /> "/>
 <script src="<c:url value="/js/restaurants.js" />"></script>
+<script src="<c:url value="/js/mychart.js" />"></script>
 
 <form:form modelAttribute="restaurant">
     <c:choose>
@@ -35,6 +36,79 @@
     </c:choose>
 </form:form>
 
+<section>
+    <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">THỐNG KÊ</h1>
+    <hr class="container">
+    <table class="table-hover ">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Tên món</th>
+                <th>Doanh thu</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <c:forEach items="${statsFood}" var="statsFood">
+
+                <tr>
+                    <!--<td></td>-->
+                    <td>${statsFood[0]}</td>
+                    <td>${statsFood[1]}</td>
+                    <td>${statsFood[2]}</td>
+
+
+                </tr>
+
+            </c:forEach>
+        </tbody>
+    </table>
+
+
+
+    <div class="container">
+        <script>
+            window.onload = function () {
+                let labels = [];
+                let data = [];
+
+            <c:forEach var="s" items="${statsFood}">
+                labels.push('${s[1]}');
+                data.push(${s[2]});
+            </c:forEach>
+                drawRevenueChart(labels, data);
+            }
+        </script>
+
+                
+<!--        <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionTest">
+            <c:param name="fromDate"  />
+            <c:param name="toDate"  />
+        </c:url>
+
+        <form class="d-flex" action="${actionTest}">
+            <input class="form-control me-2" type="date" name="fromDate" placeholder="Ngày bắt đầu..." />
+            <input class="form-control me-2" type="date" name="toDate" placeholder="Ngày kết thúc..." />
+            <button class="btn btn-primary" type="submit">OK</button>
+        </form>-->
+
+
+        <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="statsAction" />
+        <form class="d-flex" action="${statsAction}">
+            <input class="form-control me-2" type="date" name="fromDate" placeholder="Nhập từ khóa...">
+            <input class="form-control me-2" type="date" name="toDate" placeholder="Nhập từ khóa...">
+            <button class="btn btn-primary" type="submit">Tìm</button>
+        </form>
+
+        <canvas id="RevenueChart">
+
+        </canvas>
+        <h3 class="text-center">Sơ đồ thống kê theo doanh thu từng món ăn</h3>
+    </div>
+
+
+
+</section>
 
 <form:form modelAttribute="restaurant" action="${actionCategoryFood}" method="get">
     <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionCategoryFood"/>
@@ -144,7 +218,8 @@
 
                                             <div class="mask" >
 
-                                                <h5>Tên món: ${food.foodName}</h5>
+                                                <h5>${food.foodName}</h5>
+                                                <h5>${food.price}</h5>
                                                 <!--nhu-->
 <!--                                                    <h5>Giá: ${food.price}</h5>
                                                 <h5>Danh mục món: ${food.categoryfoodId.categoryname}</h5>

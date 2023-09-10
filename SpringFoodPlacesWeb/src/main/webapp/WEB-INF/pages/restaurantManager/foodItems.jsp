@@ -42,7 +42,7 @@
                 <label for="description">Nhập loại...</label>
             </div>
             <div class="form-floating mb-3 mt-3">
-                <form:select class="form-select" id="shelfLife_list" name="shelfLife_list" path="shelflifeId">
+                <form:select required="required" class="form-select" id="shelfLife_list" name="shelfLife_list" path="shelflifeId">
                     <c:forEach items="${shelfLife_list}" var="sL">
                         <c:choose>
                             <c:when test="${sL.shelflifeId == foodItem.shelflifeId.shelflifeId}">
@@ -59,7 +59,7 @@
             </div>
 
             <div class="form-floating mb-3 mt-3">
-                <form:select class="form-select" id="category_list" name="category_list" path="categoryfoodId">
+                <form:select required="required" class="form-select" id="category_list" name="category_list" path="categoryfoodId">
                     <c:forEach items="${category_list}" var="cate">
                         <c:choose>
                             <c:when test="${cate.categoryfoodId == foodItem.categoryfoodId.categoryfoodId}">

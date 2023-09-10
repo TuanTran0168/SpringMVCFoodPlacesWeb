@@ -1,3 +1,4 @@
+D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\StatsServiceImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\ReceiptService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\configs\WebAppContextConfig.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\ShelflifeFooditems.java
@@ -15,9 +16,11 @@ D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\sr
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\ShelfLifeRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\RolesServiceImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\UsersRepository.java
+D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\StatsRepository.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\ReceiptDetailService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\RolesRepository.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\Fooditems.java
+D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\impl\StatsRepositoryImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\CommentsRepository.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\CategoryFoodController.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\controllers\RegisterController.java
@@ -70,6 +73,7 @@ D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\sr
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\UsersService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\pojo\RestaurantStatus.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\repository\FoodItemsRepository.java
+D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\StatsService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\FollowService.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\service\impl\UsersServiceImpl.java
 D:\NetBeans\LapTrinhJava\BaiTapLonThirdMerge_DELETEACTIVE\SpringFoodPlacesWeb\src\main\java\com\tuantran\formatters\UsersFormatter.java

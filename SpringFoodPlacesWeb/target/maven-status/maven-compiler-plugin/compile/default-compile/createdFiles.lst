@@ -5,6 +5,7 @@ com\tuantran\pojo\Chatmessages_.class
 com\tuantran\service\impl\ShelfLifeServiceImpl.class
 com\tuantran\repository\RestaurantStatusRepository.class
 com\tuantran\repository\impl\CommentsRepositoryImpl.class
+com\tuantran\repository\StatsRepository.class
 com\tuantran\configs\DispatcherServletInit.class
 com\tuantran\controllers\ShelfLifeController.class
 com\tuantran\repository\FollowRepository.class
@@ -40,7 +41,6 @@ com\tuantran\pojo\Cart.class
 com\tuantran\pojo\ReceiptDetailAndReceipt.class
 com\tuantran\pojo\RestaurantStatus.class
 com\tuantran\controllers\FoodItemsController.class
-.netbeans_automatic_build
 com\tuantran\controllers\ApiCategoryController.class
 com\tuantran\controllers\UsersController.class
 com\tuantran\pojo\Comments_.class
@@ -98,9 +98,11 @@ com\tuantran\configs\WebAppContextConfig.class
 com\tuantran\pojo\Receipts_.class
 com\tuantran\configs\JwtSecurityConfig.class
 com\tuantran\controllers\ApiRestaurantsController.class
+com\tuantran\repository\impl\StatsRepositoryImpl.class
 com\tuantran\pojo\Roles_.class
 com\tuantran\repository\CategoryFoodRepository.class
 com\tuantran\pojo\ReceiptStatus.class
+com\tuantran\service\impl\StatsServiceImpl.class
 com\tuantran\pojo\Follow_.class
 com\tuantran\filters\JwtAuthenticationTokenFilter.class
 com\tuantran\service\impl\ReceiptServiceImpl.class
@@ -108,6 +110,7 @@ com\tuantran\repository\impl\RolesRepositoryImpl.class
 com\tuantran\pojo\CategoriesFood.class
 com\tuantran\configs\SpringSecurityConfig.class
 com\tuantran\service\impl\RolesServiceImpl.class
+com\tuantran\service\StatsService.class
 com\tuantran\controllers\ApiReceiptDetailController.class
 com\tuantran\service\impl\RestaurantStatusServiceImpl.class
 com\tuantran\service\ReceiptDetailService.class

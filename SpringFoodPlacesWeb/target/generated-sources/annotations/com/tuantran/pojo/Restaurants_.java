@@ -13,7 +13,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-09-09T16:15:35")
+@Generated(value="EclipseLink-2.7.10.v20211216-rNA", date="2023-09-10T13:12:46")
 @StaticMetamodel(Restaurants.class)
 public class Restaurants_ { 
 

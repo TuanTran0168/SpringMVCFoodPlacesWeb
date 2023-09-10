@@ -32,7 +32,7 @@
         <form:form method="post" modelAttribute="shelfLife">
         
         <div class="form-floating mb-3 mt-3">
-            <form:input type="text" class="form-control" path="shelflifeName" id="shelflifeName" placeholder="Nhập Tên... " name="shelflifeName" />
+            <form:input required="required" type="text" class="form-control" path="shelflifeName" id="shelflifeName" placeholder="Nhập Tên... " name="shelflifeName" />
             <label for="shelflifeName">Nhập Tên</label>
         </div>
         <div class="form-floating mb-3 mt-3">
