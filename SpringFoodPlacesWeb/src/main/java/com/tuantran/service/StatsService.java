@@ -14,4 +14,5 @@ import java.util.Map;
 
 public interface StatsService {
     List<Object[]> statsRevenue(Map<String, String> params);
+        List<Object[]> statsRevenueByCate(Map<String, String> params);
 }

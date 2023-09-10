@@ -1,5 +1,4 @@
 com\tuantran\pojo\ReceiptStatus_.class
-com\tuantran\pojo\CategoriesfoodFooditems_.class
 com\tuantran\service\FoodItemsService.class
 com\tuantran\pojo\Chatmessages_.class
 com\tuantran\service\impl\ShelfLifeServiceImpl.class
@@ -22,7 +21,6 @@ com\tuantran\service\impl\CategoriesFoodServiceImpl.class
 com\tuantran\repository\impl\ShelfLifeRepositoryImpl.class
 com\tuantran\controllers\RestaurantsController.class
 com\tuantran\formatters\RestaurantsFormatter.class
-com\tuantran\pojo\CategoriesfoodFooditems.class
 com\tuantran\pojo\Comments.class
 com\tuantran\pojo\ShelfLife_.class
 com\tuantran\pojo\RestaurantStatus_.class

@@ -23,4 +23,5 @@ public class ReceiptDetailAndReceipt {
     private Date createdDate;
     private int statusReceiptId;
     private String statusReceipt;
+    private String location;
 }

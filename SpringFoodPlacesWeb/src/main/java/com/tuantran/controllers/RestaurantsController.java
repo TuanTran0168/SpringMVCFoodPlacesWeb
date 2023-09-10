@@ -179,10 +179,12 @@ public class RestaurantsController {
                             rdp.setCreatedDate(receipts_List.get(i).getReceiptDate());
                             rdp.setStatusReceiptId(receipts_List.get(i).getStatusReceiptId().getStatusReceiptId());
                             rdp.setStatusReceipt(receipts_List.get(i).getStatusReceiptId().getStatusReceipt());
+                            rdp.setLocation(receipts_List.get(i).getUserId().getLocation());
                             receiptDetailPerfect.add(rdp);
                         }
 
                         model.addAttribute("statsFood", this.statsService.statsRevenue(params));
+                        model.addAttribute("statsFoodByCate", this.statsService.statsRevenueByCate(params));
                         model.addAttribute("receiptDetails_list", receiptDetails_list);
                         model.addAttribute("receipts_List", receipts_List);
                         model.addAttribute("receiptDetailPerfect_list", receiptDetailPerfect);

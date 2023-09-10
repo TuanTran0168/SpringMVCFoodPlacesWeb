@@ -8,8 +8,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <link rel="stylesheet" href=" <c:url value="/css/newRestaurant.css" /> "/>
+<link rel="stylesheet" href=" <c:url value="/css/stats.css" /> "/>
 <script src="<c:url value="/js/restaurants.js" />"></script>
 <script src="<c:url value="/js/mychart.js" />"></script>
+
+<script>
+    let labels = [];
+    let data = [];
+
+    <c:forEach var="s" items="${statsFood}">
+    labels.push('${s[1]}');
+    data.push(${s[2]});
+    </c:forEach>
+
+    let labels_1 = [];
+    let data_1 = [];
+
+    <c:forEach var="s" items="${statsFoodByCate}">
+    labels_1.push('${s[1]}');
+    data_1.push(${s[2]});
+    </c:forEach>
+    window.onload = function () {
+        drawRevenueChart(labels, data);
+        drawRevenueChartByCate(labels_1, data_1);
+    }
+
+</script>
 
 <form:form modelAttribute="restaurant">
     <c:choose>
@@ -35,84 +59,152 @@
         </c:when>
     </c:choose>
 </form:form>
-<section>
-    <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">THỐNG KÊ</h1>
-    <section class="container newfood-container">
 
-       
-        <table class="table-hover ">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Tên món</th>
-                    <th>Doanh thu</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <c:forEach items="${statsFood}" var="statsFood">
-
-                    <tr>
-                        <!--<td></td>-->
-                        <td>${statsFood[0]}</td>
-                        <td>${statsFood[1]}</td>
-                        <td>${statsFood[2]}</td>
-
-
-                    </tr>
-
-                </c:forEach>
-            </tbody>
-        </table>
-
-    </section>
-    <div class="container">
-        <script>
-            window.onload = function () {
-                let labels = [];
-                let data = [];
-
-            <c:forEach var="s" items="${statsFood}">
-                labels.push('${s[1]}');
-                data.push(${s[2]});
-            </c:forEach>
-                drawRevenueChart(labels, data);
-            }
-        </script>
-
-
-        <!--        <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionTest">
-            <c:param name="fromDate"  />
-            <c:param name="toDate"  />
-        </c:url>
-
-        <form class="d-flex" action="${actionTest}">
-            <input class="form-control me-2" type="date" name="fromDate" placeholder="Ngày bắt đầu..." />
-            <input class="form-control me-2" type="date" name="toDate" placeholder="Ngày kết thúc..." />
-            <button class="btn btn-primary" type="submit">OK</button>
-        </form>-->
-
-
-        <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="statsAction" />
-        <form class="d-flex" action="${statsAction}">
-            <input class="form-control me-2" type="date" name="fromDate" placeholder="Nhập từ khóa...">
-            <input class="form-control me-2" type="date" name="toDate" placeholder="Nhập từ khóa...">
-            <button class="btn btn-primary" type="submit">Tìm</button>
-        </form>
-
-        <canvas id="RevenueChart">
-
-        </canvas>
-        <h3 class="text-center">Sơ đồ thống kê theo doanh thu từng món ăn</h3>
-    </div>
-
-</section>
 
 
 <form:form modelAttribute="restaurant" action="${actionCategoryFood}" method="get">
     <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionCategoryFood"/>
     <c:choose>
         <c:when test="${restaurant.restaurantId != null && restaurant.confirmationStatus == true}">
+            <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 1.5em">THỐNG KÊ</h1>
+            <hr>
+            <section class="search container mt-5">
+                <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="statsAction_date" />
+                <!--Có ai hiểu tại sao bỏ cái form sida này ra là nó bị mất cái form bọc lại lúc render không?-->
+                <form class="d-flex">
+
+                </form>
+
+                <form class = "d-flex" action="${statsAction_date}">
+                    <input required="" class="form-control me-2" type="date" name="fromDate" >
+                    <input required class="form-control me-2" type="date" name="toDate">
+                    <button class="btn btn-primary" type="submit">Tìm</button>
+                </form>
+
+                <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="statsAction_quarter" />
+                <form class="d-flex" action="${statsAction_quarter}">
+                    <input required type="number" min="1" max="4" step="1" placeholder="Quý" id="quarter-input" name="quarter">
+                    <input required type="number" min="2000" max="3000" step="1" placeholder="Năm" id="quarter-year" name="quarter-year">
+                    <button class="btn btn-primary" type="submit">Tìm theo quý</button>
+                </form >
+            </section>
+            <section class="my-stats">
+                <div class="stats">
+                    <!--=============================================================================================-->
+                    <!--=============================================================================================-->
+                    <!--=============================================================================================-->
+                    <!--=============================================================================================-->
+                    <section>
+                        <!--<h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">THỐNG KÊ</h1>-->
+                        <section class="container newfood-container">
+
+
+                            <table class="table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Tên món</th>
+                                        <th>Doanh thu</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <c:forEach items="${statsFood}" var="statsFood">
+
+                                        <tr>
+                                            <!--<td></td>-->
+                                            <td>${statsFood[0]}</td>
+                                            <td>${statsFood[1]}</td>
+                                            <td>${statsFood[2]}</td>
+                                        </tr>
+
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+
+                        </section>
+                        <div class="draw-chart container">
+
+                            <canvas id="RevenueChart">
+
+                            </canvas>
+                            <h3 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em" class="text-center">Sơ đồ thống kê theo doanh thu từng món ăn</h3>
+                        </div>
+
+                    </section>
+
+                    <hr class="container mt-5 mb-5">
+                    
+                    <!--=============================================================================================-->
+                    <!--=============================================================================================-->
+                    <!--=============================================================================================-->
+                    <!--=============================================================================================-->
+                    
+
+                    <section>
+                        <!--<h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">THỐNG KÊ</h1>-->
+                        <section class="container newfood-container">
+                            <table class="table-hover ">
+                                <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>Tên danh mục</th>
+                                        <th>Doanh thu</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <c:forEach items="${statsFoodByCate}" var="statsFoodByCate">
+
+                                        <tr>
+                                            <!--<td></td>-->
+                                            <td>${statsFoodByCate[0]}</td>
+                                            <td>${statsFoodByCate[1]}</td>
+                                            <td>${statsFoodByCate[2]}</td>
+                                        </tr>
+
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+
+                        </section>
+                        <div class="container">
+                            <!--
+                            <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="statsByCateAction_date" />
+                            <form class="d-flex" action="${statsByCateAction_date}">
+                                <input required="" class="form-control me-2" type="date" name="fromDate" >
+                                <input required class="form-control me-2" type="date" name="toDate">
+                                <button class="btn btn-primary" type="submit">Tìm</button>
+        
+                            </form>
+        
+                            <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="statsByCateAction_quarter" />
+                            <form class="d-flex" action="${statsByCateAction_quarter}">
+                                <input required type="number" min="1" max="4" step="1" placeholder="Quý" id="quarter-input" name="quarter">
+                                <input required type="number" min="2000" max="3000" step="1" placeholder="Năm" id="quarter-year" name="quarter-year">
+                                <button class="btn btn-primary" type="submit">Tìm theo quý</button>
+                            </form >-->
+
+                            <div class="draw-chart container">
+                                <canvas id="RevenueChartFoodByCate">
+
+                                </canvas>
+                            </div>
+
+                            <h3 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em" class="text-center">Sơ đồ thống kê theo doanh thu từng danh mục</h3>
+                        </div>
+
+                    </section>
+
+                    <!--=============================================================================================-->
+                    <!--=============================================================================================-->
+                    <!--=============================================================================================-->
+                    <!--=============================================================================================-->
+                </div>
+            </section>
+
+
+
             <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">CÁC MÓN ĂN</h1>
             <hr class="container">
 
@@ -252,6 +344,7 @@
                                     <th>Số lượng</th>
                                     <th>Giá tổng</th>
                                     <th>Ngày tạo</th>
+                                    <th>Địa chỉ giao</th>
                                     <th>Trạng thái</th>
                                 </tr>
                             </thead>
@@ -267,6 +360,7 @@
                                         <td>${receipts.quantity}</td>
                                         <td>${receipts.amount}</td>
                                         <td>${receipts.createdDate}</td>
+                                        <td>${receipts.location}</td>
                                         <td>${receipts.statusReceipt}</td>
                                     </tr>
 
