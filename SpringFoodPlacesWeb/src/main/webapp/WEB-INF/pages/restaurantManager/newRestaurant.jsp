@@ -115,6 +115,7 @@
                                     <tr>
                                         <th>id</th>
                                         <th>Tên món</th>
+                                        <th>SL bán</th>
                                         <th>Doanh thu</th>
                                     </tr>
                                 </thead>
@@ -126,7 +127,9 @@
                                             <!--<td></td>-->
                                             <td>${statsFood[0]}</td>
                                             <td>${statsFood[1]}</td>
+                                            <td>${statsFood[3]}</td>
                                             <td>${statsFood[2]}</td>
+
                                         </tr>
 
                                     </c:forEach>
@@ -372,7 +375,15 @@
                                         <td>${receipts.amount}</td>
                                         <td>${receipts.createdDate}</td>
                                         <td>${receipts.location}</td>
-                                        <td>${receipts.statusReceipt}</td>
+                                        
+                                        <c:choose >
+                                            <c:when test="${receipts.statusReceipt eq 'Chưa xác nhận'}">
+                                                <td class="text-danger">${receipts.statusReceipt}</td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td class="text-success">${receipts.statusReceipt}</td>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </tr>
 
                                 </c:forEach>
@@ -405,10 +416,10 @@
                     <label for="location">Nhập địa chỉ nhà hàng...</label>
                 </div>
 
-<!--                <div class="form-floating mb-3 mt-3">
-                    <form:input type="text" class="form-control" path="mapLink" id="mapLink" placeholder="Nhập tên nhà hàng... " name="mapLink" />
-                    <label for="restaurantName">Cái maplink này nhập đại đi chứ đách xử lý đc...</label>
-                </div>-->
+                <!--                <div class="form-floating mb-3 mt-3">
+                <form:input type="text" class="form-control" path="mapLink" id="mapLink" placeholder="Nhập tên nhà hàng... " name="mapLink" />
+                <label for="restaurantName">Cái maplink này nhập đại đi chứ đách xử lý đc...</label>
+            </div>-->
 
                 <label for="file" class="drop-container" id="dropcontainer">
                     <span class="drop-title">Drop your avatar here</span>

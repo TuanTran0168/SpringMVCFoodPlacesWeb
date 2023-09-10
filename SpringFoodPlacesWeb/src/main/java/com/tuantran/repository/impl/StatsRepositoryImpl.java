@@ -72,7 +72,8 @@ public class StatsRepositoryImpl implements StatsRepository {
         query.multiselect(
                 rootFoodItems.get("foodId"),
                 rootFoodItems.get("foodName"),
-                rootReceiptDetail.get("amount")
+                rootReceiptDetail.get("amount"),
+                criteriaBuilder.sum(rootReceiptDetail.get("quantity"))
         //                rootCategory.get("categoryfoodId"),
         //                rootCategory.get("categoryname")
         //                        criteriaBuilder.sum(
@@ -144,7 +145,9 @@ public class StatsRepositoryImpl implements StatsRepository {
         query.orderBy(criteriaBuilder.desc(rootReceiptDetail.get("amount")));
         query.where(predicates.toArray(Predicate[]::new));
 
-//        query.groupBy(rootFoodItems.get("foodId"));
+        query.groupBy(rootFoodItems.get("foodId"),
+                rootFoodItems.get("foodName"),
+                rootReceiptDetail.get("amount"));
         Query final_query = session.createQuery(query);
         return final_query.getResultList();
     }
@@ -229,6 +232,90 @@ public class StatsRepositoryImpl implements StatsRepository {
 
         query.groupBy(
                 rootCategory.get("categoryfoodId")
+        );
+        Query final_query = session.createQuery(query);
+        return final_query.getResultList();
+    }
+
+    @Override
+    public List<Object[]> statsRestaurant(Map<String, String> params) {
+        Session session = this.factory.getObject().getCurrentSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Object[]> query = criteriaBuilder.createQuery(Object[].class);
+
+        Root rootFoodItems = query.from(Fooditems.class);
+        Root rootReceipts = query.from(Receipts.class);
+        Root rootReceiptDetail = query.from(ReceiptDetail.class);
+
+        Root rootRestaurants = query.from(Restaurants.class);
+        // SELECT 
+        query.multiselect(
+                rootRestaurants.get("restaurantId"),
+                rootRestaurants.get("restaurantName"),
+                criteriaBuilder.sum(rootReceiptDetail.get("amount"))
+        );
+
+        List<Predicate> predicates = new ArrayList<>();
+
+        // WHERE JOIN BẢNG
+        predicates.add(criteriaBuilder.equal(
+                rootReceipts.get("receiptId"),
+                rootReceiptDetail.get("receiptId"))
+        );
+
+        predicates.add(criteriaBuilder.equal(
+                rootReceiptDetail.get("fooditemId"),
+                rootFoodItems.get("foodId"))
+        );
+
+        predicates.add(criteriaBuilder.equal(
+                rootRestaurants.get("restaurantId"),
+                rootFoodItems.get("restaurantId"))
+        );
+        // LỌC
+        String restaurantId = params.get("restaurantId");
+
+        if (restaurantId != null && !restaurantId.isEmpty()) {
+            predicates.add(criteriaBuilder.equal(rootFoodItems.get("restaurantId"), Integer.parseInt(restaurantId)));
+
+        }
+
+        String fromDate = params.get("fromDate");
+        if (fromDate != null && !fromDate.isEmpty()) {
+            try {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(rootReceipts.get("receiptDate"), MY_DATE_FORMAT.parse(fromDate)));
+            } catch (ParseException ex) {
+                Logger.getLogger(StatsRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        String toDate = params.get("toDate");
+        if (toDate != null && !toDate.isEmpty()) {
+            try {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(rootReceipts.get("receiptDate"), MY_DATE_FORMAT.parse(toDate)));
+            } catch (ParseException ex) {
+                Logger.getLogger(StatsRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        String quarter = params.get("quarter");
+        if (quarter != null && !quarter.isEmpty()) {
+            String year = params.get("quarter-year");
+            if (year != null && !year.isEmpty()) {
+                predicates.addAll(Arrays.asList(
+                        criteriaBuilder.equal(criteriaBuilder.function("YEAR", Integer.class, rootReceipts.get("receiptDate")), Integer.parseInt(year)),
+                        criteriaBuilder.equal(criteriaBuilder.function("QUARTER", Integer.class, rootReceipts.get("receiptDate")), Integer.parseInt(quarter))
+                ));
+            }
+        }
+
+        // Phần sau WHERE
+        query.orderBy(criteriaBuilder.desc(criteriaBuilder.sum(rootReceiptDetail.get("amount"))));
+        query.where(predicates.toArray(Predicate[]::new));
+
+        query.groupBy(
+                rootRestaurants.get("restaurantId"),
+                rootRestaurants.get("restaurantName")
         );
         Query final_query = session.createQuery(query);
         return final_query.getResultList();

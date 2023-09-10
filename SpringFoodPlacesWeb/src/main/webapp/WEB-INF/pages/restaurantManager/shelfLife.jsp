@@ -58,14 +58,14 @@
     <table class="table-hover ">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>fromDate</th>
-            <th>toDate</th>
+            <th>Tên thời gian bán</th>
+            <th>Ngày bắt đầu</th>
+            <th>Ngày kết thúc</th>
 
     </tr>
     </thead>
 
-    <c:forEach items="${shelfLifes}" var="s">
+    <c:forEach items="${shelfLifes_All}" var="s">
         <tbody>
             <tr>
                 <td>${s.shelflifeName}</td>
