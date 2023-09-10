@@ -35,37 +35,37 @@
         </c:when>
     </c:choose>
 </form:form>
-
 <section>
     <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">THỐNG KÊ</h1>
-    <hr class="container">
-    <table class="table-hover ">
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>Tên món</th>
-                <th>Doanh thu</th>
-            </tr>
-        </thead>
+    <section class="container newfood-container">
 
-        <tbody>
-            <c:forEach items="${statsFood}" var="statsFood">
-
+       
+        <table class="table-hover ">
+            <thead>
                 <tr>
-                    <!--<td></td>-->
-                    <td>${statsFood[0]}</td>
-                    <td>${statsFood[1]}</td>
-                    <td>${statsFood[2]}</td>
-
-
+                    <th>id</th>
+                    <th>Tên món</th>
+                    <th>Doanh thu</th>
                 </tr>
+            </thead>
 
-            </c:forEach>
-        </tbody>
-    </table>
+            <tbody>
+                <c:forEach items="${statsFood}" var="statsFood">
+
+                    <tr>
+                        <!--<td></td>-->
+                        <td>${statsFood[0]}</td>
+                        <td>${statsFood[1]}</td>
+                        <td>${statsFood[2]}</td>
 
 
+                    </tr>
 
+                </c:forEach>
+            </tbody>
+        </table>
+
+    </section>
     <div class="container">
         <script>
             window.onload = function () {
@@ -80,8 +80,8 @@
             }
         </script>
 
-                
-<!--        <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionTest">
+
+        <!--        <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionTest">
             <c:param name="fromDate"  />
             <c:param name="toDate"  />
         </c:url>
@@ -106,9 +106,8 @@
         <h3 class="text-center">Sơ đồ thống kê theo doanh thu từng món ăn</h3>
     </div>
 
-
-
 </section>
+
 
 <form:form modelAttribute="restaurant" action="${actionCategoryFood}" method="get">
     <c:url value="/restaurantManager/restaurants/${restaurant.restaurantId}" var="actionCategoryFood"/>
@@ -201,7 +200,8 @@
 
                     <section style="background-color: #eee;">
                         <div class="container py-5">
-                            <h4 class="text-center mb-5"><strong>Product listing</strong></h4>
+                            <!--nhu-->
+                            <h4 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em"><strong>Product listing</strong></h4>
 
                             <div class="row">
                                 <c:forEach items="${food_list}" var="food">
@@ -218,10 +218,9 @@
 
                                             <div class="mask" >
 
-                                                <h5>${food.foodName}</h5>
-                                                <h5>${food.price}</h5>
+                                                <h5>Tên món: ${food.foodName}</h5>
                                                 <!--nhu-->
-<!--                                                    <h5>Giá: ${food.price}</h5>
+                                                <h5 class="text-danger"><strong>Giá: ${food.price}</strong></h5><!--
                                                 <h5>Danh mục món: ${food.categoryfoodId.categoryname}</h5>
                                                 <h5>Mô tả: ${food.description}</h5>
                                                 <h5>Nhà hàng: ${food.restaurantId.restaurantName} - ${food.restaurantId.restaurantId}</h5>-->
@@ -238,8 +237,10 @@
                             </div>
                         </div>
                     </section>
+                    <hr class="container">
+                    <!--nhu-->
+                    <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">CÁC ĐƠN HÀNG</h1>
 
-                    <h1 class="text-center">CÁC ĐƠN HÀNG</h1>
 
                     <section class="container newfood-container">
                         <table class="table-hover ">
@@ -279,9 +280,9 @@
         </c:when>
     </c:choose>
 </form:form>
+<hr class="container">
 
 <h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">ĐĂNG KÝ NHÀ HÀNG MỚI</h1>
-<hr class="container">
 <div class="body">
     <div class="body body__left">
         <div class="container">

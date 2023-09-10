@@ -30,17 +30,16 @@ div.body {
     display: flex;
     padding: 0 3em;
 }
-
+/*nhu*/
 div.body.body__left {
     width: 50%;
+    margin-left: 2.0rem;
 }
 
 div.body.body__right {
     width: 50%;
 
 }
-
-
 .drop-container {
     position: relative;
     display: flex;
@@ -149,9 +148,7 @@ div.card-description {
     display: flex;
     flex-direction: column;
     gap: 20px;
-
     padding: 40px;
-
     width: auto;
     height: 100%;
 }
@@ -165,28 +162,20 @@ div.card-description h2, span {
 
 div.card-description-title {
     color: white;
-
     font-size: 18px;
 }
 
 div.card-description-profession {
     display: block;
-
     font-size: 16px;
 }
 
 div.avatar-restaurant > img {
-
     border-radius: 3%;
     width: 45em;
     height: 85%;
-
     object-fit: cover;
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 1);
-
-}
-
-div.food-home {
 
 }
 
@@ -256,6 +245,7 @@ div.food-home__bottom > section > div > div.row > div {
 div.my-img-link  {
     overflow: hidden;
     box-shadow: 5px 5px 7px 5px #666;
+    position: relative;
     /*border: solid 1px;*/
 }
 
@@ -273,10 +263,6 @@ div.my-img-link > a > img:hover {
     transition: 0.3s;
 }
 
-div.my-img-link div.mask > div h5{
-    /*    background: #e6e6e6;
-        box-shadow: 10px 10px 30px rgba(0, 0, 0, 1);*/
-}
 /*nhu*/
 div.food-item{
     position: relative;
@@ -285,7 +271,7 @@ div.food-item{
 }
 div.mask {
     position: absolute;
-    top:65%;
+    top:30%;
     left:0;
     right:0;
     bottom:5%;
@@ -297,9 +283,10 @@ div.mask {
     box-shadow: 3px 3px 5px 0px #666;
 }
 div.mask>h5{
-    margin: 1rem auto;
+    margin: 0.5rem auto;
     text-align: center;
-    font-size: 25px;
+    font-size: 27px;
+    font-weight:500;
 }
 div.food-item:hover div.mask{
     opacity:0.8;
@@ -371,11 +358,17 @@ h3:hover:before,h3:hover:after{
 
 section.newfood-container{
     /*background: #ffffff;*/
-    background-color: rgba(2,6,23,0.4);
-    width: 100%;
+    /*background-color: rgba(2,6,23,0.4);*/
+    background-color: rgba(0,0,0.4,0.77);
+    width: 80%;
     margin: 20px auto;
     padding: 10px;
+    max-height: 400px;
+    overflow: auto;
     /*color: #ffffff;*/
+}
+section.newfood-container::-webkit-scrollbar{
+    width: 0;
 }
 table.table-hover {
     width: 100%;
@@ -385,7 +378,18 @@ table.table-hover {
     border: 2px solid transparent;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19);
     color: #FFFFFF;
+    background-color: rgba(0,0,0.4,0.3);
+        border: 1px solid graytext;
+
+
 }
 th,td{
     padding: 10px;
+}
+table.table-hover tr{
+    font-size: 20px;
+}
+tbody td{
+    background-color:lightgray;
+
 }
