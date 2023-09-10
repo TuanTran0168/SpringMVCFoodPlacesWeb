@@ -35,6 +35,17 @@
 
 </script>
 
+<c:if test="${not empty param.msg}">
+    <div class="toast show">
+        <div class="toast-header">
+            <h1>THÔNG BÁO!</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            ${param.msg}
+        </div>
+    </div>
+</c:if>
 <form:form modelAttribute="restaurant">
     <c:choose>
         <c:when test="${restaurant.restaurantId != null && restaurant.confirmationStatus == true}">
@@ -134,12 +145,12 @@
                     </section>
 
                     <hr class="container mt-5 mb-5">
-                    
+
                     <!--=============================================================================================-->
                     <!--=============================================================================================-->
                     <!--=============================================================================================-->
                     <!--=============================================================================================-->
-                    
+
 
                     <section>
                         <!--<h1 style="text-align: center; color: #5a2c1e; font-weight: bold; margin: 0.5em">THỐNG KÊ</h1>-->

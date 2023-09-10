@@ -52,9 +52,9 @@
                 <div>
                     <a href="<c:url value="/login" />"><button>Đăng nhập</button></a>
                 </div>
-                <div >
+<!--                <div >
                     <a href="<c:url value="/register" />"><button>Đăng ký</button></a>
-                </div>
+                </div>-->
             </c:otherwise>
         </c:choose>
 

@@ -14,7 +14,7 @@
 <c:if test="${not empty param.msg}">
     <div class="toast show">
         <div class="toast-header">
-            <h1>ERROR!</h1>
+            <h1>THÔNG BÁO!</h1>
             <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
         </div>
         <div class="toast-body">
@@ -145,7 +145,7 @@
 </section>
 
 
-<div class="container">
+<!--<div class="container">
 
     <c:url value="/admin/users/newUser" var="action"/>
     <form:form method="post" action="${action}" modelAttribute="user" enctype="multipart/form-data">
@@ -225,4 +225,4 @@
             </c:choose>
         </button>
     </form:form>
-</div>
+</div>-->
