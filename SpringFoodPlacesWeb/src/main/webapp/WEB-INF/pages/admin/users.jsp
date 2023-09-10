@@ -131,7 +131,7 @@
                 <div class="course_card">
                     <a class ="detail-restaurant" href="<c:url value="/admin/users/${user.userId}" />">
                         <div class="course_card_img">
-                            <img ,="" alt="course" src="${user.avatar}" />
+                            <img ,="" alt="avatar của ${user.firstname} ${user.lastname}" src="${user.avatar}" />
                         </div>
                         <div class="course_card_content">
                             <h3 class="title">

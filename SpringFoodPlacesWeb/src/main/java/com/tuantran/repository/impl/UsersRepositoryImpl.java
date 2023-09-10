@@ -23,6 +23,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -206,6 +208,14 @@ public class UsersRepositoryImpl implements UsersRepository {
         Users user = this.getUserById(id);
         try {
             if (user != null) {
+
+//                Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//                Users u = this.getUserByUsername_new(authentication.getName());
+//
+//                if (u.getUserId().equals(user.getUserId())) {
+//                    return false;
+//                }
+
                 if (user.getActive().equals(Boolean.TRUE)) {
                     user.setActive(Boolean.FALSE);
                     session.update(user);
@@ -357,6 +367,16 @@ public class UsersRepositoryImpl implements UsersRepository {
     public int updateUser_server(Users user) {
         Session session = this.factory.getObject().getCurrentSession();
         try {
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Users u = this.getUserByUsername_new(authentication.getName());
+
+            if (u.getUserId().equals(user.getUserId())) {
+                if (u.getRoleId().getRoleId() == 1 && !user.getRoleId().getRoleId().equals(u.getRoleId().getRoleId())) {
+                    return 5;
+                }
+            }
+
             session.update(user);
             return 1;
         } catch (HibernateException ex) {
