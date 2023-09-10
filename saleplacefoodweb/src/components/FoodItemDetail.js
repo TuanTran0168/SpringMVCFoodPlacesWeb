@@ -8,6 +8,7 @@ import '../resources/css/FoodItemDetail.css'
 import cookie from "react-cookies";
 import Moment from "react-moment";
 import userimg from '../resources/img/usernull.png'
+import { ToastContainer, toast } from "react-toastify";
 
 // const FoodItemDetail = () => {
 
@@ -330,6 +331,7 @@ const FoodItemDetail = () => {
     const [, cartDispatch] = useContext(MyCartContext);
     const [foodItem, setFoodItem] = useState(null);
     const [newComment, setNewComment] = useState(null);
+    const notify = (x) => toast(x);
 
     // const [fullComment, setFullComment] = useState({
     //     "restaurantId": "",
@@ -343,8 +345,10 @@ const FoodItemDetail = () => {
     const [rating, setRating] = useState(null);
     const avatar = useRef();
     const [loading, setLoading] = useState(false);
+    const [checkComment, setCheckComment] = useState(false);
 
     useEffect(() => {
+
         const loadFood = async () => {
             try {
                 let { data } = await Apis.get(endpoints['detail'](foodId));
@@ -361,6 +365,28 @@ const FoodItemDetail = () => {
             setComments(data);
         }
 
+        const loadCheckComment = async () => {
+            if (user !== null) {
+                try {
+                    // let e = `${endpoints['check-comment']}?userId=${user.userId}`
+                    // let form = new FormData();
+                    // form.append("userId", user.userId)
+                    const queryParams = { userId: user.userId };
+                    let { data } = await Apis.get(endpoints['check-comment'](foodId), { params: queryParams });
+                    if (data === 1) {
+                        setCheckComment(true);
+                    }
+                    else if (data === 0) {
+                        setCheckComment(false);
+                    }
+                    // console.log(data)
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+        }
+
+        loadCheckComment();
         loadFood();
         loadComments();
     }, [foodId]);
@@ -390,6 +416,7 @@ const FoodItemDetail = () => {
         }
 
         cookie.save("cart", cart);
+        notify("Thêm vào giỏ hàng thành công!!!");
     }
 
 
@@ -462,7 +489,7 @@ const FoodItemDetail = () => {
             console.log(ex);
         }
     };
-    console.log(foodItem)
+    // console.log(foodItem)
 
     if (foodItem === null || comments === null)
         return <MySpinner />;
@@ -474,20 +501,21 @@ const FoodItemDetail = () => {
     return (<>
         <div className="detailcontainer">
             <div>
+                <ToastContainer />
                 <section id="detail-top">
                     <Container className="w-90 mx-auto">
                         <Row xs={1} md={2}>
                             <Col className="detail-name">
-                                <div><h1>TÊN SẢN PHẨM {foodItem.foodName}</h1></div>
+                                <div><h1>{foodItem.foodName}</h1></div>
                                 <div><hr></hr></div>
-                                <div><Image className="w-90" src={foodItem.avatar} thumbnail /></div>
+                                <div><Image className="w-90 " src={foodItem.avatar} thumbnail /></div>
                             </Col>
                             <Col className=" detail-profile pt-10" >
                                 <div>
                                     {foodItem.description}
                                 </div>
                                 <div className="h-15">
-                                    <button className="	btn-addCart h-100" style={{ fontSize: 25 + "px" }}>ADD TO CART</button>
+                                    <Button onClick={() => { order(foodItem) }} className="	btn-addCart h-100" style={{ fontSize: 25 + "px" }}>ADD TO CART</Button>
                                 </div>
                                 <div className="text-danger" style={{ fontSize: 30 + "px" }}>Giá bán: {foodItem.price} VNĐ</div>
                                 <div className="m-0">
@@ -509,25 +537,29 @@ const FoodItemDetail = () => {
                         </p>
                     ) : (
                         <>
-                            <Form.Control
-                                as="textarea"
-                                aria-label="With textarea"
-                                value={newComment}
-                                onChange={e => setNewComment(e.target.value)}
-                                placeholder="Nội dung bình luận"
-                            />
-                            <Form.Control
-                                accept=".jpg, .jpeg, .png, .gif, .bmp"
-                                type="file"
-                                ref={avatar}
-                            />
-                            {loading === true ? (
-                                <MySpinner />
-                            ) : (
-                                <Button onClick={addComment} className="mt-2" variant="info">
-                                    Bình luận
-                                </Button>
-                            )}
+                            {checkComment === true ?
+                                <>
+                                    <Form.Control
+                                        as="textarea"
+                                        aria-label="With textarea"
+                                        value={newComment}
+                                        onChange={e => setNewComment(e.target.value)}
+                                        placeholder="Nội dung bình luận"
+                                    />
+                                    <Form.Control
+                                        accept=".jpg, .jpeg, .png, .gif, .bmp"
+                                        type="file"
+                                        ref={avatar}
+                                    />
+                                    {loading === true ? (
+                                        <MySpinner />
+                                    ) : (
+                                        <Button onClick={addComment} className="mt-2" variant="info">
+                                            Bình luận
+                                        </Button>
+                                    )}
+                                </> : <p>Bạn chưa mua sản phẩm này nên không thể bình luận!!!</p>}
+
                         </>
                     )}
                     <hr />

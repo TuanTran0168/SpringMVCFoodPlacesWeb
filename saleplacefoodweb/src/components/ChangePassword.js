@@ -42,7 +42,7 @@ const ChangePassword = () => {
                 let data = await authApi().post(endpoints['changePassword'], form);
                 console.log(data);
                 toast("Đổi mật khẩu thành công!!")
-                nav("/profile");
+                // nav("/profile");
             }catch(e){
                 console.error(e);
                 toast(e);

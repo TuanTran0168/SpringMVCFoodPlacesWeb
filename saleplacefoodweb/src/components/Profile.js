@@ -46,7 +46,7 @@ const Profile = () => {
         console.log(avatar[0]);
         setCurrent_avatar(avatar[0]);
     }
-    console.log(current_user)
+    // console.log(current_user)
 
     const reloadUser = async () => {
         try {

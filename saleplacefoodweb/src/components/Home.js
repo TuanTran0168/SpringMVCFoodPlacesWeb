@@ -7,6 +7,7 @@ import '../resources/css/Home.css'
 import { MyCartContext } from "../App";
 import cookie from "react-cookies";
 import { MDBInput } from "mdb-react-ui-kit";
+import { ToastContainer, toast } from "react-toastify";
 
 const Home = () => {
 
@@ -21,6 +22,7 @@ const Home = () => {
     const [toPrice, setToPrice] = useState("");
     const [page, setPage] = useState("");
     const nav = useNavigate();
+    const notify = (x) => toast(x);
 
 
     const search = (evt) => {
@@ -66,7 +68,7 @@ const Home = () => {
                 let res = await Apis.get(e);
 
                 setFoodItems(res.data);
-                console.log(res.data)
+                // console.log(res.data)
             } catch (ex) {
                 console.error(ex);
             }
@@ -110,7 +112,7 @@ const Home = () => {
             "type": "inc",
             "payload": 1
         })
-
+        
 
         let cart = cookie.load("cart") || null;
         if (cart == null)
@@ -128,6 +130,7 @@ const Home = () => {
         }
 
         cookie.save("cart", cart);
+        notify("Thêm vào giỏ hàng thành công!!!");
     }
     // if (foodItems.length === 0 && restaurant.length)
     //     return <Alert variant="info" className="mt-2">Không có sản phẩm nào!</Alert>
@@ -135,6 +138,7 @@ const Home = () => {
     return <>
         <div>
             <div>
+            <ToastContainer />
                 <Form onSubmit={search} className="mt-3 mb-2 form_find_name" inline>
                     <Row className="find_first">
                         <Col xs="auto" className="input1">
@@ -181,6 +185,7 @@ const Home = () => {
                         </Col>
                     </Row> *
                 </Form> */}
+                 {/* <ToastContainer /> */}
                 <Carousel data-bs-theme="dark" className="carousel_edit">
                     {/* {restaurant === null ? <MySpinner /> : <> */}
                     {Object.values(restaurant).map(r => {
@@ -226,47 +231,50 @@ const Home = () => {
         </div>
         <div className="home">
 
-            <div className="find">
+            {/* <div className="find">
 
                 <Form onSubmit={search} className="mt-3 mb-2 form form_find_all" inline>
                     <Row>
 
                     </Row>
                 </Form>
-            </div>
+            </div> */}
             <div className="fooditems">
                 <Row>
                     {foodItems.length === 0 ? <Alert variant="info" className="mt-2">Không có sản phẩm nào!</Alert> : <>
-                    {foodItems === null ? <MySpinner /> : <>
-                        {foodItems.map(f => {
-                            let url = `/fooddetail/${f.foodId}`;
-                            return <Col xs={12} md={3} className="m-3 mt-2 mb-2">
-                                <Card className="mt-3 food_item" style={{ width: '18rem' }}>
-                                    <Link to={url}><Card.Img variant="top" src={f.avatar} /></Link>
-                                    <Card.Body>
-                                        <div className="flex" >
+                        {foodItems === null ? <MySpinner /> : <>
+                            {foodItems.map(f => {
+                                let url = `/fooddetail/${f.foodId}`;
+                                return <Col xs={12} md={4} >
+                                    <Card className="mt-3 food_item">
+                                        <Link to={url}><Card.Img variant="top" className="w-100" src={f.avatar} /></Link>
+                                        <Card.Body>
+                                            <div className="flex" style={{ height: 100 + "px" }}>
+                                                <div className="w-70">
+                                                    <Card.Title>{f.foodName}</Card.Title>
+                                                </div>
+                                                <div className="description" >
+                                                    <Card.Text>{f.description}</Card.Text>
+                                                </div>
+                                            </div>
                                             <div>
-                                                <Card.Title>{f.foodName}</Card.Title>
-                                                <Card.Text>
+                                                <Card.Text className="text-danger" style={{ fontSize: 25 + "px" }}>
                                                     {f.price} VNĐ
                                                 </Card.Text>
                                             </div>
-                                            <div className="description" >
-                                                <Card.Text>{f.description}</Card.Text>
+                                            <div className="btn_all">
+                                                <Button onClick={() => { order(f) }} className="raise" variant="success">ADD TO CART</Button>
+                                                
+                                                <Link to={url} variant="primary" className="btn-food btn btn-primary raise">Xem chi tiết</Link>
                                             </div>
-                                        </div>
-                                        <div className="btn_all">
-                                            <Button onClick={() => { order(f) }} className="raise" variant="success">ADD TO CART</Button>
-                                            <Link to={url} variant="primary" className="btn-food btn btn-primary raise">Xem chi tiết</Link>
-                                        </div>
-                                    </Card.Body>
-                                </Card>
-                            </Col>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
 
-                        })}
+                            })}
+                        </>}
                     </>}
-                    </>}
-                    
+
 
                 </Row>
             </div>

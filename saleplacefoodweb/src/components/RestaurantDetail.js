@@ -9,6 +9,7 @@ import { Card } from "react-bootstrap/esm";
 import cookie from "react-cookies";
 import { MyCartContext, MyUserContext } from "../App";
 import GoogleMapReact from 'google-map-react';
+import { ToastContainer, toast } from "react-toastify";
 
 const RestaurantDetail = () => {
 
@@ -21,6 +22,7 @@ const RestaurantDetail = () => {
     const [user,] = useContext(MyUserContext);
     const [checkFollow, setCheckFollow] = useState(false);
     const [loading1, setLoading1] = useState(false);
+    const notify = (x) => toast(x);
 
     useEffect(() => {
         try {
@@ -95,7 +97,7 @@ const RestaurantDetail = () => {
 
     }
 
-    
+
 
     const order = (foodItem) => {
         cartDispatch({
@@ -120,6 +122,7 @@ const RestaurantDetail = () => {
         }
 
         cookie.save("cart", cart);
+        notify("Thêm vào giỏ hàng thành công!!!");
     }
 
     const follow = async () => {
@@ -130,11 +133,13 @@ const RestaurantDetail = () => {
             form.append("userId", user.userId);
             form.append("restaurantId", restaurantId);
             let res = await authApi().post(endpoints["follow"], form);
-            console.log(res);
+            // console.log(res);
             if (res.status === 201) {
                 setCheckFollow(true);
+                notify("Theo dõi thành công!!");
             } else {
                 setCheckFollow(false);
+                notify("Hủy theo dõi thành công!!");
             }
         } catch (err) {
             console.log(err);
@@ -146,7 +151,7 @@ const RestaurantDetail = () => {
 
     }
 
-    /*Google map*/ 
+    /*Google map*/
 
     const defaultProps = {
         center: {
@@ -162,7 +167,7 @@ const RestaurantDetail = () => {
 
     const handleApiLoaded = (map, maps) => {
         // use map and maps objects
-      };
+    };
 
     if (restaurant === null) {
         return <MySpinner />
@@ -172,6 +177,7 @@ const RestaurantDetail = () => {
     return <>
 
         <section style={{ backgroundColor: '#eee' }}>
+        <ToastContainer />
             <MDBContainer className="py-5">
                 <MDBRow>
                     <MDBCol>
@@ -285,20 +291,22 @@ const RestaurantDetail = () => {
                         {foodItems.length === 0 ? <Alert>Không có sản phẩm nào đang được bán ở đây!</Alert> : <>
                             {foodItems.map(f => {
                                 let url = `/fooddetail/${f.foodId}`;
-                                return <Col xs={12} md={3} className="m-3 mt-2 mb-2">
-                                    <Card className="mt-3 food_item" style={{ width: '18rem' }}>
-                                        <Link to={url}><Card.Img variant="top" src={f.avatar} /></Link>
+                                return <Col xs={12} md={4} >
+                                    <Card className="mt-3 food_item">
+                                        <Link to={url}><Card.Img variant="top" className="w-100" src={f.avatar} /></Link>
                                         <Card.Body>
-                                            <div className="flex" >
-                                                <div>
+                                            <div className="flex" style={{ height: 100 + "px" }}>
+                                                <div className="w-70">
                                                     <Card.Title>{f.foodName}</Card.Title>
-                                                    <Card.Text>
-                                                        {f.price} VNĐ
-                                                    </Card.Text>
                                                 </div>
                                                 <div className="description" >
                                                     <Card.Text>{f.description}</Card.Text>
                                                 </div>
+                                            </div>
+                                            <div>
+                                                <Card.Text className="text-danger" style={{ fontSize: 25 + "px" }}>
+                                                    {f.price} VNĐ
+                                                </Card.Text>
                                             </div>
                                             <div className="btn_all">
                                                 <Button onClick={() => { order(f) }} className="raise" variant="success">ADD TO CART</Button>
@@ -324,11 +332,11 @@ const RestaurantDetail = () => {
                                 defaultCenter={defaultProps.center}
                                 defaultZoom={defaultProps.zoom}
                             >
-                                 <AnyReactComponent
-                            lat={59.955413}
-                            lng={30.337844}
-                            text="My Marker"
-                        /> 
+                                <AnyReactComponent
+                                    lat={59.955413}
+                                    lng={30.337844}
+                                    text="My Marker"
+                                />
                             </GoogleMapReact>
                         </div>
                         {/* <GoogleMapReact

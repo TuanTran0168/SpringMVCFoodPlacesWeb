@@ -108,8 +108,12 @@
 }
 */
 #detail-bottom {
+    width: 80%;
     background-color: transparent;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19);
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid gray;
 }
 
 #detail-bottom div.list-group,
@@ -178,7 +182,7 @@ div.list-group-item {
 
 #detail-top div.detail-profile {
     width: 40%;
-    margin: 0 auto;
+    margin: 3% auto;
     font-size: 18px;
 }
 
@@ -219,4 +223,3 @@ div.detail-profile button.btn-addCart {
 
 
 }
-

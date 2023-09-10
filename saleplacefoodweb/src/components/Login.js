@@ -61,11 +61,12 @@ const Login = () => {
     const loginGoogle = async (decoded) => {
         let form = new FormData();
         form.append("avatar", new Blob());
+        form.append("pathAvatarGoogle", decoded.avatar)
         form.append("username", decoded.email);
         form.append("firstname", decoded.family_name);
         form.append("lastname", decoded.given_name);
-        form.append("phonenumber", null);
-        form.append("location", null);
+        form.append("phonenumber","");
+        form.append("location", "");
         form.append("email", decoded.email);
 
         try {
