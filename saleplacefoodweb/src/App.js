@@ -1,7 +1,6 @@
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import './App.css';
-
 import Header from './layout/Header';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
@@ -18,6 +17,11 @@ import Profile from './components/Profile';
 import FoodItemDetail from './components/FoodItemDetail';
 import Restaurant from './components/Restaurant';
 import RestaurantDetail from './components/RestaurantDetail';
+import RegisterRestaurant from './components/RegisterRestaurant';
+import Receipt from './components/Receipt';
+import ChangePassword from './components/ChangePassword';
+import Tuan1 from './components/Tuan1';
+import Tuan2 from './components/Tuan2';
 
 
 export const MyUserContext = createContext();
@@ -46,11 +50,16 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/profile" element={<Profile />}/>
+              <Route path="/profile" element={<Profile />} />
               <Route path="/fooddetail/:foodId" element={<FoodItemDetail />} />
               <Route path="/restaurant" element={<Restaurant />} />
               <Route path="/restaurant_detail/:restaurantId" element={<RestaurantDetail />} />
-            </Routes>
+              <Route path="/register_restaurant" element={<RegisterRestaurant />} />
+              <Route path="/receipt" element={<Receipt />} />    
+              <Route path="/changepassword" element={<ChangePassword />} />  
+              <Route path="/tuan1" element={<Tuan1 />} />
+              <Route path="/tuan2" element={<Tuan2 />} />  
+              </Routes>
           </Container>
           <Footer />
         </BrowserRouter>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Form, Row } from "react-bootstrap";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import Apis, { endpoints } from "../configs/Apis";
 import MySpinner from "../layout/MySpinner";
 import '../resources/css/Restaurant.css'
@@ -12,6 +12,20 @@ const Restaurant = () => {
     const [q] = useSearchParams();
     const [restaurantName, setRestaurantName] = useState("");
     const [location, setLocation] = useState("");
+    const nav = useNavigate();
+
+
+    const find_Restaurant = (evt) => {
+        evt.preventDefault();
+        let find = "/restaurant?";
+        if (restaurantName !== "") {
+            find += `restaurantName=${restaurantName}&`;
+        }
+        if (location !== "") {
+            find += `location=${location}`;
+        }
+        nav(find);
+    }
 
     useEffect(() => {
         const loadRestaurant = async () => {
@@ -32,13 +46,14 @@ const Restaurant = () => {
                 let res = await Apis.get(e);
 
                 setRestaurant(res.data);
-                console.log(res.data)
+                // console.log(res.data)
             } catch (ex) {
                 console.error(ex);
             }
         }
         loadRestaurant();
-    })
+    },[q])
+    
 
     if(restaurant === null){
         return <MySpinner />
@@ -49,7 +64,7 @@ const Restaurant = () => {
         <h1 className="text-center text-primary">Danh Sách Nhà Hàng</h1>
         <div className="home">
             <div className="find">
-                <Form className="mt-3 mb-2" inline>
+                <Form onSubmit={find_Restaurant} className="mt-3 mb-2" inline>
                     <Row>
                         <h5>Nhập đi</h5>
                         <Col xs="auto">

@@ -1,52 +1,108 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { MyUserContext } from "../App";
-import { Button, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import Apis, { authApi, endpoints } from "../configs/Apis";
 import cookie from "react-cookies";
-import { Navigate, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import MySpinner from "../layout/MySpinner";
+import '../resources/css/Login.css';
+import jwt_decode from "jwt-decode";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { MDBBtn, MDBCard, MDBCardBody, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow } from "mdb-react-ui-kit";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ReCAPTCHA from "react-google-recaptcha";
+
 
 const Login = () => {
 
     const [loading, setLoading] = useState(false);
     const [user, dispatch] = useContext(MyUserContext);
     const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
+    const [password, setPassword] = useState("");
     const [q] = useSearchParams();
+    const [err, setErr] = useState(null);
+    const notify = (x) => toast(x);
+    const avatar = useRef();
+    const [kt, setKt] = useState(false);
 
     const login = (evt) => {
         evt.preventDefault();
+        setLoading(true);
+        if (kt === true) {
+            const process = async () => {
+                try {
+                    setLoading(true);
+                    //lấy token login
+                    let res = await Apis.post(endpoints['login'], {
+                        "username": username.trim(),
+                        "password": password
+                    });
 
-        const process = async () => {
-            try {
-                setLoading(true);
-                //lấy token login
-                let res = await Apis.post(endpoints['login'], {
-                    "username": username,
-                    "password": password
-                });
+                    //cookie khác của thầy, xem lại nếu lỗi.....:)))))) -------------đã fix
+                    cookie.save("token", res.data);    //lưu cái res.data kia bằng biến token vào cookie 
 
-                //cookie khác của thầy, xem lại nếu lỗi.....:)))))) -------------đã fix
-                cookie.save("token", res.data);    //lưu cái res.data kia bằng biến token vào cookie 
+                    let { data } = await authApi().get(endpoints['current-user']);
+                    cookie.save("user", data); //lưu cái data kia bằng biến user vào cookie 
 
-                let { data } = await authApi().get(endpoints['current-user']);
-                cookie.save("user", data); //lưu cái data kia bằng biến user vào cookie 
+                    dispatch({
+                        "type": "login",
+                        "payload": data
+                    });
 
-                dispatch({
-                    "type": "login",
-                    "payload": data
-                });
+                } catch (ex) {
+                    setLoading(false);
+                    notify(ex.request.responseText);
 
-                console.log("status: " + res.status)
 
-            } catch (ex) {
-                if (ex.request.status === 400 && ex.request.response === "error") {
-                    alert("DIT ME");
                 }
             }
-        }
-        process();
 
+            process();
+        }
+        else {
+            notify("Vui lòng xác minh bạn là con người!");
+            setLoading(false);
+        }
+
+
+    }
+
+    const loginGoogle = async (decoded) => {
+        if(kt === true){
+            console.log(decoded)
+            let form = new FormData();
+        form.append("avatar", new Blob());
+        form.append("pathAvatarGoogle", decoded.picture);
+        form.append("username", decoded.email);
+        form.append("firstname", decoded.family_name);
+        form.append("lastname", decoded.given_name);
+        // form.append("phonenumber","");
+        // form.append("location", "");
+        form.append("email", decoded.email);
+
+        try {
+            let res = await Apis.post(endpoints["login-google"], form);
+            cookie.save("token", res.data);    //lưu cái res.data kia bằng biến token vào cookie 
+
+            let { data } = await authApi().get(endpoints['current-user']);
+            cookie.save("user", data); //lưu cái data kia bằng biến user vào cookie 
+
+            dispatch({
+                "type": "login",
+                "payload": data
+            });
+        } catch (err) {
+            notify(err.request.responseText)
+        }
+        }else{
+            notify("Vui lòng xác minh bạn là con người!");
+        }
+
+    }
+
+    const checkRecaptcha = () => {
+        setKt(true);
     }
 
 
@@ -56,22 +112,74 @@ const Login = () => {
 
     }
     return <>
-        <h1 className="text-center text-info">LOGIN</h1>
-
         <Form onSubmit={login}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Tên đăng nhập</Form.Label>
-                <Form.Control value={username} onChange={e => setUsername(e.target.value)} type="text" placeholder="Tên đăng nhập" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                <Form.Label>Mật khẩu</Form.Label>
-                <Form.Control value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Mật khẩu" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                {loading === true ? <MySpinner /> : <Button variant="info" type="submit">Đăng nhập</Button>}
-            </Form.Group>
+            <div className="">
+                {/* {err !== null ? <Alert className="alert-danger">{err}</Alert> : ""} */}
+                {/* <div>
+                    <button onClick={notify}>Notify!</button>
+                    <ToastContainer />
+                </div> */}
+                {/* <h1 className="text-center text-info">Đăng Nhập</h1> */}
 
+                <MDBContainer fluid >
+
+                    <MDBRow className='d-flex justify-content-center align-items-center h-100'>
+                        <MDBCol col='12' className="mdb_login_form">
+
+                            <MDBCard className='bg-dark text-white my-5 mx-auto' style={{ borderRadius: '1rem', maxWidth: '400px' }}>
+                                <MDBCardBody className='p-5 d-flex flex-column align-items-center mx-auto w-100'>
+
+                                    <h2 className="fw-bold mb-2 text-uppercase">Đăng nhập</h2>
+                                    <p className="text-white-50 mb-5">Hãy nhập tài khoản và mật khẩu của bạn</p>
+
+                                    <MDBInput wrapperClass='mb-4 mx-5 w-100' value={username} onChange={e => setUsername(e.target.value)} labelClass='text-white' label='Tài Khoản' id='formControlLg' type='text' size="lg" />
+                                    <MDBInput wrapperClass='mb-4 mx-5 w-100' value={password} onChange={e => setPassword(e.target.value)} labelClass='text-white' label='Mật Khẩu' id='formControlLg' type='password' size="lg" />
+
+                                    <ReCAPTCHA
+                                        sitekey="6LfIq_MkAAAAAAkqaKZUFwqhKnBZ44wfanxQfFQk"
+                                        onChange={checkRecaptcha}
+                                    />
+                                    <p className="small mb-3 pb-lg-2"><Link class="text-white-50" to="/changPassword">Quên mật khẩu?</Link></p>
+
+                                    {loading === true ? <MySpinner /> : <MDBBtn outline className='mx-2 px-5' type="submit" color='white' size='lg'>Đăng Nhập</MDBBtn>}
+                                    <ToastContainer />
+
+                                    <div className='d-flex flex-row mt-3 mb-5'>
+                                        <GoogleOAuthProvider clientId="589360561946-gt02gm1325ignk5brqcos0lgfj2m3836.apps.googleusercontent.com">
+                                            <GoogleLogin
+                                                className="login_google"
+                                                clientId="589360561946-gt02gm1325ignk5brqcos0lgfj2m3836.apps.googleusercontent.com"
+                                                onSuccess={(credentialResponse) => {
+                                                    // console.log("Đăng nhập thành công", credentialResponse.credential);
+                                                    var token = credentialResponse.credential;
+                                                    var decoded = jwt_decode(token);
+                                                    console.log(decoded);
+                                                    loginGoogle(decoded);
+
+                                                }}
+                                                onFailure={(error) => {
+                                                    notify("Đăng nhập không thành công");
+                                                }}
+                                                redirectUri="http://localhost:3000"
+                                            />
+                                        </GoogleOAuthProvider>
+                                    </div>
+
+                                    <div>
+                                        <p className="mb-0">Bạn chưa có tài khoản? <Link class="text-white-50 fw-bold" to="/register">Đăng ký tại đây</Link></p>
+
+                                    </div>
+                                </MDBCardBody>
+                            </MDBCard>
+
+                        </MDBCol>
+                    </MDBRow>
+
+                </MDBContainer>
+            </div>
         </Form>
+
+
     </>
 }
 export default Login;

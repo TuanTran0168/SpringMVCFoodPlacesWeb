@@ -1,21 +1,32 @@
-import { useRef, useState } from "react";
-import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
+import { useContext, useRef, useState } from "react";
+import { Button, Col, Container, Form, Image, Nav, Row } from "react-bootstrap";
 import cookie from "react-cookies";
 // import img from '../resources/img/healthy-lunch-go-packed-lunch-box.jpg';
 import '../resources/css/Profile.css';
 import MySpinner from "../layout/MySpinner";
-import Apis, { endpoints } from "../configs/Apis";
+import Apis, { authApi, endpoints } from "../configs/Apis";
 import { Link, useNavigate } from "react-router-dom";
+import { MyUserContext } from "../App";
+import ProfileComponents from "../layout/ProfileComponents";
+import { MDBBtn, MDBCardBody, MDBInput } from "mdb-react-ui-kit";
+import { ToastContainer, toast } from "react-toastify";
 
 const Profile = () => {
 
 
-    const [current_user,] = useState(cookie.load("user") || null);
+    // const [current_user, setCurrent_User] = useState(cookie.load("user") || null);
+    const [current_user, dispatch] = useContext(MyUserContext);
+    // const [current_user, setCurrent_User] = useContext(MyUserContext)
+
     const avatar = useRef();
     const [current_avatar, setCurrent_avatar] = useState(current_user.avatar);
+    const notify = (x) => toast(x);
     const [user, setUser] = useState({
+        "userId": current_user.userId,
         "firstname": "",
         "lastname": "",
+        "username": current_user.username,
+        "password": current_user.password,
         "location": "",
         "email": "",
         "phonenumber": "",
@@ -27,7 +38,7 @@ const Profile = () => {
     const change = (evt, field) => {
         // setUser({...user, [field]: evt.target.value})
         setUser(current => {
-            return { ...current, [field]: evt.target.value }
+            return { ...current, [field]: evt.target.value.trim() }
         })
     }
 
@@ -35,26 +46,63 @@ const Profile = () => {
         console.log(avatar[0]);
         setCurrent_avatar(avatar[0]);
     }
+    // console.log(current_user)
+
+    const reloadUser = async () => {
+        try {
+            // cookie.remove("user");
+            let { data } = await authApi().get(endpoints['current-user']);
+            cookie.save("user", data); //lưu cái data kia bằng biến user vào cookie
+            // setCurrent_User(cookie.load("user"));
+            // let { data } = await authApi().get(endpoints['current-user']);
+            // cookie.save("user", data); //lưu cái data kia bằng biến user vào cookie 
+
+            dispatch({
+                "type": "login",
+                "payload": data
+            });
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     const updateUser = (evt) => {
         evt.preventDefault();
         setLoading(true);
         const process = async () => {
-            let form = new FormData();
-            for (let field in user) {
-                if (field !== "confirmPass") {
+            try {
+                let form = new FormData();
+                // user["location"] = user["location"].trim();
+                // let loca = user["location"].
+                // setUser("location", loca );
+
+                for (let field in user) {
                     form.append(field, user[field]);
                 }
-            }
 
 
-            form.append("avatar", avatar.current.files[0]);
-            let res = await Apis.post(endpoints['register'], form);
-            if (res.status === 201) {
-                nav("/profile");
+                // form.append("avatar", avatar.current.files[0]);
+                if (avatar.current.files[0] !== undefined) {
+                    form.append("avatar", avatar.current.files[0]);
+                } else {
+                    form.append("avatar", new Blob());
+                }
+                let res = await authApi().post(endpoints['update-user'], form);
+                if (res.status === 200) {
+                    setLoading(true);
+                    reloadUser();
+                    setLoading(false);
+                    
+                    // nav("/");
+                    toast("Lưu Thành Công!!");
+                }
+
+            } catch (err) {
+                toast(err.request.responseText);
+                console.log(err);
+                setLoading(false);
             }
-            // else
-            // setErr("Hệ thống bị lỗi!");
+
         }
         process();
 
@@ -68,21 +116,36 @@ const Profile = () => {
 
     return <>
         <Form onSubmit={updateUser}>
+        <ToastContainer />
             <h1 className="text-center text-info">Your Profile</h1>
-
             <div className="contain_info">
-                <div className="contain_info_1">
-                    <Link className="nav-link text-success" to="/profile">User Info</Link>
-                    <Link className="nav-link text-success" to="#">Change Password</Link>
-                    <Link className="nav-link text-success" to="#">Order History</Link>
-                    <Link className="nav-link text-success" to="#">Register Restaurant</Link>
-                </div>
+                <ProfileComponents />
                 <div className="contain_info_2">
                     <div className="avatar">
                         <Image src={current_avatar} rounded />
                         <Form.Control className="avatar_input" accept=".jpg, .jpeg, .png, .gif, .bmp" type="file" onChange={(e) => updateAvatar(e.target.files)} ref={avatar} />
-                    </div>
-                    <div className="info">
+                    </div>  
+        {/* "firstname": "",
+        "lastname": "",
+        "username": current_user.username,
+        "password": current_user.password,
+        "location": "",
+        "email": "",
+        "phonenumber": "",
+        "avatar": current_user.avatar */}
+                    <MDBCardBody className='px-5'>
+                        <h2 className="text-uppercase text-center mb-5"></h2>
+                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.firstname} required onChange={(e) => change(e, "firstname")} label='Họ' size='lg' id='form3' type='text' />
+                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.lastname} required onChange={(e) => change(e, "lastname")} label='Tên' size='lg' id='form3' type='text' />
+                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.username} readOnly required onChange={(e) => change(e, "username")} label='Tên Tài Khoản' size='lg' id='form3' type='text' />
+                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.location} required onChange={(e) => change(e, "location")} label='Địa Chỉ' size='lg' id='form3' type='text' />
+                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.email} required onChange={(e) => change(e, "email")} label='Email' size='lg' id='form3' type='text' />
+                        <MDBInput wrapperClass='mb-4' defaultValue={current_user.phonenumber} required onChange={(e) => change(e, "phonenumber")} label='Số Điện Thoại' size='lg' id='form3' type='text' />
+
+                        {loading === true ? <MySpinner /> : <MDBBtn type="submit" className='mb-4 w-100 gradient-custom-4' size='lg'>Lưu</MDBBtn>}
+                    </MDBCardBody>
+
+                    {/* <div className="info">
                         <hr />
                         <h4>User Info</h4>
                         <br />
@@ -92,7 +155,7 @@ const Profile = () => {
                                 onChange={(e) => change(e, "firstname")}
                                 type="text"
                                 defaultValue={current_user.firstname}
-                                aria-label="Disabled input example"
+                                aria-label="firstname"
                             />
                         </Form.Group>
 
@@ -101,8 +164,8 @@ const Profile = () => {
                             <Form.Control
                                 onChange={(e) => change(e, "lastname")}
                                 type="text"
-                                value={current_user.lastname}
-                                aria-label="Disabled input example"
+                                defaultValue={current_user.lastname}
+                                aria-label="lastname"
                             />
                         </Form.Group>
 
@@ -110,9 +173,9 @@ const Profile = () => {
                             <Form.Label>Your Username</Form.Label>
                             <Form.Control
                                 type="text"
-                                value={current_user.username}
+                                defaultValue={current_user.username}
                                 readOnly
-                                aria-label="Disabled input example"
+                                aria-label="username"
                             />
                         </Form.Group>
 
@@ -121,8 +184,8 @@ const Profile = () => {
                             <Form.Control
                                 onChange={(e) => change(e, "location")}
                                 type="text"
-                                value={current_user.location}
-                                aria-label="Disabled input example"
+                                defaultValue={current_user.location}
+                                aria-label="location"
                             />
                         </Form.Group>
 
@@ -131,8 +194,8 @@ const Profile = () => {
                             <Form.Control
                                 onChange={(e) => change(e, "email")}
                                 type="email"
-                                value={current_user.email}
-                                aria-label="Disabled input example"
+                                defaultValue={current_user.email}
+                                aria-label="email"
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formPhoneNumber">
@@ -140,17 +203,18 @@ const Profile = () => {
                             <Form.Control
                                 onChange={(e) => change(e, "phonenumber")}
                                 type="text"
-                                value={current_user.phonenumber}
-                                aria-label="Disabled input example"
+                                defaultValue={current_user.phonenumber}
+                                aria-label="phonenumber"
                             />
                         </Form.Group>
+
 
                         <Form.Group className="mb-3" controlId="formRole">
                             <Form.Label>Type User</Form.Label>
                             <Form.Control
                                 type="text"
-                                value={current_user.roleId.roleName}
-                                aria-label="Disabled input example"
+                                defaultValue={current_user.roleId.roleName}
+                                aria-label="role"
                                 readOnly
                             />
                         </Form.Group>
@@ -159,7 +223,7 @@ const Profile = () => {
 
                         </Form.Group>
 
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </Form>
