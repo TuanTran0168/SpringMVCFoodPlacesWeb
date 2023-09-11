@@ -11,6 +11,7 @@ import com.tuantran.repository.FollowRepository;
 import com.tuantran.repository.RestaurantsRepository;
 import com.tuantran.repository.UsersRepository;
 import com.tuantran.service.FollowService;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,6 +77,11 @@ public class FollowServiceImpl implements FollowService {
        
 
         return this.followRepo.checkFollow( this.getFollowByUserIdAndRestaurantId(Integer.parseInt(userId), Integer.parseInt(restaurantId)));
+    }
+
+    @Override
+    public List<Follow> getFollowByRestaurantId(int restaurantId) {
+        return this.followRepo.getFollowByRestaurantId(restaurantId);
     }
 
 }

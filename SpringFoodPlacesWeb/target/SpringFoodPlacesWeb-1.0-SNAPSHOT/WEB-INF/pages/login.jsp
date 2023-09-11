@@ -53,7 +53,7 @@
 
                     <form method="post" action="${action}">
                         <input type="text" class="form-control" id="username" placeholder="Nhập username" name="username">
-                        <input type="text" class="form-control" id="password" placeholder="Nhập password" name="password">
+                        <input type="password" class="form-control" id="password" placeholder="Nhập password" name="password">
 
 <!--                        <div class="remember">
                             <span class="checkbox1">

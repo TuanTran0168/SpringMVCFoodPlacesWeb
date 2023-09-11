@@ -43,6 +43,13 @@
                 </h3></a>
 
         </div>
+        <div class="res-item">
+            <a href="<c:url value="/admin/stats" />" class="btn btn-info">
+                <h3>
+                    <i class="fa-solid fa-bowl-food fa-bounce"></i>
+                    <br>Thống kê
+                </h3></a>
+        </div>
     </div>
 </div>
 

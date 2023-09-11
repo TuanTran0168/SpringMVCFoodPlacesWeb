@@ -12,6 +12,7 @@ import com.tuantran.pojo.Restaurants;
 import com.tuantran.pojo.Roles;
 import com.tuantran.pojo.Users;
 import com.tuantran.service.CategoriesFoodService;
+import com.tuantran.service.FollowService;
 import com.tuantran.service.FoodItemsService;
 import com.tuantran.service.ReceiptDetailService;
 import com.tuantran.service.ReceiptService;
@@ -74,6 +75,9 @@ public class RestaurantsController {
     
     @Autowired
     private StatsService statsService;
+    
+    @Autowired
+    private FollowService followService;
 
     @ModelAttribute
     public void commonAttr(Model model) {
@@ -188,6 +192,7 @@ public class RestaurantsController {
                         model.addAttribute("receiptDetails_list", receiptDetails_list);
                         model.addAttribute("receipts_List", receipts_List);
                         model.addAttribute("receiptDetailPerfect_list", receiptDetailPerfect);
+                        model.addAttribute("followers", this.followService.getFollowByRestaurantId(restaurantId).size());
 
                     } else {
                         msg = "You are not the owner of this restaurant!";

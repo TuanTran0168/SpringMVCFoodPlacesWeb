@@ -57,6 +57,7 @@
 
                             <span style="text-transform: uppercase;" class="card-description-profession">CHỦ NHÀ HÀNG: ${restaurant.userId.firstname} ${restaurant.userId.lastname}</span>
                             <span style="text-transform: uppercase;" class="card-description-profession">Địa chỉ: ${restaurant.userId.location}</span>
+                            <span style="text-transform: uppercase;" class="card-description-profession">Followers: ${followers}</span>
                         </div>
 
                         <div class="avatar-restaurant">
